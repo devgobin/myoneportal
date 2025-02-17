@@ -1,0 +1,184 @@
+<div appAccess="VWEMP" [parentId]="pageId">
+    <div class="content-body">
+        <div class="rel">
+            <div class="d-flex z-2">
+                <div class="mr-auto d-flex align-items-center">
+                    <h6 class="mb-0">List of All Employees</h6>
+                </div>
+                <div class="ml-auto d-flex align-items-center">
+                    <!-- <div class="search-box-d">
+                        <button mat-raised-button color="accent" cdkOverlayOrigin #trigger="cdkOverlayOrigin"
+                            (click)="isOpen = !isOpen" appAccess="BTNFilterEmployeeList" [parentId]="pageId">
+                            <ion-icon name="funnel-outline"></ion-icon>
+                            Filter
+                        </button>
+                    </div> -->
+                    <app-filter-button [searchPanelTemplate]="searchPanelTemplate" [parentId]="pageId"
+                        appAccess="BTNFilterEmployeeList">
+                    </app-filter-button>
+                </div>
+            </div>
+            <div class="ab pt35">
+                <div class="rel">
+                    <div class="table-responsive h100" *ngIf="!loadingTrue && dataSource.data.length > 0">
+                        <div class="ab pb40">
+                            <div class="rel">
+                                <table mat-table [dataSource]="dataSource" class="table-hover" matSort>
+                                    <ng-container matColumnDef="fnpfNo">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> FNPF No </th>
+                                        <td mat-cell *matCellDef="let element"> {{element.fnpfNo}} </td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="firstName">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Employee Name </th>
+                                        <td mat-cell *matCellDef="let element"> {{element.firstName}}
+                                            {{element.lastName}} </td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="employmentStartDate">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Start Date </th>
+                                        <td mat-cell *matCellDef="let element" class="text-nowrap">
+                                            {{element.employmentStartDate| moment :
+                                            'DD-MM-YYYY' :
+                                            'DD MMM YYYY'}} </td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="employmentEndDate">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> End Date </th>
+                                        <td mat-cell *matCellDef="let element" class="text-nowrap">
+                                            {{element.employmentEndDate| moment :
+                                            'DD-MM-YYYY' :
+                                            'DD MMM YYYY'}} </td>
+                                    </ng-container>
+                                    <!-- <ng-container matColumnDef="lastContributionMonthYear">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Last CS Month / Year </th>
+                                        <td mat-cell *matCellDef="let element"> {{element.lastContributionMonthYear}}
+                                        </td>
+                                    </ng-container> -->
+                                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="table-footer">
+                            <mat-paginator [showFirstLastButtons]="!data.isMobile" [hideTotalCount]="data.isMobile"
+                                showFirstLastButtons="true" [pageSizeOptions]="[10, 25, 50, 100]">
+                            </mat-paginator>
+                        </div>
+                    </div>
+                    <ng-container *ngIf="!loadingTrue && dataSource.data.length === 0 && showEmpty">
+                        <app-empty-state></app-empty-state>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- <ng-template cdkConnectedOverlay [cdkConnectedOverlayOrigin]="trigger" [cdkConnectedOverlayOpen]="isOpen"
+        cdkConnectedOverlayHasBackdrop="true" [cdkConnectedOverlayLockPosition]="trigger"
+        (backdropClick)="isOpen = !isOpen" cdkConnectedOverlayBackdropClass="search-backdrop">
+        <div class="search-panel m-search">
+            <div class="ab">
+                <div class="rel">
+                    <div class="container-fluid pt-3">
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <app-date-control label="From Employment Start Date" [(ngModel)]="searchParams.fromDate"
+                                    tabindex="2" name="fromDate" [maxDate]="searchParams.toDate">
+                                </app-date-control>
+                            </div>
+                            <div class="col-md-6">
+                                <app-date-control label="To Employment Start Date" [(ngModel)]="searchParams.toDate"
+                                    tabindex="3" name="toDate" [minDate]="searchParams.fromDate">
+                                </app-date-control>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <app-input-control label="FNPF No" [(ngModel)]="searchParams.fnfpId" tabindex="3"
+                                    name="fnfpId">
+                                </app-input-control>
+                            </div>
+                            <div class="col-md-6">
+                                <app-select-control label="Status" [(ngModel)]="searchParams.status" tabindex="3"
+                                    [items]="viewEmpParams.EMPStatus" key="constant" keyname="description"
+                                    name="status">
+                                </app-select-control>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="search-footer">
+                <div class="ml-auto d-flex align-items-center">
+                    <button mat-raised-button class="ml-3" color="accent" (click)="doSearch()"
+                        appAccess="BTNApplyEmployeeList" [parentId]="pageId">
+                        <div class="d-flex align-items-center">
+                            <ion-icon name="checkmark-circle-outline"></ion-icon>
+                            <div class="pl-2">Apply</div>
+                        </div>
+                    </button>
+                    <a mat-button [parentId]="pageId" appAccess="BTNClearEmployeeList" (click)="doClear()">
+                        <div class="d-flex align-items-center">
+                            <ion-icon name="close-circle-outline"></ion-icon>
+                            <div class="pl-1">Clear</div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </ng-template> -->
+</div>
+
+<ng-template #searchPanelTemplate>
+    <form>
+        <div class="search-panel m-search">
+            <div class="ab">
+                <div class="rel">
+                    <div class="container-fluid pt-3">
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <app-date-control label="From Employment Start Date" [(ngModel)]="searchParams.fromDate"
+                                    tabindex="2" name="fromDate" [maxDate]="searchParams.toDate">
+                                </app-date-control>
+                            </div>
+                            <div class="col-md-6">
+                                <app-date-control label="To Employment Start Date" [(ngModel)]="searchParams.toDate"
+                                    tabindex="3" name="toDate" [minDate]="searchParams.fromDate">
+                                </app-date-control>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <app-input-control label="FNPF No" [(ngModel)]="searchParams.fnfpId" tabindex="3"
+                                    name="fnfpId">
+                                </app-input-control>
+                            </div>
+                            <div class="col-md-6">
+                                <app-select-control label="Status" [(ngModel)]="searchParams.status" tabindex="3"
+                                    [items]="viewEmpParams.EMPStatus" key="constant" keyname="description"
+                                    name="status">
+                                </app-select-control>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="search-footer">
+                <div class="ml-auto d-flex align-items-center">
+                    <button mat-raised-button class="ml-3" color="accent" (click)="doSearch()"
+                        appAccess="BTNApplyEmployeeList" [parentId]="pageId">
+                        <div class="d-flex align-items-center">
+                            <ion-icon name="checkmark-circle-outline"></ion-icon>
+                            <div class="pl-2">Apply</div>
+                        </div>
+                    </button>
+                    <a mat-button [parentId]="pageId" appAccess="BTNClearEmployeeList" (click)="doClear()">
+                        <div class="d-flex align-items-center">
+                            <ion-icon name="close-circle-outline"></ion-icon>
+                            <div class="pl-1">Clear</div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </form>
+</ng-template>

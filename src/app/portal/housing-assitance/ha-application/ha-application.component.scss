@@ -1,0 +1,21 @@
+.pt110 {
+  padding-top: 110px;
+}
+
+.w60 {
+  width: 60%;
+  max-width: 60%;
+  min-width: 60%;
+}
+
+.pe-none {
+  pointer-events: none;
+}
+.label-center{
+  margin: 0px;
+  display:flex;
+  align-items: center;
+  height: 48px;
+  padding-top: 18px;
+  // line-height: 30px;
+}

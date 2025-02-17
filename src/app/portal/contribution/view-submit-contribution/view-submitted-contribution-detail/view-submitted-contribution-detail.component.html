@@ -1,0 +1,337 @@
+<div class="content-body">
+    <div class="rel">
+        <div class="cus-card m-0 py-0 z-2">
+            <div class="container-fluid p-0">
+                <div class="row">
+                    <div class="col-xl-3 py-3 heading">
+                        CONTRIBUTION HEADER
+                    </div>
+                    <div class="col-xl-9 pb-1 ml-auto d-flex">
+                        <div class="d-flex ml-auto align-items-center">
+                            <div class="label-badge">
+                                <label for=""><b>CS Period: </b> 10/2021</label>
+                            </div>
+                            <div class="label-badge ml-3">
+                                <label for=""><b>Record Status: </b> Active</label>
+                            </div>
+                            <div class="label-badge ml-3">
+                                <label for=""><b>Header Status: </b> Active</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3">
+                        <div class="container-fluid p-0">
+                            <div class="row pb-1">
+                                <div class="col-md-12">
+                                    <app-select-control label="CS Code"></app-select-control>
+                                </div>
+                                <div class="col-md-6">
+                                    <app-select-control label="Wages Month"></app-select-control>
+                                </div>
+                                <div class="col-md-6">
+                                    <app-input-control label="Wages Year"></app-input-control>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3">
+                        <div class="form-group">
+                            <label class="w152px">Total Contribution Amt</label>
+                            <span class="fw500">: 29000</span>
+                        </div>
+                        <div class="form-group">
+                            <label class="w152px">Total No of Employee</label>
+                            <span class="fw500">: 767868</span>
+                        </div>
+                        <div class="form-group">
+                            <label class="w152px">Total Gross Salary</label>
+                            <span class="fw500">: 7000</span>
+                        </div>
+                        <div class="form-group mb-0">
+                            <label class="w152px">Penality</label>
+                            <span class="fw500">: 76878</span>
+                        </div>
+                    </div>
+                    <div class="col-xl-3">
+                        <div class="form-group">
+                            <label class="w122px">Contribution Type</label>
+                            <span class="fw500">: AB</span>
+                        </div>
+                        <div class="form-group">
+                            <label class="w122px">Submitted Date</label>
+                            <span class="fw500">: 21-04-2021</span>
+                        </div>
+                        <div class="form-group">
+                            <label class="w122px">Due Date</label>
+                            <span class="fw500">: 21-04-2021</span>
+                        </div>
+                    </div>
+                    <div class="col-xl-3">
+                        <div class="cus-card bg-card m-0">
+                            <div>
+                                <mat-checkbox> Suppress Warning</mat-checkbox>
+                            </div>
+                            <div class="d-flex">
+                                <div class="error-title" matRipple>15</div>
+                                <div class="warning-title" matRipple>5</div>
+                                <div class="information-title" matRipple>10</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="ab pt203">
+            <div class="rel">
+                <div class="h100">
+                    <app-stepper #registrationSteps>
+                        <cdk-step label="Contribution Details" [completed]="step1Completed">
+                            <div class="h100">
+                                <form class="h100">
+                                    <div class="panel-stepper h100">
+                                        <div class="panel-stepper-body">
+                                            <div class="ab">
+                                                <div class="rel">
+                                                    <div class="d-flex align-items-center pb-2">
+                                                        <div class="heading">Contribution Details</div>
+                                                        <div class="ml-auto">
+                                                            <button mat-raised-button color="accent">
+                                                                Copy from previous header
+                                                            </button>
+                                                            <button mat-raised-button color="accent" class="ml-3"
+                                                                (click)="editDetail()">
+                                                                <ion-icon name="add"></ion-icon>
+                                                                ADD NEW Employee
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="table-responsive">
+                                                        <table mat-table [dataSource]="dataSource" class="table-hover"
+                                                            matSort>
+                                                            <ng-container matColumnDef="id">
+                                                                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                                                    FNPF No
+                                                                </th>
+                                                                <td mat-cell *matCellDef="let element"> {{element.id}}
+                                                                </td>
+                                                            </ng-container>
+                                                            <ng-container matColumnDef="code">
+                                                                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                                                    Employee Name
+                                                                </th>
+                                                                <td mat-cell *matCellDef="let element"> {{element.code}}
+                                                                </td>
+                                                            </ng-container>
+                                                            <ng-container matColumnDef="year">
+                                                                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                                                    TIN
+                                                                </th>
+                                                                <td mat-cell *matCellDef="let element"> {{element.year}}
+                                                                </td>
+                                                            </ng-container>
+                                                            <ng-container matColumnDef="wages">
+                                                                <th mat-header-cell *matHeaderCellDef class="text-right"
+                                                                    mat-sort-header> Compulsary Amount
+                                                                </th>
+                                                                <td mat-cell *matCellDef="let element"
+                                                                    class="text-right"> {{element.year | appCurrency}}
+                                                                </td>
+                                                            </ng-container>
+                                                            <ng-container matColumnDef="rece">
+                                                                <th mat-header-cell *matHeaderCellDef class="text-right"
+                                                                    mat-sort-header> Employer Add
+                                                                    Amount
+                                                                </th>
+                                                                <td mat-cell *matCellDef="let element"
+                                                                    class="text-right"> {{element.rece | appCurrency}}
+                                                                </td>
+                                                            </ng-container>
+                                                            <ng-container matColumnDef="amount">
+                                                                <th mat-header-cell *matHeaderCellDef class="text-right"
+                                                                    mat-sort-header> Total
+                                                                    Contribution
+                                                                </th>
+                                                                <td mat-cell *matCellDef="let element"
+                                                                    class="text-right">
+                                                                    {{element.amount | appCurrency}} </td>
+                                                            </ng-container>
+                                                            <ng-container matColumnDef="status">
+                                                                <th mat-header-cell *matHeaderCellDef class="text-right"
+                                                                    mat-sort-header> Gross Salary
+                                                                </th>
+                                                                <td mat-cell *matCellDef="let element"
+                                                                    class="text-right">
+                                                                    {{element.status | appCurrency}} </td>
+                                                            </ng-container>
+                                                            <ng-container matColumnDef="empl">
+                                                                <th mat-header-cell *matHeaderCellDef
+                                                                    class="text-center" mat-sort-header> Status
+                                                                </th>
+                                                                <td mat-cell *matCellDef="let element"
+                                                                    class="text-center"> {{element.empl}}
+                                                                </td>
+                                                            </ng-container>
+                                                            <ng-container matColumnDef="action">
+                                                                <th mat-header-cell *matHeaderCellDef
+                                                                    class="text-center">
+                                                                    Action </th>
+                                                                <td mat-cell *matCellDef="let element"
+                                                                    class="text-center py-0 text-nowrap">
+                                                                    <button mat-icon-button class="icon-only-btn"
+                                                                        matTooltip="Edit">
+                                                                        <ion-icon name="pencil-outline"></ion-icon>
+                                                                    </button>
+                                                                    <button mat-icon-button class="icon-only-btn ml-1"
+                                                                        color="danger" matTooltip="Delete">
+                                                                        <ion-icon name="trash-outline"></ion-icon>
+                                                                    </button>
+                                                                </td>
+                                                            </ng-container>
+                                                            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                                                            <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+                                                                [ngClass]="{'active': activeIndex == row}"
+                                                                (click)="active(row)"></tr>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel-stepper-footer">
+                                            <div class="text-right">
+                                                <button mat-raised-button color="accent" (click)="step1Click()">
+                                                    Save and Next
+                                                    <ion-icon name="arrow-forward-outline"></ion-icon>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </cdk-step>
+                        <cdk-step label="Contribution Summary" [completed]="step2Completed">
+                            <div class="h100">
+                                <form class="h100">
+                                    <div class="panel-stepper h100">
+                                        <div class="panel-stepper-body">
+                                            <div class="ab">
+                                                <div class="rel">
+                                                    <div class="container-fluid">
+                                                        <div class="row">
+                                                            <div class="col-xl-6">
+                                                                <div class="d-flex align-items-center pb-2">
+                                                                    <div class="heading">Summary</div>
+                                                                </div>
+                                                                <div class="table-responsive">
+                                                                    <table mat-table [dataSource]="paydataSource"
+                                                                        class="table-hover">
+                                                                        <ng-container matColumnDef="pay">
+                                                                            <th mat-header-cell *matHeaderCellDef>
+                                                                                Payment
+                                                                            </th>
+                                                                            <td mat-cell *matCellDef="let element">
+                                                                                {{element.pay}}
+                                                                            </td>
+                                                                        </ng-container>
+                                                                        <ng-container matColumnDef="con">
+                                                                            <th mat-header-cell *matHeaderCellDef>
+                                                                                Contribution
+                                                                            </th>
+                                                                            <td mat-cell *matCellDef="let element">
+                                                                                {{element.con}}
+                                                                            </td>
+                                                                        </ng-container>
+                                                                        <tr mat-header-row
+                                                                            *matHeaderRowDef="paydisplayedColumns"></tr>
+                                                                        <tr mat-row
+                                                                            *matRowDef="let row; columns: paydisplayedColumns;">
+                                                                        </tr>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-xl-6">
+                                                                <div class="d-flex align-items-center pb-2">
+                                                                    <div class="heading">Payment Methods</div>
+                                                                </div>
+                                                                <div class="table-responsive">
+                                                                    <table mat-table [dataSource]="bankdataSource"
+                                                                        class="table-hover">
+                                                                        <ng-container matColumnDef="bank">
+                                                                            <th mat-header-cell *matHeaderCellDef>
+                                                                                Bank
+                                                                            </th>
+                                                                            <td mat-cell *matCellDef="let element">
+                                                                                {{element.bank}}
+                                                                            </td>
+                                                                        </ng-container>
+                                                                        <ng-container matColumnDef="de">
+                                                                            <th mat-header-cell *matHeaderCellDef>
+                                                                                details
+                                                                            </th>
+                                                                            <td mat-cell *matCellDef="let element">
+                                                                                {{element.de}}
+                                                                            </td>
+                                                                        </ng-container>
+                                                                        <tr mat-header-row
+                                                                            *matHeaderRowDef="bankdisplayedColumns">
+                                                                        </tr>
+                                                                        <tr mat-row
+                                                                            *matRowDef="let row; columns: bankdisplayedColumns;"
+                                                                            [ngClass]="{'active': activeIndex == row}"
+                                                                            (click)="active(row)">
+                                                                        </tr>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel-stepper-footer">
+                                            <div class="text-right">
+                                                <button mat-raised-button color="accent" (click)="clickPrev()">
+                                                    <ion-icon name="arrow-back-outline"></ion-icon>
+                                                    Back
+                                                </button>
+                                                <button mat-raised-button color="accent" (click)="step2Click()"
+                                                    class="ml-3">
+                                                    Save and Next
+                                                    <ion-icon name="arrow-forward-outline"></ion-icon>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </cdk-step>
+                        <cdk-step label="Contribution Invoice" [completed]="step3Completed">
+                            <div class="h100">
+                                <form class="h100">
+                                    <div class="panel-stepper h100">
+                                        <div class="panel-stepper-body">
+                                            <div class="ab">
+                                            </div>
+                                        </div>
+                                        <div class="panel-stepper-footer">
+                                            <div class="text-right">
+                                                <button mat-raised-button color="accent" (click)="clickPrev()">
+                                                    <ion-icon name="arrow-back-outline"></ion-icon>
+                                                    Back
+                                                </button>
+                                                <button mat-raised-button color="accent" (click)="step3Click()"
+                                                    class="ml-3">
+                                                    Save and Next
+                                                    <ion-icon name="arrow-forward-outline"></ion-icon>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </cdk-step>
+                    </app-stepper>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

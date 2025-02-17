@@ -1,0 +1,150 @@
+<div class="header">
+    <div class="m-name">Menu</div>
+    <div class="d-flex align-items-center ml-auto">
+        <button mat-icon-button class="w100 pin-btn" color="primary" (click)="pinned = !pinned; pinClicked()">
+            <ion-icon src="assets/svg/lnr-pushpin.svg" *ngIf="!pinned"></ion-icon>
+            <ion-icon src="assets/svg/lnr-pushpin-fill.svg" *ngIf="pinned" [ngClass]="{'pin': pinned}"></ion-icon>
+
+        </button>
+        <button mat-button class="act-btn" (click)="navClicked()" color="primary">
+            <div class="d-flex align-items-center">
+                <div class="icon-btn">
+                    <ion-icon name="arrow-forward"></ion-icon>
+                </div>
+            </div>
+        </button>
+    </div>
+</div>
+<div class="ab sidebar-pt45">
+    <div class="rel" appAccess="SDBAR" parentId="SDBAR">
+        <mat-accordion multi class="openpanel">
+            <ng-container *ngFor="let menu of menus">
+                <ng-container *ngIf="dataService.isMobile">
+                    <ng-container *ngIf="!menu.hideMobile">
+                        <ng-container [ngTemplateOutlet]="desktopmenu"
+                            [ngTemplateOutletContext]="{menu:menu}"></ng-container>
+                    </ng-container>
+                </ng-container>
+                <ng-container *ngIf="!dataService.isMobile">
+                    <ng-container [ngTemplateOutlet]="desktopmenu"
+                        [ngTemplateOutletContext]="{menu:menu}"></ng-container>
+                </ng-container>
+            </ng-container>
+        </mat-accordion>
+        <div class="closepanel">
+            <ng-container *ngFor="let menu of menus; let i = index">
+                <ng-container *ngIf="menu.child.length === 0">
+                    <button mat-button class="m-btn" [matTooltip]="menu.title" matTooltipPosition="right"
+                        [appMenuAccess]="menu.id" [routerLink]="[menu.path]">
+                        <ng-container *ngIf="menu.iconLink !== ''">
+                            <ion-icon [src]="menu.iconLink"></ion-icon>
+                        </ng-container>
+                        <ng-container *ngIf="menu.iconLink === '' && menu.icon !== ''">
+                            <ion-icon [name]="menu.icon"></ion-icon>
+                        </ng-container>
+                    </button>
+                </ng-container>
+                <ng-container *ngIf="menu.child.length > 0">
+                    <button mat-button class="m-btn" (click)="menuTrigger.openMenu()" [matTooltip]="menu.title"
+                        matTooltipPosition="right" [appMenuAccess]="menu.id">
+                        <div #menuTrigger="matMenuTrigger" [matMenuTriggerFor]="xmenu" class="trigger"></div>
+                        <div class="trigger-bg"></div>
+                        <ng-container *ngIf="menu.iconLink !== ''">
+                            <ion-icon [src]="menu.iconLink"></ion-icon>
+                        </ng-container>
+                        <ng-container *ngIf="menu.iconLink === '' && menu.icon !== ''">
+                            <ion-icon [name]="menu.icon"></ion-icon>
+                        </ng-container>
+                        <!-- <ion-icon [name]="admin.icon"></ion-icon> -->
+                    </button>
+                    <mat-menu #xmenu="matMenu" yPosition="below" class="c-menu">
+                        <button mat-button class="c-btn">{{menu.title}}</button>
+                        <ng-container *ngFor="let child of menu.child">
+                            <ng-container *ngIf="child.path !== ''">
+                                <div (click)="menuClicked(child.title)">
+                                    <button mat-menu-item [routerLink]="[child.path]"
+                                        [appMenuAccess]="child.id">{{child.title}}</button>
+                                </div>
+                            </ng-container>
+                            <ng-container *ngIf="child.path === ''">
+                                <div>
+                                    <button mat-menu-item (click)="menuClicked(child.title)"
+                                        [appMenuAccess]="child.id">{{child.title}}</button>
+                                </div>
+                            </ng-container>
+                        </ng-container>
+                        <!-- <button mat-menu-item>Item 1</button>
+                    <button mat-menu-item>Item 2</button> -->
+                    </mat-menu>
+                </ng-container>
+            </ng-container>
+        </div>
+    </div>
+</div>
+
+<ng-template #desktopmenu let-menu="menu">
+
+    <mat-expansion-panel #panel hideToggle expanded="true" [appMenuAccess]="menu.id">
+        <mat-expansion-panel-header>
+            <ng-container *ngIf="menu.path !== ''">
+                <mat-panel-title [routerLink]="[menu.path]" (click)="navClose()">
+                    <ng-container *ngIf="menu.iconLink !== ''">
+                        <ion-icon [src]="menu.iconLink"></ion-icon>
+                    </ng-container>
+                    <ng-container *ngIf="menu.iconLink === '' && menu.icon !== ''">
+                        <ion-icon [name]="menu.icon"></ion-icon>
+                    </ng-container>
+                    <div>
+                        {{menu.title}}
+                    </div>
+                    <div class="ml-auto" *ngIf="menu.child.length !== 0">
+                        <ion-icon name="add-outline" *ngIf="!panel.expanded"></ion-icon>
+                        <ion-icon name="remove-outline" *ngIf="panel.expanded"></ion-icon>
+                    </div>
+                </mat-panel-title>
+            </ng-container>
+            <ng-container *ngIf="menu.path === ''">
+                <mat-panel-title>
+                    <ng-container *ngIf="menu.iconLink !== ''">
+                        <ion-icon [src]="menu.iconLink"></ion-icon>
+                    </ng-container>
+                    <ng-container *ngIf="menu.iconLink === '' && menu.icon !== ''">
+                        <ion-icon [name]="menu.icon"></ion-icon>
+                    </ng-container>
+                    <div>
+                        {{menu.title}}
+                    </div>
+                    <div class="ml-auto" *ngIf="menu.child.length !== 0">
+                        <ion-icon name="add-outline" *ngIf="!panel.expanded"></ion-icon>
+                        <ion-icon name="remove-outline" *ngIf="panel.expanded"></ion-icon>
+                    </div>
+                </mat-panel-title>
+            </ng-container>
+        </mat-expansion-panel-header>
+        <div class="panel-base">
+            <ng-container *ngFor="let child of menu.child">
+                <ng-container *ngIf="dataService.isMobile">
+                    <ng-container *ngIf="!child.hideMobile">
+                        <ng-container [ngTemplateOutlet]="menuchild"
+                            [ngTemplateOutletContext]="{child:child}"></ng-container>
+                    </ng-container>
+                </ng-container>
+                <ng-container *ngIf="!dataService.isMobile">
+                    <ng-container [ngTemplateOutlet]="menuchild"
+                        [ngTemplateOutletContext]="{child:child}"></ng-container>
+                </ng-container>
+            </ng-container>
+        </div>
+    </mat-expansion-panel>
+</ng-template>
+
+
+<ng-template #menuchild let-child="child">
+    <ng-container *ngIf="child.path !== ''">
+        <button mat-button [routerLink]="[child.path]" (click)="menuClicked(child.title)"
+            [appMenuAccess]="child.id">{{child.title}}</button>
+    </ng-container>
+    <ng-container *ngIf="child.path === ''">
+        <button mat-button (click)="menuClicked(child.title)" [appMenuAccess]="child.id">{{child.title}}</button>
+    </ng-container>
+</ng-template>

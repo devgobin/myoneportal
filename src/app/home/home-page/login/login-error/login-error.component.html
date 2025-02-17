@@ -1,0 +1,31 @@
+<div class="margin-adjust">
+    <div class="v-flex">
+        <div mat-dialog-title class="text-center text-danger">
+            <div class="d-flex align-items-center justify-content-center">
+                <ion-icon src="assets/svg/triangle.svg"></ion-icon>
+                <div class="ml-2">Alert</div>
+            </div>
+        </div>
+        <div mat-dialog-content class="container-b text-center flex-1">
+            <div class="ab">
+                <div class="rel">
+                    <div class="message-box">
+                        <ul class="error-message">
+                            <li class="d-flex" *ngFor="let errMsg of message.errorMessage">
+                                <ion-icon src="assets/svg/triangle.svg" class="mr-2 tri-icon"></ion-icon>
+                                <div class="text-left">{{errMsg.msgDescription}}</div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="footer">
+            <div mat-dialog-actions class="d-flex align-items-center justify-content-center">
+                <button mat-raised-button color="danger" (click)="onNoClick()">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,540 @@
+<div class="adjust-margin">
+    <form class="h100" #h="ngForm" (ngSubmit)="onsubmit(h)" autocomplete="off">
+        <div class="dialogue-header z-2">
+            <ng-container *ngIf="type === 'new'">
+                <div>
+                    Edit Applicant Info
+                </div>
+            </ng-container>
+            <ng-container *ngIf="type === 'edit'">
+                <div>
+                    Create New Applicant Info
+                </div>
+            </ng-container>
+            <div class="ml-auto d-flex align-items-center">
+                <button mat-icon-button mat-dialog-close>
+                    <ion-icon name="close-outline"></ion-icon>
+                </button>
+            </div>
+        </div>
+        <div class="ab pt50 pb50">
+            <div class="rel">
+                <div class="h100">
+                    <div class="cus-card m-0 py-3 px-4 z-2 border-bottom">
+                        <div class="container-fluid p-0">
+                            <div class="row pt-2">
+                                <div class="col-md-2x">
+                                    <label class="">Application No</label>
+                                    <div class="fw500">
+                                        <ng-container
+                                            *ngIf="service.ProtoHousingAssitanceApplication.housingAssistanceApplicationId === 0">
+                                            -
+                                        </ng-container>
+                                        <ng-container
+                                            *ngIf="service.ProtoHousingAssitanceApplication.housingAssistanceApplicationId !== 0">
+                                            {{service.ProtoHousingAssitanceApplication.housingAssistanceApplicationId}}
+                                        </ng-container>
+                                    </div>
+                                </div>
+                                <div class="col-md-2x">
+                                    <label class="">Application Date</label>
+                                    <div class="fw500">
+                                        <ng-container
+                                            *ngIf="service.ProtoHousingAssitanceApplication.createdDate === ''">
+                                            -
+                                        </ng-container>
+                                        <ng-container
+                                            *ngIf="service.ProtoHousingAssitanceApplication.createdDate !== ''">
+                                            {{service.ProtoHousingAssitanceApplication.createdDate |
+                                            moment : 'DD-MM-YYYY' : 'DD MMM YYYY'}}
+                                        </ng-container>
+                                    </div>
+                                </div>
+                                <div class="col-md-2x">
+                                    <label class="">Loan Amount ($)</label>
+                                    <div class="fw500">
+                                        <ng-container
+                                            *ngIf="service.ProtoHousingAssitanceApplication.pLoadDetail.totalLoanAmount === ''">
+                                            -
+                                        </ng-container>
+                                        <ng-container
+                                            *ngIf="service.ProtoHousingAssitanceApplication.pLoadDetail.totalLoanAmount !== ''">
+                                            {{service.ProtoHousingAssitanceApplication.pLoadDetail.totalLoanAmount |
+                                            appCurrency}}
+                                        </ng-container>
+                                    </div>
+                                </div>
+                                <div class="col-md-2x">
+                                    <label class="">Existing Loan Amount ($)</label>
+                                    <div class="fw500">
+                                        <ng-container
+                                            *ngIf="service.ProtoHousingAssitanceApplication.pLoadDetail.existingHousingLoanAmount === ''">
+                                            -
+                                        </ng-container>
+                                        <ng-container
+                                            *ngIf="service.ProtoHousingAssitanceApplication.pLoadDetail.existingHousingLoanAmount !== ''">
+                                            {{service.ProtoHousingAssitanceApplication.pLoadDetail.existingHousingLoanAmount
+                                            |
+                                            appCurrency}}
+                                        </ng-container>
+                                    </div>
+                                </div>
+                                <div class="col-md-2x">
+                                    <label class="">Loan Ac No</label>
+                                    <div class="fw500">
+                                        <ng-container
+                                            *ngIf="service.ProtoHousingAssitanceApplication.pLoadDetail.loanAccountNumber === ''">
+                                            -
+                                        </ng-container>
+                                        <ng-container
+                                            *ngIf="service.ProtoHousingAssitanceApplication.pLoadDetail.loanAccountNumber !== ''">
+                                            {{service.ProtoHousingAssitanceApplication.pLoadDetail.loanAccountNumber}}
+                                        </ng-container>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container-fluid px-3 py-3">
+                        <div class="row">
+                            <div class="col-md-10 p-0">
+                                <div class="d-flex align-items-center">
+                                    <div class="heading pb-2 pl-3">
+                                        Applicant Detail
+                                    </div>
+                                    <div class="ml-4 d-flex align-items-center check">
+                                        <mat-checkbox tabindex="1" name="isPrimary"
+                                            (change)="CheckIsPrimary($event.checked)"
+                                            [checked]="service.ProtoHousingAssitanceApplication.pApplicant.isPrimary === 'Y'">
+                                        </mat-checkbox>
+                                        <div class="form-group mb-2 ml-2">
+                                            <label>Primary Applicant</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <app-input-control label="FNPF No" search="true"
+                                                [(ngModel)]="service.ProtoHousingAssitanceApplication.pApplicant.fnpfNo"
+                                                tabindex="2" name="fnpfNo" required [btnClicked]="btnClicked"
+                                                [errorTrue]="fnpfError" mandatory="true"
+                                                (onsearchevent)="getApplicantbyFNPF(h)"></app-input-control>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="">Member Name</label>
+                                                <div class="fw500">
+                                                    <ng-container
+                                                        *ngIf="service.ProtoHousingAssitanceApplication.pApplicant.firstName && service.ProtoHousingAssitanceApplication.pApplicant.middleName && service.ProtoHousingAssitanceApplication.pApplicant.lastName === ''">
+                                                        -
+                                                    </ng-container>
+                                                    <ng-container
+                                                        *ngIf="service.ProtoHousingAssitanceApplication.pApplicant.firstName || service.ProtoHousingAssitanceApplication.pApplicant.middleName || service.ProtoHousingAssitanceApplication.pApplicant.lastName !== ''">
+                                                        {{service.ProtoHousingAssitanceApplication.pApplicant.firstName}}
+                                                        {{service.ProtoHousingAssitanceApplication.pApplicant.middleName}}
+                                                        {{service.ProtoHousingAssitanceApplication.pApplicant.lastName}}
+                                                    </ng-container>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="">TIN</label>
+                                                <div class="fw500">
+                                                    <ng-container
+                                                        *ngIf="service.ProtoHousingAssitanceApplication.pApplicant.tin === ''">
+                                                        -
+                                                    </ng-container>
+                                                    <ng-container
+                                                        *ngIf="service.ProtoHousingAssitanceApplication.pApplicant.tin !== ''">
+                                                        {{service.ProtoHousingAssitanceApplication.pApplicant.tin}}
+                                                    </ng-container>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- <div class="col-md-4">
+                                            <div class="form-group">
+                                            <label class="">BRN</label>
+                                            <div class="fw500">
+                                                <ng-container *ngIf="service.ProtoHousingAssitanceApplication.pApplicant.brn === ''">
+                                                    -
+                                                </ng-container>
+                                                <ng-container *ngIf="service.ProtoHousingAssitanceApplication.pApplicant.brn !== ''">
+                                                    {{service.ProtoHousingAssitanceApplication.pApplicant.brn}}
+                                                </ng-container>
+                                            </div>
+                                            </div>
+                                        </div> -->
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <app-input-control label="Married Name" [upperCase]="true"
+                                                [(ngModel)]="service.ProtoHousingAssitanceApplication.pApplicant.marriedName"
+                                                tabindex="3" name="marriedName" emojiType="name"></app-input-control>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="">Date of Birth</label>
+                                                <div class="fw500">
+                                                    <ng-container
+                                                        *ngIf="service.ProtoHousingAssitanceApplication.pApplicant.dob === ''">
+                                                        -
+                                                    </ng-container>
+                                                    <ng-container
+                                                        *ngIf="service.ProtoHousingAssitanceApplication.pApplicant.dob !== ''">
+                                                        {{service.ProtoHousingAssitanceApplication.pApplicant.dob |
+                                                        moment :
+                                                        'DD-MM-YYYY' : 'DD MMM YYYY'}}
+                                                    </ng-container>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="">Gender</label>
+                                                <div class="fw500">
+                                                    <ng-container
+                                                        *ngIf="service.ProtoHousingAssitanceApplication.pApplicant.genderDescription === ''">
+                                                        -
+                                                    </ng-container>
+                                                    <ng-container
+                                                        *ngIf="service.ProtoHousingAssitanceApplication.pApplicant.genderDescription !== ''">
+                                                        {{service.ProtoHousingAssitanceApplication.pApplicant.genderDescription}}
+                                                    </ng-container>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <app-phone-control label="Home No"
+                                                [(ngModel)]="service.ProtoHousingAssitanceApplication.pApplicant.homePhoneNo"
+                                                tabindex="4" name="homePhoneNo"></app-phone-control>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <app-input-control label="Work No"
+                                                [(ngModel)]="service.ProtoHousingAssitanceApplication.pApplicant.workNo"
+                                                tabindex="5" name="workNo"></app-input-control>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <ng-container
+                                                *ngIf="service.ProtoHousingAssitanceApplication.pApplicant.modeOfCommunicationValue === 'MOBIL'">
+                                                <app-phone-control label="Mobile No"
+                                                    [(ngModel)]="service.ProtoHousingAssitanceApplication.pApplicant.mobileNo"
+                                                    tabindex="6" name="mobileNo" required [btnClicked]="btnClicked"
+                                                    [errorTrue]="errorTrue" mandatory="true" #phonecontrol>
+                                                </app-phone-control>
+                                            </ng-container>
+                                            <ng-container
+                                                *ngIf="service.ProtoHousingAssitanceApplication.pApplicant.modeOfCommunicationValue !== 'MOBIL'">
+                                                <app-phone-control label="Mobile No"
+                                                    [(ngModel)]="service.ProtoHousingAssitanceApplication.pApplicant.mobileNo"
+                                                    tabindex="6" name="mobileNo" #phonecontrol></app-phone-control>
+                                            </ng-container>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <ng-container
+                                                *ngIf="service.ProtoHousingAssitanceApplication.pApplicant.modeOfCommunicationValue === 'EMAIL'">
+                                                <app-email-control label="Email ID"
+                                                    [(ngModel)]="service.ProtoHousingAssitanceApplication.pApplicant.emailId"
+                                                    tabindex="7" name="emailId" required [btnClicked]="btnClicked"
+                                                    [errorTrue]="errorTrue" mandatory="true"></app-email-control>
+                                            </ng-container>
+                                            <ng-container
+                                                *ngIf="service.ProtoHousingAssitanceApplication.pApplicant.modeOfCommunicationValue !== 'EMAIL'">
+                                                <app-email-control label="Email ID"
+                                                    [(ngModel)]="service.ProtoHousingAssitanceApplication.pApplicant.emailId"
+                                                    tabindex="7" name="emailId"></app-email-control>
+                                            </ng-container>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <app-input-control label="Occupation"
+                                                [(ngModel)]="service.ProtoHousingAssitanceApplication.pApplicant.occupation"
+                                                tabindex="8" name="occupation" required [btnClicked]="btnClicked"
+                                                [errorTrue]="errorTrue" mandatory="true"></app-input-control>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <app-select-control label="Preferred Communication"
+                                                [(ngModel)]="service.ProtoHousingAssitanceApplication.pApplicant.modeOfCommunicationValue"
+                                                tabindex="6" name="modeOfCommunicationValue"
+                                                [items]="service.DDL.DDLPreferredCommunication" key="constant"
+                                                keyname="description" required [btnClicked]="btnClicked"
+                                                [errorTrue]="errorTrue" mandatory="true">
+                                            </app-select-control>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <app-input-control label="Current Employer Name"
+                                                [(ngModel)]="service.ProtoHousingAssitanceApplication.pApplicant.currentEmpName"
+                                                [upperCase]="true" tabindex="9" name="currentEmpName" emojiType="name">
+                                            </app-input-control>
+                                            <app-number-control label="Requested Amount ($)"
+                                                [(ngModel)]="service.ProtoHousingAssitanceApplication.pApplicant.requestedAmount"
+                                                tabindex="9" name="requestedAmount" decimal="2" required
+                                                [btnClicked]="btnClicked" [errorTrue]="errorTrue" mandatory="true">
+                                            </app-number-control>
+                                            <div class="form-group">
+                                                <label class="">Actual Eligible Amount($)</label>
+                                                <div class="fw500">
+                                                    {{service.ProtoHousingAssitanceApplication.pApplicant.actualMemberEligibility
+                                                    | appCurrency }}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <!-- <app-textarea-control label="Residential Address" editOption="true"
+                                                (onedit)="openresidentialaddress()" class="form-2" [(ngModel)]="
+                                                service.ProtoHousingAssitanceApplication.pApplicant.pResidentialAddress.address" tabindex="10" name="residentialAddress" btnClicked="true">
+                                            </app-textarea-control> -->
+
+
+                                            <div class="form-group">
+                                                <div class="d-flex align-item-center">
+                                                    <label>Residential Address <span
+                                                            class="text-danger">*</span></label>
+                                                    <div class="ml-auto">
+                                                        <a (click)="openresidentialaddress()">Edit</a>
+                                                    </div>
+                                                </div>
+                                                <div class="form-control div-text">
+                                                    <ng-container
+                                                        *ngIf="service.ProtoHousingAssitanceApplication.pApplicant.pResidentialAddress.boxNo !== '' ">
+                                                        {{service.ProtoHousingAssitanceApplication.pApplicant.pResidentialAddress.boxNo}}
+                                                        {{service.ProtoHousingAssitanceApplication.pApplicant.pResidentialAddress.postOfficeName}}
+                                                        <br>
+                                                    </ng-container>
+                                                    <ng-container
+                                                        *ngIf="service.ProtoHousingAssitanceApplication.pApplicant.pResidentialAddress.line1 !== '' ">
+                                                        {{service.ProtoHousingAssitanceApplication.pApplicant.pResidentialAddress.line1}},
+                                                    </ng-container>
+                                                    <ng-container
+                                                        *ngIf="service.ProtoHousingAssitanceApplication.pApplicant.pResidentialAddress.line2 !== '' ">
+                                                        {{service.ProtoHousingAssitanceApplication.pApplicant.pResidentialAddress.line2}},
+                                                    </ng-container>
+                                                    <ng-container
+                                                        *ngIf="service.ProtoHousingAssitanceApplication.pApplicant.pResidentialAddress.line3 !== '' ">
+                                                        {{service.ProtoHousingAssitanceApplication.pApplicant.pResidentialAddress.line3}}
+                                                    </ng-container> <br>
+                                                    <ng-container
+                                                        *ngIf="service.ProtoHousingAssitanceApplication.pApplicant.pResidentialAddress.province !== '' ">
+                                                        {{service.ProtoHousingAssitanceApplication.pApplicant.pResidentialAddress.province}},
+                                                    </ng-container>
+                                                    <ng-container
+                                                        *ngIf="service.ProtoHousingAssitanceApplication.pApplicant.pResidentialAddress.subDivision !== '' ">
+                                                        {{service.ProtoHousingAssitanceApplication.pApplicant.pResidentialAddress.subDivision}},
+                                                    </ng-container>
+                                                    <ng-container
+                                                        *ngIf="service.ProtoHousingAssitanceApplication.pApplicant.pResidentialAddress.cityTown !== '' ">
+                                                        {{service.ProtoHousingAssitanceApplication.pApplicant.pResidentialAddress.cityTown}},
+                                                    </ng-container>
+                                                    <ng-container
+                                                        *ngIf="service.ProtoHousingAssitanceApplication.pApplicant.pResidentialAddress.country !== '' ">
+                                                        {{service.ProtoHousingAssitanceApplication.pApplicant.pResidentialAddress.country}}
+                                                    </ng-container>
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <!-- <app-textarea-control label="Postal Address" editOption="true"
+                                                class="form-2" (onedit)="openpostaladdress()"
+                                                [(ngModel)]="service.ProtoHousingAssitanceApplication.pApplicant.pPostalAddress.address" tabindex="10" name="postalAddress" btnClicked="true">
+                                            </app-textarea-control> -->
+                                            <ng-container
+                                                *ngIf="service.ProtoHousingAssitanceApplication.pApplicant.modeOfCommunicationValue === 'POSTL'">
+                                                <div class="form-group">
+                                                    <div class="d-flex align-item-center">
+                                                        <label>Postal Address <span class="text-danger">*</span></label>
+                                                        <div class="ml-auto">
+                                                            <a (click)="openpostaladdress()">Edit</a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-control div-text">
+                                                        <ng-container
+                                                            *ngIf="service.ProtoHousingAssitanceApplication.pApplicant.pPostalAddress.boxNo !== '' ">
+                                                            {{service.ProtoHousingAssitanceApplication.pApplicant.pPostalAddress.boxNo}}
+                                                            {{service.ProtoHousingAssitanceApplication.pApplicant.pPostalAddress.postOfficeName}}
+                                                            <br>
+                                                        </ng-container>
+                                                        <ng-container
+                                                            *ngIf="service.ProtoHousingAssitanceApplication.pApplicant.pPostalAddress.line1 !== '' ">
+                                                            {{service.ProtoHousingAssitanceApplication.pApplicant.pPostalAddress.line1}},
+                                                        </ng-container>
+                                                        <ng-container
+                                                            *ngIf="service.ProtoHousingAssitanceApplication.pApplicant.pPostalAddress.line2 !== '' ">
+                                                            {{service.ProtoHousingAssitanceApplication.pApplicant.pPostalAddress.line2}},
+                                                        </ng-container>
+                                                        <ng-container
+                                                            *ngIf="service.ProtoHousingAssitanceApplication.pApplicant.pPostalAddress.line3 !== '' ">
+                                                            {{service.ProtoHousingAssitanceApplication.pApplicant.pPostalAddress.line3}}
+                                                        </ng-container> <br>
+                                                        <ng-container
+                                                            *ngIf="service.ProtoHousingAssitanceApplication.pApplicant.pPostalAddress.province !== '' ">
+                                                            {{service.ProtoHousingAssitanceApplication.pApplicant.pPostalAddress.province}},
+                                                        </ng-container>
+                                                        <ng-container
+                                                            *ngIf="service.ProtoHousingAssitanceApplication.pApplicant.pPostalAddress.subDivision !== '' ">
+                                                            {{service.ProtoHousingAssitanceApplication.pApplicant.pPostalAddress.subDivision}},
+                                                        </ng-container>
+                                                        <ng-container
+                                                            *ngIf="service.ProtoHousingAssitanceApplication.pApplicant.pPostalAddress.cityTown !== '' ">
+                                                            {{service.ProtoHousingAssitanceApplication.pApplicant.pPostalAddress.cityTown}},
+                                                        </ng-container>
+                                                        <ng-container
+                                                            *ngIf="service.ProtoHousingAssitanceApplication.pApplicant.pPostalAddress.country !== '' ">
+                                                            {{service.ProtoHousingAssitanceApplication.pApplicant.pPostalAddress.country}}
+                                                        </ng-container>
+
+                                                    </div>
+                                                </div>
+                                            </ng-container>
+                                            <ng-container
+                                                *ngIf="service.ProtoHousingAssitanceApplication.pApplicant.modeOfCommunicationValue !== 'POSTL'">
+                                                <div class="form-group">
+                                                    <div class="d-flex align-item-center">
+                                                        <label>Postal Address </label>
+                                                        <div class="ml-auto">
+                                                            <a (click)="openpostaladdress()">Edit</a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-control div-text">
+                                                        <ng-container
+                                                            *ngIf="service.ProtoHousingAssitanceApplication.pApplicant.pPostalAddress.boxNo !== '' ">
+                                                            {{service.ProtoHousingAssitanceApplication.pApplicant.pPostalAddress.boxNo}}
+                                                            {{service.ProtoHousingAssitanceApplication.pApplicant.pPostalAddress.postOfficeName}}
+                                                            <br>
+                                                        </ng-container>
+                                                        <ng-container
+                                                            *ngIf="service.ProtoHousingAssitanceApplication.pApplicant.pPostalAddress.line1 !== '' ">
+                                                            {{service.ProtoHousingAssitanceApplication.pApplicant.pPostalAddress.line1}},
+                                                        </ng-container>
+                                                        <ng-container
+                                                            *ngIf="service.ProtoHousingAssitanceApplication.pApplicant.pPostalAddress.line2 !== '' ">
+                                                            {{service.ProtoHousingAssitanceApplication.pApplicant.pPostalAddress.line2}},
+                                                        </ng-container>
+                                                        <ng-container
+                                                            *ngIf="service.ProtoHousingAssitanceApplication.pApplicant.pPostalAddress.line3 !== '' ">
+                                                            {{service.ProtoHousingAssitanceApplication.pApplicant.pPostalAddress.line3}}
+                                                        </ng-container> <br>
+                                                        <ng-container
+                                                            *ngIf="service.ProtoHousingAssitanceApplication.pApplicant.pPostalAddress.province !== '' ">
+                                                            {{service.ProtoHousingAssitanceApplication.pApplicant.pPostalAddress.province}},
+                                                        </ng-container>
+                                                        <ng-container
+                                                            *ngIf="service.ProtoHousingAssitanceApplication.pApplicant.pPostalAddress.subDivision !== '' ">
+                                                            {{service.ProtoHousingAssitanceApplication.pApplicant.pPostalAddress.subDivision}},
+                                                        </ng-container>
+                                                        <ng-container
+                                                            *ngIf="service.ProtoHousingAssitanceApplication.pApplicant.pPostalAddress.cityTown !== '' ">
+                                                            {{service.ProtoHousingAssitanceApplication.pApplicant.pPostalAddress.cityTown}},
+                                                        </ng-container>
+                                                        <ng-container
+                                                            *ngIf="service.ProtoHousingAssitanceApplication.pApplicant.pPostalAddress.country !== '' ">
+                                                            {{service.ProtoHousingAssitanceApplication.pApplicant.pPostalAddress.country}}
+                                                        </ng-container>
+
+                                                    </div>
+                                                </div>
+                                            </ng-container>
+                                        </div>
+
+
+                                    </div>
+                                    <div class="row pt-2">
+                                        <div class="col-md-7">
+                                            <div class="form-group pt-20">
+                                                <label>In what way has the applicant, become financially vulnerable due
+                                                    to COVID19?<span class="text-danger">*</span></label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <app-select-control
+                                                [(ngModel)]="service.ProtoHousingAssitanceApplication.pApplicant.financialDifficultyValue"
+                                                tabindex="6" name="financialDifficultyValue"
+                                                [items]="service.DDL.DDLMemberAffect" key="constant"
+                                                keyname="description" required [btnClicked]="btnClicked"
+                                                [errorTrue]="errorTrue">
+                                            </app-select-control>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label>I agree to be continually assisted for this Covid19 Housing
+                                                    Assistance should there be an extension for this assistance</label>
+                                                <mat-radio-group class="ml-3"
+                                                    [(ngModel)]="service.ProtoHousingAssitanceApplication.pApplicant.memberConsent"
+                                                    tabindex="6" name="memberConsent">
+                                                    <mat-radio-button value="Y">
+                                                        Yes
+                                                    </mat-radio-button>
+                                                    <mat-radio-button value="N" class="ml-3">
+                                                        No
+                                                    </mat-radio-button>
+                                                </mat-radio-group>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <img class="w-100" src="assets/blank-profile.png" alt=""
+                                    *ngIf="service.ProtoHousingAssitanceApplication.pApplicant.memberPhoto === ''">
+                                <img class="w-100"
+                                    [src]="service.ProtoHousingAssitanceApplication.pApplicant.memberPhoto" alt=""
+                                    *ngIf="service.ProtoHousingAssitanceApplication.pApplicant.memberPhoto !== ''">
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="heading pl-0 pb-2">
+                                    Document Detail
+                                </div>
+                            </div>
+                            <div class="col-md-10">
+                                <ng-container
+                                    *ngFor="let document of service.ProtoHousingAssitanceApplication.pApplicant.plstDocument">
+                                    <app-file-upload accept="application/pdf, image/*"
+                                        [label]="document.documentTypeDescription" [data]="document"
+                                        (onload)="uploadDocument($event,document)"
+                                        [mandatory]="document.isMandatory === 'Y'"
+                                        dname="document.pDocumentFile.fileName"
+                                        [loading]="fileUploading === document.documentTypeValue" required
+                                        [errorTrue]="errorTrue" [xFile]="document.pDocumentFile" expanded="true"
+                                        (onclear)="clearFile($event)"
+                                        [accept]="appSettingService.environment.fileAccept">
+                                    </app-file-upload>
+                                </ng-container>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="dialogue-footer p-0 z-2 d-flex align-items-center">
+            <ng-container>
+                <div class="ml-auto d-flex mr-3 align-items-center">
+                    <button mat-raised-button color="accent" class="ml-3">
+                        save
+                    </button>
+                </div>
+            </ng-container>
+            <!-- <ng-container *ngIf="type === 'edit'">
+                <button mat-button color="danger" class="ml-3 br-danger" (click)="checkdelete()">
+                    Remove
+                </button>
+                <div class="ml-auto d-flex mr-3 align-items-center">
+                    <button mat-raised-button color="accent" class="ml-3" (click)="onsubmit(h)">
+                        Update
+                    </button>
+                </div>
+            </ng-container> -->
+        </div>
+    </form>
+</div>

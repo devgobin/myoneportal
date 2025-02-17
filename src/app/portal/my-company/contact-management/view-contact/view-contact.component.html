@@ -1,0 +1,354 @@
+<div class="content-body"  [parentId]="pageId" appAccess="VIEWC">
+    <div class="rel">
+        <div class="cus-card mt-0 mx-0">
+            <form class="h100" #u="ngForm" (ngSubmit)="Update(u)" autocomplete="off">
+                <div class="container-fluid p-0">
+                    <div class="row">
+                        <div class="col-xl-12 pb-3 heading">
+                            CONTACT INFORMATION
+                        </div>
+                    </div>
+                    <div class="row pb-3">
+                        <div class="col-md-3">
+                            <label>First Name</label>
+                            <div class="name-label">
+                                <ng-container *ngIf="contactservice.contact.person.firstName !== ''">
+                                    {{contactservice.contact.person.firstName}}
+                                </ng-container>
+                                <ng-container *ngIf="contactservice.contact.person.firstName === ''">
+                                    -
+                                </ng-container>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <label>Middle Name</label>
+                            <div class="name-label">
+                                <ng-container *ngIf="contactservice.contact.person.middleName !== ''">
+                                    {{contactservice.contact.person.middleName}}
+                                </ng-container>
+                                <ng-container *ngIf="contactservice.contact.person.middleName === ''">
+                                    -
+                                </ng-container>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <label>Last Name</label>
+                            <div class="name-label">
+                                <ng-container *ngIf="contactservice.contact.person.lastName !== ''">
+                                    {{contactservice.contact.person.lastName}}
+                                </ng-container>
+                                <ng-container *ngIf="contactservice.contact.person.lastName === ''">
+                                    -
+                                </ng-container>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <label>Date of Birth</label>
+                            <div class="fw500">
+                                <ng-container *ngIf="contactservice.contact.person.dateOfBirth !== ''">
+                                    {{contactservice.contact.person.dateOfBirth| moment : 'DD-MM-YYYY' : 'DD MMM YYYY'}}
+                                </ng-container>
+                                <ng-container *ngIf="contactservice.contact.person.dateOfBirth === ''">
+                                    -
+                                </ng-container>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row pb-3">
+                        <div class="col-md-3">
+                            <label>Gender</label>
+                            <div class="fw500">
+                                <ng-container *ngIf="contactservice.contact.person.genderDescription !== ''">
+                                    {{contactservice.contact.person.genderDescription}}
+                                </ng-container>
+                                <ng-container *ngIf="contactservice.contact.person.genderDescription === ''">
+                                    -
+                                </ng-container>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <label>Passport No</label>
+                            <div class="fw500">
+                                <ng-container *ngIf="contactservice.contact.person.passportNo !== ''">
+                                    {{contactservice.contact.person.passportNo}}
+                                </ng-container>
+                                <ng-container *ngIf="contactservice.contact.person.passportNo === ''">
+                                    -
+                                </ng-container>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <label>Birth Reg No</label>
+                            <div class="fw500">
+                                <ng-container *ngIf="contactservice.contact.person.birthRegNo !== ''">
+                                    {{contactservice.contact.person.birthRegNo}}
+                                </ng-container>
+                                <ng-container *ngIf="contactservice.contact.person.birthRegNo === ''">
+                                    -
+                                </ng-container>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <label>TIN</label>
+                            <div class="fw500">
+                                <ng-container *ngIf="contactservice.contact.person.tin !== ''">
+                                    {{contactservice.contact.person.tin}}
+                                </ng-container>
+                                <ng-container *ngIf="contactservice.contact.person.tin === ''">
+                                    -
+                                </ng-container>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <div class="form-group">
+                                <div class="d-flex align-items-center">
+                                    <label>Business Address
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                    <div class="ml-auto text-danger lh18" *ngIf="contactservice.contact.orgAddressId === 0 && errorTrue">
+                                        <small>mandatory</small>
+                                    </div>
+                                </div>
+                                <div class="input-group" tabindex="5"  >
+                                                 <mat-select
+                                        class="form-control ng-pristine ng-valid ng-touched required"
+                                        [(ngModel)]="contactservice.contact.orgAddressId"
+                                        name="orgAddressId"
+                                        [ngClass]="{'border-warn': errorTrue && contactservice.contact.orgAddressId===0}"
+                                        [disabled]="btnClicked" [errorTrue]="errorTrue" >
+                                        <ng-container
+                                            *ngFor="let values of contactservice.contact.lstEntAdderss">
+                                            <mat-option [value]="values.addressId">
+                                                {{values.line1}} {{values.line2}}
+                                                {{values.city}} {{values.province}}
+                                                {{values.island}}
+                                            </mat-option>
+                                        </ng-container>
+
+                                    </mat-select>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="row ">
+                        <div class="col-xl-3">
+                            <app-phone-control label="Mobile Number" [(ngModel)]="contactservice.contact.contactNo"
+                                placeholder="eg. 679-8888888"  name="contactNo" required
+                                [errorTrue]="errorTrue" mandatory="true" #mobileNumber></app-phone-control>
+                        </div>
+                        <div class="col-xl-3">
+                            <app-email-control label="Email ID" [(ngModel)]="contactservice.contact.emailId"
+                                tabindex="2" name="emailId" required [errorTrue]="errorTrue" mandatory="true"
+                                email="true" #emailId="ngModel"
+                                errorText="{{emailId.invalid && (emailId.dirty || emailId.touched) ? 'Invalid Email Format' : ''}}">
+                            </app-email-control>
+                        </div>
+                        <!-- <div class="col-xl-3">
+                            <app-select-control label="Status" [(ngModel)]="contactservice.contact.contactStatusValue"
+                                tabindex="3" [items]="contactservice.DDL.DDLStatusValue" key="constant"
+                                keyname="description" name="contactStatusValue" required [errorTrue]="errorTrue"
+                                mandatory="true">
+                            </app-select-control>
+                        </div> -->
+                        <div class=" col-xl-6 text-right px-2">
+                            <div class="form-group">
+                                <div class="label-space"></div>
+                                    <button mat-raised-button color="accent" class="mr-3" type="submit"  [parentId]="pageId" appAccess="BTNUpdateViewContact">
+                                        Update
+                                    </button>
+                                    <a mat-raised-button color="accent" (click)="generatecontactpin()"  [parentId]="pageId" appAccess="BTNResendPINViewContact">
+                                        Resend PIN
+                                    </a>
+                                    <a mat-raised-button color="accent" class="ml-3" (click)="UnblockAccount()"  [parentId]="pageId" appAccess="BTNUnblockAccountViewContact">
+                                       Unlock Account
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="cus-card mt-0 mx-0">
+            <div class="container-fluid p-0">
+                <div class="row">
+                    <div class="col-xl-12 pb-3 heading">
+                        EMPLOYMENT INFORMATION
+                    </div>
+                </div>
+                <!-- <div class="row pb-3">
+                    <div class="col-md-3">
+                        <label>Contact Type</label>
+                        <div class="fw500">
+                            <ng-container *ngIf="contactservice.contact.contactTypeDescription !== ''">
+                                {{contactservice.contact.contactTypeDescription}}
+                            </ng-container>
+                            <ng-container *ngIf="contactservice.contact.contactTypeDescription === ''">
+                                -
+                            </ng-container>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <label>Holding Percentage</label>
+                        <div class="fw500">
+                            <ng-container *ngIf="contactservice.contact.holdingPercentage !== 0">
+                                {{contactservice.contact.holdingPercentage}}
+                            </ng-container>
+                            <ng-container *ngIf="contactservice.contact.holdingPercentage === 0">
+                                -
+                            </ng-container>
+                        </div>
+                    </div>
+                    
+                </div> -->
+                <div class="row">
+                    <!-- <div class="col-md-3">
+                        <label>Start Date</label>
+                        <div class="fw500">
+                            <ng-container *ngIf="contactservice.contact.startDate !== ''">
+                                {{contactservice.contact.startDate| moment : 'DD-MM-YYYY' : 'DD MMM YYYY'}}
+                            </ng-container>
+                            <ng-container *ngIf="contactservice.contact.startDate === ''">
+                                -
+                            </ng-container>
+                        </div>
+                    </div> -->
+                    <!-- <div class="col-md-3">
+                        <label>End Date</label>
+                        <div class="fw500">
+                            <ng-container *ngIf="contactservice.contact.endDate !== ''">
+                                {{contactservice.contact.endDate| moment : 'DD-MM-YYYY hh:mm a' : 'DD MMM YYYY hh:mm a'}}
+                            </ng-container>
+                            <ng-container *ngIf="contactservice.contact.endDate === ''">
+                                -
+                            </ng-container>
+                        </div>
+                    </div> -->
+                    <div class="col-xl-3">
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <tbody>
+                                    <tr>
+                                        <td class="fw500">Contact Type</td>
+                                        <td class="fw500 text-center"  appAccess="BTNAddContactType" [parentId]="pageId">Activate</td>
+                                    </tr>
+                                    <tr *ngFor="let contact of contactservice.contact.lstprotoListOfContactType ; let i = index">
+                                        <td>
+                                            {{contact.contactTypeDescription}}
+                                        </td>
+                                        <td class="text-center" appAccess="BTNAddContactType" [parentId]="pageId">
+                                            <ng-container *ngIf="showCheckbox">
+                                            <mat-checkbox  (change)="checkDeclartionContactType($event.checked, contact,i)"
+                                            [checked]="contact.isActive === 'Y'">
+                                            </mat-checkbox>
+                                        </ng-container>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-xl-3">
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <tbody>
+                                    <tr>
+                                        <td class="fw500">CS Code</td>
+                                        <td class="fw500 text-center" appAccess="BTNAddCSCode" [parentId]="pageId">Activate</td>
+                                    </tr>
+                                    <tr *ngFor="let contact of contactservice.contact.lstprotoentCSCode ; let i = index">
+                                        <td>
+                                            {{contact.csCode}}
+                                        </td>
+                                        <td class="text-center" appAccess="BTNAddCSCode" [parentId]="pageId">
+                                            <ng-container *ngIf="showCheckboxcscode">
+                                            <mat-checkbox  (change)="checkDeclartionCSCode($event.checked, contact, i)"
+                                            [checked]=" contact.isActive === 'Y'">
+                                            </mat-checkbox>
+                                            </ng-container>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- <div class="col-md-6">
+                        <label>Business Address</label>
+                        <div class="fw500"></div>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+        <!-- <div class="cus-card m-0">
+            <div class="container-fluid p-0">
+                <div class="row">
+                    <div class="col-xl-12 pb-3 heading">
+                        OTHER DETAILS
+                    </div>
+                </div>
+                <div class="row pb-3">
+                    <div class="col-xl-3">
+                        <label>User Name</label>
+                        <div class="fw500">{{contactservice.contact.person.firstName}} {{contactservice.contact.person.middleName}}
+                            {{contactservice.contact.person.lastName}}</div>
+                        <div><a>Change</a></div>
+                    </div>
+                    <div class="col-xl-3">
+                        <label>Password</label>
+                        <div class="fw500"><span class="text-danger"><small>Expires in 5 days</small></span>
+                        </div>
+                        <div><a>Reset</a></div>
+                    </div>
+                    <div class="col-xl-3">
+                        <label>Transaction PIN</label>
+                        <div class="fw500"> <span class="text-danger"><small>Expires in 5 days</small></span></div>
+                        <div><a>Reset</a></div>
+                    </div>
+                    <div class="col-xl-3">
+                        <label>Security Questions</label>
+                        <div class="fw500"></div>
+                        <div><a>View / Change</a></div>
+                    </div>
+                </div>
+                <div class="row pb-3">
+                    <div class="col-xl-3">
+                        <label>Last Login</label>
+                        <div class="fw500"></div>
+                    </div>
+
+                    <div class="col-xl-3">
+                        <label>Last Password Changed</label>
+                        <div class="fw500"></div>
+
+                    </div>
+                    <div class="col-xl-3">
+                        <label>Last Transaction PIN Changed</label>
+                        <div class="fw500"></div>
+
+                    </div>
+                    <div class="col-xl-3">
+                        <label>Last Email Sent</label>
+                        <div class="fw500"></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-3">
+                        <label>Terms & Conditions</label>
+                        <div class="fw500"></div>
+                        <div><a>View T&C</a></div>
+                    </div>
+                    <div class="col-xl-3">
+                        <label>User Status</label>
+                        <div class="fw500">
+                            <div class="badge badge-success f100">
+                                {{contactservice.contact.contactStatusDescription}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+    </div>
+</div>

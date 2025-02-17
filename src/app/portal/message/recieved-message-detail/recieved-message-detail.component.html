@@ -1,0 +1,54 @@
+<div class="adjust-margin" [parentId]="pageId" appAccess="RECMD">
+    <div class="dialogue-header z-2">
+        <div>
+            Received Message Detail
+        </div>
+        <div class="ml-auto d-flex align-items-center">
+            <button mat-icon-button mat-dialog-close matTooltip="Close">
+                <ion-icon name="close-outline"></ion-icon>
+            </button>
+        </div>
+    </div>
+    <div class="ab pt50 pb50">
+        <div class="rel">
+            <div class="h100">
+                <div class="container-fluid">
+                    <div class="row pt-2">
+                        <div class="col-md-12 form-group m-0">
+                            <label for="name">Category</label>
+                            <div>
+                                <b>
+                                    <ng-container *ngIf="service.createMessage.messageTypeDescription !== ''">
+                                        {{service.createMessage.categoryDescription}}
+                                    </ng-container>
+                                    <ng-container *ngIf="service.createMessage.messageTypeDescription === ''">
+                                        -
+                                    </ng-container>
+                                </b>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row pt-3">
+                        <div class="col-md-12">
+                            <app-textarea-control label="Content" class="form-4"
+                                [(ngModel)]="service.createMessage.messageContent" name="messageContent" tabindex="1"
+                                btnClicked="true"></app-textarea-control>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="dialogue-footer z-2">
+        <ng-container *ngIf="service.createMessage.messageStatusValue === 'READ'">
+            <button mat-raised-button color="accent" [parentId]="pageId" appAccess="BTNMarkAsUnread"
+                (click)="markAsUnRead()">
+                Mark as UnRead
+            </button>
+        </ng-container>
+        <a mat-raised-button color="danger" [parentId]="pageId" appAccess="BTNMessageDelete" class="ml-2"
+            (click)="checkdelete()">
+            Delete
+        </a>
+    </div>
+</div>

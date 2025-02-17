@@ -1,0 +1,117 @@
+<div class="adjust-margin">
+    <form class="h100" #c="ngForm" (ngSubmit)="saveData(c)" autocomplete="off">
+        <div class="dialogue-header z-2">
+            <ng-container *ngIf="employer.addresstype === 'new'">
+                New Employer Address Detail
+            </ng-container>
+            <ng-container *ngIf="employer.addresstype === 'edit'">
+                Edit Employer Address Detail
+            </ng-container>
+            <div class="ml-auto d-flex align-items-center">
+                <button mat-icon-button mat-dialog-close>
+                    <ion-icon name="close-outline"></ion-icon>
+                </button>
+            </div>
+        </div>
+        <div class="ab pt50 pb50">
+            <div class="rel">
+                <div class="h100">
+                    <div class="h100">
+                        <div class="panel-stepper h100">
+                            <div class="panel-stepper-body">
+                                <div class="ab">
+                                    <div class="rel">
+                                        <div class="container-fluid pt-3">
+                                            <div class="row">
+                                                <div class="col-xl-12 p-0">
+                                                    <div class="container-fluid">
+                                                        <div class="row relative">
+                                                            <div class="col-xl-6">
+                                                                <app-select-control label="Address Type"
+                                                                    [(ngModel)]="employer.newEmployer.pEmployerRegistraionAddress.addressTypeValue"
+                                                                    name="addressTypeValue"
+                                                                    [items]="employer.initialData.ERAddress"
+                                                                    key="constant" keyname="description" required
+                                                                    mandatory="true" [btnClicked]="btnClicked"
+                                                                    [errorTrue]="errorTrue">
+                                                                </app-select-control>
+                                                            </div>
+                                                            <div class="col-xl-6">
+                                                                <app-select-control label="Country"
+                                                                    [(ngModel)]="employer.newEmployer.pEmployerRegistraionAddress.countryValue"
+                                                                    name="countryValue"
+                                                                    [items]="employer.initialData.ERCountry"
+                                                                    key="constant" keyname="description" required
+                                                                    mandatory="true" [btnClicked]="btnClicked"
+                                                                    [errorTrue]="errorTrue">
+                                                                </app-select-control>
+                                                            </div>
+                                                            <div class="col-xl-6">
+                                                                <ng-container
+                                                                    *ngIf="employer.newEmployer.pEmployerRegistraionAddress.countryValue!=='FJI'">
+                                                                    <app-input-control label="Town"
+                                                                        [(ngModel)]="employer.newEmployer.pEmployerRegistraionAddress.townCity"
+                                                                        name="townCity" required mandatory="true"
+                                                                        [btnClicked]="btnClicked"
+                                                                        [errorTrue]="errorTrue">
+                                                                    </app-input-control>
+                                                                </ng-container>
+                                                                <ng-container
+                                                                    *ngIf="employer.newEmployer.pEmployerRegistraionAddress.countryValue==='FJI'">
+                                                                    <app-select-control label="Town"
+                                                                        [(ngModel)]="employer.newEmployer.pEmployerRegistraionAddress.townValue"
+                                                                        name="townValue"
+                                                                        [items]="employer.initialData.ERTowns"
+                                                                        key="constant" keyname="description" required
+                                                                        mandatory="true" [btnClicked]="btnClicked"
+                                                                        [errorTrue]="errorTrue">
+                                                                    </app-select-control>
+                                                                </ng-container>
+                                                            </div>
+                                                            <div class="col-xl-6">
+                                                                <app-input-control label="Address Detail"
+                                                                    [(ngModel)]="employer.newEmployer.pEmployerRegistraionAddress.line1"
+                                                                    name="line1" required mandatory="true"
+                                                                    [btnClicked]="btnClicked" [errorTrue]="errorTrue">
+                                                                </app-input-control>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="dialogue-footer z-2">
+            <ng-container *ngIf="employer.addresstype === 'new'">
+                <button mat-raised-button color="accent" class="ml-3" type="submit">
+                    Save
+                </button>
+                <a mat-button>
+                    <div class="d-flex align-items-center" (click)="doClear()" type="submit">
+                        <ion-icon name="close-circle-outline"></ion-icon>
+                        <div class="pl-1">Clear</div>
+                    </div>
+                </a>
+            </ng-container>
+            <ng-container *ngIf="employer.addresstype === 'edit'">
+                <button mat-raised-button color="accent" class="ml-3" type="submit">
+                    Update
+                </button>
+
+                <a mat-button>
+                    <div class="d-flex align-items-center" (click)="openAddress()" type="submit">
+                        <ion-icon name="refresh-outline"></ion-icon>
+                        <div class="pl-1">Refresh</div>
+                    </div>
+                </a>
+            </ng-container>
+        </div>
+    </form>
+</div>

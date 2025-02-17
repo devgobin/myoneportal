@@ -1,0 +1,32 @@
+@import '../../../../../scss/responsive-mixin.scss';
+
+.pl-0 {
+  padding-left: 15px !important;
+
+  @include desktop {
+    padding-left: 0px !important;
+  }
+}
+
+.w60 {
+  width: 60%;
+}
+
+.label-center {
+  margin: 0px;
+  display: flex;
+  align-items: center;
+  height: 48px;
+  padding-top: 18px;
+  // line-height: 30px;
+}
+
+.mh {
+  // width: 100%;
+  min-height: 175px;
+  max-height: 28vh;
+  height: auto;
+  margin: auto;
+  overflow: auto;
+  overflow-x: hidden;
+}

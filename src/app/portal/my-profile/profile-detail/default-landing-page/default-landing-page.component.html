@@ -1,0 +1,31 @@
+<div class="adjust-margin">
+    <!-- appAccess="DLPPD" [parentId]="pageId" -->
+    <form class="h100" #dlp="ngForm" autocomplete="off">
+        <div class="dialogue-header z-2">
+            <div>
+                Change Default Landing Page
+            </div>
+            <div class="ml-auto d-flex align-items-center">
+                <button mat-icon-button mat-dialog-close>
+                    <ion-icon name="close-outline"></ion-icon>
+                </button>
+            </div>
+        </div>
+        <div class="ab pt50 pb50">
+            <div class="rel">
+                <div class="h100 p-3">
+                    <app-select-control label="Default Landing Page" [(ngModel)]="service.detail.defaultLandingPage" tabindex="1" name="defaultLandingPage"
+                        [items]="service.detail.lstprotoDefaultLandingPage" key="path" keyname="moduleName" [btnClicked]="btnClicked" required mandatory="true" [errorTrue]="errorTrue">
+                    </app-select-control>
+                </div>
+            </div>
+        </div>
+        <div class="dialogue-footer z-2">
+            <button mat-raised-button color="accent" class="ml-3" (click)="onSubmit(dlp)">
+                <!-- [parentId]="pageId"
+                appAccess="BTNResetChangeLandingPage" -->
+                Reset
+            </button>
+        </div>
+    </form>
+</div>

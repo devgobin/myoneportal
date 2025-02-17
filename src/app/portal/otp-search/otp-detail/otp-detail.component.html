@@ -1,0 +1,70 @@
+<div class="content-body">
+    <div class="content-body">
+        <div class="rel">
+            <div class="vertical-flex h100">
+                <div>
+                    <div class="cus-card mt-0 mx-0">
+                        <div class="container-fluid p-0">
+                            <div class="row">
+                                <div class="col-xl-6 pb-3 heading">
+                                    Order to Third Party Details
+                                </div>
+                            </div>
+                            <div class="row pb-3">
+                                <div class="col-md-3">
+                                    <div>
+                                        <label>OTP ID : {{service.otp.tpoHeaderId}}</label>
+                                        <div class="fw500">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-9">
+                                    <label>Disclaimer : <b>{{service.otp.strdisclaimer}}</b>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-1 h100">
+                    <div class="table-responsive h100">
+                        <div class="ab">
+                            <div class="rel">
+                                <table class="table-hover mat-table">
+                                    <thead>
+                                        <tr class="mat-header-row">
+                                            <th class="mat-header-cell text-center">Principal Org Ref Name</th>
+                                            <th class="mat-header-cell text-center">Payments Received</th>
+                                        </tr>
+                                    <tbody>
+                                        <ng-container
+                                            *ngIf="service.otp.ilstentrincipalEmployerDetails != null && service.otp.ilstentrincipalEmployerDetails.length>0">
+                                            <tr class="mat-row"
+                                                *ngFor="let otpData of service.otp.ilstentrincipalEmployerDetails">
+                                                <td class="mat-cell text-center">
+                                                    {{otpData.iProtoentOrderToThirdPartyPrincipalEmployer.principalEmployerOrgName}}
+                                                </td>
+                                                <td class="mat-cell text-center">{{otpData.idecReceivedAmount |
+                                                    appCurrency }}
+                                                </td>
+                                            </tr>
+                                        </ng-container>
+                                    </tbody>
+                                </table>
+                                <div class="table-footer">
+                                    <mat-paginator [showFirstLastButtons]="!data.isMobile"
+                                        [hideTotalCount]="data.isMobile" showFirstLastButtons="true"
+                                        [pageSizeOptions]="[10, 25, 50, 100]">
+                                    </mat-paginator>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

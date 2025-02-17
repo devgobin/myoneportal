@@ -1,0 +1,119 @@
+.bordered-card {
+    position: relative;
+  
+    .image-box {
+      border-radius: 5px;
+      border: 1px solid rgba(0, 0, 0, 0.12);
+      overflow: hidden;
+      padding-top: 58.66%;
+      position: relative;
+  
+      img {
+        width: auto;
+        height: auto;
+        max-width: 100%;
+        max-height: 100%;
+      }
+  
+      .img-box {
+        position: relative;
+        height: 100%;
+        background-color: white;
+      }
+  
+      .image-hover {
+        // display: none;
+        background-color: rgba(0, 0, 0, 0.36);
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 2;
+        transition: all 300ms linear;
+        opacity: 0;
+  
+        .del-btn {
+          width: 40px;
+          height: 40px;
+          background-color: white;
+          position: absolute;
+          top: 0;
+          right: 0;
+          border-radius: 4px;
+          color: var(--danger);
+  
+          ion-icon {
+            font-size: 1rem;
+          }
+        }
+  
+        .view-btn {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          border: 1px solid white;
+          border-radius: 4px;
+          color: white;
+          background-color: rgba(0, 0, 0, 0.48);
+        }
+      }
+  
+      &:hover {
+        .image-hover {
+          z-index: 2;
+          opacity: 1;
+          // display: block;
+        }
+      }
+    }
+  }
+  .wcheck {
+    width: 800px;
+    height: 520px;
+  }
+  .active {
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    img {
+      max-width: 800px;
+      min-width: auto;
+      max-height: 520px;
+      min-height: auto;
+    }
+  }
+  .dis-none {
+    display: none;
+  }
+  .bgc {
+    background-color: #00000061;
+  }
+  .eventNoneOP {
+    pointer-events: none !important;
+    opacity: 0.2;
+  }
+  .w200p {
+    width: 200px !important;
+    ion-icon {
+      font-size: 40px;
+      color: #ffffff;
+    }
+  }
+  .w100 {
+    width: 100%;
+  }
+  .close {
+    font-size: 40px;
+    color: #ffffff;
+    z-index: 100;
+  }
+  .p-fix {
+    position: absolute;
+    right: 2rem;
+    top: 1rem;
+  }
+  

@@ -1,0 +1,100 @@
+<ng-container *ngIf="valuetype === 'string'">
+    <div class="form-group">
+        <!-- <ng-container *ngIf="label !== ''"> -->
+        <div class="d-flex align-item-center lh18">
+            <label *ngIf="label !== ''" class="lh18">{{label}} <span class="text-danger"
+                    *ngIf="mandatory">*</span></label>
+            <div class="ml-auto text-danger lh18" *ngIf="value === '' && mandatory && errorTrueNow">
+                <small>mandatory</small>
+            </div>
+        </div>
+    <!-- </ng-container> -->
+     <div class="input-group"> 
+        <mat-select class="form-control pr-1" [(ngModel)]="value"
+            [ngClass]="{'border-danger': value === '' && errorTrueNow}" [disabled]="btnClickedNow" [name]="name"
+            (selectionChange)="doChange($event)">
+            <mat-option *ngIf="search">
+                <ngx-mat-select-search [noEntriesFoundLabel]="'No Data Found'" [placeholderLabel]="placeholderLabel"
+                    [(ngModel)]="searchItem" name="searchitem" type="input">
+                    <ion-icon class="select-icon" ngxMatSelectSearchClear name="close-outline"></ion-icon>
+                    <!-- <mat-icon  class="i-btn">close</mat-icon> -->
+                </ngx-mat-select-search>
+            </mat-option>
+            <mat-option *ngFor="let item of items | selectSearch: searchItem: keyname: sort"  [value]="item[key]">
+                {{item[keyname]}}
+            </mat-option>
+        </mat-select>
+        <div class="input-group-append in-1">
+            <a mat-button class="i-btn" (click)="value = ''" tabIndex="-1" matTooltip="Clear" matTooltipPosition="right"
+                [ngClass]="{'pe-none': btnClickedNow }">
+                <ion-icon name="close-outline"></ion-icon>
+            </a>
+        </div>
+       </div>
+    </div>
+</ng-container>
+
+<ng-container *ngIf="valuetype === 'int'">
+    <div class="form-group">
+        <ng-container *ngIf="label !== ''">
+        <div class="d-flex align-item-center">
+            <label *ngIf="label !== ''" class="lh18">{{label}} <span class="text-danger"
+                    *ngIf="mandatory">*</span></label>
+            <div class="ml-auto text-danger lh18" *ngIf="value === 0 && mandatory && errorTrueNow">
+                <small>mandatory</small>
+            </div>
+        </div>
+    </ng-container>
+     <div class="input-group"> 
+        <mat-select class="form-control pr-1" [(ngModel)]="value"
+            [ngClass]="{'border-danger': (value === 0) && errorTrueNow}" [disabled]="btnClickedNow" [name]="name">
+            <mat-option *ngIf="search">
+                <ngx-mat-select-search [noEntriesFoundLabel]="'No Data Found'" [placeholderLabel]="placeholderLabel"
+                    [(ngModel)]="searchItem" name="searchitem" type="input">
+                    <ion-icon class="select-icon" ngxMatSelectSearchClear name="close-outline"></ion-icon>
+                    <!-- <mat-icon  class="i-btn">close</mat-icon> -->
+                </ngx-mat-select-search>
+            </mat-option>
+            <mat-option *ngFor="let item of items" [value]="item[key]">
+                {{item[keyname]}}
+            </mat-option>
+        </mat-select>
+        <div class="input-group-append in-1">
+            <a mat-button class="i-btn" (click)="value =0" tabIndex="-1" matTooltip="Clear" matTooltipPosition="right"
+                [ngClass]="{'pe-none': btnClickedNow }">
+                <ion-icon name="close-outline"></ion-icon>
+            </a>
+        </div>
+      </div>
+    </div>
+</ng-container>
+
+<!-- <div class="form-group">
+    <div class="d-flex align-items-center">
+        <label *ngIf="label !== ''">{{label}} <span class="text-danger" *ngIf="mandatory">*</span></label>
+        <div class="ml-auto text-danger lh18" *ngIf="value === '' && mandatory && errorTrueNow">
+            <small>mandatory</small>
+        </div>
+    </div>
+    <div class="input-group">
+        <mat-select class="form-control" (selectionChange)="doChange()" [(ngModel)]="value"
+            [ngClass]="{'border-warn': value === '' && errorTrueNow}" [disabled]="btnClickedNow">
+            <mat-option *ngIf="search">
+                <ngx-mat-select-search [noEntriesFoundLabel]="'No Data Found'" [placeholderLabel]="placeholderLabel"
+                    [disabled]="btnClickedNow" [(ngModel)]="searchItem" name="searchItem" type="input">
+                    <ion-icon class="select-icon" ngxMatSelectSearchClear name="close-outline"></ion-icon>
+                   
+                </ngx-mat-select-search>
+            </mat-option>
+            <mat-option *ngFor="let item of items | selectSearch: searchItem: keyname" [value]="item[key]">
+                {{item[keyname]}}
+            </mat-option>
+        </mat-select>
+        <div class="input-group-append in-1">
+            <a mat-button class="i-btn" (click)="value = ''" tabIndex="-1" matTooltip="Clear" matTooltipPosition="right"
+                [ngClass]="{'pe-none': btnClickedNow }">
+                <ion-icon name="close-outline"></ion-icon>
+            </a>
+        </div>
+    </div>
+</div> -->

@@ -1,0 +1,13 @@
+<ng-container *ngIf="!hideIcon">
+    <div class="bot-icon" (click)="openBot()" matRipple cdkDrag (cdkDragStarted)="dragStarted()"
+        (cdkDragEnded)="dragEnded()" cdkDragBoundary=".bot-drag">
+        <img src="assets/bot-icon.svg" alt="">
+    </div>
+</ng-container>
+
+<div class="bot-window" [ngClass]="{'open':isOpened}">
+    <button mat-icon-button class="close-btn" (click)="openBot()">
+        <ion-icon name="close-outline"></ion-icon>
+    </button>
+    <iframe [src]="url | safe: 'resourceUrl'"></iframe>
+</div>

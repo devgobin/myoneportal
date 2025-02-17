@@ -1,0 +1,188 @@
+<div [parentId]="pageId" appAccess="CSFUL">
+    <div class="content-body">
+        <div class="rel">
+            <div class="container-fluid z-2">
+                <div class="row">
+                    <div class="col-xl-12 pl-0 pr-0 pb-2">
+                        <div class="cus-card h100 m-0 py-3 pl-3">
+                            <div class="heading pb-1" [parentId]="pageId" appAccess="DIVContributionScheduleFileUpload">
+                                UPLOAD NEW CONTRIBUTION FILE</div>
+                            <div class="d-flex align-items-center">
+                                <ng-container *ngIf="!showUploadBtn">
+                                    <button mat-raised-button color="primary" (click)="triggerClick()"
+                                        [parentId]="pageId" appAccess="BTNSelectTheFileContributionScheduleFileUpload">
+                                        <ion-icon name="document-outline" class="pb-3px"></ion-icon>
+                                        SELECT THE FILE
+                                    </button>
+                                </ng-container>
+                                <label class="file-upload" #nativeFileUpload>
+                                    <input type="file" #fileInput (change)="loadImageFromDevice($event)" id="file-input"
+                                        class="hidden">
+                                </label>
+                                <ng-container *ngIf="showUploadBtn">
+                                    <label class="ml-2"><b>{{csService.newCsFile.pdocumentFile.fileName}}</b></label>
+                                    <button mat-icon-button (click)="removeFileUpload()" matTooltip="Remove File"
+                                        matTooltipPosition="right" [parentId]="pageId"
+                                        appAccess="BTNRemoveFileContributionScheduleFileUpload" class="f-btn">
+                                        <ion-icon name="close-circle-outline" class="pb-3px"></ion-icon>
+                                    </button>
+                                    <button mat-raised-button color="accent" class="ml-3"
+                                        (click)="csService.uploadcsFile()" [parentId]="pageId"
+                                        appAccess="BTNUploadFileContributionScheduleFileUpload">
+                                        <ion-icon name="arrow-up-circle" class="pb-3px"></ion-icon>
+                                        Upload
+                                    </button>
+                                </ng-container>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex z-2">
+                <div class="mr-auto d-flex align-items-center">
+                    <h6 class="mb-0">Contribution Header</h6>
+                </div>
+                <div class="ml-auto d-flex align-items-center">
+                    <div class="search-box-d">
+                        <!-- <app-portal-search cdkOverlayOrigin #trigger="cdkOverlayOrigin" (click)="isOpen = !isOpen">
+                    </app-portal-search> -->
+                        <button mat-raised-button color="accent" cdkOverlayOrigin #trigger="cdkOverlayOrigin"
+                            (click)="isOpen = !isOpen" [parentId]="pageId"
+                            appAccess="BTNFilterContributionScheduleFileUpload">
+                            <ion-icon name="funnel-outline"></ion-icon>
+                            Filter
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="ab pt127">
+                <div class="rel">
+                    <div class="table-responsive h100" *ngIf="!loadingTrue && dataSource.data.length > 0">
+                        <div class="ab pb40">
+                            <div class="rel">
+                                <table mat-table [dataSource]="dataSource" class="table-hover" matSort
+                                    (matSortChange)="sortData($event)">
+                                    <ng-container matColumnDef="csFileId">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> File ID </th>
+                                        <td mat-cell *matCellDef="let element"> {{element.documentFileId}} </td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="pdocumentFile">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> File Name </th>
+                                        <td mat-cell *matCellDef="let element"> {{element.pdocumentFile.fileName}} </td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="uploadedDatetime">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Uploaded Date </th>
+                                        <td mat-cell *matCellDef="let element"> {{element.uploadedDatetime | moment :
+                                            'DD/MM/YYYY hh:mm a' : 'DD MMM YYYY'}} </td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="statusDescription">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> File Status </th>
+                                        <td mat-cell *matCellDef="let element"> {{element.statusDescription}} </td>
+                                    </ng-container>
+                                    <!-- <ng-container matColumnDef="csheaderstatus">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Contribution Header
+                                            Status</th>
+                                        <td mat-cell *matCellDef="let element">
+                                            <ng-container *ngIf="element.csHeaderStatusDescription !== ''">
+                                                <a (click)="editContribution(element)">
+                                                    {{element.csHeaderStatusDescription}}
+                                                </a>
+                                            </ng-container>
+                                        </td>
+                                    </ng-container> -->
+                                    <ng-container matColumnDef="action">
+                                        <th mat-header-cell *matHeaderCellDef class="text-center" [parentId]="pageId"
+                                            appAccess="BTNEditContributionScheduleFileUpload"> Action </th>
+                                        <td mat-cell *matCellDef="let element" class="text-center py-0"
+                                            [parentId]="pageId" appAccess="BTNEditContributionScheduleFileUpload">
+                                            <div>
+                                                <button mat-icon-button class="icon-only-btn" matTooltip="Edit"
+                                                    (click)="openDetails(element)">
+                                                    <ion-icon name="pencil-outline"></ion-icon>
+                                                </button>
+
+                                                <button mat-icon-button class="icon-only-btn ml-1" color="danger"
+                                                    matTooltip="Delete" (click)="doDelete(element)">
+                                                    <ion-icon name="trash-outline"></ion-icon>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </ng-container>
+                                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+                                        [ngClass]="{'active': activeIndex == row}" (click)="active(row)"></tr>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="table-footer">
+                            <mat-paginator [showFirstLastButtons]="!data.isMobile" [hideTotalCount]="data.isMobile"
+                                showFirstLastButtons="true" [pageSizeOptions]="[10, 25, 50, 100]">
+                            </mat-paginator>
+                            <!-- <mat-paginator [showFirstLastButtons]="!data.isMobile" [hideTotalCount]="data.isMobile" [pageIndex]="pageIndex" [length]="searchParams.totalCount"
+                                [pageSize]="searchParams.pageSize" showFirstLastButtons="true"
+                                [pageSizeOptions]="[10, 25, 50, 100]" (page)="pageChanged($event)"></mat-paginator> -->
+                        </div>
+                    </div>
+                    <ng-container *ngIf="!loadingTrue && dataSource.data.length === 0 && showEmpty">
+                        <app-empty-state></app-empty-state>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- <div class="drop-background">
+
+</div> -->
+    <ng-template cdkConnectedOverlay [cdkConnectedOverlayOrigin]="trigger" [cdkConnectedOverlayOpen]="isOpen"
+        cdkConnectedOverlayHasBackdrop="true" [cdkConnectedOverlayLockPosition]="trigger"
+        (backdropClick)="isOpen = !isOpen" cdkConnectedOverlayBackdropClass="search-backdrop">
+        <form>
+            <div class="search-panel">
+                <div class="ab">
+                    <div class="rel">
+                        <div class="container-fluid pt-3">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <app-date-control label="From Uploaded Date"
+                                        [(ngModel)]="searchParams.uploadedDatetimeFrom" tabindex="1"
+                                        name="uploadedDatetimeFrom" [maxDate]="searchParams.uploadedDatetimeTo">
+                                    </app-date-control>
+                                </div>
+                                <div class="col-md-6">
+                                    <app-date-control label="To Uploaded Date"
+                                        [(ngModel)]="searchParams.uploadedDatetimeTo" tabindex="2"
+                                        name="uploadedDatetimeTo" [minDate]="searchParams.uploadedDatetimeFrom">
+                                    </app-date-control>
+                                </div>
+                                <div class="col-md-6">
+                                    <app-select-control label="CS Code" [(ngModel)]="searchParams.csCode" tabindex="3"
+                                        [items]="csService.DDL.DDLCSCodeValue" key="constant" keyname="description"
+                                        name="csCode">
+                                    </app-select-control>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="search-footer">
+                    <div class="ml-auto d-flex align-items-center">
+                        <button mat-raised-button class="ml-3" color="accent" (click)="doSearch()" [parentId]="pageId"
+                            appAccess="BTNApplyContributionScheduleFileUpload">
+                            <div class="d-flex align-items-center">
+                                <ion-icon name="checkmark-circle-outline"></ion-icon>
+                                <div class="pl-2">Apply</div>
+                            </div>
+                        </button>
+                        <button mat-button (click)="doClear()" [parentId]="pageId"
+                            appAccess="BTNClearContributionScheduleFileUpload">
+                            <div class="d-flex align-items-center">
+                                <ion-icon name="close-circle-outline"></ion-icon>
+                                <div class="pl-1">Clear</div>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </ng-template>
+</div>

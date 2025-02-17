@@ -1,0 +1,49 @@
+.error-title,
+.warning-title,
+.information-title {
+  font-weight: 400;
+  font-size: 14px;
+  margin-bottom: 0;
+  // line-height: 45px;
+  // height: 45px;
+  padding-left: 2rem;
+  padding-right: 1rem;
+  opacity: 0.8;
+  position: relative;
+  // cursor: pointer;
+  color: #555555;
+  z-index: 2;
+
+  &:before {
+    content: "";
+    display: block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: var(--danger);
+    position: absolute;
+    left: 1rem;
+    top: 55%;
+    transform: translateY(-70%);
+  }
+}
+
+.warning-title {
+  &:before {
+    background-color: var(--warning);
+  }
+}
+
+.information-title {
+  &:before {
+    background-color: var(--info);
+  }
+}
+.label-center{
+  margin: 0px;
+  display:flex;
+  align-items: center;
+  height: 48px;
+  padding-top: 18px;
+  // line-height: 30px;
+}

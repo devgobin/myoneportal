@@ -1,0 +1,135 @@
+<div class="content-body" [parentId]="pageId" appAccess="DBPSH">
+    <div class="rel">
+        <div class="d-flex z-2">
+            <div class="mr-auto d-flex align-items-center">
+                <h6 class="mb-0">Debt Payment Search</h6>
+            </div>
+            <div class="ml-auto d-flex align-items-center">
+                <!-- <div class="search-box-d">
+                    <button mat-raised-button color="accent" cdkOverlayOrigin #trigger="cdkOverlayOrigin"
+                        (click)="isOpen = !isOpen" [parentId]="pageId" appAccess="BTNFilterDebtPayment">
+                        <ion-icon name="funnel-outline"></ion-icon>
+                        Filter
+                    </button>
+                </div> -->
+                <app-filter-button [searchPanelTemplate]="searchPanelTemplate" [parentId]="pageId"
+                    appAccess="BTNFilterDebtPayment">
+                </app-filter-button>
+                <button mat-raised-button color="accent" class="ml-3" (click)="newapplication()" [parentId]="pageId"
+                    appAccess="BTNNewPaymentDebtPayment">
+                    New
+                </button>
+            </div>
+        </div>
+        <div class="ab pt35">
+            <div class="rel">
+                <div class="table-responsive h100">
+                    <div class="ab pb40">
+                        <div class="rel">
+                            <table mat-table [dataSource]="dataSource" class="table-hover" matSort
+                                (matSortChange)="sortData($event)">
+                                <ng-container matColumnDef="invoicePaymentId">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Invoice Payment ID </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.invoicePaymentId}}
+                                    </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="totalInvoiceCount">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-center">Total
+                                        Invoice Count</th>
+                                    <td mat-cell *matCellDef="let element" class="text-center">
+                                        {{element.totalInvoiceCount}}</td>
+                                </ng-container>
+                                <ng-container matColumnDef="totalInvoicePaymentAmount">
+                                    <th mat-header-cell *matHeaderCellDef class="text-center" mat-sort-header>
+                                        Payment
+                                        Amount
+                                    </th>
+                                    <td mat-cell *matCellDef="let element" class="text-center">
+                                        {{element.totalInvoicePaymentAmount | appCurrency}} </td>
+                                </ng-container>
+                                <ng-container matColumnDef="statusDescription">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                        Status
+                                    </th>
+                                    <td mat-cell *matCellDef="let element">
+                                        {{element.statusDescription}}
+                                    </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="action">
+                                    <th mat-header-cell *matHeaderCellDef class="text-center"> Action </th>
+                                    <td mat-cell *matCellDef="let element" class="text-center py-0  text-nowrap"
+                                        [parentId]="pageId" appAccess="BTNEditDebtPayment">
+                                        <button mat-icon-button class="icon-only-btn" matTooltip="Edit"
+                                            (click)="editapplication(element)">
+                                            <ion-icon name="pencil-outline"></ion-icon>
+                                        </button>
+                                    </td>
+                                </ng-container>
+
+                                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                                <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+                                    [ngClass]="{'active': activeIndex == row}" (click)="active(row)"></tr>
+                            </table>
+                            <ng-container *ngIf="dataSource.data.length === 0">
+                                <app-empty-state></app-empty-state>
+                            </ng-container>
+                        </div>
+                    </div>
+                    <div class="table-footer">
+                        <mat-paginator [showFirstLastButtons]="!data.isMobile" [hideTotalCount]="data.isMobile"
+                            [pageIndex]="pageIndex" [length]="searchParams.totalCount"
+                            [pageSize]="searchParams.pageSize" showFirstLastButtons="true"
+                            [pageSizeOptions]="[10, 25, 50, 100]" (page)="pageChanged($event)">
+                        </mat-paginator>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #searchPanelTemplate>
+    <form>
+        <div class="search-panel m-search">
+            <div class="ab">
+                <div class="rel">
+                    <div class="container-fluid pt-3">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <app-number-control label="Invoice Payment ID"
+                                    [(ngModel)]="searchParams.invoicePaymentId" tabindex="1" name="invoicePaymentId">
+                                </app-number-control>
+                            </div>
+                            <div class="col-md-6">
+                                <app-select-control label="Status" [(ngModel)]="searchParams.statusValue" tabindex="2"
+                                    name="statusValue" [items]="service.initialData.DDLInvoicePaymentStatus"
+                                    key="constant" keyname="description">
+                                </app-select-control>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="search-footer">
+                <div class="ml-auto d-flex align-items-center">
+                    <button mat-raised-button class="ml-3" color="accent" type="submit" (click)="doSearch()"
+                        [parentId]="pageId" appAccess="BTNApplyDebtPayment">
+                        <div class="d-flex align-items-center">
+                            <ion-icon name="checkmark-circle-outline"></ion-icon>
+                            <div class="pl-2">Apply</div>
+                        </div>
+                    </button>
+                    <button mat-button (click)="doClear()" [parentId]="pageId" appAccess="BTNClearDebtPayment">
+                        <div class="d-flex align-items-center">
+                            <ion-icon name="close-circle-outline"></ion-icon>
+                            <div class="pl-1">Clear</div>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+</ng-template>

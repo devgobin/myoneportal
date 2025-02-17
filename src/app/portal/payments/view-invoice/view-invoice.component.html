@@ -1,0 +1,277 @@
+<div appAccess="VIINV" [parentId]="pageId">
+    <div class="content-body">
+        <div class="rel">
+            <div class="d-flex z-2">
+                <div class="mr-auto d-flex align-items-center">
+                    <h6 class="mb-0">View Invoices</h6>
+                </div>
+                <div class="ml-auto d-flex align-items-center">
+                    <!-- <div class="search-box-d">
+                        <button mat-raised-button color="accent" cdkOverlayOrigin #trigger="cdkOverlayOrigin"
+                            (click)="isOpen = !isOpen" appAccess="BTNFilterViewInvoices" [parentId]="pageId">
+                            <ion-icon name="funnel-outline"></ion-icon>
+                            Filter
+                        </button>
+                    </div> -->
+                    <app-filter-button [searchPanelTemplate]="searchPanelTemplate" [parentId]="pageId"
+                        appAccess="BTNFilterViewInvoices">
+                    </app-filter-button>
+                </div>
+            </div>
+            <div class="ab pt35">
+                <div class="rel">
+                    <div class="table-responsive h100" *ngIf="!loadingTrue && dataSource.data.length > 0">
+                        <div class="ab pb40">
+                            <div class="rel">
+                                <table mat-table [dataSource]="dataSource" class="table-hover" matSort>
+                                    <ng-container matColumnDef="invoiceId">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Invoice No </th>
+                                        <td mat-cell *matCellDef="let element"> {{element.invoiceId}} </td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="invoiceTypeDescription">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Invoice Type </th>
+                                        <td mat-cell *matCellDef="let element"> {{element.invoiceTypeDescription}} </td>
+                                    </ng-container>
+
+                                    <ng-container matColumnDef="csMonthDescription">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> CS Month </th>
+                                        <td mat-cell *matCellDef="let element"> {{element.csMonthDescription}}
+                                        </td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="csYear">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> CS Year </th>
+                                        <td mat-cell *matCellDef="let element">
+                                            {{element.csYear}} </td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="invoiceDate">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Invoice Date </th>
+                                        <td mat-cell *matCellDef="let element"> {{element.invoiceDate | moment :
+                                            'DD-MM-YYYY' : 'DD MMM YYYY'}} </td>
+                                    </ng-container>
+
+                                    <ng-container matColumnDef="totalAmount">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-right"> Total
+                                            Amount </th>
+                                        <td mat-cell *matCellDef="let element" class="text-right"> {{element.totalAmount
+                                            | appCurrency}} </td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="statusDescription">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-center">
+                                            Status </th>
+                                        <td mat-cell *matCellDef="let element" class="text-center">
+                                            {{element.statusDescription}} </td>
+                                    </ng-container>
+                                    <!-- appAccess="BTNActionViewInvoices" -->
+                                    <ng-container matColumnDef="action">
+                                        <th mat-header-cell *matHeaderCellDef class="text-center w270"> Action </th>
+                                        <td mat-cell *matCellDef="let element" class="text-center py-0">
+                                            <!-- <button mat-button class="text-only-btn text-capitalize"
+                                                (click)="viewinvoice(element.invoiceId)">
+                                                View Invoice
+                                            </button> -->
+                                            <button mat-button class="text-only-btn text-capitalize"
+                                                (click)="openInvoice(element)">
+                                                View Invoice
+                                            </button>
+                                        </td>
+                                    </ng-container>
+
+                                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+                                        [ngClass]="{'active': activeIndex == row}" (click)="active(row)"></tr>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="table-footer">
+                            <mat-paginator [showFirstLastButtons]="!data.isMobile" [hideTotalCount]="data.isMobile"
+                                showFirstLastButtons="true" [pageSizeOptions]="[10, 25, 50, 100]">
+                            </mat-paginator>
+                        </div>
+                    </div>
+                    <ng-container *ngIf="!loadingTrue && dataSource.data.length === 0 && showEmpty">
+                        <app-empty-state></app-empty-state>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- <ng-template cdkConnectedOverlay [cdkConnectedOverlayOrigin]="trigger" [cdkConnectedOverlayOpen]="isOpen"
+        cdkConnectedOverlayHasBackdrop="true" [cdkConnectedOverlayLockPosition]="trigger"
+        (backdropClick)="isOpen = !isOpen" cdkConnectedOverlayBackdropClass="search-backdrop">
+        <form>
+            <div class="search-panel m-search">
+                <div class="ab">
+                    <div class="rel">
+                        <div class="container-fluid pt-3">
+                            <div class="row">
+                                
+                                <div class="col-md-6">
+                                    <app-select-control label="CS Month" [(ngModel)]="searchParams.csMonth" tabindex="1"
+                                        name="csMonth" [items]="DDL.DDLMonthValue" key="constant" keyname="description"
+                                        [btnClicked]="btnClicked" mandatory="true" required [errorTrue]="errorTrue">
+                                    </app-select-control>
+                                </div>
+                                <div class="col-md-6">
+                                    <app-number-control label="CS Year:" [(ngModel)]="searchParams.csYear" tabindex="2"
+                                        name="csYear">
+                                    </app-number-control>
+                                </div>
+                                <div class="col-md-6">
+                                    <app-date-control label="From Date:" [(ngModel)]="searchParams.fromDate"
+                                        tabindex="3" name="fromDate" [maxDate]="searchParams.toDate">
+                                    </app-date-control>
+                                </div>
+                                <div class="col-md-6">
+                                    <app-date-control label="To Date:" [(ngModel)]="searchParams.toDate" tabindex="4"
+                                        name="toDate" [minDate]="searchParams.fromDate">
+                                    </app-date-control>
+                                </div>
+                                <div class="col-md-6">
+                                    <app-select-control label="Status:" [(ngModel)]="searchParams.statusValue"
+                                        tabindex="5" name="statusValue" [items]="DDL.DDLStatusValue" key="constant"
+                                        keyname="description">
+                                    </app-select-control>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="search-footer">
+                    <div class="ml-auto d-flex align-items-center">
+                        <button mat-raised-button class="ml-3" color="accent" type="submit"
+                            appAccess="BTNApplyPaymentMade" [parentId]="pageId" (click)="doSearch()">
+                            <div class="d-flex align-items-center">
+                                <ion-icon name="checkmark-circle-outline"></ion-icon>
+                                <div class="pl-2">Apply</div>
+                            </div>
+                        </button>
+                        <a mat-button [parentId]="pageId" appAccess="BTNClearPaymentMade" (click)="doClear()">
+                            <div class="d-flex align-items-center">
+                                <ion-icon name="close-circle-outline"></ion-icon>
+                                <div class="pl-1">Clear</div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </ng-template> -->
+</div>
+
+<ng-template #invoiceDialog>
+    <div class="adjust-margin h100">
+        <div class="dialogue-header z-2">
+            <div>
+                Deposit Slip Integration
+            </div>
+            <div class="ml-auto d-flex align-items-center">
+                <button mat-icon-button (click)="onNoClick()">
+                    <ion-icon name="close-outline"></ion-icon>
+                </button>
+            </div>
+        </div>
+        <div mat-dialog-content class="flex-1 h100 m-0 px-0">
+            <div class="container-fluid p-3">
+                <div class="row pt-2">
+                    <button mat-raised-button color="accent" class="ml-3" (click)="viewInvoice()">
+                        Generate Invoice
+                    </button>
+                </div>
+                <hr>
+                <div class="flex-1 h100">
+                    <div class="table-responsive h100">
+                        <table class="table-hover mat-table">
+                            <thead>
+                                <tr class="mat-header-row">
+                                    <th class="mat-header-cell">Generate Invoice + Deposit Slip. Select Bank:
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody class="h100">
+                                <tr class="mat-row" *ngFor="let bank of DDL.DDLDepositSlipBankValue">
+                                    <th class="mat-header-cell">
+                                        <button mat-button class="text-only-btn text-capitalize"
+                                            (click)="getinvoicewithdepositslip(bank.constant)">
+                                            {{bank.description}}
+                                        </button>
+                                    </th>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #searchPanelTemplate>
+    <form>
+        <div class="search-panel m-search">
+            <div class="ab">
+                <div class="rel">
+                    <div class="container-fluid pt-3">
+                        <!-- <div class="row">
+                            <div class="col-md-6">
+                                <app-input-control label="CS Code:" [(ngModel)]="searchParams.csCode"
+                                tabindex="1" name="csCode">
+                                </app-input-control>
+                            </div>
+                        </div> -->
+                        <div class="row">
+                            <!-- <div class="col-md-6">
+                                <app-input-control label="CS Month:" [(ngModel)]="searchParams.csMonth"
+                                tabindex="1" name="csMonth">
+                                </app-input-control>
+                            </div> -->
+                            <div class="col-md-6">
+                                <app-select-control label="CS Month" [(ngModel)]="searchParams.csMonth" tabindex="1"
+                                    name="csMonth" [items]="DDL.DDLMonthValue" key="constant" keyname="description"
+                                    [btnClicked]="btnClicked" mandatory="true" required [errorTrue]="errorTrue">
+                                </app-select-control>
+                            </div>
+                            <div class="col-md-6">
+                                <app-number-control label="CS Year:" [(ngModel)]="searchParams.csYear" tabindex="2"
+                                    name="csYear">
+                                </app-number-control>
+                            </div>
+                            <div class="col-md-6">
+                                <app-date-control label="From Date:" [(ngModel)]="searchParams.fromDate" tabindex="3"
+                                    name="fromDate" [maxDate]="searchParams.toDate">
+                                </app-date-control>
+                            </div>
+                            <div class="col-md-6">
+                                <app-date-control label="To Date:" [(ngModel)]="searchParams.toDate" tabindex="4"
+                                    name="toDate" [minDate]="searchParams.fromDate">
+                                </app-date-control>
+                            </div>
+                            <div class="col-md-6">
+                                <app-select-control label="Status:" [(ngModel)]="searchParams.statusValue" tabindex="5"
+                                    name="statusValue" [items]="DDL.DDLStatusValue" key="constant"
+                                    keyname="description">
+                                </app-select-control>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="search-footer">
+                <div class="ml-auto d-flex align-items-center">
+                    <button mat-raised-button class="ml-3" color="accent" type="submit" appAccess="BTNApplyPaymentMade"
+                        [parentId]="pageId" (click)="doSearch()">
+                        <div class="d-flex align-items-center">
+                            <ion-icon name="checkmark-circle-outline"></ion-icon>
+                            <div class="pl-2">Apply</div>
+                        </div>
+                    </button>
+                    <a mat-button [parentId]="pageId" appAccess="BTNClearPaymentMade" (click)="doClear()">
+                        <div class="d-flex align-items-center">
+                            <ion-icon name="close-circle-outline"></ion-icon>
+                            <div class="pl-1">Clear</div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </form>
+</ng-template>

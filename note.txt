@@ -1,0 +1,47 @@
+Font Converter used
+https://www.font-converter.net/
+
+For Reverse Geocoding
+https://nominatim.openstreetmap.org/reverse?lat=13.0827&lon=80.2707&format=jsonv2
+
+
+To work on Localhost as API path use
+ng serve
+
+Staging 
+IP address: http://10.1.0.118:4501/
+
+To work on Staging Environment use following 
+ng serve --configuration=staging
+
+To build on Staging Environment use following
+ng build --configuration=staging --prod --base-href="/FnpfEmpPortal/"
+
+
+Staging 2
+IP address: http://10.1.0.62:4501/
+
+To work on Staging Environment use following 
+ng serve --configuration=staging2
+
+To build on Staging Environment use following
+ng build --configuration=staging2 --prod --base-href="/FnpfEmpPortal/"
+
+
+Production Environment
+To work on Production Environment use following 
+ng serve --configuration=production
+
+To build on Staging Environment use following
+ng build --configuration=production --prod --base-href="/FnpfEmpPortal/"
+
+----------------
+
+ng build --prod --base-href="/FnpfEmpPortal/"
+
+
+Qwer1234
+
+Niveditas101
+Qwer1234**
+

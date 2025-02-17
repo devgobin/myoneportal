@@ -1,0 +1,11 @@
+.prefix{
+    position: absolute;
+    left: 0;
+    z-index: 10;
+    line-height: 28px;
+    padding-left: 0.5rem;
+    width: 56px;
+}
+.input-group .form-control{
+    padding-left: 56px !important;
+}

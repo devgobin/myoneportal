@@ -1,0 +1,61 @@
+<div class="row relative desktop-file-upload">
+    <div [ngClass]="{'col-md-7': !expanded, 'col-md-9': expanded}">
+        <div class="form-group">
+            <ng-container [ngTemplateOutlet]="selecttemplate"></ng-container>
+        </div>
+    </div>
+    <div class="col-md-3 pl-0">
+        <div class="label-space"></div>
+        <ng-container [ngTemplateOutlet]="selectbtn"></ng-container>
+    </div>
+    <div class="col-md-12 abs" *ngIf="errorText !== ''">
+        <p class="text-danger m-0">{{errorText}}</p>
+    </div>
+</div>
+
+<label class="file-upload" #nativeFileUpload>
+    <input type="file" #fileInput (change)="loadImageFromDevice($event)" id="file-input" class="hidden"
+        [accept]="accept">
+</label>
+
+<div class="mobile-file-upload">
+    <div class="form-group">
+        <ng-container [ngTemplateOutlet]="selecttemplate"></ng-container>
+    </div>
+    <div class="file-select-btn">
+        <ng-container [ngTemplateOutlet]="selectbtn"></ng-container>
+    </div>
+</div>
+
+<ng-template #selecttemplate>
+    <div class="d-flex align-item-center h20px">
+        <label class="ellipsis" matTooltip="{{label}}">{{label}} <span class="text-danger"
+                *ngIf="mandatory">*</span></label>
+        <div class="ml-auto text-danger lh18" *ngIf="mandatory && xFile.fileName === '' && errorTrueNow">
+            <small>mandatory</small>
+        </div>
+    </div>
+    <div class="d-flex align-item-center" *ngIf="sublabel !== ''">
+        <label class="ellipsis sm-label">{{sublabel}}</label>
+    </div>
+    <div class="input-group">
+        <input autocomplete="none" type="text" class="form-control" [(ngModel)]="xFile.fileName" name="documentName"
+            readonly
+            [ngClass]="{'border-warn': mandatory && xFile.fileName === '' && errorTrueNow, 'bg-border-warn': errorText !== ''}">
+        <div class="input-group-append d-flex in-1" *ngIf="xFile.fileName !== ''">
+            <a mat-button class="i-btn" (click)="clear()" matTooltip="Clear" matTooltipPosition="right" tabIndex="-1">
+                <ion-icon name="close-outline"></ion-icon>
+            </a>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #selectbtn>
+    <a mat-raised-button class="outline-btn btn-sm-lh" (click)="triggerClick()" [disabled]="loadingNow"
+        [ngClass]="{'pe-none': disabledNow}">
+        <ng-container *ngIf="!loadingNow">Select</ng-container>
+        <ng-container *ngIf="loadingNow">
+            <app-dot class="dot-big"></app-dot>
+        </ng-container>
+    </a>
+</ng-template>

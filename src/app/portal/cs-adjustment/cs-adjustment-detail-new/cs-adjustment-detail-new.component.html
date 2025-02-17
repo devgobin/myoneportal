@@ -1,0 +1,412 @@
+<div class="adjust-margin" [parentId]="pageId" appAccess="CSNDT">
+    <form class="h100" #h="ngForm" (ngSubmit)="doInsert(h)" autocomplete="off">
+        <div class="dialogue-header z-2">
+            <div>
+                <ng-container *ngIf="type === 'new'">
+                    Add Contribution Schedule Adjustment Detail
+                </ng-container>
+                <ng-container *ngIf="type === 'edit'">
+                    Edit Contribution Schedule Adjustment Detail
+                </ng-container>
+            </div>
+            <div class="ml-auto d-flex align-items-center">
+                <button mat-icon-button mat-dialog-close matTooltip="Close" [parentId]="pageId"
+                    appAccess="BTNCloseCSAdjustmentDetail" (click)="onNoClick()">
+                    <ion-icon name="close-outline"></ion-icon>
+                </button>
+            </div>
+        </div>
+        <div class="ab pt50 pb50">
+            <div class="rel">
+                <div class="h100">
+                    <div class="container-fluid">
+                        <div class="row pt-3 border-bottom">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="pr-2">CS Adjustment Header ID</label>
+                                    <b>:
+                                        <ng-container *ngIf="service.protoentCSAdjustmentHeader.adjHeaderId !== 0">
+                                            {{service.protoentCSAdjustmentHeader.adjHeaderId}}
+                                        </ng-container>
+                                        <ng-container *ngIf="service.protoentCSAdjustmentHeader.adjHeaderId === 0">
+                                            -
+                                        </ng-container>
+                                    </b>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="pr-2">CS Adjustment Detail ID</label>
+                                    <b>:
+                                        <ng-container
+                                            *ngIf="service.protoentCSAdjustmentHeader.protoentCSAdjustmentDetail.adjDetailId !== 0">
+                                            {{service.protoentCSAdjustmentHeader.protoentCSAdjustmentDetail.adjDetailId}}
+                                        </ng-container>
+                                        <ng-container
+                                            *ngIf="service.protoentCSAdjustmentHeader.protoentCSAdjustmentDetail.adjDetailId === 0">
+                                            -
+                                        </ng-container>
+                                    </b>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="pr-2">CS Adjustment Header Status</label>
+                                    <b>:
+                                        <ng-container
+                                            *ngIf="service.protoentCSAdjustmentHeader.headerStatusDescription !== ''">
+                                            {{service.protoentCSAdjustmentHeader.headerStatusDescription}}
+                                        </ng-container>
+                                        <ng-container
+                                            *ngIf="service.protoentCSAdjustmentHeader.headerStatusDescription === ''">
+                                            -
+                                        </ng-container>
+                                    </b>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="pr-2">CS Adjustment Detail Status</label>
+                                    <b>:
+                                        <ng-container
+                                            *ngIf="service.protoentCSAdjustmentHeader.protoentCSAdjustmentDetail.detailStatusDescription !== ''">
+                                            {{service.protoentCSAdjustmentHeader.protoentCSAdjustmentDetail.detailStatusDescription}}
+                                        </ng-container>
+                                        <ng-container
+                                            *ngIf="service.protoentCSAdjustmentHeader.protoentCSAdjustmentDetail.detailStatusDescription === ''">
+                                            -
+                                        </ng-container>
+                                    </b>
+                                </div>
+                            </div>
+                            <div class="col-xl-5 ml-auto pl-3 pb-2">
+                                <div class="label-space-17"></div>
+                                <div
+                                    class="d-flex m-0 w-100 cus-card cus-pad justify-content-center bg-card align-items-center cs-mw">
+                                    <div>
+                                        <mat-checkbox (change)="CheckSurpressWarning($event.checked)"
+                                            [checked]="service.protoentCSAdjustmentHeader.protoentCSAdjustmentDetail.suppressWaringFlag  === 'Y'">
+                                            Suppress Warning</mat-checkbox>
+                                    </div>
+                                    <div class="d-flex">
+                                        <div class="error-title" matRipple>
+                                            {{service.protoentCSAdjustmentHeader.protoentCSAdjustmentDetail.errorMessageCount}}
+                                        </div>
+                                        <div class="warning-title" matRipple>
+                                            {{
+                                            service.protoentCSAdjustmentHeader.protoentCSAdjustmentDetail.warningMessageCount}}
+
+                                        </div>
+                                        <div class="information-title" matRipple>
+                                            {{service.protoentCSAdjustmentHeader.protoentCSAdjustmentDetail.infoMessageCount}}
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row pt-3 border-bottom">
+                            <div class="col-md-4 notallowEdit" [ngClass]="{'allowEdit': service.protoentCSAdjustmentHeader.blnIsEditable &&
+                            service.protoentCSAdjustmentHeader.adjHeaderId > 0}">
+                                <app-input-control label="FNPF No" search="true"
+                                    [(ngModel)]="service.protoentCSAdjustmentHeader.protoentCSAdjustmentDetail.fnpfId"
+                                    name="fnpfId" (onsearchevent)="doRetrieve()">
+                                </app-input-control>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Member Name</label>
+                                    <div class="fw500 ">
+                                        <ng-container
+                                            *ngIf="service.protoentCSAdjustmentHeader.protoentCSAdjustmentDetail.firstName !== ''">
+                                            {{service.protoentCSAdjustmentHeader.protoentCSAdjustmentDetail.firstName}}
+                                            {{service.protoentCSAdjustmentHeader.protoentCSAdjustmentDetail.middleName}}
+                                            {{service.protoentCSAdjustmentHeader.protoentCSAdjustmentDetail.lastName}}
+                                        </ng-container>
+                                        <ng-container
+                                            *ngIf="service.protoentCSAdjustmentHeader.protoentCSAdjustmentDetail.firstName === ''">
+                                            -
+                                        </ng-container>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>DOB</label>
+                                    <div class="fw500">
+                                        <ng-container
+                                            *ngIf="service.protoentCSAdjustmentHeader.protoentCSAdjustmentDetail.dob !== ''">
+                                            {{service.protoentCSAdjustmentHeader.protoentCSAdjustmentDetail.dob}}
+                                        </ng-container>
+                                        <ng-container
+                                            *ngIf="service.protoentCSAdjustmentHeader.protoentCSAdjustmentDetail.dob === ''">
+                                            -
+                                        </ng-container>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Member Status</label>
+                                    <div class="fw500">
+                                        <ng-container
+                                            *ngIf="service.protoentCSAdjustmentHeader.protoentCSAdjustmentDetail.memberStatusDescription !== ''">
+                                            {{service.protoentCSAdjustmentHeader.protoentCSAdjustmentDetail.memberStatusDescription}}
+                                        </ng-container>
+                                        <ng-container
+                                            *ngIf="service.protoentCSAdjustmentHeader.protoentCSAdjustmentDetail.memberStatusDescription === ''">
+                                            -
+                                        </ng-container>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Member Ac No</label>
+                                    <div class="fw500">
+                                        <ng-container
+                                            *ngIf="service.protoentCSAdjustmentHeader.protoentCSAdjustmentDetail.memberAccountId !== 0">
+                                            {{service.protoentCSAdjustmentHeader.protoentCSAdjustmentDetail.memberAccountId}}
+                                        </ng-container>
+                                        <ng-container
+                                            *ngIf="service.protoentCSAdjustmentHeader.protoentCSAdjustmentDetail.memberAccountId === 0">
+                                            -
+                                        </ng-container>
+                                    </div>
+                                </div>
+                            </div> -->
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Member Ac Status</label>
+                                    <div class="fw500">
+                                        <ng-container
+                                            *ngIf="service.protoentCSAdjustmentHeader.protoentCSAdjustmentDetail.memberAccountStatusDescription !== ''">
+                                            {{service.protoentCSAdjustmentHeader.protoentCSAdjustmentDetail.memberAccountStatusDescription}}
+                                        </ng-container>
+                                        <ng-container
+                                            *ngIf="service.protoentCSAdjustmentHeader.protoentCSAdjustmentDetail.memberAccountStatusDescription === ''">
+                                            -
+                                        </ng-container>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row pt-3">
+                            <div class="col-md-6 border-right">
+                                <div class="container-fluid p-0">
+                                    <div class="row">
+                                        <div class="col-md-12 pb-2">
+                                            <div class="heading">
+                                                Previous Detail
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row pt-3">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Monthly Gross Salary</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            : <ng-container
+                                                *ngIf="service.protoentCSAdjustmentHeader.protoentCSAdjustmentDetail.oldMonthlyGrossSalary !== ''">
+                                                {{service.protoentCSAdjustmentHeader.protoentCSAdjustmentDetail.oldMonthlyGrossSalary
+                                                | appCurrency}}
+                                            </ng-container>
+                                            <ng-container
+                                                *ngIf="service.protoentCSAdjustmentHeader.protoentCSAdjustmentDetail.oldComplulsoryContri === ''">
+                                                -
+                                            </ng-container>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Compulsory Contribution</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            : <ng-container
+                                                *ngIf="service.protoentCSAdjustmentHeader.protoentCSAdjustmentDetail.oldComplulsoryContri !== ''">
+                                                {{service.protoentCSAdjustmentHeader.protoentCSAdjustmentDetail.oldComplulsoryContri
+                                                | appCurrency}}
+                                            </ng-container>
+                                            <ng-container
+                                                *ngIf="service.protoentCSAdjustmentHeader.protoentCSAdjustmentDetail.oldComplulsoryContri === ''">
+                                                -
+                                            </ng-container>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Employee Add Contribution</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            : <ng-container
+                                                *ngIf="service.protoentCSAdjustmentHeader.protoentCSAdjustmentDetail.oldEmployeeAddContri !== ''">
+                                                {{service.protoentCSAdjustmentHeader.protoentCSAdjustmentDetail.oldEmployeeAddContri
+                                                | appCurrency}}
+                                            </ng-container>
+                                            <ng-container
+                                                *ngIf="service.protoentCSAdjustmentHeader.protoentCSAdjustmentDetail.oldEmployeeAddContri === ''">
+                                                -
+                                            </ng-container>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Employer Add Contribution</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            : <ng-container
+                                                *ngIf="service.protoentCSAdjustmentHeader.protoentCSAdjustmentDetail.oldEmployerAddContri !== ''">
+                                                {{service.protoentCSAdjustmentHeader.protoentCSAdjustmentDetail.oldEmployerAddContri
+                                                | appCurrency}}
+                                            </ng-container>
+                                            <ng-container
+                                                *ngIf="service.protoentCSAdjustmentHeader.protoentCSAdjustmentDetail.oldEmployerAddContri === ''">
+                                                -
+                                            </ng-container>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Total Contribution</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            : <ng-container
+                                                *ngIf="service.protoentCSAdjustmentHeader.protoentCSAdjustmentDetail.oldTotalContri !== ''">
+                                                {{service.protoentCSAdjustmentHeader.protoentCSAdjustmentDetail.oldTotalContri
+                                                | appCurrency}}
+                                            </ng-container>
+                                            <ng-container
+                                                *ngIf="service.protoentCSAdjustmentHeader.protoentCSAdjustmentDetail.oldTotalContri === ''">
+                                                -
+                                            </ng-container>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="container-fluid p-0">
+                                    <div class="row">
+                                        <div class="col-md-12 pb-2">
+                                            <div class="heading">
+                                                Changed Detail
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 nomar">
+                                            <div class="form-group">
+                                                <div class="label-center">
+                                                    <label>Monthly Gross Salary <span
+                                                            class="text-danger">*</span></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 nomar">
+                                            <app-number-control
+                                                [(ngModel)]="service.protoentCSAdjustmentHeader.protoentCSAdjustmentDetail.newMonthlyGrossSalary"
+                                                name="newMonthlyGrossSalary" required [btnClicked]="btnClicked"
+                                                [errorTrue]="errorTrue" decimal="2"
+                                                (input)="getCompulsoryContribution()"></app-number-control>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 nomar">
+                                            <div class="form-group">
+                                                <div class="label-center">
+                                                    <label>Compulsory Contribution <span
+                                                            class="text-danger">*</span></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 nomar">
+                                            <app-number-control
+                                                [(ngModel)]="service.protoentCSAdjustmentHeader.protoentCSAdjustmentDetail.newComplulsoryContri"
+                                                name="newComplulsoryContri" required [btnClicked]="btnClicked"
+                                                [errorTrue]="errorTrue" decimal="2" (input)="getTotalContribution()">
+                                            </app-number-control>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6 nomar">
+                                            <div class="form-group">
+                                                <div class="label-center">
+                                                    <label>Employee Add Contribution <span
+                                                            class="text-danger">*</span></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 nomar">
+                                            <app-number-control
+                                                [(ngModel)]="service.protoentCSAdjustmentHeader.protoentCSAdjustmentDetail.newEmployeeAddContri"
+                                                name="newEmployeeAddContri" required [btnClicked]="btnClicked"
+                                                [errorTrue]="errorTrue" decimal="2" (input)="getTotalContribution()">
+                                            </app-number-control>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 nomar">
+                                            <div class="form-group">
+                                                <div class="label-center">
+                                                    <label>Employer Add Contribution <span
+                                                            class="text-danger">*</span></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 nomar">
+                                            <app-number-control
+                                                [(ngModel)]="service.protoentCSAdjustmentHeader.protoentCSAdjustmentDetail.newEmployerAddContri"
+                                                name="newEmployerAddContri" decimal="2" required
+                                                [btnClicked]="btnClicked" [errorTrue]="errorTrue"
+                                                (input)="getTotalContribution()"></app-number-control>
+                                        </div>
+                                    </div>
+                                    <div class="row pt-3">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Total Contribution</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <b>{{service.protoentCSAdjustmentHeader.protoentCSAdjustmentDetail.newTotalContri
+                                                | appCurrency}}</b>
+                                            <!-- <app-number-control
+                                                [(ngModel)]="service.protoentCSAdjustmentHeader.protoentCSAdjustmentDetail.newTotalContri"
+                                                name="newTotalContri" required [btnClicked]="btnClicked"
+                                                [errorTrue]="errorTrue" decimal="2"></app-number-control> -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="dialogue-footer z-2">
+            <ng-container *ngIf="service.protoentCSAdjustmentHeader.blnIsEditable &&
+                service.protoentCSAdjustmentHeader.adjHeaderId > 0">
+                <ng-container *ngIf="type === 'new'">
+                    <button mat-raised-button color="accent" [parentId]="pageId" appAccess="BTNSaveCSAdjustmentDetail">
+                        Save
+                    </button>
+                </ng-container>
+                <ng-container *ngIf="type === 'edit'">
+                    <button mat-raised-button color="accent" [parentId]="pageId" appAccess="BTNSaveCSAdjustmentDetail">
+                        Update
+                    </button>
+                </ng-container>
+            </ng-container>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,65 @@
+@import'../../../../scss/responsive-mixin.scss';
+
+.pl-0 {
+    padding-left: 15px !important;
+
+    @include desktop {
+        padding-left: 0 !important;
+    }
+}
+
+.pr-0 {
+    padding-right: 15px !important;
+
+    @include desktop {
+        padding-right: 0 !important;
+    }
+}
+
+.label-space {
+    height: 0px;
+
+    @include desktop {
+        height: 21px;
+    }
+}
+
+.label-space1 {
+    height: 10px;
+
+    @include desktop {
+        height: 21px;
+    }
+}
+
+.mat-raised-button {
+    font-size: 12px;
+
+    @include desktop {
+        font-size: 14px;
+    }
+}
+
+.ml-auto {
+    margin-left: 0 !important;
+
+    @include desktop {
+        margin-left: auto !important;
+    }
+}
+
+.ml-5 {
+    margin-left: 0px !important;
+
+    @include desktop {
+        margin-left: 3rem !important;
+    }
+}
+
+.fs {
+    font-size: 10px;
+
+    @include desktop {
+        font-size: 12px;
+    }
+}

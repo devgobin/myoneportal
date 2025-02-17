@@ -1,0 +1,324 @@
+<div class="content-body">
+    <div class="rel" appAccess="DSHBD" [parentId]="pageId">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xl-12 p-0">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-xl-6 px-1">
+                                <div class="cus-card m-0 py-2" *ngFor="let contribution of dashboardData.Table6">
+                                    <div class="d-flex align-items-center pb-3 fs14px">
+                                        <div class="mr-auto fw500">
+                                            CONTRIBUTIONS
+                                        </div>
+                                        <div class="ml-auto">
+                                            {{contribution.LAST_CONTRIBUTION_MONTH}},
+                                            <span class="fw500">{{contribution.LAST_CONTRIBUTION_YEAR}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex align-items-center justify-content-center pb-3">
+                                        <button mat-raised-button color="accent" routerLink="/app/new-contribution">
+                                            NEW
+                                        </button>
+                                        <button mat-raised-button color="accent" class="ml-3"
+                                            routerLink="/app/contribution-schedule-file-upload">
+                                            UPLOAD
+                                        </button>
+                                        <button mat-raised-button color="accent" class="ml-3"
+                                            routerLink="/app/generate-cs-file">
+                                            GENERATE
+                                        </button>
+                                    </div>
+                                    <div class="text-center pb-3">
+                                        <div class="d-flex align-items-center justify-content-center lh-23 fs12px">
+                                            <div>Last Contribution: {{contribution.LAST_CONTRIBUTION_MONTH}} | CS
+                                                Code:{{contribution.CS_CODE}} | {{contribution.LAST_CONTRIBUTION_AMOUNT
+                                                | appCurrency}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="d-flex align-items-center pb-3">
+                                        <div class="mr-auto">
+                                            <small class="fw500 fs12px">OUTSTANDING CONTRIBUTIONS</small>
+                                        </div>
+                                        <div class="ml-auto">
+                                            <button mat-raised-button color="danger" class="btn-optional br20px">
+                                                <div class="d-flex align-items-center">
+                                                    <div>10</div>
+                                                    <ion-icon name="arrow-forward-outline" class="ml-1"></ion-icon>
+                                                </div>
+                                            </button>
+                                        </div>
+                                    </div> -->
+                                    <div class="text-center">
+                                        <a class="d-flex align-items-center justify-content-center lh-23"
+                                            routerLink="/app/view-submitted-contribution">
+                                            <div>View Contribution Schedules</div>
+                                            <ion-icon name="arrow-forward-outline" class="pl-2 rel-t2"></ion-icon>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-6 p-0">
+                                <div class="cus-card m-0 py-2" *ngFor="let pay of dashboardData.Table7">
+                                    <div class="d-flex align-items-center pb-3 fs14px">
+                                        <div class="mr-auto fw500">
+                                            PAYMENTS
+                                        </div>
+                                        <div class="ml-auto">
+                                            {{pay.LAST_PAYMENT_MONTH}},
+                                            <span class="fw500">{{pay.LAST_PAYMENT_YEAR}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="text-center align-items-center justify-content-center pb-3">
+                                        <!-- <button mat-raised-button class="btn-orange" routerLink="/app/payments">
+                                            Make Payments
+                                        </button> -->
+                                        <button mat-raised-button class="btn-orange ml-3" routerLink="/app/invoices">
+                                            View Invoice
+                                        </button>
+                                    </div>
+                                    <div class="text-center pb-3">
+                                        <div class="d-flex align-items-center justify-content-center lh-23 fs12px">
+                                            <div>Last Payment: {{pay.LAST_PAYMENT_MONTH}} | Total Amount:
+                                                {{pay.LAST_PAYMENT_AMOUNT | appCurrency }}</div>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="d-flex align-items-center pb-3">
+                                        <div class="mr-auto">
+                                            <small class="fw500 fs12px">OUTSTANDING PAYMENTS</small>
+                                        </div>
+                                        <div class="ml-auto">
+                                            <button mat-raised-button color="danger" class="btn-optional br20px">
+                                                10
+                                                <ion-icon name="arrow-forward-outline"></ion-icon>
+                                            </button>
+                                        </div>
+                                    </div> -->
+                                    <div class="text-center">
+                                        <a class="d-flex align-items-center justify-content-center lh-23"
+                                            routerLink="/app/payments">
+                                            <div>View Payments</div>
+                                            <ion-icon name="arrow-forward-outline" class="pl-2 rel-t2"></ion-icon>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-6 px-1">
+                                <div class="cus-card mx-0 my-1 py-2">
+                                    <div class="fw500 align-items-center pb-2 fs14px">
+                                        CONTRIBUTION SUBMITTED HISTORY
+                                    </div>
+                                    <div class="h245">
+                                        <div class="card border" *ngFor="let cshistory of dashboardData.Table2">
+                                            <div>
+                                                <small class="fw500">{{cshistory.CONTIBUTION_MONTH_DESCRIPTION}} | CS
+                                                    Code: {{cshistory.CONTRIBUTION_SCHEDULE_CODE}}</small>
+                                            </div>
+                                            <div class="d-flex align-items-center">
+                                                <div class="mr-auto fs15px fw500">{{cshistory.TOTAL_CONTRIBUTION_AMOUNT
+                                                    | appCurrency}}</div>
+                                                <div class="ml-auto">
+                                                    <ng-container *ngIf="cshistory.CONTRIBUTION_STATUS==='Posted'">
+                                                        <div class="badge btn-optional2 badge-green f100">
+                                                            <small>{{cshistory.CONTRIBUTION_STATUS}}</small>
+                                                        </div>
+                                                    </ng-container>
+                                                    <ng-container *ngIf="cshistory.CONTRIBUTION_STATUS !=='Posted'">
+                                                        <div class="badge btn-optional2 badge-blue f100">
+                                                            <small>{{cshistory.CONTRIBUTION_STATUS}}</small>
+                                                        </div>
+                                                    </ng-container>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="text-center pt-1">
+                                        <a class="d-flex align-items-center justify-content-center lh-23"
+                                            routerLink="/app/view-submitted-contribution">
+                                            <div>View All</div>
+                                            <ion-icon name="arrow-forward-outline" class="pl-2 rel-t2"></ion-icon>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-6 p-0">
+                                <div class="cus-card mx-0 my-1 py-2">
+                                    <div class="fw500 align-items-center pb-2 fs14px">
+                                        PAYMENT HISTORY
+                                    </div>
+                                    <div class="h245">
+                                        <div class="card border" *ngFor="let payment of dashboardData.Table3">
+                                            <div class="d-flex align-items-center">
+                                                <div class="mr-auto">
+                                                    <small class="fw500">{{payment.PAYMENT_MONTH_DESCRIPTION}}</small>
+                                                </div>
+                                                <div class="ml-auto">
+                                                    <div class="badge btn-optional2 badge-green f100">
+                                                        <small>{{payment.PAYMENT_STATUS}}</small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex align-items-center">
+                                                <div class="mr-auto fs12px">
+                                                    <div>Receipt No
+                                                        <span class="fw500">: {{payment.RECEIPT_NO}}</span>
+                                                    </div>
+                                                    <div>CS Code
+                                                        <span class="pl-3 fw500">:
+                                                            {{payment.CONTRIBUTION_SCHEDULE_CODE}}</span>
+                                                    </div>
+                                                </div>
+                                                <div class="ml-auto fw500 pt-3">
+                                                    {{payment.PAYMENT_AMOUNT | appCurrency}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="text-center pt-1">
+                                        <a class="d-flex align-items-center justify-content-center lh-23"
+                                            routerLink="/app/payments">
+                                            <div>View All</div>
+                                            <ion-icon name="arrow-forward-outline" class="pl-2 rel-t2"></ion-icon>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-12 pl-1 pr-0">
+                                <div class="cus-card m-0 pb-2 pt-0">
+                                    <div class="d-flex align-items-center">
+                                        <div class="mr-auto fw500 fs14px">
+                                            <!-- CONTRIBUTION SUMMARY -->
+                                        </div>
+                                        <div class="ml-auto rel-t7" style="width:100px">
+
+                                            <app-select-control [(ngModel)]="dashboard.intYear" tabindex="3"
+                                                [items]="dashboardParams.DSHYears" key="constant" keyname="description"
+                                                name="intYear"
+                                                (ngModelChange)="GetContributionSummaryByYear(dashboard.intYear)">
+                                            </app-select-control>
+
+                                        </div>
+                                    </div>
+                                    <div style="display: block;">
+                                        <canvas baseChart [datasets]="barChartDatam" [labels]="barChartLabelsm"
+                                            [colors]="chartColorsm" [options]="barChartOptionsm"
+                                            [plugins]="barChartPluginsm" [legend]="barChartLegendm"
+                                            [chartType]="barChartTypem">
+                                        </canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="col-xl-4 px-1">
+                    <div class="cus-card m-0 py-2">
+                        <div class="pb-3">
+                            <div class="fw500 pb-2 fs14px">
+                                CONTACTS
+                            </div>
+                            <div>
+                                <ul class="p-0">
+                                    <li class="d-flex" *ngFor="let contact of dashboardData.Table">
+                                        <div class="mr-auto">{{contact.CONTACT_STATUS}}</div>
+                                        <div class="ml-auto">
+                                            <button mat-raised-button class="btn-optional btn-darkgreen br20px">
+                                                {{contact.CONTACT_COUNT}}
+                                                <ion-icon name="arrow-forward-outline" class="color-yellow"></ion-icon>
+                                            </button>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="text-center pt-1">
+                                <a class="d-flex align-items-center justify-content-center lh-23"
+                                    routerLink="/app/organization-contact-list">
+                                    <div>View All Contacts</div>
+                                    <ion-icon name="arrow-forward-outline" class="pl-2 rel-t2"></ion-icon>
+                                </a>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="fw500 pb-2 fs14px">
+                                EMPLOYEES
+                            </div>
+                            <div>
+                                <ul class="p-0" *ngFor="let employee of dashboardData.Table1">
+                                    <li class="d-flex">
+                                        <div class="mr-auto">New Reg Pending</div>
+                                        <div class="ml-auto">
+                                            <button mat-raised-button class="btn-optional btn-darkgreen br20px">
+                                                {{dashboard.pendingCountFromPortal}}
+                                                <ion-icon name="arrow-forward-outline" class="color-yellow"></ion-icon>
+                                            </button>
+                                        </div>
+                                    </li>
+                                    <li class="d-flex">
+                                        <div class="mr-auto">Total Employees</div>
+                                        <div class="ml-auto">
+                                            <button mat-raised-button class="btn-optional btn-darkgreen br20px">
+                                                {{employee.TOTAL_COUNT}}
+                                                <ion-icon name="arrow-forward-outline" class="color-yellow"></ion-icon>
+                                            </button>
+                                        </div>
+                                    </li>
+                                    <li class="d-flex">
+                                        <div class="mr-auto">
+                                            <ion-icon name="ellipse" class="active-green rel-t2 pr-1"></ion-icon>
+                                            Active
+                                        </div>
+                                        <div class="ml-auto">
+                                            <button mat-raised-button class="btn-optional btn-darkgreen br20px">
+                                                {{employee.ACTIVE_COUNT}}
+                                                <ion-icon name="arrow-forward-outline" class="color-yellow"></ion-icon>
+                                            </button>
+                                        </div>
+                                    </li>
+                                    <li class="d-flex">
+                                        <div class="mr-auto">
+                                            <ion-icon name="ellipse" class="text-danger rel-t2 pr-1"></ion-icon>
+                                            In Active
+                                        </div>
+                                        <div class="ml-auto">
+                                            <button mat-raised-button class="btn-optional btn-darkgreen br20px">
+                                                {{employee.IN_ACTIVE_COUNT}}
+                                                <ion-icon name="arrow-forward-outline" class="color-yellow"></ion-icon>
+                                            </button>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="d-flex align-items-center justify-content-center">
+                                <div class="mr-auto fw500 fs14px">
+                                    SUMMARY
+                                </div>
+                                <div class="ml-auto rel-t7" style= "width:100px">
+                                    <app-select-control [(ngModel)]="dashboard.intYear" tabindex="3"
+                                        [items]="dashboardParams.DSHYears" key="constant" keyname="description"
+                                        name="intYear" (ngModelChange)="GetEmployeeSummaryByYear(dashboard.intYear)">
+                                    </app-select-control>
+                                </div>
+                            </div>
+                            <div style="display: block;">
+                                <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels"
+                                    [colors]="chartColors" [options]="barChartOptions" [plugins]="barChartPlugins"
+                                    [legend]="barChartLegend" [chartType]="barChartType">
+                                </canvas>
+                            </div>
+                            <div class="text-center pt-3">
+                                <a class="d-flex align-items-center justify-content-center lh-23"
+                                    routerLink="/app/employee-list">
+                                    <div>View All Employees</div>
+                                    <ion-icon name="arrow-forward-outline" class="pl-2 rel-t2"></ion-icon>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+    </div>
+</div>

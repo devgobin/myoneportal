@@ -1,0 +1,210 @@
+<div class="content-body" [parentId]="pageId" appAccess="SUSSR">
+    <div class="rel">
+        <div class="d-flex z-2">
+            <div class="mr-auto d-flex align-items-center">
+                <h6 class="mb-0">Suspense Search</h6>
+            </div>
+            <div class="ml-auto d-flex align-items-center">
+                <app-filter-button [searchPanelTemplate]="searchPanelTemplate" [parentId]="pageId"
+                    appAccess="BTNSearchSuspense">
+                </app-filter-button>
+            </div>
+        </div>
+        <div class="p-3 fs" *ngIf="data.isMobile">
+            {{greet()}}
+        </div>
+        <div class="ab pt35">
+            <div class="rel">
+                <div class="table-responsive h100">
+                    <div class="ab pb40">
+                        <div class="rel">
+                            <table mat-table [dataSource]="dataSource" matSort class="table-hover"
+                                *ngIf=" dataSource.data.length > 0">
+                                <ng-container matColumnDef="suspenseAccountId">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Suspense ID </th>
+                                    <td mat-cell *matCellDef="let element" class="hyperlink-td"
+                                        (click)="openDetail(element)"> {{element.suspenseAccountId}}
+                                    </td>
+                                </ng-container>
+                                <ng-container matColumnDef="fnpfId">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> FNPF No </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.fnpfId}} </td>
+                                </ng-container>
+                                <ng-container matColumnDef="memberFullName">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Member Name </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.memberFullName}} </td>
+                                </ng-container>
+                                <ng-container matColumnDef="csMonthDescription">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> CS Month </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.csMonthDescription}} </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="csYear">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                        CS Year </th>
+                                    <td mat-cell *matCellDef="let element">
+                                        {{element.csYear}}
+                                    </td>
+                                </ng-container>
+                                <ng-container matColumnDef="wagesMonthDescription">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                        Wages Month
+                                    </th>
+                                    <td mat-cell *matCellDef="let element">
+                                        {{element.wagesMonthDescription}}
+                                    </td>
+                                </ng-container>
+                                <ng-container matColumnDef="wagesYear">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header matTooltip={{greet()}}>
+                                        <div class="pt-1 px-1">
+                                            <ion-icon name="information-circle-outline"></ion-icon>
+                                        </div>
+                                        Wages Year
+                                    </th>
+                                    <td mat-cell *matCellDef="let element">
+                                        {{element.wagesYear}}
+                                    </td>
+                                </ng-container>
+                                <ng-container matColumnDef="suspenseAmt">
+                                    <th mat-header-cell *matHeaderCellDef class="text-left" mat-sort-header> Amount
+                                    </th>
+                                    <td mat-cell *matCellDef="let element" class="text-left">
+                                        {{element.suspenseAmt | appCurrency}} </td>
+                                </ng-container>
+                                <ng-container matColumnDef="suspenseStatusDescription">
+                                    <th mat-header-cell *matHeaderCellDef class="text-left" mat-sort-header>
+                                        Status </th>
+                                    <td mat-cell *matCellDef="let element" class="text-left">
+                                        {{element.suspenseStatusDescription}}
+                                    </td>
+                                </ng-container>
+                                <ng-container matColumnDef="action">
+                                    <th mat-header-cell *matHeaderCellDef class="text-center" [parentId]="pageId"
+                                        appAccess="BTNEditSuspense"> Action </th>
+                                    <td mat-cell *matCellDef="let element" class="text-center py-0 text-nowrap"
+                                        [parentId]="pageId" appAccess="BTNEditSuspense">
+                                        <button mat-icon-button class="icon-only-btn" matTooltip="Edit"
+                                            (click)="openDetail(element)" [parentId]="pageId"
+                                            appAccess="BTNEditSuspense">
+                                            <ion-icon name="pencil-outline"></ion-icon>
+                                        </button>
+                                    </td>
+                                </ng-container>
+
+                                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                                <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+                                    [ngClass]="{'active': activeIndex == row}" (click)="active(row)"></tr>
+                            </table>
+                            <ng-container *ngIf="dataSource.data.length === 0">
+                                <app-empty-state></app-empty-state>
+                            </ng-container>
+                        </div>
+                    </div>
+                    <div class="table-footer">
+                        <mat-paginator [showFirstLastButtons]="!data.isMobile" [hideTotalCount]="data.isMobile"
+                            showFirstLastButtons="true" [pageSizeOptions]="[10, 25, 50, 100]">
+                        </mat-paginator>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #searchPanelTemplate>
+    <form>
+        <div class="search-panel m-search">
+            <div class="ab">
+                <div class="rel">
+                    <div class="container-fluid pt-3">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <app-number-control label="Suspense ID" [(ngModel)]="searchParams.suspenseAccountId"
+                                    name="suspenseAccountId" tabindex="1">
+                                </app-number-control>
+                            </div>
+                            <div class="col-md-6">
+                                <app-select-control label="Status" [(ngModel)]="searchParams.suspenseStatusValue"
+                                    tabindex="5" name="suspenseStatusValue" [items]="service.DDL.DDLStatusValue"
+                                    key="constant" keyname="description">
+                                </app-select-control>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <ng-container *ngIf="!data.isMobile">
+                                    <label class="f12px">CS Month</label>
+                                    <app-select-control [(ngModel)]="searchParams.contribMonthValue" tabindex="2"
+                                        name="contribMonthValue" [items]="service.DDL.DDLMonthValue" key="constant"
+                                        keyname="description">
+                                    </app-select-control>
+                                </ng-container>
+                                <ng-container *ngIf="data.isMobile">
+                                    <app-select-control label="CS Month" [(ngModel)]="searchParams.contribMonthValue"
+                                        tabindex="2" name="contribMonthValue" [items]="service.DDL.DDLMonthValue"
+                                        key="constant" keyname="description">
+                                    </app-select-control>
+                                </ng-container>
+                            </div>
+                            <div class="col-md-6">
+                                <ng-container *ngIf="!data.isMobile">
+                                    <div class="d-flex">
+                                        <label class="f12px">CS Year</label>
+                                        <div class="px-1">
+                                            <ion-icon name="information-circle-outline" matTooltip={{greet()}}>
+                                            </ion-icon>
+                                        </div>
+                                    </div>
+                                    <app-input-control [(ngModel)]="searchParams.contribYear" name="contribYear"
+                                        tabindex="3" [errorTrue]="errorTrue" [btnClicked]="btnClicked"
+                                        [errorText]="patternErrorText">
+                                    </app-input-control>
+                                </ng-container>
+                                <ng-container *ngIf="data.isMobile">
+                                    <app-input-control label="CS Year" [(ngModel)]="searchParams.contribYear"
+                                        name="contribYear" tabindex="3" [errorTrue]="errorTrue"
+                                        [btnClicked]="btnClicked" [errorText]="patternErrorText">
+                                    </app-input-control>
+                                </ng-container>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <app-input-control label="First Name" [(ngModel)]="searchParams.firstName"
+                                    name="firstName" tabindex="4" emojiType="name">
+                                </app-input-control>
+                            </div>
+                            <div class="col-md-6">
+                                <app-input-control label="Middle Name" [(ngModel)]="searchParams.middleName"
+                                    name="middleName" tabindex="4" emojiType="name">
+                                </app-input-control>
+                            </div>
+                            <div class="col-md-6">
+                                <app-input-control label="Last Name" [(ngModel)]="searchParams.lastName" name="lastName"
+                                    tabindex="4" emojiType="name">
+                                </app-input-control>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="search-footer">
+                <div class="ml-auto d-flex align-items-center">
+                    <button [parentId]="pageId" appAccess="BTNFilterSuspense" mat-raised-button class="ml-3"
+                        color="accent" (click)="doSearch()">
+                        <div class="d-flex align-items-center">
+                            <ion-icon name="checkmark-circle-outline"></ion-icon>
+                            <div class="pl-2">Apply</div>
+                        </div>
+                    </button>
+                    <button [parentId]="pageId" appAccess="BTNClearSuspenseSearch" mat-button (click)="doClear()">
+                        <div class="d-flex align-items-center">
+                            <ion-icon name="close-circle-outline"></ion-icon>
+                            <div class="pl-1">Clear</div>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+</ng-template>

@@ -1,0 +1,45 @@
+{
+  "highlights": [],
+  "videos": [
+    {
+      "title": "Logging in to the Portal",
+      "content": "This video will show you how to login to the new Employer Portal",
+      "link": "https://www.youtube.com/embed/tG-YcEne_3o"
+    },
+    {
+      "title": "Transition your User Account to the new Portal",
+      "content": "This video will show you how to migrate your user account from the old Employer portal to the new Employer Portal",
+      "link": "https://www.youtube.com/embed/joeMVYfFMi0"
+    },
+    {
+      "title": "Submit Contribution Schedule by uploading file",
+      "content": "This video will show you how to submit your contribution schedule text files using the new Employer Portal",
+      "link": "https://www.youtube.com/embed/H4FoXMhiT4c"
+    },
+    {
+      "title": "Submit Contribution Schedule by entering data",
+      "content": "This video will show you how to submit your contribution schedule by manually entering data directly into the Employer Portal",
+      "link": "https://www.youtube.com/embed/JSYgvNoRGZo"
+    }
+  ],
+  "medias": [],
+
+  "testimonials": [],
+  "clients": [],
+  "galleries": [],
+
+  "selectedGallery": {
+    "title": "",
+    "date": "",
+    "img": ""
+  },
+  "sliders": [
+    {
+      "title": "",
+      "content": "",
+      "img": "",
+      "button": "",
+      "action": ""
+    }
+  ]
+}

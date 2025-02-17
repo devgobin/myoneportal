@@ -1,0 +1,136 @@
+<div class="content-header">
+    <div class="mr-auto d-flex align-items-center">
+        <div class="mr-5">
+            <h4>Organization Contact</h4>
+        </div>
+    </div>
+    <div class="ml-auto d-flex align-items-center">
+        <div>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Organization Contact</li>
+            </ol>
+        </div>
+    </div>
+</div>
+<div class="d-flex px-3 z-2">
+    <div class="mr-auto d-flex align-items-center pb-2">
+        <mat-paginator [length]="10" [pageSize]="10" [pageSizeOptions]="[10, 25, 50]" showFirstLastButtons="true">
+        </mat-paginator>
+    </div>
+    <div class="ml-auto d-flex align-items-center">
+        <div class="form-group">
+            <button mat-raised-button color="accent" class="ml-3" routerLink="/app/edit-organization-contact">
+                <ion-icon name="add"></ion-icon>
+                Add New Contacts
+            </button>
+        </div>
+    </div>
+</div>
+<div class="ab pt160 px-3">
+    <div class="rel">
+        <div class="table-responsive h100">
+            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+                <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef> Contact Name
+                        <!-- <div>
+                            <app-input-control search="true" placeholder="Search"></app-input-control>
+                        </div> -->
+                    </th>
+                    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                </ng-container>
+                <ng-container matColumnDef="type">
+                    <th mat-header-cell *matHeaderCellDef> Contact Type
+                        <!-- <div>
+                            <app-select-control placeholder="Search"></app-select-control>
+                        </div> -->
+                    </th>
+                    <td mat-cell *matCellDef="let element"> {{element.type}} </td>
+                </ng-container>
+                <ng-container matColumnDef="phone">
+                    <th mat-header-cell *matHeaderCellDef> Phone No
+                        <!-- <div>
+                            <app-input-control placeholder="Search"></app-input-control>
+                        </div> -->
+                    </th>
+                    <td mat-cell *matCellDef="let element"> {{element.phone}} </td>
+                </ng-container>
+                <ng-container matColumnDef="email">
+                    <th mat-header-cell *matHeaderCellDef> Email ID
+                        <!-- <div>
+                            <app-input-control placeholder="Search"></app-input-control>
+                        </div> -->
+                    </th>
+                    <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+                </ng-container>
+                <ng-container matColumnDef="start">
+                    <th mat-header-cell *matHeaderCellDef> Start Date </th>
+                    <td mat-cell *matCellDef="let element"> {{element.start| moment : 'DD-MM-YYYY HH:mm' : 'DD MMM YYYY hh:mm a'}} </td>
+                </ng-container>
+                <ng-container matColumnDef="end">
+                    <th mat-header-cell *matHeaderCellDef> End Date </th>
+                    <td mat-cell *matCellDef="let element"> {{element.end| moment : 'DD-MM-YYYY HH:mm' : 'DD MMM YYYY hh:mm a'}} </td>
+                </ng-container>
+                <ng-container matColumnDef="status">
+                    <th mat-header-cell *matHeaderCellDef> Status </th>
+                    <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+                </ng-container>
+                <ng-container matColumnDef="login">
+                    <th mat-header-cell *matHeaderCellDef> Last Login </th>
+                    <td mat-cell *matCellDef="let element"> {{element.login}} </td>
+                </ng-container>
+                <ng-container matColumnDef="action">
+                    <th mat-header-cell *matHeaderCellDef class="text-center"> Action </th>
+                    <td mat-cell *matCellDef="let element" class="text-center">
+                        <button mat-button class="icon-only-btn" color="success">
+                            <ion-icon name="checkmark-circle-outline"></ion-icon>
+                        </button>
+                        <button mat-button class="icon-only-btn">
+                            <ion-icon name="pencil-outline"></ion-icon>
+                        </button>
+                        <button mat-button class="text-danger icon-only-btn">
+                            <ion-icon name="trash-outline"></ion-icon>
+                        </button>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+  // getsearch() {
+  //   // this.portal.btnClicked = true;
+  //    this.fullspinner.empty.next(true);
+  //   this.data
+  //     .postData(AppGlobal.apiPaths.contact.getsearch, this.contactservice.getcontactsearch)
+  //     .then(
+  //       (success: any) => {
+  //         this.fullspinner.empty.next(false);
+  //         this.contactservice.getcontactsearch = success;
+  //         this.successTrue = true;
+  //       },
+  //       (error) => {
+  //         this.data.errorMethod(error);
+  //       }
+  //     );
+  // }
+  // search() {
+  //   // this.portal.btnClicked = true;
+  //    this.fullspinner.empty.next(true);
+  //   this.data
+  //     .postData(AppGlobal.apiPaths.contact.search, this.contactservice.getcontactsearch)
+  //     .then(
+  //       (success: any) => {
+  //         this.fullspinner.empty.next(false);
+  //         this.contactservice.contact = success;
+  //         this.successTrue = true;
+  //       },
+  //       (error) => {
+  //         this.data.errorMethod(error);
+  //       }
+  //     );
+  // }

@@ -1,0 +1,110 @@
+<div class="panel-spacer">
+    <div class="mw1280">
+        <div class="panel">
+            <div class="panel-header">
+                <div class="panel-title">
+                    Organization
+                </div>
+            </div>
+            <div class="panel-body" *ngIf="!emailsuccess">
+                <div class="panel-step p-0 rel h100">
+                    <div class="panel-stepper h100">
+                        <div class="panel-stepper-body">
+                            <div class="ab">
+                                <div class="rel">
+                                    <div class="mw768 pt-3 rel">
+                                        <ng-container>
+                                            <div class="heading pl-4 text-center">
+                                                Select Organization
+                                            </div>
+                                            <div class="ab d-pt60-pb50">
+                                                <div class="rel">
+                                                    <div class="form-box pt-4 m-auto">
+                                                        <mat-radio-group [(ngModel)]="login.organizationRefNo">
+                                                            <ng-container
+                                                                *ngFor="let org of general.userData.entOrgContact.lstprotoentOrganization">
+                                                                <div class="org-name">
+                                                                    <mat-radio-button [value]="org.orgRefNo">
+                                                                        <div class="org-name-label">
+                                                                            <h5>{{org.businessName}}</h5>
+                                                                            <p class="org-reg-no"
+                                                                                *ngIf="org.orgRefNo !== ''">Reg No:
+                                                                                {{org.orgRefNo}}</p>
+                                                                        </div>
+                                                                    </mat-radio-button>
+                                                                </div>
+                                                            </ng-container>
+                                                        </mat-radio-group>
+                                                        <!-- <mat-radio-group>
+                                                            <ng-container>
+                                                                <div class="d-flex org-name mb-3">
+                                                                    <mat-radio-button value="1">
+                                                                        <div class="d-flex mt-3p">
+                                                                            <h5>Vanavatu Provident Fund Limited</h5>
+                                                                            <p class="pl-3"> | #123456</p>
+                                                                        </div>
+                                                                    </mat-radio-button>
+                                                                </div>
+                                                                <div class="d-flex org-name mb-3">
+                                                                    <mat-radio-button value="1">
+                                                                        <div class="d-flex mt-3p">
+                                                                            <h5>Small Company Name</h5>
+                                                                            <p class="pl-3"> | #1234</p>
+                                                                        </div>
+                                                                    </mat-radio-button>
+                                                                </div>
+                                                            </ng-container>
+                                                        </mat-radio-group> -->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </ng-container>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-stepper-footer">
+                            <div class="text-right">
+                                <ng-container>
+                                    <button mat-raised-button color="accent" (click)="onSubmit()" type="submit"
+                                        [disabled]="btnClicked" class="ml-3">
+                                        <ng-container *ngIf="!btnClicked">
+                                            Submit
+                                            <ion-icon name="arrow-forward-outline"></ion-icon>
+                                        </ng-container>
+                                        <ng-container *ngIf="btnClicked">
+                                            <app-dot class="dot-big"></app-dot>
+                                        </ng-container>
+                                    </button>
+                                </ng-container>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body" *ngIf="emailsuccess">
+                <div class="h100 bg-white mw768">
+                    <div class="stepper-container pt-5">
+                        <div class="stepper-content">
+                            <div class="panel-step">
+                                <div class="v-center">
+                                    <div class="s-box text-center">
+                                        <div class="circle-tick"></div>
+                                        <p>{{general.userData.msg.infoMessage.msgDescription}}
+                                        </p>
+                                        <button mat-raised-button color="accent" class="ml-3" [routerLink]="['/']">
+                                            <ion-icon name="arrow-back-outline"></ion-icon>
+                                            Home
+                                        </button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

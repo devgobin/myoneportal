@@ -1,0 +1,32 @@
+<ng-container *ngIf="!loadingTrue">
+    <div class="form-group">
+        <form autocomplete="false">
+            <label>{{label}}</label>
+            <div class="d-flex align-items-center" [ngClass]="{'justify-center': alignLeft === false}">
+                <ng-container *ngFor="let set of sets; let i = index">
+                    <input autocomplete="new-password" class="form-control" [type]="inputtext" [(ngModel)]="set.value"
+                        appPinNumberOnly limits="1" (input)="setValueFn()"
+                        [class.border-warn]="set.value === '' && errorTrueNow" prev="{{set.previd}}"
+                        next="{{set.nextid}}" id="{{set.id}}" (keyup)="keyevent($event)" name="set"
+                        [ngModelOptions]="{standalone: true}">
+                    <ng-container *ngIf="(i+1) < sets.length">
+                        <div>-</div>
+                    </ng-container>
+                </ng-container>
+            </div>
+        </form>
+        <div class="d-flex align-items-center" [ngClass]="{'justify-center': alignLeft === false}">
+            <ng-container *ngIf="password === 'true'">
+                <a mat-button class="mt10 i-btn w71" (click)="showtext()" tabIndex="-1">
+                    <ng-container *ngIf="inputtext === 'password'">Show</ng-container>
+                    <ng-container *ngIf="inputtext === 'text'">Hide</ng-container>
+                </a>
+            </ng-container>
+            <ng-container *ngIf="clearbtn === 'true'">
+                <a mat-button class="mt10 i-btn" (click)="clear()" tabIndex="-1">
+                    Clear
+                </a>
+            </ng-container>
+        </div>
+    </div>
+</ng-container>

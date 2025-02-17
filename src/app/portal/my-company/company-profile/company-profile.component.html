@@ -1,0 +1,226 @@
+<div class="content-body" [parentId]="pageId" appAccess="COMPR">
+    <div class="rel">
+        <div class="cus-card mt-0 mx-0">
+            <div class="container-fluid m-pad">
+                <ng-container *ngIf="!data.isMobile">
+                    <div class="row">
+                        <div class="col-xl-12 pb-3 heading">
+                            EMPLOYER DETAILS
+                        </div>
+                    </div>
+                </ng-container>
+                <ng-container *ngIf="data.isMobile">
+                    <div class="d-flex align-items-center m-heading" (click)="toggleAccordion(1)">
+                        <div class="">
+                            Employer Details
+                        </div>
+                        <div class="ml-auto d-flex align-items-center"
+                            [ngClass]="{'m-rotate': selectedAccordion === 1}">
+                            <ion-icon name="chevron-down-outline" class="fs16"></ion-icon>
+                        </div>
+                    </div>
+                </ng-container>
+                <ng-container *ngIf="data.isMobile ? (selectedAccordion === 1 ? true: false): true">
+                    <div class="row pb-3">
+                        <div class="col-md-3">
+                            <label>Employer Ref No</label>
+                            <div class="fw500">
+                                <ng-container *ngIf="service.detail.orgRefNo !== ''">
+                                    {{service.detail.orgRefNo}}
+                                </ng-container>
+                                <ng-container *ngIf="service.detail.orgRefNo === ''">
+                                    -
+                                </ng-container>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <label>Employer Name</label>
+                            <div class="fw500">
+                                <ng-container *ngIf="service.detail.businessName !== ''">
+                                    {{service.detail.businessName}}
+                                </ng-container>
+                                <ng-container *ngIf="service.detail.businessName === ''">
+                                    -
+                                </ng-container>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <label>Trading Name</label>
+                            <div class="fw500">
+                                <ng-container *ngIf="service.detail.tradeName !== ''">
+                                    {{service.detail.tradeName}}
+                                </ng-container>
+                                <ng-container *ngIf="service.detail.tradeName === ''">
+                                    -
+                                </ng-container>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <label>Employer TIN</label>
+                            <div class="fw500">
+                                <ng-container *ngIf="service.detail.tin !== ''">
+                                    {{service.detail.tin}}
+                                </ng-container>
+                                <ng-container *ngIf="service.detail.tin === ''">
+                                    -
+                                </ng-container>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row pb-3">
+                        <div class="col-md-3">
+                            <label>Business License No</label>
+                            <div class="fw500">
+                                <ng-container *ngIf="service.detail.businessLicenseNo !== ''">
+                                    {{service.detail.businessLicenseNo}}
+                                </ng-container>
+                                <ng-container *ngIf="service.detail.businessLicenseNo === ''">
+                                    -
+                                </ng-container>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <label>Business Registration No</label>
+                            <div class="fw500">
+                                <ng-container *ngIf="service.detail.businessRegNo !== ''">
+                                    {{service.detail.businessRegNo}}
+                                </ng-container>
+                                <ng-container *ngIf="service.detail.businessRegNo === ''">
+                                    -
+                                </ng-container>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label>Nature of Business</label>
+                            <div class="fw500">
+                                <ng-container *ngIf="service.detail.natureOfBusiness !== ''">
+                                    {{service.detail.natureOfBusiness}}
+                                </ng-container>
+                                <ng-container *ngIf="service.detail.natureOfBusiness === ''">
+                                    -
+                                </ng-container>
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+        <div class="cus-card mx-0 mt-0">
+            <ng-container *ngIf="!data.isMobile">
+                <div class="d-flex align-items-center pb-2">
+                    <div class="heading">Employer Address</div>
+                    <div class="ml-auto" [parentId]="pageId" appAccess="BTNAddNewAddressCompanyProfile">
+                        <button mat-raised-button color="accent" (click)="newAddress()">
+                            <ion-icon name="add"></ion-icon>
+                            ADD NEW
+                        </button>
+                    </div>
+                </div>
+            </ng-container>
+            <ng-container *ngIf="data.isMobile">
+                <div class="d-flex align-items-center m-heading" (click)="toggleAccordion(2)">
+                    <div class="">
+                        Employer Address
+                    </div>
+                    <div class="ml-auto d-flex align-items-center" [ngClass]="{'m-rotate': selectedAccordion === 2}">
+                        <ion-icon name="chevron-down-outline" class="fs16"></ion-icon>
+                    </div>
+                </div>
+            </ng-container>
+            <ng-container *ngIf="data.isMobile ? (selectedAccordion === 2 ? true: false): true">
+                <div class="table-responsive m-pt">
+                    <table mat-table [dataSource]="addresssdataSource" class="table-hover">
+                        <ng-container matColumnDef="address">
+                            <th mat-header-cell *matHeaderCellDef> Address </th>
+                            <td mat-cell *matCellDef="let element"> {{element.line1}} {{element.line2}} {{element.city}}
+                                {{element.province}} {{element.island}}</td>
+                        </ng-container>
+                        <ng-container matColumnDef="addresstype">
+                            <th mat-header-cell *matHeaderCellDef> Address Type </th>
+                            <td mat-cell *matCellDef="let element"> {{element.addressTypeDescription}}</td>
+                        </ng-container>
+                        <ng-container matColumnDef="action">
+                            <th mat-header-cell *matHeaderCellDef class="text-center w100"> Action </th>
+                            <td mat-cell *matCellDef="let element" class="text-center py-0 text-nowrap">
+                                <button mat-icon-button class="icon-only-btn" matTooltip="View"
+                                    (click)="openAddress(element)" [parentId]="pageId"
+                                    appAccess="BTNOpenAddressCompanyProfile">
+                                    <ion-icon name="eye-outline"></ion-icon>
+                                </button>
+                                <button mat-icon-button class="icon-only-btn ml-1" color="danger" matTooltip="Delete"
+                                    (click)="doDeleteAddress(element)" [parentId]="pageId"
+                                    appAccess="BTNDeleteAddressCompanyProfile">
+                                    <ion-icon name="trash-outline"></ion-icon>
+                                </button>
+                            </td>
+                        </ng-container>
+
+                        <tr mat-header-row *matHeaderRowDef="addressdisplayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: addressdisplayedColumns;"
+                            [ngClass]="{'active': activeIndex == row}" (click)="active(row)"></tr>
+                    </table>
+                </div>
+            </ng-container>
+        </div>
+        <div class="cus-card m-0">
+            <ng-container *ngIf="!data.isMobile">
+                <div class="d-flex align-items-center pb-2">
+                    <div class="heading">Contact Details</div>
+                    <div class="ml-auto" [parentId]="pageId" appAccess="BTNAddNewCommunicationCompanyProfile">
+                        <button mat-raised-button color="accent" (click)="newCommunication()">
+                            <ion-icon name="add"></ion-icon>
+                            ADD NEW
+                        </button>
+                    </div>
+                </div>
+            </ng-container>
+            <ng-container *ngIf="data.isMobile">
+                <div class="d-flex align-items-center m-heading" (click)="toggleAccordion(3)">
+                    <div class="">
+                        Contact Details
+                    </div>
+                    <div class="ml-auto d-flex align-items-center" [ngClass]="{'m-rotate': selectedAccordion === 3}">
+                        <ion-icon name="chevron-down-outline" class="fs16"></ion-icon>
+                    </div>
+                </div>
+            </ng-container>
+            <ng-container *ngIf="data.isMobile ? (selectedAccordion === 3 ? true: false): true">
+                <div class="table-responsive m-pt">
+                    <table mat-table [dataSource]="communicationdataSource" class="table-hover">
+                        <ng-container matColumnDef="communication">
+                            <th mat-header-cell *matHeaderCellDef class="w350"> Communication Type </th>
+                            <td mat-cell *matCellDef="let element"> {{element.orgCommunicationTypeDescription}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="communicationStatus">
+                            <th mat-header-cell *matHeaderCellDef class="w350"> Communication Status </th>
+                            <td mat-cell *matCellDef="let element"> {{element.orgCommunicationStatusDescription}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="details">
+                            <th mat-header-cell *matHeaderCellDef> Details </th>
+                            <td mat-cell *matCellDef="let element"> {{element.communicationDetail}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="action">
+                            <th mat-header-cell *matHeaderCellDef class="text-center w100"> Action </th>
+                            <td mat-cell *matCellDef="let element" class="text-center py-0 text-nowrap">
+                                <button mat-icon-button class="icon-only-btn" matTooltip="view"
+                                    (click)="openCommunication(element)" [parentId]="pageId"
+                                    appAccess="BTNOpenCommunicationCompanyProfile">
+                                    <ion-icon name="eye-outline"></ion-icon>
+                                </button>
+                                <button mat-icon-button class="icon-only-btn ml-1" color="danger" matTooltip="Delete"
+                                    (click)="doDeleteCommunication(element)" [parentId]="pageId"
+                                    appAccess="BTNDeleteCommunicationCompanyProfile">
+                                    <ion-icon name="trash-outline"></ion-icon>
+                                </button>
+                            </td>
+                        </ng-container>
+
+                        <tr mat-header-row *matHeaderRowDef="communicationdisplayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: communicationdisplayedColumns;"
+                            [ngClass]="{'active': activeIndex == row}" (click)="active(row)"></tr>
+                    </table>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+</div>

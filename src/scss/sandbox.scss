@@ -1,0 +1,35 @@
+.sandbox-theme {
+    --primary: #45ada5;
+    --secondary: #f58220;
+    --lbox: #45ada5;
+
+
+    .portal-header {
+        // background-color: var(--primary);
+        // background-color: #b17760;
+
+        .brand-name {
+            // margin-left: 3px;
+        }
+    }
+
+    .portal-footer {
+        // display: flex;
+        background-color: #b17760;
+
+        .bg-primary {
+            text-align: left;
+            padding: 0 1rem;
+        }
+
+        .footer-flex {
+            display: flex;
+        }
+
+        marquee {
+            line-height: 12px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+    }
+}

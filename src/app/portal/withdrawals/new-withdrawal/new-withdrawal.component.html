@@ -1,0 +1,743 @@
+<div class="content-body" [parentId]="pageId" appAccess="NWPAG">
+    <div class="rel">
+        <div class="ab">
+            <div class="rel">
+                <div class="h100">
+                    <div class="cus-card mt-0 mx-0 h78px z-2">
+                        <div class="d-flex">
+                            <div class="w-222">
+                                <div class="container-fluid p-0">
+                                    <div class="row">
+                                        <div class="col-xl-12 heading">
+                                            Member Information
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex-1 pl-4p">
+                                <div class="container-fluid p-0">
+                                    <div class="row">
+                                        <div class="col-md-2x">
+                                            <label>Full Name</label>
+                                            <div class="fw500" matTooltip="{{withdrawals.xData.fullname}}">
+
+                                                <ng-container
+                                                    *ngIf="withdrawals.xData.fullname !== '' && withdrawals.xData.fullname.length > 20">
+                                                    {{withdrawals.xData.fullname | slice:0:20}}...
+                                                </ng-container>
+                                                <ng-container
+                                                    *ngIf="withdrawals.xData.fullname !== '' && withdrawals.xData.fullname.length < 20">
+                                                    {{withdrawals.xData.fullname | slice:0:20}}
+                                                </ng-container>
+                                                <ng-container *ngIf="withdrawals.xData.fullname === ''">
+                                                    -
+                                                </ng-container>
+                                            </div>
+                                            <!-- <div class="fw500">
+                                                <ng-container *ngIf="withdrawals.xData.fullname !== ''">
+                                                    {{withdrawals.xData.fullname}}
+                                                </ng-container>
+                                                <ng-container *ngIf="withdrawals.xData.fullname === ''">
+                                                    -
+                                                </ng-container>
+                                            </div> -->
+                                        </div>
+                                        <div class="col-md-2x">
+                                            <label>Date of Birth</label>
+                                            <div class="fw500">
+                                                <ng-container *ngIf="withdrawals.xData.dateOfBirth !== ''">
+                                                    {{withdrawals.xData.dateOfBirth | moment : 'DD-MM-YYYY' : 'DD
+                                                    MMM
+                                                    YYYY'}}
+                                                </ng-container>
+                                                <ng-container *ngIf="withdrawals.xData.dateOfBirth === ''">
+                                                    -
+                                                </ng-container>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2x">
+                                            <label>FNPF No</label>
+                                            <div class="fw500">
+                                                <ng-container *ngIf="withdrawals.xData.fnpfNo !== ''">
+                                                    {{withdrawals.xData.fnpfNo}}
+                                                </ng-container>
+                                                <ng-container *ngIf="withdrawals.xData.fnpfNo === ''">
+                                                    -
+                                                </ng-container>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label>Category</label>
+                                            <div class="fw500" matTooltip="{{withdrawals.xData.categoryDescription}}">
+                                                <ng-container
+                                                    *ngIf="withdrawals.xData.categoryDescription !== '' && withdrawals.xData.categoryDescription.length > 60">
+                                                    {{withdrawals.xData.categoryDescription | slice:0:60}}...
+                                                </ng-container>
+                                                <ng-container
+                                                    *ngIf="withdrawals.xData.categoryDescription !== '' && withdrawals.xData.categoryDescription.length < 60">
+                                                    {{withdrawals.xData.categoryDescription | slice:0:60}}
+                                                </ng-container>
+                                                <ng-container *ngIf="withdrawals.xData.categoryDescription === ''">
+                                                    -
+                                                </ng-container>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ab pt80">
+                        <div class="rel">
+                            <div class="cus-card m-0 p-0 h100">
+                                <app-stepper #withdrawalSteps>
+                                    <cdk-step label="Member Information" [completed]="step1Completed">
+                                        <div class="h100">
+                                            <form class="h100" autocomplete="off" #c="ngForm" (ngSubmit)="saveData(c)">
+                                                <div class="panel-stepper h100">
+                                                    <div class="panel-stepper-body">
+                                                        <div class="ab">
+                                                            <div class="rel">
+                                                                <div class="cus-card mt-0 mx-0">
+                                                                    <div class="container-fluid p-0">
+                                                                        <div class="row">
+                                                                            <div class="col-xl-6">
+                                                                                <div class="row">
+                                                                                    <div class="col-xl-12 pb-1 heading">
+                                                                                        Member Information
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="row">
+                                                                                    <!-- <div class="col-xl-12">
+                                                                                        <app-input-control
+                                                                                            label="Birth Registration Number"
+                                                                                            [(ngModel)]="withdrawals.xData.birthRegNo"
+                                                                                            name="birthRegNo"
+                                                                                            tabindex="1">
+                                                                                        </app-input-control>
+                                                                                    </div> -->
+                                                                                    <div class="col-xl-12">
+                                                                                        <div class="d-flex">
+                                                                                            <div class="flex-1">
+                                                                                                <app-input-control
+                                                                                                    label="FNPF No"
+                                                                                                    [(ngModel)]="fnpfNo"
+                                                                                                    name="fnpfNo"
+                                                                                                    [errorTrue]="fnpfNoEmpty"
+                                                                                                    tabindex="2"
+                                                                                                    required
+                                                                                                    mandatory="true">
+                                                                                                </app-input-control>
+                                                                                            </div>
+                                                                                            <div class="ml-2">
+                                                                                                <div
+                                                                                                    class="label-space">
+                                                                                                </div>
+                                                                                                <a mat-raised-button
+                                                                                                    class="outline-btn"
+                                                                                                    (click)="findFnpf()">
+                                                                                                    <ng-container
+                                                                                                        *ngIf="!memberBtnClicked">
+                                                                                                        Find
+                                                                                                    </ng-container>
+                                                                                                    <ng-container
+                                                                                                        *ngIf="memberBtnClicked">
+                                                                                                        <app-dot
+                                                                                                            class="dot-big">
+                                                                                                        </app-dot>
+                                                                                                    </ng-container>
+
+                                                                                                </a>
+                                                                                            </div>
+
+                                                                                        </div>
+
+                                                                                    </div>
+                                                                                    <div class="col-xl-12">
+
+                                                                                        <app-select-control
+                                                                                            label="Employment Status"
+                                                                                            name="employmentStatusValue"
+                                                                                            [(ngModel)]="withdrawals.xData.employmentStatusValue"
+                                                                                            tabindex="3"
+                                                                                            [items]="withdrawals.selectParams.WAEmploymentStatus"
+                                                                                            key="constant"
+                                                                                            keyname="description"
+                                                                                            [btnClicked]="btnClicked"
+                                                                                            required
+                                                                                            [errorTrue]="errorTrue"
+                                                                                            mandatory="true"
+                                                                                            (ngModelChange)="GetCategoryByEmploymentStatus()">
+                                                                                        </app-select-control>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-xl-6 br-left">
+                                                                                <div class="row">
+                                                                                    <div class="col-xl-12 pb-1 heading">
+                                                                                        Upload Below Document
+                                                                                    </div>
+                                                                                    <div class="col-md-12 h280">
+                                                                                        <ng-container
+                                                                                            *ngFor="let document of withdrawals.documents">
+                                                                                            <app-file-upload
+                                                                                                [accept]="appSettingService.environment.fileAccept"
+                                                                                                [label]="document.documentTypeDescription"
+                                                                                                [data]="document"
+                                                                                                (onload)="uploadDocument($event,document)"
+                                                                                                [mandatory]="document.isMandatory === 'Y'"
+                                                                                                dname="document.pDocumentFile.fileName"
+                                                                                                [loading]="fileUploading === document.documentTypeValue"
+                                                                                                required
+                                                                                                [errorTrue]="errorTrue"
+                                                                                                [xFile]="document.pDocumentFile"
+                                                                                                expanded="true"
+                                                                                                (onclear)="clearFile($event)">
+                                                                                            </app-file-upload>
+
+                                                                                        </ng-container>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="row pt-2 mt-2 br-top">
+                                                                            <div class="col-xl-12 heading">
+                                                                                Application Summary
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row pt-1">
+                                                                            <div class="col-md-3x">
+                                                                                <label>Rejected Application</label>
+                                                                                <div class="fw500">
+                                                                                    <ng-container
+                                                                                        *ngIf="withdrawals.xData.pWithdrawalApplicationSummary.rejectedApplication !== ''">
+                                                                                        {{withdrawals.xData.pWithdrawalApplicationSummary.rejectedApplication}}
+                                                                                    </ng-container>
+                                                                                    <ng-container
+                                                                                        *ngIf="withdrawals.xData.pWithdrawalApplicationSummary.rejectedApplication === ''">
+                                                                                        -
+                                                                                    </ng-container>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-3x">
+                                                                                <label>Existing Application</label>
+                                                                                <div class="fw500">
+                                                                                    <ng-container
+                                                                                        *ngIf="withdrawals.xData.pWithdrawalApplicationSummary.existingApplication !== ''">
+                                                                                        {{withdrawals.xData.pWithdrawalApplicationSummary.existingApplication}}
+                                                                                    </ng-container>
+                                                                                    <ng-container
+                                                                                        *ngIf="withdrawals.xData.pWithdrawalApplicationSummary.existingApplication === ''">
+                                                                                        -
+                                                                                    </ng-container>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-3x">
+                                                                                <label>Completed Application</label>
+                                                                                <div class="fw500">
+                                                                                    <ng-container
+                                                                                        *ngIf="withdrawals.xData.pWithdrawalApplicationSummary.completedApplication !== ''">
+                                                                                        {{withdrawals.xData.pWithdrawalApplicationSummary.completedApplication}}
+                                                                                    </ng-container>
+                                                                                    <ng-container
+                                                                                        *ngIf="withdrawals.xData.pWithdrawalApplicationSummary.completedApplication === ''">
+                                                                                        -
+                                                                                    </ng-container>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-3x">
+                                                                                <label>Category 1
+                                                                                    Application</label>
+                                                                                <div class="fw500">
+                                                                                    <ng-container
+                                                                                        *ngIf="withdrawals.xData.pWithdrawalApplicationSummary.categoryOneApplication !== ''">
+                                                                                        {{withdrawals.xData.pWithdrawalApplicationSummary.categoryOneApplication}}
+                                                                                    </ng-container>
+                                                                                    <ng-container
+                                                                                        *ngIf="withdrawals.xData.pWithdrawalApplicationSummary.categoryOneApplication === ''">
+                                                                                        -
+                                                                                    </ng-container>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="panel-stepper-footer">
+                                                        <div class="text-right">
+                                                            <button mat-raised-button color="accent" type="submit"
+                                                                [parentId]="pageId"
+                                                                appAccess="BTNNextStep1MemberInformationWitdrawals">
+                                                                Next
+                                                                <ion-icon name="arrow-forward-outline"></ion-icon>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </cdk-step>
+                                    <cdk-step label="Payment Detail" [completed]="step2Completed">
+                                        <div class="h100">
+                                            <form class="h100" autocomplete="off" #p="ngForm"
+                                                (ngSubmit)="updatePaymentMode(p)">
+                                                <div class="panel-stepper h100">
+                                                    <div class="panel-stepper-body">
+                                                        <div class="ab">
+                                                            <div class="rel">
+                                                                <div class="container-fluid pt-3">
+                                                                    <!-- <div class="p-2"></div> -->
+                                                                    <div class="row">
+                                                                        <div class="col-md-6">
+                                                                            <div class="container-fluid">
+                                                                                <div class="row">
+                                                                                    <div class="col-xl-12 heading">
+                                                                                        Select Payment option
+                                                                                    </div>
+                                                                                    <div class="col-xl-12 pt-2">
+                                                                                        <mat-radio-group
+                                                                                            [(ngModel)]="withdrawals.xData.paymentMethodValue"
+                                                                                            name="paymentMethodValue"
+                                                                                            (ngModelChange)="checkRequireMandatory(withdrawals.xData.paymentMethodValue, true)">
+                                                                                            <ng-container
+                                                                                                *ngFor="let paymentoption of withdrawals.selectParams.WAPaymentOptions">
+                                                                                                <div class="pb-2">
+                                                                                                    <mat-radio-button
+                                                                                                        [value]="paymentoption.constant">
+                                                                                                        {{paymentoption.description}}
+                                                                                                    </mat-radio-button>
+                                                                                                </div>
+                                                                                            </ng-container>
+                                                                                        </mat-radio-group>
+                                                                                    </div>
+
+                                                                                    <div class="col-xl-12 text-right">
+                                                                                        <ng-container
+                                                                                            *ngIf="addNewBtnShow">
+                                                                                            <a mat-raised-button
+                                                                                                color="accent"
+                                                                                                class="ml-3"
+                                                                                                (click)="addNewPaymentDetail()">
+                                                                                                {{addNewBtnText}}
+                                                                                            </a>
+                                                                                        </ng-container>
+
+                                                                                    </div>
+                                                                                    <div class="col-xl-12 pt-2"
+                                                                                        *ngIf="withdrawals.xData.paymentMethodValue === 'DRDP'">
+                                                                                        <div
+                                                                                            class="table-responsive h200">
+                                                                                            <!-- <ng-container >
+
+                                                                                            </ng-container> -->
+                                                                                            <table mat-table
+                                                                                                [dataSource]="paymentdataSource"
+                                                                                                class="table-hover">
+                                                                                                <ng-container
+                                                                                                    matColumnDef="check">
+                                                                                                    <th mat-header-cell
+                                                                                                        *matHeaderCellDef>
+                                                                                                    </th>
+                                                                                                    <td mat-cell
+                                                                                                        *matCellDef="let element">
+                                                                                                        <!-- {{element.bankOrgId}},
+                                                                                                        {{withdrawals.xData.bankOrgId}} -->
+                                                                                                        <mat-checkbox
+                                                                                                            (change)="getPreviousBankDetail(element,$event.checked)"
+                                                                                                            [checked]="element.bankOrgId  === withdrawals.xData.bankOrgId && element.bankAccountId === withdrawals.xData.bankAccountId">
+                                                                                                        </mat-checkbox>
+                                                                                                        <!-- <mat-checkbox
+                                                                                                            (change)="getPreviousBankDetail(element,$event.checked)"
+                                                                                                            [(ngModel)]="withdrawals.xData.bankOrgId"
+                                                                                                            name="bankOrgId">
+                                                                                                        </mat-checkbox> -->
+
+                                                                                                    </td>
+                                                                                                </ng-container>
+                                                                                                <ng-container
+                                                                                                    matColumnDef="bank">
+                                                                                                    <th mat-header-cell
+                                                                                                        *matHeaderCellDef>
+                                                                                                        Bank
+                                                                                                    </th>
+                                                                                                    <td mat-cell
+                                                                                                        *matCellDef="let element">
+                                                                                                        {{element.bankName}}
+                                                                                                    </td>
+                                                                                                </ng-container>
+                                                                                                <ng-container
+                                                                                                    matColumnDef="account">
+                                                                                                    <th mat-header-cell
+                                                                                                        *matHeaderCellDef>
+                                                                                                        Account
+                                                                                                        No</th>
+                                                                                                    <td mat-cell
+                                                                                                        *matCellDef="let element">
+                                                                                                        {{element.accountNumber}}
+                                                                                                    </td>
+                                                                                                </ng-container>
+                                                                                                <tr mat-header-row
+                                                                                                    *matHeaderRowDef="paymentdisplayedColumns">
+                                                                                                </tr>
+                                                                                                <tr mat-row
+                                                                                                    *matRowDef="let row; columns: paymentdisplayedColumns;"
+                                                                                                    [ngClass]="{'active': activeIndex == row}"
+                                                                                                    (click)="active(row)">
+                                                                                                </tr>
+                                                                                            </table>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="col-xl-12"
+                                                                                        *ngIf="withdrawals.xData.paymentMethodValue === 'MPAI'">
+                                                                                        <app-input-control
+                                                                                            label="Mobile No"
+                                                                                            btnClicked="true"
+                                                                                            [(ngModel)]="withdrawals.xData.istrExistingMobileNo"
+                                                                                            name="istrExistingMobileNo">
+                                                                                        </app-input-control>
+                                                                                    </div>
+
+                                                                                    <!-- <div class="col-xl-12 text-right"
+                                                                                        *ngIf="withdrawals.xData.paymentMethodValue !== 'TRMO' && btnaddnewrequired">
+                                                                                        <a mat-raised-button
+                                                                                            color="accent" class="ml-3"
+                                                                                            (click)="addNewPaymentDetail()">
+                                                                                            Add New
+                                                                                        </a>
+                                                                                    </div> -->
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-6 br-left"
+                                                                            *ngIf="addNewPaymentDetailShow">
+                                                                            <div class="container-fluid">
+                                                                                <div class="row">
+                                                                                    <div class="col-xl-12 heading">
+                                                                                        Add New Payment Detail
+                                                                                    </div>
+                                                                                </div>
+                                                                                <!-- <div class="col-xl-12 heading">
+                                                                                  Direct Deposit
+                                                                                </div> -->
+                                                                                <div class="row pt-2">
+                                                                                    <ng-container
+                                                                                        *ngIf="withdrawals.xData.paymentMethodValue === 'DRDP'">
+                                                                                        <div class="col-xl-8">
+
+
+                                                                                            <app-select-control
+                                                                                                label="Bank Name"
+                                                                                                name="bankOrgId"
+                                                                                                [(ngModel)]="withdrawals.newBank.bankOrgId"
+                                                                                                tabindex="3"
+                                                                                                [items]="withdrawals.selectParams.WANewBanks"
+                                                                                                key="orgId"
+                                                                                                keyname="tradeName"
+                                                                                                [btnClicked]="btnClicked"
+                                                                                                (ngModelChange)="GetBankDetails()"
+                                                                                                [required]="BANRequired"
+                                                                                                [errorTrue]="BANRequired && errorTrue"
+                                                                                                [mandatory]="BANRequired">
+                                                                                            </app-select-control>
+
+
+
+
+
+
+                                                                                        </div>
+
+                                                                                        <div class="col-xl-8">
+                                                                                            <app-input-control
+                                                                                                label="Bank Account No"
+                                                                                                [(ngModel)]="withdrawals.newBank.bankAccountNumber"
+                                                                                                name="bankAccountNumber"
+                                                                                                tabindex="4"
+                                                                                                [btnClicked]="btnClicked"
+                                                                                                [required]="BANRequired"
+                                                                                                [errorTrue]="BANRequired && errorTrue"
+                                                                                                [mandatory]="BANRequired">
+                                                                                            </app-input-control>
+                                                                                        </div>
+                                                                                    </ng-container>
+                                                                                    <!-- <div class="col-xl-8">
+
+                                                                                        <app-input-control
+                                                                                            label="Bank Account Name"
+                                                                                            [(ngModel)]="withdrawals.xData.bankAccountName"
+                                                                                            name="bankAccountName"
+                                                                                            [btnClicked]="btnClicked"
+                                                                                            [required]="BANameRequired"
+                                                                                            [errorTrue]="BANameRequired && errorTrue"
+                                                                                            [mandatory]="BANameRequired"
+                                                                                            tabindex="5">
+                                                                                        </app-input-control>
+
+
+                                                                                </div> -->
+
+                                                                                    <!-- <div class="col-xl-12 heading">
+                                                                                    MPAISA
+                                                                                 </div> -->
+                                                                                    <div class="col-md-8"
+                                                                                        *ngIf="withdrawals.xData.paymentMethodValue === 'MPAI'">
+                                                                                        <!-- <app-phone-control
+                                                                                            label="Mobile No">
+                                                                                        </app-phone-control> -->
+                                                                                        <label>Mobile Number</label>
+                                                                                        <div
+                                                                                            class="d-flex align-items-center">
+
+                                                                                            <label
+                                                                                                class="mr-1 mb-0">679-</label>
+                                                                                            <app-number-control label=""
+                                                                                                [(ngModel)]="withdrawals.xData.newMobileNo"
+                                                                                                placeholder="eg. 8888888"
+                                                                                                name="istrNewMobileNo"
+                                                                                                tabindex="16" limit="7"
+                                                                                                class="noformmb"
+                                                                                                [errorTrue]="mobileLimitError">
+                                                                                            </app-number-control>
+                                                                                        </div>
+                                                                                        <p class="text-danger"
+                                                                                            *ngIf="mobileLimitError">
+                                                                                            <small>Mobile number cannot
+                                                                                                be less than 7
+                                                                                                digits</small>
+                                                                                        </p>
+
+
+
+
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="panel-stepper-footer">
+                                                        <div class="text-right">
+                                                            <a mat-raised-button color="accent" (click)="clickPrev()"
+                                                                [parentId]="pageId"
+                                                                appAccess="BTNBackStep2PaymentDetailWitdrawals">
+                                                                <ion-icon name="arrow-back-outline"></ion-icon>
+                                                                Back
+                                                            </a>
+                                                            <button type="submit" mat-raised-button color="accent"
+                                                                class="ml-3" [parentId]="pageId"
+                                                                appAccess="BTNNextStep2PaymentDetailWitdrawals">
+                                                                Next
+                                                                <ion-icon name="arrow-forward-outline"></ion-icon>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </cdk-step>
+                                    <!-- <cdk-step label="Document Upload" [completed]="step3Completed">
+                                        <div class="h100">
+                                            <div class="panel-stepper h100">
+                                                <div class="panel-stepper-body">
+                                                    <div class="ab">
+                                                        <div class="rel">
+                                                            <div class="container-fluid">
+                                                                <div class="p-3"></div>
+                                                                <div class="row">
+                                                                    <div class="col-xl-12 heading">
+                                                                        Document Upload
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row pt-2 pb-1">
+                                                                    <div class="col-xl-6">
+                                                                        <ng-container
+                                                                            *ngFor="let document of withdrawals.xdocuments">
+                                                                            <app-file-upload
+                                                                                [label]="document.documentTypeDescription"
+                                                                                [data]="document"
+                                                                                (onload)="uploadDocument($event,document)"
+                                                                                [mandatory]="document.isMandatory === 'Y'"
+                                                                                dname="document.pDocumentFile.fileName"
+                                                                                [loading]="fileUploading === document.documentTypeValue"
+                                                                                required [errorTrue]="errorTrue"
+                                                                                [xFile]="document.pDocumentFile"
+                                                                                expanded="true"
+                                                                                (onclear)="clearXFile($event)"
+                                                                                [accept]="appSettingService.environment.fileAccept">
+                                                                            </app-file-upload>
+                                                                        </ng-container>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="panel-stepper-footer">
+                                                    <div class="text-right">
+                                                        <button mat-raised-button color="accent" (click)="clickPrev()"
+                                                            [parentId]="pageId"
+                                                            appAccess="BTNBackStep3DocumentUploadWitdrawals">
+                                                            <ion-icon name="arrow-back-outline"></ion-icon>
+                                                            Back
+                                                        </button>
+                                                        <button mat-raised-button color="accent"
+                                                            (click)="uploadStep3Docs()" class="ml-3" [parentId]="pageId"
+                                                            appAccess="BTNSaveandNextStep3DocumentUploadWitdrawals">
+                                                            Save and Next
+                                                            <ion-icon name="arrow-forward-outline"></ion-icon>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </cdk-step> -->
+                                    <cdk-step label="Consent & Submission" [completed]="step4Completed">
+                                        <form class="h100" autocomplete="off" #mc="ngForm">
+                                            <div class="panel-stepper h100">
+                                                <div class="panel-stepper-body">
+                                                    <div class="ab">
+                                                        <div class="rel">
+                                                            <div class="container-fluid">
+
+                                                                <!-- <div class="p-3"></div> -->
+                                                                <div class="row pt-3 pb-2">
+                                                                    <div class="col-xl-12 heading">
+                                                                        Member Consent
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row pb-2">
+                                                                    <div class="col-xl-8">
+                                                                        <!-- <mat-checkbox labelPosition="before">
+                                                                            </mat-checkbox> -->
+                                                                        <!-- <mat-checkbox
+                                                                                (change)="checkMemberConsent($event.checked)"
+                                                                                [checked]="withdrawals.xData.memberConsent  === 'Y'">
+                                                                            </mat-checkbox> -->
+                                                                        <div>
+
+                                                                            <p>
+                                                                                {{withdrawals.xData.memberConcentMsg}}
+                                                                            </p>
+
+
+                                                                            <!-- <p>Member agrees to be continually
+                                                                                    assited
+                                                                                    for COVID
+                                                                                    19 withdrawals through the
+                                                                                    fortnightly
+                                                                                    deduction
+                                                                                    of $220 from my General Account
+                                                                                    until
+                                                                                    such time
+                                                                                    the minimum balance is $35. I also
+                                                                                    agree
+                                                                                    that if
+                                                                                    need be Government will top up this
+                                                                                    assistance
+                                                                                    untill such time it decides
+                                                                                    otherwise.
+                                                                                </p> -->
+                                                                        </div>
+                                                                        <mat-radio-group
+                                                                            [(ngModel)]="withdrawals.xData.memberConsent"
+                                                                            name="memberConsent">
+                                                                            <mat-radio-button value="Y">
+                                                                                Yes
+                                                                            </mat-radio-button>
+                                                                            <mat-radio-button value="N" class="ml-3">
+                                                                                No
+                                                                            </mat-radio-button>
+                                                                        </mat-radio-group>
+                                                                    </div>
+                                                                    <hr>
+                                                                    <div class="col-xl-12 heading pt-3 pb-2">
+                                                                        Officer Consent
+                                                                    </div>
+                                                                    <div class="col-xl-8 d-flex">
+                                                                        <div>
+                                                                            <p>
+                                                                                {{withdrawals.xData.officerConcentMsg}}
+                                                                            </p>
+                                                                            <p>By clicking submit application I
+                                                                                hereby
+                                                                                acknowledge that the information
+                                                                                entered
+                                                                                on
+                                                                                behalf of the member are true to the
+                                                                                best of my
+                                                                                knowledge</p>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-xl-4 pl-0 ml-3">
+                                                                        <div class="heading">
+                                                                            Transaction PIN
+                                                                        </div>
+                                                                        <app-pin-control boxes="4" id="tp"
+                                                                            #xtransactionPin alignLeft="true"
+                                                                            [(ngModel)]="withdrawals.xData.transactionPin"
+                                                                            name="transactionPin" required
+                                                                            password="true" clearbtn="true"
+                                                                            [errorTrue]="errorTrue" mandatory="true">
+                                                                        </app-pin-control>
+                                                                        <p class="text-danger mt-15px"
+                                                                            *ngIf="errorTrue && withdrawals.xData.transactionPin.length < 4">
+                                                                            <small>Please Enter Transaction
+                                                                                PIN</small>
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="panel-stepper-footer">
+                                                    <div class="text-right">
+                                                        <button mat-raised-button color="accent" (click)="clickPrev()"
+                                                            [parentId]="pageId"
+                                                            appAccess="BTNBackStep4ConsentSubmissionWitdrawals">
+                                                            <ion-icon name="arrow-back-outline"></ion-icon>
+                                                            Back
+                                                        </button>
+                                                        <button mat-raised-button color="accent"
+                                                            (click)="submitData(mc)" class="ml-3" [parentId]="pageId"
+                                                            appAccess="BTNSubmitStep4ConsentSubmissionWitdrawals">
+                                                            Submit
+                                                            <ion-icon name="arrow-forward-outline"></ion-icon>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </cdk-step>
+                                </app-stepper>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="ab bg-white" *ngIf="successTrue">
+                        <div class="stepper-container pt-5">
+                            <div class="stepper-content pt-5">
+                                <div class="panel-step">
+                                    <div class="v-center mw768">
+                                        <div class="s-box text-center">
+                                            <div class="circle-tick"></div>
+                                            <p>{{ withdrawals.xData.infoMsg }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,576 @@
+<div class="content-body" [parentId]="pageId" appAccess="PRODE">
+    <div class="rel">
+        <div class="cus-card mt-0 mx-0">
+            <div class="container-fluid m-pad">
+                <ng-container *ngIf="!data.isMobile">
+                    <div class="row">
+                        <div class="col-md-12 pb-3 heading">
+                            CONTACT INFORMATION
+                        </div>
+                    </div>
+                </ng-container>
+                <ng-container *ngIf="data.isMobile">
+                    <div class="d-flex align-items-center m-heading" (click)="toggleAccordion(1)">
+                        <div class="">
+                            Contact Information
+                        </div>
+                        <div class="ml-auto d-flex align-items-center"
+                            [ngClass]="{'m-rotate': selectedAccordion === 1}">
+                            <ion-icon name="chevron-down-outline" class="fs16"></ion-icon>
+                        </div>
+                    </div>
+                </ng-container>
+                <ng-container *ngIf="data.isMobile ? (selectedAccordion === 1 ? true: false): true">
+                    <div class="row pb-3">
+                        <div class="col-md-3">
+                            <label>First Name</label>
+                            <div class="name-label">
+                                <ng-container *ngIf="service.detail.iprotoentOrgContact.person.firstName !== ''">
+                                    {{service.detail.iprotoentOrgContact.person.firstName}}
+                                </ng-container>
+                                <ng-container *ngIf="service.detail.iprotoentOrgContact.person.firstName === ''">
+                                    -
+                                </ng-container>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <label>Middle Name</label>
+                            <div class="name-label">
+                                <ng-container *ngIf="service.detail.iprotoentOrgContact.person.middleName !== ''">
+                                    {{service.detail.iprotoentOrgContact.person.middleName}}
+                                </ng-container>
+                                <ng-container *ngIf="service.detail.iprotoentOrgContact.person.middleName === ''">
+                                    -
+                                </ng-container>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <label>Last Name</label>
+                            <div class="name-label">
+                                <ng-container *ngIf="service.detail.iprotoentOrgContact.person.lastName !== ''">
+                                    {{service.detail.iprotoentOrgContact.person.lastName}}
+                                </ng-container>
+                                <ng-container *ngIf="service.detail.iprotoentOrgContact.person.lastName === ''">
+                                    -
+                                </ng-container>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row pb-3">
+                        <div class="col-md-3 fb-name">
+                            <label>Date of Birth</label>
+                            <div class="fw500">
+                                <ng-container *ngIf="service.detail.iprotoentOrgContact.person.dateOfBirth !== ''">
+                                    {{service.detail.iprotoentOrgContact.person.dateOfBirth | moment : 'DD-MM-YYYY' :
+                                    'DD
+                                    MMM YYYY'}}
+                                </ng-container>
+                                <ng-container *ngIf="service.detail.iprotoentOrgContact.person.dateOfBirth === ''">
+                                    -
+                                </ng-container>
+                            </div>
+                        </div>
+                        <div class="col-md-3 fb-name">
+                            <label>Gender</label>
+                            <div class="fw500">
+                                <ng-container
+                                    *ngIf="service.detail.iprotoentOrgContact.person.genderDescription !== ''">
+                                    {{service.detail.iprotoentOrgContact.person.genderDescription}}
+                                </ng-container>
+                                <ng-container
+                                    *ngIf="service.detail.iprotoentOrgContact.person.genderDescription === ''">
+                                    -
+                                </ng-container>
+                            </div>
+                        </div>
+                        <!-- <div class="col-md-3 fb-name">
+                        <label>Contact Email</label>
+                        <div class="fw500">
+                            <ng-container *ngIf="service.detail.iprotoentOrgContact.person.emailId !== ''">
+                                {{service.detail.iprotoentOrgContact.person.emailId}}
+                            </ng-container>
+                            <ng-container *ngIf="service.detail.iprotoentOrgContact.person.emailId === ''">
+                                -
+                            </ng-container>
+                        </div>
+
+                    </div> -->
+                        <!-- <div class="col-md-3 fb-name">
+                        <label>Contact Number</label>
+                        <div class="fw500">
+                            <ng-container *ngIf="service.detail.iprotoentOrgContact.person.mobileNo !== ''">
+                                {{service.detail.iprotoentOrgContact.person.mobileNo}}
+                            </ng-container>
+                            <ng-container *ngIf="service.detail.iprotoentOrgContact.person.mobileNo === ''">
+                                -
+                            </ng-container>
+                        </div>
+                    </div> -->
+                        <div class="col-md-3 fb-name">
+                            <label>Passport No</label>
+                            <div class="fw500">
+                                <ng-container *ngIf="service.detail.iprotoentOrgContact.person.passportNo !== ''">
+                                    {{service.detail.iprotoentOrgContact.person.passportNo}}
+                                </ng-container>
+                                <ng-container *ngIf="service.detail.iprotoentOrgContact.person.passportNo === ''">
+                                    -
+                                </ng-container>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row ">
+
+                        <div class="col-md-3 fb-name">
+                            <label>Birth Reg No</label>
+                            <div class="fw500">
+                                <ng-container *ngIf="service.detail.iprotoentOrgContact.person.birthRegNo !== ''">
+                                    {{service.detail.iprotoentOrgContact.person.birthRegNo}}
+                                </ng-container>
+                                <ng-container *ngIf="service.detail.iprotoentOrgContact.person.birthRegNo === ''">
+                                    -
+                                </ng-container>
+                            </div>
+                        </div>
+                        <div class="col-md-3 fb-name">
+                            <label>TIN</label>
+                            <div class="fw500">
+                                <ng-container *ngIf="service.detail.iprotoentOrgContact.person.tin !== ''">
+                                    {{service.detail.iprotoentOrgContact.person.tin}}
+                                </ng-container>
+                                <ng-container *ngIf="service.detail.iprotoentOrgContact.person.tin === ''">
+                                    -
+                                </ng-container>
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+        <div class="cus-card mt-0 mx-0">
+            <div class="container-fluid m-pad">
+                <ng-container *ngIf="!data.isMobile">
+                    <div class="row">
+                        <div class="col-md-12 pb-3 heading">
+                            EMPLOYMENT INFORMATION
+                        </div>
+                    </div>
+                </ng-container>
+                <ng-container *ngIf="data.isMobile">
+                    <div class="d-flex align-items-center m-heading" (click)="toggleAccordion(2)">
+                        <div class="">
+                            Employment Information
+                        </div>
+                        <div class="ml-auto d-flex align-items-center"
+                            [ngClass]="{'m-rotate': selectedAccordion === 2}">
+                            <ion-icon name="chevron-down-outline" class="fs16"></ion-icon>
+                        </div>
+                    </div>
+                </ng-container>
+                <ng-container *ngIf="data.isMobile ? (selectedAccordion === 2 ? true: false): true">
+                    <div class="row pb-3">
+                        <div class="col-md-6">
+                            <div class="container-fluid p-0">
+                                <div class="row pb-3">
+                                    <div class="col-md-6">
+                                        <label>Contact Type</label>
+                                        <div class="fw500">
+                                            <ng-container
+                                                *ngIf="service.detail.iprotoentOrgContact.contactTypeDescription !== ''">
+                                                {{service.detail.iprotoentOrgContact.contactTypeDescription}}
+                                            </ng-container>
+                                            <ng-container
+                                                *ngIf="service.detail.iprotoentOrgContact.contactTypeDescription === ''">
+                                                -
+                                            </ng-container>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="col-md-3">
+                                    <label>Designation</label>
+                                    <div class="fw500">
+                                        {{service.detail.iprotoentOrgContact.firstName}}
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <label>CS Code</label>
+                                    <div class="fw500">
+                                        {{service.detail.iprotoentOrgContact.firstName}}
+                                    </div>
+                                </div> -->
+                                    <div class="col-md-6">
+                                        <label>Contact Status</label>
+                                        <div class="fw500">
+                                            <ng-container
+                                                *ngIf="service.detail.iprotoentOrgContact.contactStatusDescription !== ''">
+                                                {{service.detail.iprotoentOrgContact.contactStatusDescription}}
+                                            </ng-container>
+                                            <ng-container
+                                                *ngIf="service.detail.iprotoentOrgContact.contactStatusDescription === ''">
+                                                -
+                                            </ng-container>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Start Date</label>
+                                        <div class="fw500">
+                                            <ng-container *ngIf="service.detail.iprotoentOrgContact.startDate !== ''">
+                                                {{service.detail.iprotoentOrgContact.startDate| moment : 'DD-MM-YYYY' :
+                                                'DD
+                                                MMM YYYY'}}
+                                            </ng-container>
+                                            <ng-container *ngIf="service.detail.iprotoentOrgContact.startDate === ''">
+                                                -
+                                            </ng-container>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label>End Date</label>
+                                        <div class="fw500">
+                                            <ng-container *ngIf="service.detail.iprotoentOrgContact.endDate !== ''">
+                                                {{service.detail.iprotoentOrgContact.endDate| moment : 'DD-MM-YYYY' :
+                                                'DD
+                                                MMM YYYY'}}
+                                            </ng-container>
+                                            <ng-container *ngIf="service.detail.iprotoentOrgContact.endDate === ''">
+                                                -
+                                            </ng-container>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="table-responsive">
+                                <table class="table table-bordered">
+                                    <tbody>
+                                        <tr>
+                                            <td class="fw500">Contact Type</td>
+                                            <!-- <td class="fw500">Cs Code</td> -->
+                                        </tr>
+                                        <tr *ngFor="let contact of service.detail.lstprotoentOrgContact">
+                                            <td>
+                                                {{contact.contactTypeDescription}}
+                                            </td>
+                                            <!-- <td>
+                                            {{contact.commaSeparatedCsCode}}
+                                        </td> -->
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+        <div class="cus-card m-0">
+            <div class="container-fluid m-pad">
+                <ng-container *ngIf="!data.isMobile">
+                    <div class="row">
+                        <div class="col-md-12 pb-3 heading">
+                            LOGIN DETAILS
+                        </div>
+                    </div>
+                </ng-container>
+                <ng-container *ngIf="data.isMobile">
+                    <div class="d-flex align-items-center m-heading" (click)="toggleAccordion(3)">
+                        <div class="">
+                            Login Details
+                        </div>
+                        <div class="ml-auto d-flex align-items-center"
+                            [ngClass]="{'m-rotate': selectedAccordion === 3}">
+                            <ion-icon name="chevron-down-outline" class="fs16"></ion-icon>
+                        </div>
+                    </div>
+                </ng-container>
+                <ng-container *ngIf="data.isMobile ? (selectedAccordion === 3 ? true: false): true">
+                    <div class="row pb-3">
+                        <div class="col-md-3 fb-name">
+                            <label>User Name</label>
+                            <div class="fw500">
+                                <ng-container *ngIf="service.detail.userId !== ''">
+                                    {{service.detail.userId}}
+                                </ng-container>
+                                <ng-container *ngIf="service.detail.userId === ''">
+                                    -
+                                </ng-container>
+                            </div>
+                            <div appAccess="BTNMyProfileChangeUsername" [parentId]="pageId">
+                                <a routerLink="/app/reset-username">Change</a>
+                            </div>
+                        </div>
+                        <div class="col-md-3 fb-name">
+                            <label>Password
+                                <span class="text-danger pl-3">
+                                    <small>Expires in {{service.detail.reminingpasswordExpiredDays}} days
+                                    </small>
+                                </span>
+                            </label>
+                            <div class="fw500">XXXXXX
+                            </div>
+                            <div appAccess="BTNMyProfileResetPassword" [parentId]="pageId">
+                                <a routerLink="/app/reset-password">Reset</a>
+                            </div>
+                        </div>
+                        <div class="col-md-3 fb-name">
+                            <label>Transaction PIN</label>
+                            <div class="fw500">XXXX</div>
+                            <div appAccess="BTNMyProfileResetPIN" [parentId]="pageId">
+                                <a routerLink="/app/reset-transaction-pin">Reset</a>
+                            </div>
+                        </div>
+                        <div class="col-md-3 fb-name">
+                            <label>Registered Email</label>
+                            <div class="fw500">
+                                <ng-container *ngIf="service.detail.workEmailAddress !== ''">
+                                    {{service.detail.workEmailAddress}}
+                                </ng-container>
+                                <ng-container *ngIf="service.detail.workEmailAddress === ''">
+                                    -
+                                </ng-container>
+                            </div>
+                            <div appAccess="BTNMyProfileChangeEmail" [parentId]="pageId">
+                                <a routerLink="/app/reset-email">Change</a>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row pb-3">
+                        <div class="col-md-3 fb-name">
+                            <label>Registered Contact No</label>
+                            <div class="fw500">
+                                <ng-container *ngIf="service.detail.mobileNo !== ''">
+                                    {{service.detail.mobileNo}}
+                                </ng-container>
+                                <ng-container *ngIf="service.detail.mobileNo === ''">
+                                    -
+                                </ng-container>
+                            </div>
+                            <div appAccess="BTNMyProfileChangeContactNo" [parentId]="pageId">
+                                <a routerLink="/app/reset-MobileNumber">Change</a>
+                            </div>
+                        </div>
+                        <!-- <div class="col-md-3 fb-name">
+                        <label>Security Questions</label>
+                        <div class="fw500">
+                            <ng-container>
+                                {{service.detail.answeredSecurityQuestions}} /{{service.detail.totalSecurityQuestions}}
+                            </ng-container>
+                            <ng-container
+                                *ngIf="service.detail.answeredSecurityQuestions === '0' ||service.detail.totalSecurityQuestions === '0'">
+                                -
+                            </ng-container>
+                        </div>
+                        <div appAccess="BTNMyProfileChangeSecurityQuestion" [parentId]="pageId">
+                            <a routerLink="/app/reset-security-questions"> Change</a>
+                        </div>
+                    </div> -->
+                        <div class="col-md-3 fb-name">
+                            <label>Last Login</label>
+                            <div class="fw500">
+                                <ng-container *ngIf="service.detail.lastLoginDate !== ''">
+                                    {{service.detail.lastLoginDate| moment : 'DD-MM-YYYY hh:mm a' : 'DD MMM YYYY hh:mm
+                                    a'}}
+                                </ng-container>
+                                <ng-container *ngIf="service.detail.lastLoginDate === ''">
+                                    -
+                                </ng-container>
+                            </div>
+                        </div>
+                        <div class="col-md-3 fb-name">
+                            <label>Last Password Changed</label>
+                            <div class="fw500">
+                                <ng-container *ngIf="service.detail.passwordLastChangedDate !== ''">
+                                    {{service.detail.passwordLastChangedDate| moment : 'DD-MM-YYYY hh:mm a' : 'DD MMM
+                                    YYYY
+                                    hh:mm a'}}
+                                </ng-container>
+                                <ng-container *ngIf="service.detail.passwordLastChangedDate === ''">
+                                    -
+                                </ng-container>
+                            </div>
+
+                        </div>
+                        <div class="col-md-3 fb-name">
+                            <label>Last Transaction PIN Changed</label>
+                            <div class="fw500">
+                                <ng-container *ngIf="service.detail.transactionPinLastChangedDate !== ''">
+                                    {{service.detail.transactionPinLastChangedDate | moment : 'DD-MM-YYYY hh:mm a' : 'DD
+                                    MMM
+                                    YYYY hh:mm a'}}
+                                </ng-container>
+                                <ng-container *ngIf="service.detail.transactionPinLastChangedDate === ''">
+                                    -
+                                </ng-container>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3 fb-name">
+                            <label>Last Email Sent</label>
+                            <div class="fw500">
+                                <ng-container *ngIf="service.detail.lastEmailSentDate !== ''">
+                                    {{service.detail.lastEmailSentDate| moment : 'DD-MM-YYYY hh:mm a' : 'DD MMM YYYY
+                                    hh:mm
+                                    a'}}
+                                </ng-container>
+                                <ng-container *ngIf="service.detail.lastEmailSentDate === ''">
+                                    -
+                                </ng-container>
+                            </div>
+                        </div>
+                        <div class="col-md-3 fb-name">
+                            <label>Terms & Conditions</label>
+                            <div class="fw500">
+                                <!-- Accepted -->-
+                            </div>
+                            <div (click)="openDialog()">
+                                <a>View T&C</a>
+                            </div>
+                        </div>
+                        <div class="col-md-3 fb-name">
+                            <label>Default Landing Page</label>
+                            <div class="fw500">
+
+                                <ng-container *ngIf="service.detail.defaultLandingPageName !== ''">
+                                    {{service.detail.defaultLandingPageName}}
+
+                                </ng-container>
+                                <ng-container *ngIf="service.detail.defaultLandingPageName === ''">
+                                    -
+                                </ng-container>
+                            </div>
+                            <div>
+                                <a (click)="changeDefaultLandingPage()">Change</a>
+                            </div>
+                        </div>
+                        <!-- <div class="col-md-3 fb-name">
+                        <label>Portal Status</label>
+                        <div class="fw500">
+                            <ng-container *ngIf="service.detail.statusDescription !== ''">
+                                <div class="badge badge-success f100">
+                                    {{service.detail.statusDescription}}
+                                </div>
+                            </ng-container>
+                            <ng-container *ngIf="service.detail.statusDescription === ''">
+                                -
+                            </ng-container>
+                        </div>
+                    </div> -->
+                        <div class="col-md-3 fb-name" [parentId]="pageId" appAccess="BTNToggleTFAProfileDetail">
+                            <label>Two Factor Authentication</label>
+                            <div class="fs13">
+                                <mat-slide-toggle (change)="twofactorAuthentication($event)"
+                                    [checked]="service.detail.enableTwoFactorAuthentication === 'Y'">
+                                    <ng-container *ngIf="service.detail.enableTwoFactorAuthentication === ''">
+                                        Disabled
+                                    </ng-container>
+                                    <ng-container *ngIf="service.detail.enableTwoFactorAuthentication === 'Y'">
+                                        Enabled
+                                    </ng-container>
+                                    <ng-container *ngIf="service.detail.enableTwoFactorAuthentication === 'N'">
+                                        Disabled
+                                    </ng-container>
+                                </mat-slide-toggle>
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<ng-template #termsConditionDialog>
+    <div class="adjust-margin h100">
+        <div class="dialogue-header z-2">
+            <div>
+                Terms & Condition
+            </div>
+            <div class="ml-auto d-flex align-items-center">
+                <button mat-icon-button (click)="onNoClick()">
+                    <ion-icon name="close-outline"></ion-icon>
+                </button>
+            </div>
+        </div>
+        <div class="ab pt50 pb50">
+            <div class="rel">
+                <div class="h100">
+                    <div class="container-fluid">
+                        <div class="row p-3">
+                            <div>
+                                <h6 class="heading">SERVICE DESCRIPTION</h6>
+                                <p>
+                                    The Employer Self Service (ESS) Portal will
+                                    enable the authorized user to access their FNPF
+                                    Portal account, manage access credentials,
+                                    manage contribution schedules, register new
+                                    employees as members and submit withdrawals.
+                                    Users must be authorized by their employer to
+                                    access this Information.
+                                </p>
+                                <h6 class="heading">USE OF SERVICE</h6>
+                                <p>
+                                    The Employer is solely responsible for all security of
+                                    the information provided and use of these services,
+                                    including but not limited to the following:
+                                </p>
+                                <div class="pl-3">
+                                    <p>
+                                        a) Exert reasonable efforts to maintain the
+                                        confidentiality of information provided or accessed.
+                                    </p>
+                                    <p>
+                                        b) Register only his/her own personal email address
+                                        for
+                                        the Employer Portal service or his/her own personal
+                                        registered mobile number for the Employer Portal
+                                        service.
+                                    </p>
+                                    <p>
+                                        c) Register an employee's personal email address for
+                                        the Employer Portal service or the employee's own
+                                        personal registered mobile number for the Employer
+                                        Portal service.
+                                    </p>
+                                    <p>
+                                        d) A username and password will be issued upon the
+                                        successfully registration for online access to their
+                                        Employer's Portal information. The Employee will be
+                                        expected to exert reasonable efforts to maintain
+                                        confidentiality of their information.
+                                    </p>
+                                    <p>
+                                        e) The management of access to the employer portal
+                                        account and the account information. This Includes
+                                        granting or revoking access for their registered
+                                        users of the Employer Portal Service.
+                                    </p>
+                                    <p>
+                                        f) FNPF’s obligation with respect to revoking access
+                                        is
+                                        to suspend disseminating the Employer Contact Person
+                                        information unless the contact is activated again by
+                                        the Primary contact of said employer.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="dialogue-footer z-2">
+            <div class="d-flex align-items-center">
+                <div class="ml-auto d-flex align-items-center">
+                    <button mat-raised-button color="accent" class="ml-2" (click)="onNoClick()">
+                        OK
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>

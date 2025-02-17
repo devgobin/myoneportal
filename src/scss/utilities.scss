@@ -1,0 +1,94 @@
+@mixin text-emphasis-variant($parent, $color, $ignore-warning: false, $text) {
+    #{$parent} {
+        color: var(--#{$text}) !important;
+    }
+
+    @if $emphasized-link-hover-darken-percentage !=0 {
+        a#{$parent} {
+            @include hover-focus() {
+                color: darken($color, $emphasized-link-hover-darken-percentage) !important;
+            }
+        }
+    }
+
+    @include deprecate("`text-emphasis-variant()`", "v4.4.0", "v5", $ignore-warning);
+}
+
+@mixin badge-variant($bg, $name) {
+    color: color-yiq($bg);
+    background-color: var(--#{$name});
+
+    @at-root a#{&} {
+        @include hover-focus() {
+            color: color-yiq($bg);
+            background-color: darken($bg, 10%);
+        }
+
+        &:focus,
+        &.focus {
+            outline: 0;
+            box-shadow: 0 0 0 $badge-focus-width rgba($bg, .5);
+        }
+    }
+}
+
+@mixin mat-button-variant($bg, $name) {
+    color: color-yiq($bg);
+    background-color: var(--#{$name});
+}
+
+@mixin mat-icon-button-variant($bg, $name) {
+    color: var(--#{$name});
+    // background-color: var(--#{$name});
+}
+
+@mixin badge-variant-outline($bg, $name) {
+    color: var(--#{$name});
+    font-weight: 500;
+    font-size: 90%;
+    padding: 0.25em 0.6em;
+    border: 1px solid var(--#{$name});
+}
+
+@each $color,
+$value in $theme-colors {
+    // text-emphasis-color:
+    @include text-emphasis-variant(".text-#{$color}", $value, true, $color);
+
+    // badges
+    .badge-#{$color} {
+        @include badge-variant($value, $color);
+    }
+    .badge-outline-#{$color} {
+        @include badge-variant-outline($value, $color);
+    }
+
+
+    // Material Designs:
+
+    .mat-button {
+        &.mat-#{$color} {
+            @include mat-icon-button-variant($value, $color);
+        }
+    }
+    .mat-raised-button {
+        &.mat-#{$color} {
+            @include mat-button-variant($value, $color);
+        }
+    }
+
+    .mat-icon-button {
+        &.mat-#{$color} {
+            @include mat-icon-button-variant($value, $color);
+        }
+    }
+
+    .mat-checkbox-checked {
+        &.mat-#{$color} {
+            .mat-checkbox-background {
+                background-color: var(--#{$color});
+            }
+        }
+    }
+
+}

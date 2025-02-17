@@ -1,0 +1,40 @@
+<div class="adjust-margin" [parentId]="pageId" appAccess="TIPSN">
+    <div class="dialogue-header z-2">
+        <div>
+            Schedule Receipt Detail
+        </div>
+        <div class="ml-auto d-flex align-items-center">
+            <button mat-icon-button [parentId]="pageId" appAccess="BTNCloseTimePaymentSchedule" mat-dialog-close
+                matTooltip="Close">
+                <ion-icon name="close-outline"></ion-icon>
+            </button>
+        </div>
+    </div>
+    <div class="ab pt50 pb50">
+        <div class="rel p-3">
+            <div class="h100">
+                <div class="table-responsive">
+                    <table mat-table [dataSource]="dataSource" class="table-hover">
+                        <ng-container matColumnDef="timePaymentSchedulePaymentDetailId">
+                            <th mat-header-cell *matHeaderCellDef> Invoice Number </th>
+                            <td mat-cell *matCellDef="let element"> {{element.timePaymentSchedulePaymentDetailId}}
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="remittanceId">
+                            <th mat-header-cell *matHeaderCellDef> Receipt Number </th>
+                            <td mat-cell *matCellDef="let element"> {{element.remittanceId}}</td>
+                        </ng-container>
+                        <ng-container matColumnDef="paidAmt">
+                            <th mat-header-cell *matHeaderCellDef> Paid Amount </th>
+                            <td mat-cell *matCellDef="let element"> {{element.paidAmt| appCurrency }}</td>
+                        </ng-container>
+
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+                            [ngClass]="{'active': activeIndex == row}" (click)="active(row)"></tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

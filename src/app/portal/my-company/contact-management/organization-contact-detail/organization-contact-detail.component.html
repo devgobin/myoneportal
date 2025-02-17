@@ -1,0 +1,414 @@
+<div class="content-body" [parentId]="pageId" appAccess="ORGCD">
+    <div class="rel">
+        <div class="h100 ab">
+            <!--add this pb155 while uncommand footer -->
+            <app-stepper #registrationSteps>
+                <cdk-step label="Contact Information" [completed]="step1Completed">
+                    <div class="h100">
+                        <form class="h100" #m="ngForm" (ngSubmit)="submitInformation(m)" autocomplete="off">
+                            <div class="panel-stepper h100">
+                                <div class="panel-stepper-body">
+                                    <div class="ab">
+                                        <div class="rel">
+                                            <div class="mw960">
+                                                <div class="container-fluid">
+                                                    <div class="row pt-3">
+                                                        <div class="col-xl-4">
+                                                            <app-input-control label="First Name" [upperCase]="true"
+                                                                [(ngModel)]="contactservice.contact.firstName"
+                                                                tabindex="1" name="firstName" required
+                                                                [errorTrue]="errorTrue" mandatory="true"
+                                                                emojiType="name">
+                                                            </app-input-control>
+                                                        </div>
+                                                        <div class="col-xl-4">
+                                                            <app-input-control label="Middle Name" [upperCase]="true"
+                                                                [(ngModel)]="contactservice.contact.middleName"
+                                                                tabindex="2" name="middleName" emojiType="name">
+                                                            </app-input-control>
+                                                        </div>
+                                                        <div class="col-xl-4">
+                                                            <app-input-control label="Last Name" [upperCase]="true"
+                                                                [(ngModel)]="contactservice.contact.lastName"
+                                                                tabindex="3" name="lastName" required
+                                                                [errorTrue]="errorTrue" mandatory="true"
+                                                                emojiType="name">
+                                                            </app-input-control>
+                                                        </div>
+                                                        <div class="col-xl-4">
+                                                            <app-date-control label="Date of Birth"
+                                                                [(ngModel)]="contactservice.contact.dateOfBirth"
+                                                                tabindex="4" name="dateOfBirth" required
+                                                                [errorTrue]="errorTrue" mandatory="true"
+                                                                [readonly]="true">
+                                                            </app-date-control>
+                                                        </div>
+                                                        <div class="col-xl-4">
+                                                            <app-select-control label="Gender"
+                                                                [(ngModel)]="contactservice.contact.genderValue"
+                                                                tabindex="5" [items]="contactservice.DDL.DDLGenderValue"
+                                                                key="constant" keyname="description" name="genderValue"
+                                                                required [errorTrue]="errorTrue" mandatory="true">
+                                                            </app-select-control>
+                                                        </div>
+                                                        <div class="col-xl-4">
+                                                            <app-select-control label="Nationality"
+                                                                [(ngModel)]="contactservice.contact.nationalityValue"
+                                                                tabindex="6"
+                                                                [items]="contactservice.DDL.DDLNationalityValue"
+                                                                key="constant" keyname="description"
+                                                                name="nationalityValue"
+                                                                (ngModelChange)="CheckIfBRNRequiredOrNot()">
+                                                            </app-select-control>
+                                                        </div>
+
+                                                        <div class="col-xl-4">
+                                                            <!-- <app-input-control label="Mobile Number"
+                                                                [(ngModel)]="contactservice.contact.contactNo"
+                                                                #contactNo="ngModel" pattern="[0-9]{7}$"
+                                                                errorText="{{contactNo.invalid && (contactNo.dirty || contactNo.touched) ? 'Should be 7 Numbers' : ''}}"
+                                                                tabindex="7" name="contactNo" required
+                                                                [errorTrue]="errorTrue" mandatory="true">
+                                                            </app-input-control> -->
+                                                            <app-phone-control label="Mobile Number"
+                                                                [(ngModel)]="contactservice.contact.contactNo"
+                                                                placeholder="eg. 679-8888888" name="contactNo" required
+                                                                tabindex="7" [btnClicked]="btnClicked"
+                                                                [errorTrue]="errorTrue" mandatory="true" #mobilenumber>
+                                                            </app-phone-control>
+                                                        </div>
+                                                        <div class="col-xl-8">
+                                                            <app-email-control label="Email ID"
+                                                                [(ngModel)]="contactservice.contact.emailId"
+                                                                tabindex="8" name="emailId" required
+                                                                [errorTrue]="errorTrue" mandatory="true" email="true"
+                                                                #emailId="ngModel"
+                                                                errorText="{{emailId.invalid && (emailId.dirty || emailId.touched) ? 'Invalid Email Format' : ''}}">
+                                                            </app-email-control>
+                                                        </div>
+                                                        <div class="col-xl-4">
+                                                            <app-input-control label="Birth Reg No"
+                                                                [(ngModel)]="contactservice.contact.brn" tabindex="9"
+                                                                name="brn" [btnClicked]="btnClicked"
+                                                                [required]="brnRequired"
+                                                                [errorTrue]="brnRequired && errorTrue"
+                                                                [mandatory]="brnRequired">
+                                                            </app-input-control>
+                                                        </div>
+                                                        <div class="col-xl-4">
+                                                            <app-input-control label="Passport No"
+                                                                [(ngModel)]="contactservice.contact.passportNo"
+                                                                tabindex="10" name="passportNo"
+                                                                [btnClicked]="btnClicked" [required]="ppnRequired"
+                                                                [errorTrue]="ppnRequired && errorTrue"
+                                                                [mandatory]="ppnRequired">
+                                                            </app-input-control>
+                                                        </div>
+                                                        <div class="col-xl-4">
+                                                            <app-number-control label="TIN:" name="tin"
+                                                                [(ngModel)]="contactservice.contact.tin" tabindex="11"
+                                                                limit="10" pattern="[0-9]{9,10}$" #tin="ngModel"
+                                                                errorText="{{tin.invalid && (tin.dirty || tin.touched) ? 'Should be 9 or 10 digit numbers' : ''}}"
+                                                                [errorTrue]="contactservice.contact.tin === '' && (tin.dirty || tin.touched)">
+                                                            </app-number-control>
+                                                            <!-- <app-input-control label="TIN No"
+                                                                [(ngModel)]="contactservice.contact.tin" tabindex="11"
+                                                                name="tin" limit="10" pattern="[0-9]{9,10}$" #tin="ngModel"
+                                                                errorText="{{tin.invalid && tin.dirty ? 'Should be 9 or 10 digit numbers' : ''}}">
+                                                            </app-input-control> -->
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel-stepper-footer">
+                                    <div class="text-right">
+                                        <ng-container
+                                            *ngIf="contactservice.contact.registrationStatusValue !== 'REGIS'">
+                                            <button mat-raised-button color="accent" type="submit"
+                                                [disabled]="btnClicked" [parentId]="pageId"
+                                                appAccess="BTNSaveAndNextStep1ContactInformation">
+                                                <ng-container *ngIf="!btnClicked">
+                                                    Save and Next
+                                                    <ion-icon name="arrow-forward-outline"></ion-icon>
+                                                </ng-container>
+                                                <ng-container *ngIf="btnClicked">
+                                                    <app-dot class="dot-big"></app-dot>
+                                                </ng-container>
+                                            </button>
+                                        </ng-container>
+                                        <ng-container
+                                            *ngIf="contactservice.contact.registrationStatusValue === 'REGIS'">
+                                            <a mat-raised-button color="accent" (click)="step1Click()"
+                                                [parentId]="pageId" appAccess="BTNBackStep1ContactInformation">
+                                                Next
+                                                <ion-icon name="arrow-forward-outline"></ion-icon>
+                                            </a>
+                                        </ng-container>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </cdk-step>
+                <cdk-step label="Employment Information" [completed]="step2Completed">
+                    <div class="h100">
+                        <form class="h100" #emp="ngForm" (ngSubmit)="submit(emp)" autocomplete="off">
+                            <div class="panel-stepper h100">
+                                <div class="panel-stepper-body">
+                                    <div class="ab">
+                                        <div class="rel">
+                                            <div class="mw960">
+                                                <div class="container-fluid">
+                                                    <div class="row pt-3">
+                                                        <div class="col-xl-4">
+                                                            <app-select-control label="Contact Type"
+                                                                [(ngModel)]="contactservice.contact.contactTypeValue"
+                                                                tabindex="1"
+                                                                [items]="contactservice.DDL.DDLContactTypeValue"
+                                                                key="constant" keyname="description"
+                                                                name="contactTypeValue" required [errorTrue]="errorTrue"
+                                                                mandatory="true" (ngModelChange)="CheckRequired()">
+                                                            </app-select-control>
+
+                                                        </div>
+                                                        <div class="col-xl-4">
+                                                            <app-input-control label="Designation"
+                                                                [(ngModel)]="contactservice.contact.designation"
+                                                                tabindex="2" name="designation"
+                                                                [btnClicked]="btnClicked" [required]="degnRequired"
+                                                                [errorTrue]="degnRequired && errorTrue"
+                                                                [mandatory]="degnRequired">
+                                                            </app-input-control>
+                                                        </div>
+                                                        <div class="col-xl-4"
+                                                            *ngIf="contactservice.contact.personAlreadyAuser==='Y'">
+                                                            <app-input-control label="User Name"
+                                                                [(ngModel)]="contactservice.contact.userName"
+                                                                tabindex="2" name="userName" btnClicked="true" required
+                                                                [errorTrue]="errorTrue" mandatory="true">
+                                                            </app-input-control>
+                                                        </div>
+                                                        <div class="col-xl-4"
+                                                            *ngIf="contactservice.contact.personAlreadyAuser!=='Y'">
+                                                            <app-input-control label="User Name"
+                                                                [(ngModel)]="contactservice.contact.userName"
+                                                                tabindex="2" name="userName" [btnClicked]="btnClicked"
+                                                                required [errorTrue]="errorTrue" mandatory="true">
+                                                            </app-input-control>
+                                                        </div>
+                                                        <div class="col-xl-4"
+                                                            *ngIf="contactservice.contact.contactTypeValue === 'CSCT'">
+                                                            <app-select-control label="CS Code"
+                                                                [(ngModel)]="contactservice.contact.csCode" tabindex="1"
+                                                                [items]="contactservice.contact.lstprotoentCSCode"
+                                                                key="csCodeId" keyname="csCode" name="CSCode"
+                                                                [required]="cscRequired"
+                                                                [errorTrue]="cscRequired && errorTrue"
+                                                                [mandatory]="cscRequired"
+                                                                (ngModelChange)="CheckRequired()">
+                                                            </app-select-control>
+                                                            <!-- <mat-select class="form-control ng-pristine ng-valid ng-touched required" [(ngModel)]="contactservice.contact.csCode"
+                                                                        name="CSCode" [btnClicked]="btnClicked"
+                                                                        [required]="cscRequired"
+                                                                        [errorTrue]="cscRequired && errorTrue"
+                                                                        [mandatory]="cscRequired" [ngClass]="{'border-warn':  errorTrue}"
+                                                                        [disabled]="btnClicked">
+                                                                        <ng-container *ngFor="let values of contactservice.contact.lstprotoentCSCode" >
+                                                                            <mat-option [value]="values.csCode">
+                                                                                {{values.csCode}}
+                                                                            </mat-option>
+                                                                        </ng-container>
+                        
+                                                                    </mat-select> -->
+                                                            <!-- <app-select-control label="Contact Type"
+                                                                            [(ngModel)]="contactservice.contact.csCode"
+                                                                            tabindex="1"
+                                                                            [items]="contactservice.contact.lstprotoentCSCode"
+                                                                            key="constant" keyname="description"
+                                                                            name="contactTypeValue"   [required]="cscRequired"
+                                                                            [errorTrue]="cscRequired && errorTrue"
+                                                                            [mandatory]="cscRequired" (ngModelChange)="CheckRequired()">
+                                                                        </app-select-control> -->
+
+                                                            <!-- <app-input-control label="CS Code"
+                                                                [(ngModel)]="contactservice.contact.csCode" tabindex="3"
+                                                                name="CSCode" [btnClicked]="btnClicked"
+                                                                [required]="cscRequired"
+                                                                [errorTrue]="cscRequired && errorTrue"
+                                                                [mandatory]="cscRequired">
+                                                            </app-input-control> -->
+                                                        </div>
+                                                        <div class="col-xl-4"
+                                                            *ngIf="contactservice.contact.contactTypeValue === 'SHLR'">
+                                                            <app-number-control label="Holding Percentage"
+                                                                [(ngModel)]="contactservice.contact.holdingPercentage"
+                                                                tabindex="3" name="holdingPercentage"
+                                                                [btnClicked]="btnClicked" [required]="hpClicked"
+                                                                [errorTrue]="hpClicked  && errorTrue"
+                                                                [mandatory]="hpClicked" decimal="2" limit="5" max="100">
+                                                            </app-number-control>
+                                                        </div>
+                                                        <div class="col-xl-4">
+                                                            <app-date-control label="Start Date"
+                                                                [(ngModel)]="contactservice.contact.startDate"
+                                                                tabindex="5" name="startDate" required
+                                                                [errorTrue]="errorTrue" mandatory="true">
+                                                            </app-date-control>
+                                                        </div>
+                                                        <div class="col-xl-12">
+                                                            <div class="form-group">
+                                                                <div class="d-flex align-items-center">
+                                                                    <label>Business Address
+                                                                        <span class="text-danger">*</span>
+                                                                    </label>
+                                                                    <div class="ml-auto text-danger lh18"
+                                                                        *ngIf="contactservice.contact.businessAddressId === 0 && errorTrue">
+                                                                        <small>mandatory</small>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="input-group" tabindex="5">
+                                                                    <mat-select
+                                                                        class="form-control ng-pristine ng-valid ng-touched required"
+                                                                        [(ngModel)]="contactservice.contact.businessAddressId"
+                                                                        name="businessAddressId"
+                                                                        [ngClass]="{'border-warn':  errorTrue}"
+                                                                        [disabled]="btnClicked">
+                                                                        <ng-container
+                                                                            *ngFor="let values of contactservice.contact.lstentadderss">
+                                                                            <mat-option [value]="values.addressId">
+                                                                                {{values.line1}} {{values.line2}}
+                                                                                {{values.city}} {{values.province}}
+                                                                                {{values.island}}
+                                                                            </mat-option>
+                                                                        </ng-container>
+
+                                                                    </mat-select>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="col-xl-4">
+                                                            <div class="form-group">
+                                                                <label>Contact Status</label>
+                                                                <div class="fw500">
+                                                                    <ng-container
+                                                                        *ngIf="contactservice.contact.registrationStatusDescription !== ''">
+                                                                        {{contactservice.contact.registrationStatusDescription}}
+                                                                    </ng-container>
+                                                                    <ng-container
+                                                                        *ngIf="contactservice.contact.registrationStatusDescription === ''">
+                                                                        -
+                                                                    </ng-container>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel-stepper-footer">
+                                    <div class="text-right">
+                                        <a mat-raised-button color="accent" (click)="clickPrev()" [parentId]="pageId"
+                                            appAccess="BTNBackStep2EmploymentInformation">
+                                            <ion-icon name="arrow-back-outline"></ion-icon>
+                                            Back
+                                        </a>
+                                        <!-- <ng-container
+                                            *ngIf="contactservice.contact.registrationStatusValue !== 'REGIS' && contactservice.contact.contactTypeValue !== 'PRMY'">
+                                            <button mat-raised-button color="accent" class="ml-3" type="submit"
+                                                 [parentId]="pageId" appAccess="BTNSaveAndSubmitStep2EmploymentInformation">
+                                                Save and Submit
+                                            </button>
+                                        </ng-container> -->
+                                        <!-- <ng-container
+                                            *ngIf="contactservice.contact.registrationStatusValue === 'REGIS' && contactservice.contact.contactTypeValue === 'PRMY'">
+                                            <a mat-raised-button color="accent" class="ml-3" (click)="step2Click()"
+                                                 [parentId]="pageId" appAccess="BTNNextStep2EmploymentInformation">
+                                                Next
+                                                <ion-icon name="arrow-forward-outline"></ion-icon>
+                                            </a>
+                                        </ng-container> -->
+                                        <ng-container>
+                                            <a mat-raised-button color="accent" class="ml-3"
+                                                (click)="submitEmploymentInformation(emp)" [parentId]="pageId"
+                                                appAccess="BTNNextLoadDocumentStep2EmploymentInformation">
+                                                Save and Next
+                                                <ion-icon name="arrow-forward-outline"></ion-icon>
+                                            </a>
+                                        </ng-container>
+                                        <!-- <ng-container
+                                            *ngIf="contactservice.contact.registrationStatusValue === 'REGIS'">
+                                            <a mat-raised-button color="accent" class="ml-3" (click)="step2Click()">
+                                                Next
+                                                <ion-icon name="arrow-forward-outline"></ion-icon>
+                                            </a>
+                                        </ng-container> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </cdk-step>
+                <ng-container>
+                    <cdk-step label="Document Information" [completed]="step3Completed">
+                        <div class="h100">
+                            <div class="panel-stepper h100">
+                                <div class="panel-stepper-body">
+                                    <div class="ab">
+                                        <div class="rel">
+                                            <div class="container-fluid pt-3">
+                                                <ng-container *ngFor="
+                                          let document of contactservice.contact.lstProtoEmployerContactDocument
+                                        ">
+                                                    <app-file-upload [label]="document.documentTypeDescription"
+                                                        [data]="document"
+                                                        (onload)="uploadMemberDocument($event, document)"
+                                                        [mandatory]="document.isMandatory === 'Y'"
+                                                        dname="document.pdocumentFile.fileName" [loading]="
+                                            fileUploading === document.documentTypeValue
+                                          " required [errorTrue]="errorTrue" [xFile]="document.pdocumentFile"
+                                                        (onclear)="clearFile($event)"
+                                                        [accept]="appSettingService.environment.fileAccept">
+                                                    </app-file-upload>
+                                                </ng-container>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel-stepper-footer">
+                                    <div class="ml-auto text-right">
+                                        <button mat-raised-button color="accent" (click)="clickPrev()"
+                                            [parentId]="pageId" appAccess="BTNBackStep3DocumentInformation">
+                                            <ion-icon name="arrow-back-outline"></ion-icon>
+                                            Back
+                                        </button>
+                                        <ng-container
+                                            *ngIf="contactservice.contact.registrationStatusValue !== 'REGIS'">
+                                            <button mat-raised-button color="accent" type="submit"
+                                                [disabled]="btnClicked" class="ml-3" (click)="documentSubmited()"
+                                                [parentId]="pageId"
+                                                appAccess="BTNSubmitDocumentStep3DocumentInformation">
+                                                <ng-container *ngIf="!btnClicked">
+                                                    Submit
+                                                </ng-container>
+                                                <ng-container *ngIf="btnClicked">
+                                                    <app-dot class="dot-big"></app-dot>
+                                                </ng-container>
+                                            </button>
+                                        </ng-container>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </cdk-step>
+                </ng-container>
+            </app-stepper>
+        </div>
+
+    </div>
+</div>

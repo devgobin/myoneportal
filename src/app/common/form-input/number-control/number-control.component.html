@@ -1,0 +1,45 @@
+<div class="form-group" *ngIf="icononly === 'false'">
+    <div class="d-flex align-items-center lh18">
+        <label *ngIf="label !== ''">{{label}}
+            <span class="text-danger" *ngIf="mandatory">*</span>
+        </label>
+        <div class="ml-auto text-danger lh18" *ngIf="errorText !== '' && value !== ''">
+            <small>{{errorText}}</small>
+        </div>
+        <div class="ml-auto text-danger lh18" *ngIf="value === '' && errorTrueNow && mandatory">
+            <small>mandatory</small>
+        </div>
+    </div>
+    <div class="d-flex align-items-center">
+        <div class="input-group">
+            <input autocomplete="none" type="text" class="form-control" [(ngModel)]="value" name="{{name}}"
+                id="{{name}}" placeholder="{{placeholder}}"
+                [ngClass]="{'border-warn': ( value === '' || value === null ) && errorTrueNow}"
+                [disabled]="btnClickedNow" (blur)="blured()" #inputbox (keydown)="checkenter($event)" appNumberOnly
+                [limit]="limit" [decimal]="decimal" [max]="max">
+            <div class="input-group-append in-1" *ngIf="value && !btnClickedNow">
+                <a mat-button class="i-btn" (click)="doClear()" matTooltip="Clear" matTooltipPosition="right"
+                    tabIndex="-1">
+                    <ion-icon name="close-outline"></ion-icon>
+                </a>
+            </div>
+        </div>
+        <ng-container *ngIf="search === 'true'">
+            <a mat-raised-button color="accent" class="i-btn i-btn-search" (click)="onSearch()" matTooltip="Search"
+                matTooltipPosition="right" tabIndex="-1">
+                <ion-icon name="search-outline" class="mtm3"></ion-icon>
+            </a>
+        </ng-container>
+    </div>
+    <!-- <div class="input-group">
+        <input autocomplete="none" type="text" class="form-control" [(ngModel)]="value" name="{{name}}"
+            placeholder="{{placeholder}}" [ngClass]="{'border-warn': errorTrueNow}"
+            [disabled]="btnClickedNow" (blur)="blured()" #inputbox (keydown)="checkenter($event)" appNumberOnly [limit]="limit" [decimal]="decimal" [max]="max">
+        <div class="input-group-append in-1" *ngIf="value && !btnClickedNow">
+            <a mat-button class="i-btn" (click)="value = ''" matTooltip="Clear" matTooltipPosition="right"
+                tabIndex="-1">
+                <ion-icon name="close-outline"></ion-icon>
+            </a>
+        </div>
+    </div> -->
+</div>

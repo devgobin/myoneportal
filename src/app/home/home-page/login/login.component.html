@@ -1,0 +1,169 @@
+<div class="login-wrapper">
+    <div class="r-box">
+        <div class="cover">
+            <!-- <div class="r-title">Want to register for portal access?</div> -->
+            <div class="l-title fs22">Employer Registration</div>
+            <div class="form-box pt-3">
+                <form #r="ngForm" (ngSubmit)="empRegister()" autocomplete="off">
+                    <label class="txt-clr">
+                        If you are New Employer please click here to Register
+                    </label>
+                    <!-- <mat-form-field appearance="outline">
+                        <mat-label>Organization Reference No</mat-label>
+                        <input matInput autocomplete="none" [(ngModel)]="register.employerRefNo" tabindex="11" required
+                            name="employerRefNo" #employerRefNo="ngModel">
+                        <mat-error *ngIf="errorTrue" class="pb-2">
+                            {{errorText}}
+                        </mat-error>
+                    </mat-form-field> -->
+                    <div class="d-flex align-items-center">
+                        <!-- <div class="underline"><a class="text-white"
+                                href="https://myfnpf.com.fj/index.php/become-an-employer" target="_blank">Why is it
+                                required?</a></div> -->
+                        <div class="ml-auto pt-3">
+                            <button color="white" type="submit" mat-button class="h34 mw124 text-uppercase br-white"
+                                [disabled]="loadingTrue">
+                                <ng-container *ngIf="!loadingTrue">
+                                    Register
+                                </ng-container>
+                                <ng-container *ngIf="loadingTrue">
+                                    <app-dot></app-dot>
+                                </ng-container>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="l-box">
+        <div class="cover">
+            <app-slide-box #mainslide>
+                <cdk-step>
+                    <app-slide-box #slidebox>
+                        <cdk-step>
+                            <div class="d-flex align-items-center">
+                                <div class="l-title">Login</div>
+                                <ng-container *ngIf="!data.isMobile">
+                                    <a class="ml-auto f-password" mat-button
+                                        (click)="goToAction('slidebox', 'next')">Trouble Logging
+                                        In?</a>
+                                </ng-container>
+                            </div>
+                            <div class="form-box pt-4">
+                                <form #l="ngForm" (ngSubmit)="onSubmit(l)" autocomplete="off">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>User Name / Email Id</mat-label>
+                                        <input matInput [(ngModel)]="user.username" required tabindex="1"
+                                            [ngClass]="{'border-warn': user.username === '' && errorTrue}"
+                                            [disabled]="btnClicked" name="username">
+                                    </mat-form-field>
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Password</mat-label>
+                                        <input matInput [type]="passwordText" [(ngModel)]="user.password" required
+                                            tabindex="2" [ngClass]="{'border-warn': user.username === '' && errorTrue}"
+                                            [disabled]="btnClicked" name="password">
+                                        <a matSuffix mat-icon-button (click)="showPassword()">
+                                            <ion-icon name="eye-outline" *ngIf="passwordText === 'password'"></ion-icon>
+                                            <ion-icon name="eye-off-outline" *ngIf="passwordText === 'text'"></ion-icon>
+                                        </a>
+                                    </mat-form-field>
+                                    <mat-error *ngIf="loginerrorTrue" class="pb-2">
+                                        {{loginerrorText}}
+                                    </mat-error>
+                                    <div class="text-right">
+                                        <button color="secondary" mat-raised-button class="h34 mw124 text-uppercase"
+                                            type="submit" [disabled]="btnClicked">
+                                            <ng-container *ngIf="!btnClicked">
+                                                Login
+                                            </ng-container>
+                                            <ng-container *ngIf="btnClicked">
+                                                <app-dot></app-dot>
+                                            </ng-container>
+
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </cdk-step>
+                        <cdk-step>
+                            <div>
+                                <div class="d-flex align-items-center">
+                                    <button mat-button class=" text-left b-btn"
+                                        (click)="goToAction('slidebox', 'previous')">
+                                        <div class="d-flex align-items-center">
+                                            <ion-icon name="arrow-back-outline"></ion-icon>
+                                            <div>Back to Login</div>
+                                        </div>
+                                    </button>
+                                </div>
+                                <div class="form-box pt-4">
+                                    <div class="mb-3"></div>
+                                    <button mat-button class="f-btn" [routerLink]="['/forgot/userid']">
+                                        <div class="d-flex align-items-center">
+                                            <div>
+                                                Forgot my
+                                                User Id
+                                            </div>
+                                            <div class="ml-auto">
+                                                <ion-icon name="chevron-forward-outline"></ion-icon>
+                                            </div>
+                                        </div>
+
+                                    </button>
+                                    <div class="mb-3"></div>
+                                    <button mat-button class="f-btn" [routerLink]="['/forgot/password']">
+                                        <div class="d-flex align-items-center">
+                                            <div>
+                                                Forgot my
+                                                Password
+                                            </div>
+                                            <div class="ml-auto">
+                                                <ion-icon name="chevron-forward-outline"></ion-icon>
+                                            </div>
+                                        </div>
+
+                                    </button>
+                                </div>
+                            </div>
+                        </cdk-step>
+                    </app-slide-box>
+                </cdk-step>
+            </app-slide-box>
+        </div>
+    </div>
+    <div class="r-box">
+        <div class="cover">
+            <!-- <div class="r-title">Want to register for portal access?</div> -->
+            <div class="l-title fs22">Portal Registration</div>
+            <div class="form-box pt-3">
+                <form #r="ngForm" (ngSubmit)="onRegister(r)" autocomplete="off">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Organization Reference No</mat-label>
+                        <input matInput autocomplete="none" [(ngModel)]="register.employerRefNo" tabindex="11" required
+                            name="employerRefNo" #employerRefNo="ngModel">
+                        <mat-error *ngIf="errorTrue" class="pb-2">
+                            {{errorText}}
+                        </mat-error>
+                    </mat-form-field>
+                    <div class="d-flex align-items-center">
+                        <div class="underline"><a class="text-white"
+                                href="https://myfnpf.com.fj/index.php/become-an-employer" target="_blank">Why is it
+                                required?</a></div>
+                        <div class="ml-auto">
+                            <button color="white" type="submit" mat-button class="h34 mw124 text-uppercase br-white"
+                                [disabled]="loadingTrue">
+                                <ng-container *ngIf="!loadingTrue">
+                                    Register
+                                </ng-container>
+                                <ng-container *ngIf="loadingTrue">
+                                    <app-dot></app-dot>
+                                </ng-container>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

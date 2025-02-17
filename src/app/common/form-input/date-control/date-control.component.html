@@ -1,0 +1,29 @@
+<div class="form-group">
+    <div class="d-flex align-items-center  lh18">
+        <label for="" *ngIf="label !== ''">{{label}} <span class="text-danger" *ngIf="mandatory">*</span></label>
+        <div class="ml-auto text-danger lh18" *ngIf="value === '' && mandatory && errorTrueNow">
+            <small>mandatory</small>
+        </div>
+    </div>
+
+    <div class="input-group">
+        <div class="" (click)="picker.open()">
+            <input type="text" class="form-control" [(ngModel)]="xvalue.date" name="{{name}}" id="{{name}}"
+                placeholder="{{placeholder}}" [min]="minDateNow" [max]="maxDateNow"
+                [ngClass]="{'border-warn': value === '' && errorTrueNow ,'required': requiredtrue === 'true'}"
+                [matDatepicker]="picker" (input)="checkDate($event)" #inputbox (focus)="doFocus()"
+                (dateChange)="dateSelected()" (dateInput)="doChange($event)" [disabled]="true" [readonly]="readonly">
+        </div>
+        <div class="input-group-append z5">
+            <a mat-button class="i-btn mat-grey" tabIndex="-1" [ngClass]="{'pe-none': btnClickedNow }"
+                [disabled]="btnClickedNow" (click)="picker.open()">
+                <ion-icon name="calendar-outline"></ion-icon>
+            </a>
+            <a mat-button class="i-btn" (click)="doClear()" tabIndex="-1" matTooltip="Clear" matTooltipPosition="right"
+                [ngClass]="{'pe-none': btnClickedNow }">
+                <ion-icon name="close-outline"></ion-icon>
+            </a>
+        </div>
+        <mat-datepicker #picker disabled="false"></mat-datepicker>
+    </div>
+</div>

@@ -1,0 +1,189 @@
+<div class="vertical-flex z-2 bg-white h100" #fullview [parentId]="pageId" appAccess="CSFUD">
+    <div class="px-3 pt-2">
+        <div class="d-flex align-items-center pb-1">
+            <div class="heading">CS HEADER INFORMATION</div>
+            <div class="ml-auto">
+                <!-- <button mat-raised-button color="accent" class="mr-3"  [parentId]="pageId" appAccess="BTNUpdateCSInformation">
+                    Update
+                </button> -->
+                <button *ngIf="csService.csFileDetails.statusValue!='SUBMT'" mat-raised-button color="accent"
+                    [parentId]="pageId" appAccess="BTNSubmitFileCSInformation" (click)="SubmitCSFile()">
+                    Submit File
+                </button>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="cs-table">
+                <thead>
+                    <tr>
+                        <th>Code</th>
+                        <ng-container *ngFor="let chead of csService.csHeader">
+                            <th>
+                                {{chead.name}}
+                                <ng-container *ngIf="chead.required">
+                                    <span class="mandatory">*</span>
+                                </ng-container>
+                            </th>
+                        </ng-container>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="bg-white pointer" (click)="openHeader()">
+                        <td>{{csService.csFileDetails.pCsheader.rowidentifierId}}</td>
+                        <ng-container *ngFor="let head of csService.csFileDetails.pCsheader.listfilecolumn">
+                            <ng-container *ngIf="head.lsterrormessage;then errorTemplate else successTemplate">
+                            </ng-container>
+                            <ng-template #errorTemplate>
+                                <ng-container *ngIf="head.lsterrormessage.length > 0; else successTemplate">
+                                    <td class="cs-error" matTooltip="{{head.lsterrormessage | csErrorTooltip}}"
+                                        matTooltipClass="cs-error-tooltip" matTooltipPosition="right">
+                                        {{head.columnValue}}</td>
+                                </ng-container>
+                            </ng-template>
+                            <ng-template #successTemplate>
+                                <td class="cs-success">{{head.columnValue}}</td>
+                            </ng-template>
+                        </ng-container>
+                        <!-- <td>1234</td>
+                        <td class="cs-success">Sample</td>
+                        <td class="cs-error" matTooltip="Error in this column just check the lengthy one"
+                        matTooltipClass="bg-danger" matTooltipPosition="right">Error</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td> -->
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="flex-1 z-2">
+        <div class="ab">
+            <div class="rel">
+                <div class="px-3 pt-2">
+                    <div class="d-flex align-items-center pb-1 z-2">
+                        <div class="heading">CS DETAILS INFORMATION <small>(
+                            <!-- Total Records:
+                                {{csService.csFileDetails.plstcsdetails.length}},  -->
+                                Total Contribution:
+                                ${{csService.csFileDetails.totalContribution}},
+                                Total Employees: {{csService.csFileDetails.totalEmployee}}, Total Wages Paid:
+                                ${{csService.csFileDetails.totalWages}})</small></div>
+                        <div class="ml-auto">
+                            <button mat-button color="accent" (click)="newCSDetail()"
+                                *ngIf="csService.csFileDetails.statusValue!='SUBMT'">Add CS Detail</button>
+                        </div>
+                    </div>
+                    <div class="ab pt25">
+                        <div class="rel px-3">
+
+                            <div class="table-responsive h100 z-2">
+                                <table class="cs-table sticky">
+                                    <thead>
+                                        <tr>
+                                            <th>Line No</th>
+                                            <th>Code</th>
+                                            <ng-container *ngFor="let cbody of csService.csBody">
+                                                <th>{{cbody.name}}
+                                                    <ng-container *ngIf="cbody.required">
+                                                        <span class="mandatory">*</span>
+                                                    </ng-container>
+                                                </th>
+                                            </ng-container>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <ng-container *ngFor="let body of csService.csFileDetails.plstcsdetails; let i = index">
+                                            <tr class="bg-white" >
+                                                <td (click)="openBody(body)"  [ngClass]="body.lsterrormessage.length > 0 ? 'row-color-cs' : ''">{{i + 1}}</td>
+                                                <td (click)="openBody(body)" [ngClass]="body.lsterrormessage.length > 0 ? 'row-color-cs' : ''">{{body.rowidentifierId}}</td>
+                                                <ng-container *ngFor="let tdv of body.listfilecolumn">
+                                                    <ng-container
+                                                        *ngIf="tdv.lsterrormessage;then errorTemplate else successTemplate">
+                                                    </ng-container>
+                                                    <ng-template #errorTemplate>
+                                                        <ng-container
+                                                            *ngIf="tdv.lsterrormessage.length > 0; else successTemplate">
+                                                            <td class="cs-error"
+                                                                matTooltip="{{tdv.lsterrormessage | csErrorTooltip}}"
+                                                                matTooltipClass="cs-error-tooltip"
+                                                                matTooltipPosition="right" (click)="openBody(body)" [ngClass]="body.lsterrormessage.length > 0 ? 'row-color-cs' : ''">{{tdv.columnValue}}</td>
+                                                        </ng-container>
+                                                    </ng-template>
+                                                    <ng-template #successTemplate>
+                                                        <td class="cs-success" (click)="openBody(body)" [ngClass]="body.lsterrormessage.length > 0 ? 'row-color-cs' : ''">{{tdv.columnValue}}</td>
+                                                    </ng-template>
+                                                </ng-container>
+                                                <td [ngClass]="body.lsterrormessage.length > 0 ? 'row-color-cs' : ''">
+                                                    <button class="ml-1" mat-icon-button matTooltip="Delete"
+                                                        class="text-danger icon-only-btn" (click)="openDelete(body)"
+                                                        [parentId]="pageId" appAccess="BTNDeleteCSDetailRow"
+                                                        *ngIf="csService.csFileDetails.statusValue!='SUBMT'">
+                                                        <ion-icon name="trash-outline">
+                                                        </ion-icon>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        </ng-container>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="px-3 pt-2 pb-1">
+        <div class="d-flex align-items-center pb-1">
+            <div class="heading">CS FOOTER INFORMATION</div>
+        </div>
+        <div class="table-responsive">
+            <table class="cs-table">
+                <thead>
+                    <tr>
+                        <th>Code</th>
+                        <ng-container *ngFor="let cfoot of csService.csFooter">
+                            <th>{{cfoot.name}}
+                                <ng-container *ngIf="cfoot.required">
+                                    <span class="mandatory">*</span>
+                                </ng-container>
+                            </th>
+                        </ng-container>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="bg-white" (click)="openFooter()">
+                        <td>{{csService.csFileDetails.pCsFooter.rowidentifierId}}</td>
+                        <ng-container *ngFor="let foot of csService.csFileDetails.pCsFooter.listfilecolumn">
+                            <ng-container *ngIf="foot.lsterrormessage;then errorTemplate else successTemplate">
+                            </ng-container>
+                            <ng-template #errorTemplate>
+                                <ng-container *ngIf="foot.lsterrormessage.length > 0; else successTemplate">
+                                    <td class="cs-error" matTooltip="{{foot.lsterrormessage | csErrorTooltip}}"
+                                        matTooltipClass="cs-error-tooltip" matTooltipPosition="right">
+                                        {{foot.columnValue}}</td>
+                                </ng-container>
+                            </ng-template>
+                            <ng-template #successTemplate>
+                                <td class="cs-success">{{foot.columnValue}}</td>
+                            </ng-template>
+                        </ng-container>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>

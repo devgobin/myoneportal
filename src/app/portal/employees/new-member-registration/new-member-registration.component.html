@@ -1,0 +1,1044 @@
+<div class="content-body" [parentId]="pageId" appAccess="NWMRG">
+  <div class="rel">
+    <div class="h100">
+      <app-stepper #registrationSteps>
+        <cdk-step label="Member Document" [completed]="step1Completed">
+          <div class="h100">
+            <div class="panel-stepper h100">
+              <div class="panel-stepper-body">
+                <div class="ab">
+                  <div class="rel">
+                    <div class="container-fluid pt-3">
+                      <div class="row">
+                        <div class="col-xl-6">
+                          <app-select-control label="Member Type :" name="memberTypeValue"
+                            [(ngModel)]="member.newMember.memberTypeValue" tabindex="15"
+                            [items]="member.memberParams.DDLMemberType" key="constant" keyname="description"
+                            [btnClicked]="member.btnClicked" required mandatory="true" [errorTrue]="member.errorTrue"
+                            (onChanges)="OnChangeMemberType()">
+                          </app-select-control>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-xl-12">
+                          <ng-container *ngFor="let document of member.newMember.plstMemberDocuments">
+                            <div class="d-flex">
+                              <div class="w60">
+
+                                <app-file-upload [label]="document.documentTypeDescription" [data]="document"
+                                  (onload)="uploadMemberDocument($event, document)"
+                                  [mandatory]="checkFileMandatory(document, member.newMember.plstMemberDocuments)"
+                                  dname="document.pdocumentFile.fileName"
+                                  [loading]="fileUploading === document.documentTypeValue" required
+                                  [errorTrue]="member.errorTrue" [xFile]="document.pdocumentFile"
+                                  (onclear)="clearFile($event)"
+                                  [accept]="appSettingService.environment.fileAcceptImages"
+                                  *ngIf="document.documentTypeValue == 'PHOTO' || document.documentTypeValue == 'SIGNE' "
+                                  [expanded]='true'
+                                  [crop]="document.documentTypeValue == 'PHOTO' || document.documentTypeValue == 'SIGNE'">
+                                </app-file-upload>
+
+                                <app-file-upload [label]="document.documentTypeDescription" [data]="document"
+                                  (onload)="uploadMemberDocument($event, document)"
+                                  [mandatory]="checkFileMandatory(document, member.newMember.plstMemberDocuments)"
+                                  dname="document.pdocumentFile.fileName"
+                                  [loading]="fileUploading === document.documentTypeValue" required
+                                  [errorTrue]="member.errorTrue" [xFile]="document.pdocumentFile"
+                                  (onclear)="clearFile($event)"
+                                  [accept]="appSettingService.environment.fileAcceptImages"
+                                  *ngIf="document.documentTypeValue != 'PHOTO' && document.documentTypeValue != 'SIGNE' "
+                                  [expanded]='true'
+                                  [crop]="document.documentTypeValue == 'PHOTO' || document.documentTypeValue == 'SIGNE'">
+                                </app-file-upload>
+
+                              </div>
+                              <div class="d-flex align-items-center pt-1">
+                                <button mat-raised-button color="accent" (click)="viewDocument(document)">
+                                  <ion-icon name="eye-outline"></ion-icon>
+                                  View
+                                </button>
+                              </div>
+                            </div>
+                          </ng-container>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="panel-stepper-footer">
+                <div class="d-flex align-items-center">
+                  <div [parentId]="pageId" appAccess="BTNSaveAsDraftstep2MemberDocument">
+                    <!-- <a mat-button class="text-capitalize"
+                      (click)="savememberregistrationanduploadmemberdocumentdraft()">Save
+                      as Draft</a> -->
+                    <button mat-raised-button color="accent" class="ml-3" (click)="cancelDoc()">
+                      Cancel
+                    </button>
+                  </div>
+                  <div class="ml-auto text-right">
+                    <!-- <a mat-raised-button color="accent" (click)="clickPrev()" [parentId]="pageId"
+                        appAccess="BTNBackstep2MemberDocument">
+                        <ion-icon name="arrow-back-outline"></ion-icon>
+                        Back
+                      </a> -->
+
+                    <button mat-raised-button color="accent" type="submit"
+                      (click)="savememberregistrationanduploadmemberdocument()" [disabled]="member.btnClicked"
+                      class="ml-3" [parentId]="pageId" appAccess="BTNSaveAnadNextstep2MemberDocument">
+                      <ng-container *ngIf="!member.btnClicked">
+                        Save and Next
+                        <ion-icon name="arrow-forward-outline"></ion-icon>
+                      </ng-container>
+                      <ng-container *ngIf="member.btnClicked">
+                        <app-dot class="dot-big"></app-dot>
+                      </ng-container>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </cdk-step>
+        <cdk-step label="Member Information" [completed]="step2Completed">
+          <div class="h100">
+            <form class="h100" #m="ngForm" (ngSubmit)="saveData(m)" autocomplete="off">
+              <div class="panel-stepper h100">
+                <div class="panel-stepper-body">
+                  <div class="ab">
+                    <div class="rel">
+                      <div class="container-fluid pt-3">
+                        <div class="row">
+                          <div class="col-xl-12">
+                            <div class="form-group">
+                              <label class="pb-2">Is member a Politically Exposed Person?
+                                <span class="text-danger">*</span>
+                                <small *ngIf="isRadio1  ==='Y'" class="text-danger pl-1">
+                                  mandatory</small>
+                              </label>
+                              <mat-radio-group [(ngModel)]=" member.newMember.politicallyExposedPerson"
+                                name="politicallyExposedPerson">
+                                <div class="d-flex">
+                                  <mat-radio-button value="Y" (change)="radioChange1($event)">
+                                    Yes
+                                  </mat-radio-button>
+                                  <div class="p-1"></div>
+                                  <mat-radio-button value="N" (change)="radioChange1($event)">
+                                    No
+                                  </mat-radio-button>
+                                </div>
+                              </mat-radio-group>
+                            </div>
+                          </div>
+                          <div class="col-xl-12">
+                            <div class="form-group">
+                              <label class="pb-2">Is member a relative/associate of a Politically Exposed Person?
+                                <span class="text-danger">*</span>
+                                <small *ngIf="isRadio2 === 'Y'" class="text-danger pl-1">
+                                  mandatory</small>
+                              </label>
+                              <mat-radio-group [(ngModel)]=" member.newMember.associateToPoliticallyExposedPerson"
+                                name="associateToPoliticallyExposedPerson">
+                                <div class="d-flex">
+                                  <mat-radio-button value="Y" (change)="radioChange2($event)">
+                                    Yes
+                                  </mat-radio-button>
+                                  <div class="p-1"></div>
+                                  <mat-radio-button value="N" (change)="radioChange2($event)">
+                                    No
+                                  </mat-radio-button>
+                                </div>
+                              </mat-radio-group>
+                            </div>
+                          </div>
+                          <div class="col-xl-4">
+                            <app-select-control label="Name Prefix:" name="namePrefixValue"
+                              [(ngModel)]="member.newMember.namePrefixValue" tabindex="11"
+                              [items]="member.memberParams.MRNamePreffix" key="constant" keyname="description"
+                              search="true">
+                            </app-select-control>
+                            <!-- <label class="perc">Brito <span class="sec-clr">40%</span></label> -->
+                          </div>
+                          <div class="col-xl-4">
+                            <app-input-control label="First Name:" name="firstName"
+                              [(ngModel)]="member.newMember.firstName" tabindex="1" required mandatory="true"
+                              [errorTrue]="member.errorTrue" [btnClicked]="member.btnClicked" [upperCase]="true"
+                              emojiType="name">
+                            </app-input-control>
+                            <!-- <label class="perc">John <span class="clr">65%</span></label> -->
+                          </div>
+                          <div class="col-xl-4">
+                            <app-input-control label="Middle Name:" name="middleName"
+                              [(ngModel)]="member.newMember.middleName" tabindex="2" [btnClicked]="member.btnClicked"
+                              [upperCase]="true" emojiType="name">
+                            </app-input-control>
+                          </div>
+                          <div class="col-xl-4">
+                            <app-input-control label="Last Name:" name="lastName"
+                              [(ngModel)]="member.newMember.lastName" tabindex="3" [btnClicked]="member.btnClicked"
+                              [upperCase]="true" emojiType="name">
+                            </app-input-control>
+                            <!-- <label class="perc">Brito <span class="sec-clr">40%</span></label> -->
+                          </div>
+                          <div class="col-xl-4">
+                            <app-select-control label="Name Suffix:" name="nameSuffixValue"
+                              [(ngModel)]="member.newMember.nameSuffixValue" tabindex="11"
+                              [items]="member.memberParams.MRNameSuffix" key="constant" keyname="description"
+                              search="true">
+                            </app-select-control>
+                            <!-- <label class="perc">Brito <span class="sec-clr">40%</span></label> -->
+                          </div>
+                          <div class="col-xl-4">
+                            <app-select-control label="Country of Birth:" name="nationalityValue"
+                              [(ngModel)]="member.newMember.nationalityValue" tabindex="4"
+                              [items]="member.memberParams.MRNationality" key="constant" keyname="description"
+                              mandatory="true" required [errorTrue]="member.errorTrue" [btnClicked]="member.btnClicked"
+                              search="true" (ngModelChange)="
+                                CheckIfBRNAndPassportRequiredOrNot()
+                              ">
+                            </app-select-control>
+                          </div>
+                          <div class="col-xl-4">
+                            <app-select-control label="Citizenship:" name="citizenshipValue"
+                              [(ngModel)]="member.newMember.citizenshipValue" tabindex="5"
+                              [items]="member.memberParams.MRCitizenship" key="constant" keyname="description"
+                              mandatory="true" required [errorTrue]="member.errorTrue" [btnClicked]="member.btnClicked"
+                              (ngModelChange)="
+                                CheckIfBRNAndPassportRequiredOrNot()
+                              " search="true">
+                            </app-select-control>
+                          </div>
+
+                          <div class="col-xl-4">
+                            <app-number-control label="TIN:" name="tin" [(ngModel)]="member.newMember.tin" tabindex="6"
+                              limit="10" pattern="[0-9]{9,10}$" #tin="ngModel" errorText="{{tin.invalid &&
+                                (tin.dirty || tin.touched)? 'Should be 9 or 10 digit numbers' : ''}}"
+                              [errorTrue]="member.errorTrue" mandatory="true" required [btnClicked]="member.btnClicked">
+                            </app-number-control>
+                            <!-- <label class="perc">John <span class="clr">65%</span></label> -->
+                          </div>
+
+                          <div class="col-xl-4">
+                            <app-input-control label="Birth Reg No:" name="brn" [(ngModel)]="member.newMember.brn"
+                              tabindex="7" [btnClicked]="member.btnClicked" appLimit="20" #brn="ngModel"
+                              [errorTrue]="member.errorTrue" mandatory="true" required>
+                            </app-input-control>
+                          </div>
+                          <div class="col-xl-4">
+                            <app-input-control label="Passport:" name="passportNo"
+                              [(ngModel)]="member.newMember.passportNo" tabindex="8" [btnClicked]="member.btnClicked"
+                              [required]="npassportRequired" [errorTrue]="
+                                npassportRequired && member.errorTrue
+                              " [mandatory]="npassportRequired">
+                            </app-input-control>
+                          </div>
+                          <div class="col-xl-4">
+                            <app-date-control label="Date of Birth:" mandatory="true" name="dateOfBirth"
+                              [(ngModel)]="member.newMember.dateOfBirth" tabindex="9" required [maxDate]="currentdate"
+                              [errorTrue]="member.errorTrue" [btnClicked]="member.btnClicked" [dob]="true">
+                            </app-date-control>
+                            <!-- <label class="perc">Brito <span class="sec-clr">40%</span></label> -->
+                          </div>
+
+                          <div class="col-xl-4">
+                            <app-input-control label="Place of Birth:" name="placeOfBirth"
+                              [(ngModel)]="member.newMember.placeOfBirth" tabindex="10"
+                              [btnClicked]="member.btnClicked">
+                            </app-input-control>
+                            <!-- <label class="perc">John <span class="clr">65%</span></label> -->
+                          </div>
+
+
+
+                          <div class="col-xl-4">
+                            <app-select-control label="Gender:" name="genderValue" mandatory="true"
+                              [(ngModel)]="member.newMember.genderValue" tabindex="11"
+                              [items]="member.memberParams.MRGender" key="constant" keyname="description" required
+                              [errorTrue]="member.errorTrue" [btnClicked]="member.btnClicked">
+                            </app-select-control>
+                            <!-- <label class="perc">Brito <span class="sec-clr">40%</span></label> -->
+                          </div>
+                          <div class="col-xl-4">
+                            <app-input-control label="Father's Name:" name="fatherName"
+                              [(ngModel)]="member.newMember.fatherName" tabindex="12" [btnClicked]="member.btnClicked"
+                              [required]="fathernamenoRequired" [errorTrue]=" fathernamenoRequired && member.errorTrue"
+                              (ngModelChange)="checkRequired()" [mandatory]="fathernamenoRequired" [upperCase]="true"
+                              emojiType="name">
+                            </app-input-control>
+                            <!-- <label class="perc">John <span class="clr">65%</span></label> -->
+                          </div>
+                          <div class="col-xl-4">
+                            <app-input-control label="Mother's Name:" name="motherName"
+                              [(ngModel)]="member.newMember.motherName" tabindex="13" [mandatory]="mothernamenoRequired"
+                              [btnClicked]="member.btnClicked" (ngModelChange)="checkRequired()"
+                              [errorTrue]="mothernamenoRequired && member.errorTrue" [required]="mothernamenoRequired"
+                              [upperCase]="true" emojiType="name">
+                            </app-input-control>
+                            <!-- <label class="perc">Brito <span class="sec-clr">40%</span></label> -->
+                          </div>
+                          <div class="col-xl-4">
+                            <app-select-control label="Ethnicity:" name="ethnicityValue"
+                              [(ngModel)]="member.newMember.ethnicityValue" tabindex="14"
+                              [items]="member.memberParams.MREthnicity" key="constant" keyname="description"
+                              [btnClicked]="member.btnClicked" search="true">
+                            </app-select-control>
+                          </div>
+                          <div class="col-xl-4">
+                            <app-select-control label="Marital Status:" name="maritalStatusValue"
+                              [(ngModel)]="member.newMember.maritalStatusValue" tabindex="15"
+                              [items]="member.memberParams.MRMaritalStatus" key="constant" keyname="description"
+                              [btnClicked]="member.btnClicked" search="true">
+                            </app-select-control>
+                          </div>
+
+                          <div class="col-xl-4">
+                            <app-select-control label="Preferred Communication type:" name="preferredCommunicationValue"
+                              mandatory="true" [(ngModel)]="member.newMember.preferredCommunicationValue" tabindex="16"
+                              [items]="member.memberParams.MRPhoneandEmail" key="constant" keyname="description"
+                              required [errorTrue]="member.errorTrue" search="true"
+                              (onChanges)="checkEmailOrPhoneRequired(member.newMember.preferredCommunicationValue)">
+                            </app-select-control>
+                          </div>
+
+                          <ng-container *ngIf="member.newMember.memberTypeValue ==='LOCAL'">
+                            <div class="col-xl-4">
+                              <app-localphone-control label="Mobile Number:" [(ngModel)]="member.newMember.mobileNo"
+                                placeholder="eg.8888888" name="mobileNo" tabindex="16" [btnClicked]="member.btnClicked"
+                                errorText="Invalid Phone No" [required]="mobileRequired"
+                                [errorTrue]="mobileRequired && member.errorTrue" [mandatory]="mobileRequired"
+                                #memberMobile>
+                              </app-localphone-control>
+                            </div>
+                          </ng-container>
+                          <ng-container *ngIf="member.newMember.memberTypeValue ==='EXPRT'">
+                            <div class="col-xl-4">
+                              <app-phone-control label="Mobile Number:" [(ngModel)]="member.newMember.mobileNo"
+                                placeholder="eg.679-8888888" name="mobileNo" tabindex="16"
+                                [btnClicked]="member.btnClicked" errorText="Invalid Phone No"
+                                [required]="mobileRequired" [errorTrue]="mobileRequired && member.errorTrue"
+                                [mandatory]="mobileRequired" #memberMobile>
+                              </app-phone-control>
+                            </div>
+                          </ng-container>
+                          <div class="col-xl-4">
+                            <app-email-control label="Email ID:" name="emailId" [(ngModel)]="member.newMember.emailId"
+                              tabindex="17" [btnClicked]="member.btnClicked" [required]="emailRequired"
+                              [errorTrue]="emailRequired && member.errorTrue" email="true" [mandatory]="emailRequired"
+                              #emailId="ngModel" errorText="{{
+                                emailId.invalid &&
+                                (emailId.dirty || emailId.touched)
+                                  ? 'Invalid Email Format'
+                                  : ''
+                              }}">
+                            </app-email-control>
+                          </div>
+                          <div class="col-xl-4">
+                            <app-select-control label="Occupation :" name="occupationValue"
+                              [(ngModel)]="member.newMember.occupationValue" tabindex="4"
+                              [items]="member.memberParams.MROccupation" key="constant" keyname="description"
+                              mandatory="true" required [errorTrue]="member.errorTrue" [btnClicked]="member.btnClicked"
+                              search="true">
+                            </app-select-control>
+                          </div>
+                          <div class="col-xl-4">
+                            <app-date-control label="Work / Employment Start Date:" name="dateStartedWork"
+                              [(ngModel)]="member.newMember.dateStartedWork" tabindex="18" [maxDate]="currentdate"
+                              [btnClicked]="member.btnClicked">
+                            </app-date-control>
+                          </div>
+
+                          <div class="col-xl-4">
+                            <app-date-control label="Work Permit Issue Date:" name="workPermitIssueDate"
+                              [(ngModel)]="member.newMember.workPermitIssueDate" tabindex="18" [maxDate]="currentdate"
+                              [btnClicked]="member.btnClicked" [required]="workpermitissudaterequired"
+                              [errorTrue]=" workpermitissudaterequired && member.errorTrue"
+                              [mandatory]="workpermitissudaterequired">
+                            </app-date-control>
+                          </div>
+
+                          <div class="col-xl-4">
+                            <app-input-control label="Religion:" name="religion" [(ngModel)]="member.newMember.religion"
+                              tabindex="13" [btnClicked]="member.btnClicked">
+                            </app-input-control>
+                            <!-- <label class="perc">Brito <span class="sec-clr">40%</span></label> -->
+                          </div>
+
+                          <!-- <div class="col-xl-4 text-center pt-3">
+                            <div class="form-group d-flex">
+                              <mat-checkbox (change)="checkPoliticalyExposed($event.checked)" [checked]="
+                                  member.newMember.politicallyExposedPerson === 'Y'">
+                              </mat-checkbox>
+                              <label class="pl-3 text-left w-500pt">
+                                Is member a Politically Exposed Person or a relative/associate of a Politically
+                                Exposed Person?</label>
+                            </div>
+                          </div> -->
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="panel-stepper-footer">
+                  <div class="d-flex align-items-center">
+                    <div class="text-left" *ngIf="member.newMember.memberRegistrationId > 0">
+                      <a mat-button class="text-capitalize" (click)="saveDraft()" [parentId]="pageId"
+                        appAccess="BTNSaveAsDraftstep1MemberInformation">Save as Draft</a>
+                    </div>
+
+
+
+                    <div class="ml-auto text-right">
+                      <a mat-raised-button color="accent" (click)="clickPrev()" [parentId]="pageId"
+                        appAccess="BTNBackstep2MemberDocument">
+                        <ion-icon name="arrow-back-outline"></ion-icon>
+                        Back
+                      </a>
+                      <button mat-raised-button color="accent" type="submit" tabindex="19"
+                        [disabled]="member.btnClicked" [parentId]="pageId"
+                        appAccess="BTNSaveAndNextstep1MemberInformation" class="ml-3">
+                        <ng-container *ngIf="!member.btnClicked">
+                          Save and Next
+                          <ion-icon name="arrow-forward-outline"></ion-icon>
+                        </ng-container>
+                        <ng-container *ngIf="member.btnClicked">
+                          <app-dot class="dot-big"></app-dot>
+                        </ng-container>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </cdk-step>
+        <cdk-step label="Member Nomination" [completed]="step3Completed">
+          <div class="h100">
+            <div class="panel-stepper h100">
+              <div class="panel-stepper-body">
+                <div class="ab">
+                  <div class="rel">
+                    <div class="d-flex z-2 align-items-center">
+                      <div class="pt-2">
+                        <ng-container *ngIf="show">
+                          <mat-checkbox (change)="optNominee($event.checked)"
+                            [checked]="member.newMember.optOutOfNominee === 'Y'">Opt out of Nominee</mat-checkbox>
+                        </ng-container>
+                      </div>
+                      <div class="ml-auto d-flex">
+                        <button mat-raised-button color="accent" class="ml-3" (click)="getNewNominee()"
+                          [parentId]="pageId" appAccess="BTNAddNewNomineeMemberNomination">
+                          <ion-icon name="add"></ion-icon>
+                          New
+                        </button>
+                      </div>
+                    </div>
+                    <div class="ab pt50 pb-3">
+                      <div class="rel">
+                        <div class="table-responsive h100">
+                          <div class="ab">
+                            <div class="rel">
+                              <table mat-table [dataSource]="nomineeSource" class="table-hover">
+                                <ng-container matColumnDef="firstName">
+                                  <th mat-header-cell *matHeaderCellDef>
+                                    Nominee Name
+                                  </th>
+                                  <td mat-cell *matCellDef="let element">
+                                    {{ element.firstName }}
+                                    {{ element.middleName }}
+                                    {{ element.lastName }}
+                                  </td>
+                                </ng-container>
+                                <ng-container matColumnDef="dateOfBirth">
+                                  <th mat-header-cell *matHeaderCellDef>DOB</th>
+                                  <td mat-cell *matCellDef="let element">
+                                    {{ element.dateOfBirth }}
+                                  </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="genderDescription">
+                                  <th mat-header-cell *matHeaderCellDef>
+                                    Gender
+                                  </th>
+                                  <td mat-cell *matCellDef="let element">
+                                    {{ element.genderDescription }}
+                                  </td>
+                                </ng-container>
+                                <ng-container matColumnDef="relationshipDescription">
+                                  <th mat-header-cell *matHeaderCellDef>
+                                    Relationship
+                                  </th>
+                                  <td mat-cell *matCellDef="let element">
+                                    {{ element.relationshipDescription }}
+                                  </td>
+                                </ng-container>
+                                <ng-container matColumnDef="sharePercentage">
+                                  <th mat-header-cell *matHeaderCellDef>
+                                    Share (%)
+                                  </th>
+                                  <td mat-cell *matCellDef="let element">
+                                    {{ element.sharePercentage }}
+                                  </td>
+                                </ng-container>
+                                <ng-container matColumnDef="memberRegistrationId">
+                                  <th mat-header-cell *matHeaderCellDef class="text-center">
+                                    Action
+                                  </th>
+                                  <td mat-cell *matCellDef="let element" class="text-center py-0 text-nowrap">
+                                    <button mat-icon-button matTooltip="Edit" class="icon-only-btn"
+                                      (click)="openNominee(element)" [parentId]="pageId"
+                                      appAccess="BTNOpenNomineeMemberNomination">
+                                      <ion-icon name="pencil-outline">
+                                      </ion-icon>
+                                    </button>
+                                    <button class="ml-1" mat-icon-button matTooltip="Delete"
+                                      class="text-danger icon-only-btn" (click)="openDelete(element)"
+                                      [parentId]="pageId" appAccess="BTNDeleteNomineeMemberNomination">
+                                      <ion-icon name="trash-outline">
+                                      </ion-icon>
+                                    </button>
+                                  </td>
+                                </ng-container>
+                                <tr mat-header-row *matHeaderRowDef="nomineeColumns"></tr>
+                                <tr mat-row *matRowDef="let row; columns: nomineeColumns"
+                                  [ngClass]="{ active: activeIndex == row }" (click)="active(row)"></tr>
+                              </table>
+                            </div>
+                            <!-- </div>
+                                                    </div> -->
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="panel-stepper-footer">
+                <div class="d-flex align-items-center">
+                  <div>
+                    <a mat-button class="text-capitalize" (click)="saveDraftNominee()" [parentId]="pageId"
+                      appAccess="BTNSaveAsDraftstep3MemberNomination">Save as Draft</a>
+                    <a mat-button color="accent" class="ml-2 text-capitalize accent" (click)="skipStepNominee()"
+                      [parentId]="pageId" appAccess="BTNSkipThisStepStep3MemberNomination">
+                      Skip this Step
+                    </a>
+                  </div>
+                  <div class="ml-auto text-right">
+                    <button mat-raised-button color="accent" (click)="clickPrev()" [parentId]="pageId"
+                      appAccess="BTNBackstep3MemberNomination">
+                      <ion-icon name="arrow-back-outline"></ion-icon>
+                      Back
+                    </button>
+                    <button mat-raised-button color="accent" (click)="step3Click()" class="ml-3" [parentId]="pageId"
+                      appAccess="BTNSaveAandNextstep3MemberNomination">
+                      Save and Next
+                      <ion-icon name="arrow-forward-outline"></ion-icon>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </cdk-step>
+        <cdk-step label="Add Executor Documents" [completed]="step4Completed">
+          <div class="h100">
+            <form class="h100" #em="ngForm" autocomplete="off">
+              <div class="panel-stepper h100">
+                <div class="panel-stepper-body">
+                  <div class="ab">
+                    <div class="rel">
+                      <div class="container-fluid pt-3">
+                        <div class="row">
+                          <div class="col-xl-12">
+                            <label class="text-secondary">Documents</label>
+                            <div class="pb-2"></div>
+                            <ng-container *ngFor="
+                                let document of member.newMember.pMemberExecutor
+                                  .plstMemberExecutorDocuments
+                              ">
+                              <div class="d-flex">
+                                <div class="w60">
+                                  <app-file-upload [label]="document.documentTypeDescription" [data]="document"
+                                    (onload)="uploadExecutorDocument($event, document)"
+                                    [mandatory]="document.isMandatory === 'Y'" dname="document.pdocumentFile.file_name"
+                                    [loading]="fileUploading === document.documentTypeValue"
+                                    [xFile]="document.pdocumentFile" (onclear)="clearExecutorFile($event)"
+                                    [accept]="appSettingService.environment.fileAcceptImages" [expanded]='true' required
+                                    [errorTrue]="errorTrue"
+                                    [crop]="document.documentTypeValue == 'EPHOT' || document.documentTypeValue == 'ESIGN'">
+                                  </app-file-upload>
+                                </div>
+                                <div class="d-flex align-items-center pt-1">
+                                  <button mat-raised-button color="accent" (click)="viewDocument(document)">
+                                    <ion-icon name="eye-outline"></ion-icon>
+                                    View
+                                  </button>
+                                </div>
+                              </div>
+                            </ng-container>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="panel-stepper-footer">
+                  <div class="d-flex align-items-center">
+                    <div>
+                      <a mat-button class="text-capitalize" (click)="saveDraftExecutor()" [parentId]="pageId"
+                        appAccess="BTNSaveAsDraftStep4AddExecutor">Save as Draft</a>
+                      <a mat-button color="accent" class="ml-2 text-capitalize accent" (click)="skipStepExecutor()"
+                        [parentId]="pageId" appAccess="BTNSkipThisStepStep4AddExecutor">
+                        Skip this Step
+                      </a>
+                    </div>
+                    <div class="ml-auto">
+                      <div class="text-right">
+                        <a mat-raised-button color="accent" (click)="clickPrev()" [parentId]="pageId"
+                          appAccess="BTNBackStep4AddExecutor">
+                          <ion-icon name="arrow-back-outline"></ion-icon>
+                          Back
+                        </a>
+                        <button mat-raised-button color="accent" [disabled]="btnClicked" class="ml-3"
+                          (click)="savememberexecutoranduploadexecutordocument()" [parentId]="pageId"
+                          appAccess="BTNSaveAndNextStep4AddExecutor">
+                          <ng-container *ngIf="!btnClicked">
+                            Save and Next
+                            <ion-icon name="arrow-forward-outline"></ion-icon>
+                          </ng-container>
+                          <ng-container *ngIf="btnClicked">
+                            <app-dot class="dot-big"></app-dot>
+                          </ng-container>
+                        </button>
+
+                        <!-- <button mat-raised-button color="accent" (click)="step3Click()" class="ml-3">
+                                                Save and Next
+                                                <ion-icon name="arrow-forward-outline"></ion-icon>
+                                            </button> -->
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </cdk-step>
+        <cdk-step label="Add Executor" [completed]="step5Completed">
+          <div class="h100">
+            <form class="h100" #e="ngForm" autocomplete="off">
+              <div class="panel-stepper h100">
+                <div class="panel-stepper-body">
+                  <div class="ab">
+                    <div class="rel">
+                      <div class="container-fluid">
+                        <div class="row pt-2">
+                          <div class="col-xl-4">
+                            <app-input-control label="First Name:" name="efirstName" [(ngModel)]="
+                                member.newMember.pMemberExecutor.firstName
+                              " [btnClicked]="member.btnClicked" [required]="firstnamerequired" [errorTrue]="
+                                firstnamerequired && exerrorTrue
+                              " [mandatory]="firstnamerequired" tabindex="1" [upperCase]="true" emojiType="name">
+                            </app-input-control>
+                          </div>
+                          <div class="col-xl-4">
+                            <app-input-control label="Middle Name:" name="emiddleName" [(ngModel)]="
+                                member.newMember.pMemberExecutor.middleName
+                              " tabindex="2" [upperCase]="true" emojiType="name">
+                            </app-input-control>
+                          </div>
+                          <div class="col-xl-4">
+                            <app-input-control label="Last Name:" name="elastName" [(ngModel)]="
+                                member.newMember.pMemberExecutor.lastName
+                              " tabindex="3" [upperCase]="true" emojiType="name">
+                            </app-input-control>
+                          </div>
+                          <div class="col-xl-4">
+                            <app-input-control label="Father's Name:" name="fatherName"
+                              [(ngModel)]="member.newMember.pMemberExecutor.fatherName" tabindex="102"
+                              [btnClicked]="member.btnClicked" [required]="executorfathernamenoRequired"
+                              [errorTrue]=" executorfathernamenoRequired &&exerrorTrue"
+                              (ngModelChange)="checkExecutorFatherRequired()" [mandatory]="executorfathernamenoRequired"
+                              [upperCase]="true" emojiType="name">
+                            </app-input-control>
+                          </div>
+                          <div class="col-xl-4">
+                            <app-input-control label="Mother's Name :" name="motherName"
+                              [(ngModel)]="member.newMember.pMemberExecutor.motherName" tabindex="102"
+                              [btnClicked]="member.btnClicked" [errorTrue]=" executormothernamenoRequired &&exerrorTrue"
+                              (ngModelChange)="checkExecutorFatherRequired()" [mandatory]="executormothernamenoRequired"
+                              [upperCase]="true" emojiType="name" [required]="executormothernamenoRequired">
+                            </app-input-control>
+                          </div>
+                          <div class="col-xl-4">
+                            <app-select-control label="Preferred Communication type:" name="preferredCommunicationValue"
+                              mandatory="true"
+                              [(ngModel)]="member.newMember.pMemberExecutor.preferredCommunicationValue" tabindex="102"
+                              [items]="member.memberParams.MRPhoneandEmail" key="constant" keyname="description"
+                              required [errorTrue]="exerrorTrue"
+                              (onChanges)="OnChangePreferredCommunicationValueExecutor(member.newMember.pMemberExecutor.preferredCommunicationValue)"
+                              search="true">
+                            </app-select-control>
+                          </div>
+
+                          <div class="col-xl-4">
+                            <app-phone-control label="Mobile Number:" [(ngModel)]="
+                                member.newMember.pMemberExecutor.mobileNo
+                              " placeholder="eg. 679-8888888" name="mobileNo" tabindex="9" errorText="Invalid Phone No"
+                              [btnClicked]="member.btnClicked" [required]="executormobilenoRequired"
+                              [errorTrue]="executormobilenoRequired && exerrorTrue"
+                              [mandatory]="executormobilenoRequired">
+                            </app-phone-control>
+                          </div>
+                          <div class="col-xl-4">
+                            <app-email-control label="Email ID:" email="true" name="xemailId" [(ngModel)]="
+                                member.newMember.pMemberExecutor.emailId
+                              " tabindex="10" [btnClicked]="member.btnClicked" [required]="executoremailRequired"
+                              [errorTrue]="executoremailRequired && exerrorTrue" [mandatory]="executoremailRequired"
+                              #xemailId="ngModel" errorText="{{
+                                xemailId.invalid &&
+                                (xemailId.dirty || xemailId.touched)
+                                  ? 'Invalid Email Format'
+                                  : ''
+                              }}">
+                            </app-email-control>
+                          </div>
+
+                          <div class="col-xl-4">
+                            <app-input-control label="Birth Reg No:" name="brn"
+                              [(ngModel)]="member.newMember.pMemberExecutor.brn" tabindex="4" [errorTrue]="exerrorTrue"
+                              mandatory="true" required #brn="ngModel" appLimit="20">
+                            </app-input-control>
+                          </div>
+                          <div class="col-xl-4">
+                            <app-number-control label="TIN:" name="tintwo"
+                              [(ngModel)]="member.newMember.pMemberExecutor.tin" tabindex="5" limit="10"
+                              pattern="[0-9]{9,10}$" #tintwo="ngModel"
+                              errorText="{{tintwo.invalid && (tintwo.dirty || tintwo.touched) ? 'Should be 9 or 10 digit numbers' : ''}}"
+                              [errorTrue]="member.newMember.pMemberExecutor.tin === '' && (tintwo.dirty || tintwo.touched)"
+                              required mandatory="true" [errorTrue]="exerrorTrue">
+                            </app-number-control>
+
+                          </div>
+
+                          <div class="col-xl-4">
+                            <app-select-control label="Gender:" name="genderValue" [(ngModel)]="
+                                member.newMember.pMemberExecutor.genderValue
+                              " tabindex="6" [items]="member.memberParams.MRGender" key="constant"
+                              keyname="description" [btnClicked]="member.btnClicked" [required]="genderrequired"
+                              [errorTrue]="genderrequired && exerrorTrue" [mandatory]="genderrequired">
+                            </app-select-control>
+                          </div>
+
+                          <div class="col-xl-4">
+                            <app-select-control label="Relationship:" name="relationshipValue" [(ngModel)]="
+                                member.newMember.pMemberExecutor
+                                  .relationshipValue
+                              " tabindex="7" [items]="member.memberParams.MREXRelationship" key="constant"
+                              keyname="description" [btnClicked]="member.btnClicked" [required]="relrequired"
+                              [errorTrue]="relrequired && exerrorTrue" [mandatory]="relrequired" search="true">
+                            </app-select-control>
+                          </div>
+
+                          <div class="col-xl-4">
+                            <app-date-control label="Date of Birth:" name="dateOfBirth" [(ngModel)]="
+                                member.newMember.pMemberExecutor.dateOfBirth 
+                              " tabindex="8" [maxDate]="currentdate" [btnClicked]="member.btnClicked"
+                              [required]="dobrequired" [errorTrue]="dobrequired && exerrorTrue"
+                              [mandatory]="dobrequired" [dob]="true">
+                            </app-date-control>
+                          </div>
+
+                          <div class="col-xl-4">
+                            <app-select-control label="Nationality :"
+                              [(ngModel)]="member.newMember.pMemberExecutor.nationalityValue" name="nationalityValue"
+                              [items]="member.memberParams.MRCountry" key="constant" keyname="description" required
+                              mandatory="true" [btnClicked]="member.btnClicked" [errorTrue]="exerrorTrue">
+                            </app-select-control>
+                          </div>
+
+                        </div>
+                        <hr />
+                        <div class="row">
+                          <div class="container-fluid">
+                            <div class="row">
+                              <div class="text-secondary col-xl-12 pb-2">Address</div>
+                              <div class="col-xl-8">
+                                <app-input-control label="Settlement / Street Name / House Name / Flat Name:"
+                                  tabindex="3" [(ngModel)]="member.newMember.pMemberExecutor.pExecutorAddress.line1"
+                                  name="line1" required [errorTrue]="exerrorTrue" mandatory="true"
+                                  maxlength="{{maxlength}}" [errorText]="errorTextmax">
+                                </app-input-control>
+                              </div>
+                              <div class="col-xl-4">
+                                <app-input-control label="Province:" tabindex="6"
+                                  [(ngModel)]="member.newMember.pMemberExecutor.pExecutorAddress.province"
+                                  name="province" required [errorTrue]="exerrorTrue" mandatory="true"
+                                  maxlength="{{maxlength}}" [errorText]="errorTextpro">
+                                </app-input-control>
+                              </div>
+                              <div class="col-xl-8">
+                                <app-input-control label="Locality / Suburban / Village:" tabindex="4"
+                                  [(ngModel)]="member.newMember.pMemberExecutor.pExecutorAddress.line2" name="line2"
+                                  required [errorTrue]="exerrorTrue" mandatory="true" maxlength="{{maxlength}}"
+                                  [errorText]="errorTextloc">
+                                </app-input-control>
+                              </div>
+                              <div class="col-xl-4">
+                                <app-select-control label="Country:" name="countryValue"
+                                  [(ngModel)]="member.newMember.pMemberExecutor.pExecutorAddress.countryValue"
+                                  tabindex="7" [items]="member.memberParams.MRCountry" key="constant"
+                                  keyname="description" search="true">
+                                </app-select-control>
+                              </div>
+                              <div class="col-xl-8">
+                                <app-input-control label="City / Town:" tabindex="5"
+                                  [(ngModel)]="member.newMember.pMemberExecutor.pExecutorAddress.city" name="city"
+                                  required [errorTrue]="exerrorTrue" mandatory="true" maxlength="{{maxlength}}"
+                                  [errorText]="errorTextcit">
+                                </app-input-control>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="panel-stepper-footer">
+                  <div class="d-flex align-items-center">
+                    <div>
+                      <a mat-button class="text-capitalize" (click)="saveDraftExecutor()" [parentId]="pageId"
+                        appAccess="BTNSaveAsDraftStep4AddExecutor">Save as Draft</a>
+                      <a mat-button color="accent" class="ml-2 text-capitalize accent"
+                        (click)="skipStepExecutorDetail()" [parentId]="pageId"
+                        appAccess="BTNSkipThisStepStep4AddExecutor">
+                        Skip this Step
+                      </a>
+                    </div>
+                    <div class="ml-auto">
+                      <div class="text-right">
+                        <a mat-raised-button color="accent" (click)="clickExPrev()" [parentId]="pageId"
+                          appAccess="BTNBackStep4AddExecutor">
+                          <ion-icon name="arrow-back-outline"></ion-icon>
+                          Back
+                        </a>
+                        <button mat-raised-button color="accent" [disabled]="member.btnClicked" class="ml-3"
+                          (click)="saveExecutor(e)" [parentId]="pageId" appAccess="BTNSaveAndNextStep4AddExecutor">
+                          <ng-container *ngIf="!member.btnClicked">
+                            Save and Next
+                            <ion-icon name="arrow-forward-outline"></ion-icon>
+                          </ng-container>
+                          <ng-container *ngIf="member.btnClicked">
+                            <app-dot class="dot-big"></app-dot>
+                          </ng-container>
+                        </button>
+                        <!-- <button mat-raised-button color="accent" (click)="step3Click()" class="ml-3">
+                                                Save and Next
+                                                <ion-icon name="arrow-forward-outline"></ion-icon>
+                                            </button> -->
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </cdk-step>
+        <cdk-step label="Address" [completed]="step6Completed">
+          <div class="h100">
+            <form class="h100" #ad="ngForm" (ngSubmit)="saveAddress(ad)" autocomplete="off">
+              <div class="panel-stepper h100">
+                <div class="panel-stepper-body">
+                  <div class="ab">
+                    <div class="rel">
+                      <div class="container-fluid pt-3">
+                        <div class="row">
+                          <div class="col-xl-9">
+                            <app-input-control label="Settlement / Street Name / House Name / Flat Name:"
+                              mandatory="true" name="line1" [(ngModel)]="member.newMember.pMemberAddress.line1"
+                              tabindex="1" required [errorTrue]="adderrorTrue" [btnClicked]="addbtnClicked"
+                              maxlength="{{maxlength}}" [errorText]="adderrorText">
+                            </app-input-control>
+                          </div>
+                          <div class="col-xl-9">
+                            <app-input-control label="Locality / Suburban  / Village:" name="line2"
+                              [(ngModel)]="member.newMember.pMemberAddress.line2" tabindex="2"
+                              [btnClicked]="addbtnClicked" required [errorTrue]="adderrorTrue" maxlength="{{maxlength}}"
+                              [errorText]="vilerrorText" mandatory="true">
+                            </app-input-control>
+                          </div>
+                          <div class="col-xl-9">
+                            <app-input-control label="City / Town:" name="city"
+                              [(ngModel)]="member.newMember.pMemberAddress.city" tabindex="3"
+                              [btnClicked]="addbtnClicked" required [errorTrue]="adderrorTrue" maxlength="{{maxlength}}"
+                              [errorText]="towerrorText" mandatory="true">
+                            </app-input-control>
+                          </div>
+                          <div class="col-xl-9">
+                            <app-input-control label="Province:" name="province" [(ngModel)]="
+                                member.newMember.pMemberAddress.province
+                              " tabindex="4" [btnClicked]="addbtnClicked" required [errorTrue]="adderrorTrue"
+                              maxlength="{{maxlength}}" [errorText]="addproerrorText" mandatory="true">
+                            </app-input-control>
+                          </div>
+
+                          <div class="col-xl-9">
+                            <app-select-control label="Country:" name="countryValue"
+                              [(ngModel)]="member.newMember.pMemberAddress.countryValue" tabindex="5"
+                              [items]="member.memberParams.MRCountry" key="constant" keyname="description"
+                              [btnClicked]="addbtnClicked" search="true">
+                            </app-select-control>
+                          </div>
+
+                          <div class="col-xl-9">
+                            <app-input-control label="Postal Address:" name="postalAddress" [(ngModel)]="
+                                member.newMember.pMemberAddress.postalAddress
+                              " tabindex="5" [btnClicked]="addbtnClicked" maxlength="{{maxlength}}"
+                              [errorText]="postalerrorText">
+                            </app-input-control>
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="panel-stepper-footer">
+                  <div class="d-flex align-items-center">
+                    <div [parentId]="pageId" appAccess="BTNSaveAsDraftStep5Address">
+                      <a mat-button class="text-capitalize" (click)="saveDraftAddress()">Save as Draft</a>
+                    </div>
+                    <div class="ml-auto text-right">
+                      <a mat-raised-button color="accent" (click)="clickAddPrev()" [parentId]="pageId"
+                        appAccess="BTNBackStep5Address">
+                        <ion-icon name="arrow-back-outline"></ion-icon>
+                        Back
+                      </a>
+                      <button mat-raised-button color="accent" type="submit" [disabled]="member.btnClicked" class="ml-3"
+                        [parentId]="pageId" appAccess="BTNSaveAndNextStep5Address">
+                        <ng-container *ngIf="!member.btnClicked">
+                          Save and Next
+                        </ng-container>
+                        <ng-container *ngIf="member.btnClicked">
+                          <app-dot class="dot-big"></app-dot>
+                        </ng-container>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </cdk-step>
+        <cdk-step label="Confirmation" [completed]="step7Completed">
+          <div class="p-0 rel h100">
+            <form class="h100" #cm="ngForm" (ngSubmit)="Confirm(cm)" autocomplete="off">
+              <div class="panel-stepper h100">
+                <div class="panel-stepper-body">
+                  <div class="ab">
+                    <div class="rel">
+                      <div class="mw768 pt-4 h100">
+                        <div class="container-fluid h100">
+                          <div class="row pb-3">
+                            <div class="col-xl-6 ">
+                              <app-input-control label="Witness Name:" name="witnessName"
+                                [(ngModel)]="member.newMember.witnessName" tabindex="1" required mandatory="true"
+                                [errorTrue]="member.errorTrue" [btnClicked]="member.btnClicked" [upperCase]="true"
+                                emojiType="name">
+
+                              </app-input-control>
+                            </div>
+                            <div class="col-xl-6">
+                              <app-date-control label="Witness Date:" mandatory="true" name="witnessDate"
+                                [(ngModel)]="member.newMember.witnessDate" tabindex="9" required [maxDate]="currentdate"
+                                [errorTrue]="member.errorTrue" [btnClicked]="member.btnClicked">
+
+                              </app-date-control>
+                            </div>
+                            <div class="col-xl-12">
+                              <ng-container>
+                                <div class="d-flex">
+                                  <div class="w65">
+                                    <app-file-upload label="Witness Signature Upload:"
+                                      [data]="member.newMember.protoWitnessMemberRegistrationDocument"
+                                      (onload)="uploadMemberWitnessDocument($event)"
+                                      [mandatory]="member.newMember.protoWitnessMemberRegistrationDocument.isMandatory === 'Y'"
+                                      dname="member.newMember.protoWitnessMemberRegistrationDocument.pdocumentFile.fileName"
+                                      [loading]="fileUploading === member.newMember.protoWitnessMemberRegistrationDocument.documentTypeValue"
+                                      required [errorTrue]="member.errorTrue"
+                                      [xFile]="member.newMember.protoWitnessMemberRegistrationDocument.pdocumentFile"
+                                      (onclear)="clearWitnessFile()"
+                                      [accept]="appSettingService.environment.fileAcceptImages" [expanded]='true'
+                                      [crop]="member.newMember.protoWitnessMemberRegistrationDocument.documentTypeValue == 'WITSI'">
+                                    </app-file-upload>
+
+                                  </div>
+                                  <div class="d-flex align-items-center pt-1">
+                                    <a mat-raised-button color="accent"
+                                      (click)="viewDocument(member.newMember.protoWitnessMemberRegistrationDocument)">
+                                      <ion-icon name="eye-outline"></ion-icon>
+                                      View
+                                    </a>
+                                  </div>
+                                </div>
+                              </ng-container>
+                            </div>
+                            <div class="col-xl-12 text-center pt-4">
+                              <div class="form-group d-flex ">
+                                <mat-checkbox (change)="checkDeclartion($event.checked)" [checked]="
+                                    member.newMember.acceptDeclaration === 'Y'
+                                  ">
+                                </mat-checkbox>
+                                <label class="pl-3 text-left">
+                                  {{ member.newMember.declaration }}</label>
+                              </div>
+                            </div>
+                            <div class="col-xl-12 text-center pt-4">
+                              <div class="form-group">
+                                <label for="" class="text-center">Transaction PIN:</label>
+                                <app-pin-control #xtransactionPin boxes="4" id="np"
+                                  [(ngModel)]="member.newMember.transactionPin" tabindex="1" required
+                                  [errorTrue]="member.errorTrue" [btnClicked]="member.btnClicked"
+                                  name="member.newMember.transactionPin" mandatory="true" password="true"
+                                  clearbtn="true">
+                                </app-pin-control>
+                                <p class="text-danger mt-15px" *ngIf="
+                                    member.errorTrue &&
+                                    member.newMember.transactionPin.length < 4
+                                  ">
+                                  <small>Please Enter a Transaction PIN</small>
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="panel-stepper-footer">
+                  <div class="text-right">
+                    <a mat-raised-button color="accent" (click)="clickPrev()" [parentId]="pageId"
+                      appAccess="BTNBackStep6Confirmation">
+                      <ion-icon name="arrow-back-outline"></ion-icon>
+                      Back
+                    </a>
+                    <button mat-raised-button color="accent" type="submit" [disabled]="member.btnClicked" class="ml-3"
+                      [parentId]="pageId" appAccess="BTNSubmitStep6Confirmation">
+                      <ng-container *ngIf="!member.btnClicked">
+                        Submit
+                      </ng-container>
+                      <ng-container *ngIf="member.btnClicked">
+                        <app-dot class="dot-big"></app-dot>
+                      </ng-container>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </cdk-step>
+      </app-stepper>
+    </div>
+  </div>
+</div>

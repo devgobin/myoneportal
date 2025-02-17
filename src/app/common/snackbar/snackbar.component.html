@@ -1,0 +1,9 @@
+<div class="d-flex align-items-center" *ngIf="data?.button">
+    <div class="lh28">{{ data?.message }}</div>
+    <button mat-button class="ml-auto btn-sm" (click)="dismiss()">
+        <ion-icon name="close-outline"></ion-icon>
+    </button>
+</div>
+<div class="text-center" *ngIf="!data?.button">
+    <div class="lh28">{{ data?.message }}</div>
+</div>

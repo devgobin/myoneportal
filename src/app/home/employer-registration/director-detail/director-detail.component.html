@@ -1,0 +1,314 @@
+<div class="adjust-margin">
+  <div class="dialogue-header z-2">
+    <div>Directors Detail</div>
+    <div class="ml-auto d-flex align-items-center">
+      <button mat-icon-button mat-dialog-close>
+        <ion-icon name="close-outline"></ion-icon>
+      </button>
+    </div>
+  </div>
+  <div class="ab pt50 pb50">
+    <div class="rel">
+      <div class="h100">
+        <app-stepper #employerregistrationSteps>
+          <cdk-step label="Director Documents Upload" [completed]="step1Completed">
+            <div class="h100">
+              <div class="panel-stepper h100">
+                <div class="panel-stepper-body">
+                  <div class="ab">
+                    <div class="rel">
+                      <div class="pt-4">
+                        <div class="container-fluid">
+                          <div class="row">
+                            <div class="col-xl-12">
+                              <ng-container *ngFor="
+                                  let document of employer.newEmployer
+                                    .pEmployerRegistrationContacts
+                                    .plstEmployerRegistrationContactsDocument
+                                ">
+                                <div class="d-flex">
+                                  <div class="w60">
+                                    <app-file-upload [label]="document.documentTypeDescription" [data]="document"
+                                      (onload)="
+                                        uploadEmployerDirectorDocument(
+                                          $event,
+                                          document
+                                        )
+                                      " [mandatory]="checkFileMandatory(document, employer.newEmployer
+                                      .pEmployerRegistrationContacts
+                                      .plstEmployerRegistrationContactsDocument)"
+                                      dname="document.pDocumentFile.fileName" [loading]="
+                                        fileUploading ===
+                                        document.documentTypeValueF
+                                      " required [errorTrue]="employer.errorTrue" [xFile]="document.pDocumentFile"
+                                      (onclear)="clearFile($event)" [accept]="
+                                        appSettingService.environment
+                                          .fileAcceptImages
+                                      " expanded="true">
+                                    </app-file-upload>
+                                    <label>Member Name:
+                                      <b>{{
+                                        document.pOcrDetails.value
+                                        }}</b></label>
+                                  </div>
+                                  <div class="d-flex pt4">
+                                    <button mat-raised-button color="accent" (click)="viewDocument(document)">
+                                      <ion-icon name="eye-outline"> </ion-icon>
+                                      View
+                                    </button>
+                                  </div>
+                                </div>
+                              </ng-container>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </cdk-step>
+          <cdk-step label="Director Details" [completed]="step2Completed">
+            <div class="h100">
+              <form #m="ngForm" autocomplete="off" class="h100">
+                <div class="panel-stepper h100">
+                  <div class="panel-stepper-body">
+                    <div class="ab">
+                      <div class="rel">
+                        <div class="pt-4">
+                          <div class="container-fluid">
+                            <div class="row">
+                              <div class="col-md-12">
+                                <div class="row">
+                                  <div class="col-xl-6">
+                                    <app-input-control label="FNPF No" [(ngModel)]="
+                                        employer.newEmployer
+                                          .pEmployerRegistrationContacts.fnpfNo
+                                      " name="fnpfNo" [btnClicked]="employer.btnClicked"
+                                      (onsearchevent)="onKeySearch($event)" search="true" (onClear)="clearFNPF()">
+                                    </app-input-control>
+                                  </div>
+                                  <div class="col-xl-6">
+                                    <app-input-control label="Passport No" [(ngModel)]="
+                                        employer.newEmployer
+                                          .pEmployerRegistrationContacts
+                                          .passportNumber
+                                      " name="passportNumber">
+                                    </app-input-control>
+                                  </div>
+                                  <div class="col-xl-6">
+                                    <app-number-control label="TIN No" name="tinNo" [(ngModel)]="
+                                        employer.newEmployer
+                                          .pEmployerRegistrationContacts.tinNo
+                                      " tabindex="6" mandatory="true" required [errorTrue]="
+                                        (employer.newEmployer
+                                          .pEmployerRegistrationContacts
+                                          .tinNo === '' ||
+                                          tinNo.invalid) &&
+                                        employer.errorTrue
+                                      " [btnClicked]="employer.btnClicked" limit="10" pattern="[0-9]{9,10}$"
+                                      #tinNo="ngModel" errorText="{{
+                                        tinNo.invalid &&
+                                        (tinNo.dirty || tinNo.touched)
+                                          ? 'Should be 9 or 10 digit numbers'
+                                          : ''
+                                      }}" [errorTrue]="
+                                        employer.newEmployer
+                                          .pEmployerRegistrationContacts
+                                          .tinNo === '' &&
+                                        (tinNo.dirty || tinNo.touched)
+                                      ">
+                                    </app-number-control>
+                                  </div>
+                                  <div class="col-xl-6">
+                                    <app-input-control label="Postal Address" [(ngModel)]="
+                                        employer.newEmployer
+                                          .pEmployerRegistrationContacts
+                                          .postalAddress
+                                      " name="postalAddress">
+                                    </app-input-control>
+                                  </div>
+                                  <div class="col-xl-6">
+                                    <app-input-control label="Birth Reg No" [(ngModel)]="
+                                        employer.newEmployer
+                                          .pEmployerRegistrationContacts
+                                          .birthRegNo
+                                      " name="birthRegNo" required mandatory="true" [btnClicked]="employer.btnClicked"
+                                      [errorTrue]="employer.errorTrue">
+                                    </app-input-control>
+                                  </div>
+                                  <div class="col-xl-6">
+                                    <app-phone-control label="Work Phone No" [(ngModel)]="
+                                        employer.newEmployer
+                                          .pEmployerRegistrationContacts
+                                          .workPhoneNumber
+                                      " name="workPhoneNumber" placeholder="eg. 679-8888888"
+                                      errorText="Invalid Phone No" #memberMobile>
+                                    </app-phone-control>
+                                  </div>
+                                  <div class="col-xl-6">
+                                    <app-input-control label="Name (As per Birth Certificate)" [(ngModel)]="
+                                        employer.newEmployer
+                                          .pEmployerRegistrationContacts
+                                          .fullName
+                                      " name="fullName" required mandatory="true" [btnClicked]="employer.btnClicked"
+                                      [errorTrue]="employer.errorTrue" [upperCase]="true" emojiType="name">
+                                    </app-input-control>
+                                  </div>
+                                  <div class="col-xl-6">
+                                    <app-email-control label="Work Email Address" [(ngModel)]="
+                                        employer.newEmployer
+                                          .pEmployerRegistrationContacts
+                                          .workEmailAddress
+                                      " name="workEmailAddress" tabindex="17" [btnClicked]="employer.btnClicked"
+                                      required [errorTrue]="
+                                        employer.errorTrue
+                                      " email="true" mandatory="true" #workEmailAddress="ngModel" errorText="{{
+                                        workEmailAddress.invalid &&
+                                        (workEmailAddress.dirty ||
+                                          workEmailAddress.touched)
+                                          ? 'Invalid Email Format'
+                                          : ''
+                                      }}">
+                                    </app-email-control>
+                                  </div>
+                                  <div class="col-xl-6">
+                                    <app-date-control label="Date Of Birth" [(ngModel)]="
+                                        employer.newEmployer
+                                          .pEmployerRegistrationContacts.dob
+                                      " name="dob" required mandatory="true" [maxDate]="
+                                        employer.newEmployer.currentDate
+                                      " [btnClicked]="employer.btnClicked" [errorTrue]="employer.errorTrue"
+                                      [dob]="true">
+                                    </app-date-control>
+                                  </div>
+                                  <div class="col-xl-6">
+                                    <app-input-control label="Fax Number" [(ngModel)]="
+                                        employer.newEmployer
+                                          .pEmployerRegistrationContacts.faxNo
+                                      " name="faxNo">
+                                    </app-input-control>
+                                  </div>
+                                  <div class="col-xl-6">
+                                    <app-select-control label="Gender"
+                                      [(ngModel)]="employer.newEmployer.pEmployerRegistrationContacts.genderValue"
+                                      name="genderValue" [items]="employer.initialData.ERGender" key="constant"
+                                      keyname="description" required mandatory="true" [btnClicked]="employer.btnClicked"
+                                      [errorTrue]="employer.errorTrue">
+                                    </app-select-control>
+                                  </div>
+                                  <div class="col-xl-6">
+                                    <app-select-control label="Business Address" [(ngModel)]="
+                                        employer.newEmployer
+                                          .pEmployerRegistrationContacts
+                                          .businessAddressId
+                                      " name="businessAddressId" [items]="
+                                        employer.newEmployer
+                                          .plstEmployerRegistraionAddress
+                                      " key="employerRegistrationAddressId" keyname="fullAddress" required
+                                      mandatory="true" valuetype="int" [btnClicked]="employer.btnClicked"
+                                      [errorTrue]="employer.errorTrue">
+                                    </app-select-control>
+                                  </div>
+                                  <div class="col-xl-6">
+                                    <app-input-control label="Father's Name"
+                                      [(ngModel)]=" employer.newEmployer.pEmployerRegistrationContacts.fatherName"
+                                      (ngModelChange)="checkRequired()" name="fatherName"
+                                      [required]="fathernameRequired" [mandatory]="fathernameRequired"
+                                      [btnClicked]="employer.btnClicked"
+                                      [errorTrue]="fathernameRequired && employer.errorTrue" [upperCase]="true"
+                                      emojiType="name">
+                                    </app-input-control>
+                                  </div>
+                                  <div class="col-xl-6">
+                                    <app-input-control label="Mother's Name"
+                                      [(ngModel)]="employer.newEmployer.pEmployerRegistrationContacts.motherName"
+                                      name="motherName" [btnClicked]="employer.btnClicked"
+                                      [required]="mothernameRequired"
+                                      [errorTrue]="mothernameRequired && employer.errorTrue"
+                                      (ngModelChange)="checkRequired()" [mandatory]="mothernameRequired"
+                                      [upperCase]="true" emojiType="name">
+                                    </app-input-control>
+                                  </div>
+                                  <div class="col-xl-6">
+                                    <app-input-control label="Percentage Holdings" [(ngModel)]="
+                                        employer.newEmployer
+                                          .pEmployerRegistrationContacts
+                                          .percentageHolding
+                                      " name="percentageHolding">
+                                    </app-input-control>
+                                  </div>
+                                  <div class="col-xl-6">
+                                    <app-input-control label="User Name"
+                                      [(ngModel)]="employer.newEmployer.pEmployerRegistrationContacts.preferredEmployerPortalUsername"
+                                      name="preferredEmployerPortalUsername" required mandatory="true"
+                                      [btnClicked]="employer.btnClicked || employer.newEmployer.pEmployerRegistrationContacts.isAlreadyHavePortalAccess ==='Y'"
+                                      [errorTrue]="employer.errorTrue">
+                                    </app-input-control>
+                                  </div>
+
+                                  <div class="col-xl-6">
+                                    <app-select-control label="Nationality"
+                                      [(ngModel)]="employer.newEmployer.pEmployerRegistrationContacts.nationalityValue"
+                                      name="nationalityValue" [items]="employer.initialData.ERCountry" key="constant"
+                                      keyname="description" required mandatory="true" [btnClicked]="employer.btnClicked"
+                                      [errorTrue]="employer.errorTrue">
+                                    </app-select-control>
+                                  </div>
+
+                                  <div class="col-xl-12">
+                                    <label>
+                                      <b>
+                                        Note : The Username will be used to create your account for the FNPF Employer
+                                        Portal.
+                                      </b>
+                                    </label>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </cdk-step>
+        </app-stepper>
+      </div>
+    </div>
+  </div>
+  <div class="dialogue-footer z-2">
+    <ng-container *ngIf="step1">
+      <button mat-raised-button color="accent" tabindex="110" [disabled]="employer.btnClicked"
+        (click)="saveDirectorDocument()">
+        <ng-container *ngIf="!employer.btnClicked">
+          Save and Next
+          <ion-icon name="arrow-forward-outline"></ion-icon>
+        </ng-container>
+        <ng-container *ngIf="employer.btnClicked">
+          <app-dot class="dot-big"></app-dot>
+        </ng-container>
+      </button>
+    </ng-container>
+
+    <ng-container *ngIf="step2">
+      <button mat-raised-button color="accent" (click)="clickPrevstep2()">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+        Back
+      </button>
+      <button mat-raised-button color="accent" class="ml-3" (click)="saveDirectorContactDetails(m)">
+        <ng-container *ngIf="!employer.btnClicked">
+          Save
+          <ion-icon name="arrow-forward-outline"></ion-icon>
+        </ng-container>
+        <ng-container *ngIf="employer.btnClicked">
+          <app-dot class="dot-big"></app-dot>
+        </ng-container>
+      </button>
+    </ng-container>
+  </div>
+</div>

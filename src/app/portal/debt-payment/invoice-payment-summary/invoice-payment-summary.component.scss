@@ -1,0 +1,55 @@
+@import '../../../../scss/responsive-mixin.scss';
+
+.h300 {
+    max-height: 300px;
+}
+
+.tfoot-td {
+    td {
+        padding-left: 15px;
+    }
+}
+
+.table-responsive table thead th,
+.table-responsive table thead td {
+    background-color: var(--primary);
+    color: white !important;
+    font-weight: 400 !important;
+    font-size: 12px;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    white-space: nowrap;
+    z-index: 2;
+    padding: 6px 12px;
+}
+
+.lh0 {
+    @include desktop {
+        margin: -18px 0px 0px 0px !important;
+    }
+}
+
+.pt60 {
+    padding-top: 15px;
+
+    @include desktop {
+        padding-top: 115px;
+    }
+}
+
+.pt35 {
+    padding-top: 0px;
+
+    @include desktop {
+        padding-top: 35px;
+    }
+}
+
+.mat-raised-button {
+    font-size: 10px;
+
+    @include desktop {
+        font-size: 14px;
+    }
+}

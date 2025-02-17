@@ -1,0 +1,194 @@
+<div class="content-body h100" [parentId]="pageId" appAccess="APPIN">
+    <div class="rel">
+        <div class="vertical-flex h100">
+            <div class="flex-1 relative h100">
+                <div class="cus-card h100 mt-0 pb-0 mb-1 mx-0">
+                    <form #l="ngForm" class="h100" (ngSubmit)="saveAppointment(l)" autocomplete="off">
+                        <div class="vertical-flex h100">
+                            <div class="heading">
+                                Appointments Detail
+                            </div>
+                            <div class="container-fluid pt-3">
+                                <div class="row border-bottom">
+                                    <div class="col-md-3 pl-0">
+                                        <app-select-control label="Select Branch"
+                                            [(ngModel)]="service.createappointment.branchValue" tabindex="1"
+                                            name="branchValue" [items]="service.DDL.DDLAppointmentLocation"
+                                            key="constant" keyname="description" required [errorTrue]="brancherrorTrue"
+                                            mandatory="true">
+                                        </app-select-control>
+                                    </div>
+                                    <div class="col-md-3 pl">
+                                        <app-select-control label="Select Category"
+                                            [(ngModel)]="service.createappointment.categoryValue" tabindex="1"
+                                            name="categoryValue" [items]="service.DDL.DDLAppointmentCategory"
+                                            key="constant" keyname="description" required [btnClicked]="btnClicked"
+                                            [errorTrue]="errorTrue" mandatory="true">
+                                        </app-select-control>
+                                    </div>
+                                    <div class="col-md-6 text-right">
+                                        <div class="w100 h100 d-flex align-items-center">
+                                            <div class="ml-auto">
+                                                <ng-container *ngIf="inprogress">
+                                                    <div class="clock">
+                                                        <div class="m-auto d-flex align-items-center">
+                                                            <div class="gear-icon">
+                                                                <img src="assets/gear.gif" alt="">
+                                                            </div>
+                                                            <div class="pl-1">{{resendText}}</div>
+                                                        </div>
+                                                    </div>
+                                                </ng-container>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex-1 h100 relative">
+                                <div class="ab h100">
+                                    <div class="rel h100">
+                                        <div class="container-fluid h100">
+                                            <div class="row h100">
+                                                <div class="col-md-3 pl-0 h100 border-right pt-3">
+                                                    <app-date-control label="Appointment Date"
+                                                        [(ngModel)]="service.createappointment.appointmentDate"
+                                                        name="appointmentDate"
+                                                        (ngModelChange)="loadtimeslots(service.createappointment)"
+                                                        required [btnClicked]="btnClicked" [errorTrue]="errorTrue"
+                                                        mandatory="true" [disabled]="btnClicked">
+                                                    </app-date-control>
+                                                    <div class="table-responsive">
+                                                        <table class="mat-table time-table">
+                                                            <thead>
+                                                                <tr class="mat-header-row">
+                                                                    <th class="mat-header-cell">Selected Time</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <ng-container
+                                                                    *ngFor="let time of service.createappointment.ilstbusAppointmentTimeslots; let i = index">
+                                                                    <tr class="mat-row pointer" (click)="setTime(i)">
+                                                                        <td class="mat-cell"
+                                                                            [ngClass]="{'selected': time.isselected === 'Y', 'pointerNone': service.createappointment.appointmentId > 0}">
+                                                                            <div class="d-flex align-items-center">
+                                                                                <div class="mh28">
+                                                                                    {{time.appointmenttimeslotvalue}}
+                                                                                </div>
+                                                                                <div class="ml-auto check-mark"
+                                                                                    *ngIf="time.isselected === 'Y'">
+                                                                                    <ion-icon
+                                                                                        name="checkmark-circle-outline">
+                                                                                    </ion-icon>
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                </ng-container>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4 h100 border-right pt-3 pl">
+                                                    <div class="form-group h100 m-0">
+                                                        <div class="vertical-flex h100">
+                                                            <div class="d-flex align-items-center pb-1">
+                                                                <label>Information <span
+                                                                        class="text-danger">*</span></label>
+                                                                <div class="ml-auto d-flex align-items-center text-right"
+                                                                    *ngIf="service.createappointment.meetingInformation === '' && errorTrue">
+                                                                    <small class="text-danger">mandatory</small>
+                                                                </div>
+                                                            </div>
+                                                            <div class="flex-1 relative h100">
+                                                                <textarea class="form-control h100"
+                                                                    [(ngModel)]="service.createappointment.meetingInformation"
+                                                                    name="meetingInformation" maxlength="{{maxlength}}"
+                                                                    [ngClass]="{'border-warn': service.createappointment.meetingInformation === '' && errorTrue}"
+                                                                    [disabled]="btnClicked"></textarea>
+                                                            </div>
+                                                            <div class="d-flex align-items-center pt-1">
+                                                                <div class="ml-auto">
+                                                                    <small
+                                                                        *ngIf="service.createappointment.meetingInformation !== null">
+                                                                        Maximum
+                                                                        {{service.createappointment.meetingInformation.length}}
+                                                                        / {{service.createappointment.maxInfoContent}} ,
+                                                                        {{service.createappointment.maxInfoContent -
+                                                                        service.createappointment.meetingInformation.length}}
+                                                                        characters left.
+                                                                    </small>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4 pr-0 pt-3 pl">
+                                                    <label for="name">Appointment Status</label>
+                                                    <div>
+                                                        <b>{{service.createappointment.statusDescription}}</b>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center pb-3">
+                                <div class="ml-auto">
+                                    <ng-container *ngIf="service.createappointment.appointmentId === 0">
+                                        <button [parentId]="pageId" appAccess="BTNSubmitAppointment" mat-raised-button
+                                            color="accent" type="submit" class="ml-3">
+                                            Submit Request
+                                        </button>
+                                    </ng-container>
+                                    <ng-container
+                                        *ngIf="service.createappointment.appointmentId > 0 && service.createappointment.statusValue !== 'CNCLD'">
+                                        <a mat-raised-button matTooltip="Cancel" color="danger" [parentId]="pageId"
+                                            appAccess="BTNCancelAppointment" (click)="opencancel()">
+                                            Cancel
+                                        </a>
+                                    </ng-container>
+                                </div>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+
+            <!-- <div class="flex-1 cus-card m-0 relative">
+                    <div class="d-flex align-items-center pb-2">
+                        <div class="heading">Message</div>
+                        <div class="ml-auto">
+                        <button mat-raised-button color="accent" (click)="newDetail()">
+                            <ion-icon name="add"></ion-icon>
+                            ADD NEW
+                        </button>
+                    </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table mat-table [dataSource]="dataSource" class="table-hover">
+                            <ng-container matColumnDef="messageCode">
+                                <th mat-header-cell *matHeaderCellDef> Message Code </th>
+                                <td mat-cell *matCellDef="let element"> {{element.messageCode}}
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="message">
+                                <th mat-header-cell *matHeaderCellDef> Message </th>
+                                <td mat-cell *matCellDef="let element"> {{element.message}}</td>
+                            </ng-container>
+
+                            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+                                [ngClass]="{'active': activeIndex == row}" (click)="active(row)"></tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="table-footer">
+                    <mat-paginator [showFirstLastButtons]="!data.isMobile" [hideTotalCount]="data.isMobile" showFirstLastButtons="true" [pageSizeOptions]="[10, 25, 50, 100]">
+                    </mat-paginator>
+                </div> -->
+        </div>
+    </div>
+</div>

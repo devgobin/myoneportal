@@ -1,0 +1,37 @@
+<div class="form-group">
+    <div class="d-flex align-item-center lh18">
+        <!-- <label for="" *ngIf="label !== ''">{{label}}</label> -->
+        <label *ngIf="label !== ''">{{label}} <span class="text-danger" *ngIf="mandatory">*</span></label>
+        <div class="ml-auto ">
+            <ng-container *ngIf="counter && value !== undefined">
+                <ng-container *ngIf="value !== null">
+                    <div class="counter mr-1" [ngclass]="{'text-danger': value.length === limter}">
+                        <small>{{value === null ? 0 : value.length}} / {{limter}}</small>
+                    </div>
+                </ng-container>
+                <ng-container *ngIf="value === null">
+                    <div class="counter mr-1">
+                        <small>{{value === null ? 0 : value.length}} / {{limter}}</small>
+                    </div>
+                </ng-container>
+            </ng-container>
+
+            <div class="text-danger lh18" *ngIf="value === '' && errorTrueNow"><small>mandatory</small></div>
+
+        </div>
+        <ng-container *ngIf="editOption === 'true'">
+            <div class="ml-auto">
+                <a (click)="edit()">Edit</a>
+            </div>
+        </ng-container>
+        <ng-container *ngIf="errorText !== ''">
+            <div class="ml-auto">
+                <small class="text-danger pl-3">{{errorText}}</small>
+            </div>
+        </ng-container>
+    </div>
+    <textarea appNoEmoji class="form-control" [(ngModel)]="value" name="{{name}}" id="{{name}}"
+        placeholder="{{placeholder}}" [ngClass]="{'border-warn': value === '' && errorTrueNow}"
+        [disabled]="btnClickedNow" (blur)="blured()" #inputbox class="{{class}}" (keydown)="checkenter($event)"
+        #selectInput [appTextLimiter]="limter"></textarea>
+</div>

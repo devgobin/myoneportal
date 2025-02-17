@@ -1,0 +1,350 @@
+<section class="combo">
+    <section class="main-slider">
+        <div class="rel">
+            <div class="overflow-hidden">
+                <div class="main-slider-container">
+                    <div class="swiper-wrapper">
+                        <ng-container *ngFor="let slider of homePageData.sliders">
+                            <div class="swiper-slide">
+                                <div class="slider-card">
+                                    <div class="sc-card-img embed-responsive embed-responsive-21by9">
+                                        <!-- <div class="embed-responsive-item main-slider-img" [style.backgroundImage]="'url(' + slider.img + ')'"> -->
+                                        <!-- <div class="embed-responsive-item"> -->
+                                        <!-- <div class="main-slider-img" [style.backgroundImage]="'url(' + slider.img + ')'"></div>  -->
+                                        <!-- <img class="embed-responsive-item" [src]="slider.img" alt=""> -->
+                                        <div class="bs-tint"></div>
+                                        <!-- </div> -->
+                                        <!-- <div class="content-box">
+                                            <div class="ms-title">{{slider.title}}</div>
+                                            <div class="ms-content">{{slider.content}}</div>
+                                            <div class="ms-button">
+                                                <button mat-raised-button color="lbox"
+                                                    (click)="sliderBtnClicked(slider.action)">{{slider.button}}</button>
+                                            </div>
+                                            <div class="pt-3 text-center swiper-nav d-none d-md-block">
+                                                <button mat-icon-button class="ms-button-prev">
+                                                    <ion-icon name="chevron-back-outline"></ion-icon>
+                                                </button>
+                                                <button mat-icon-button class="ms-button-next">
+                                                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                                                </button>
+                                            </div>
+                                        </div> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-container>
+                    </div>
+
+                </div>
+            </div>
+            <div class="slider-banner">
+
+                <div class="part-1">
+                    <marquee>
+                        <div class="d-flex align-items-center">
+                            <!-- <div class="d-flex pr-5 align-items-center">
+                                <ion-icon src="assets/svg/mask.svg"></ion-icon>
+                                <div class="ba-title">Need to Apply for<br>
+                                    COVID-19 Withdrawal?</div>
+                            </div> |
+                            <div class="pl-5 d-flex align-items-center">
+
+                                <div class="ba-title">Need to Apply for
+                                    COVID-19 Withdrawal?</div>
+                            </div> -->
+                            <ng-container *ngFor="let marquee of homeData.plstContent">
+                                <div class="pl-5 d-flex align-items-center">
+                                    <div class="ba-title"><a class="text-white" [href]="marquee.link"
+                                            target="_blank">{{marquee.strContent}}</a></div>
+                                </div>
+                            </ng-container>
+                        </div>
+                    </marquee>
+                </div>
+                <!-- <div class="part-2">
+                    <div class="ba-title">Download<br>myFNPF App</div>
+                    <div class="ba-img d-flex align-items-center justify-content-center">
+                        <a href="https://play.google.com/store/apps/details?id=com.myfnpf.myfnpf" target="_blank"><img
+                                src="assets/google-play-badge.png" alt=""></a>
+                        <a href="https://apps.apple.com/us/app/myfnpf/id1302760657" target="_blank"><img
+                                src="assets/app_store.svg" alt=""></a>
+                    </div>
+                </div> -->
+
+            </div>
+        </div>
+    </section>
+    <section class="login-box">
+        <app-login></app-login>
+    </section>
+</section>
+
+<section class="c-section" *ngIf="homePageData.highlights.length > 0">
+    <div class="wrapper">
+        <div class="section-subtitle">Features</div>
+        <div class="section-title">Highlights</div>
+        <div class="section-content">Lorem ipsum dolor sit amet, consectetur adipiscing elitscele risque varius
+            Lorem ipsum dolor
+            Lorem ipsum dolor sit amet, consectetur adipiscing elitscele risque varius Lorem ipsum dolor sit
+            amet,.sit amet,....
+        </div>
+        <div class="pt-5"></div>
+        <div class="mw1366">
+            <div class="container-fluid">
+                <div class="row">
+                    <ng-container *ngFor="let high of homePageData.highlights">
+                        <div class="col-12 col-md-6 col-xl-3 pb-3 mb-5">
+                            <div class="section-card">
+                                <div class="sc-card-img embed-responsive embed-responsive-16by9">
+                                    <img [src]="high.img" alt="" class="embed-responsive-item h-auto">
+                                </div>
+                                <div class="c-title">{{high.title}}</div>
+                                <div class="c-content">{{high.content}}</div>
+                            </div>
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- <section class="n-section">
+    <div class="wrapper">
+        <div class="mw1366">
+            <div class="section-title">Notification Section</div>
+            <div class="section-content">Lorem ipsum dolor sit amet, consectetur adipiscing elitscele risque
+                varius
+                Lorem ipsum dolor
+                Lorem ipsum dolor sit amet, consectetur adipiscing elitscele risque varius Lorem ipsum dolor sit
+                amet,.sit amet,....
+            </div>
+        </div>
+    </div>
+</section> -->
+<section class="c-section" *ngIf="homePageData.videos.length > 0">
+    <div class="wrapper">
+        <div class="section-subtitle">Videos</div>
+        <div class="section-title">How to?</div>
+        <div class="section-content">
+            <p>Thank you for using the FNPF Employer Portal 2.0. </p>
+            <p>We strive to ensure that this newly re-designed portal will be an enjoyable experience. At the same time,
+                we understand and appreciate that some of our customers will need assistance in transitioning. We have
+                therefore developed the videos below to help with this transition.
+            </p>
+        </div>
+        <div class="pt-5"></div>
+        <div class="mw1366">
+            <div class="container-fluid overflow-hidden">
+                <div class="video-container">
+                    <div class="swiper-wrapper">
+                        <!-- Slides -->
+                        <ng-container *ngFor="let video of homePageData.videos">
+                            <div class="swiper-slide">
+                                <div class="section-card">
+                                    <div class="sc-card-img embed-responsive embed-responsive-16by9">
+                                        <iframe class="embed-responsive-item" [src]="video.link | safe:'resourceUrl'"
+                                            allowfullscreen></iframe>
+                                    </div>
+                                    <div class="c-title text-capitalize">{{video.title}}</div>
+                                    <div class="c-content">{{video.content}}</div>
+                                </div>
+                            </div>
+                        </ng-container>
+                    </div>
+                    <div class="pt-3 text-center swiper-nav">
+                        <button mat-icon-button class="video-button-prev">
+                            <ion-icon src="assets/svg/c-left.svg"></ion-icon>
+                        </button>
+                        <button mat-icon-button class="video-button-next">
+                            <ion-icon src="assets/svg/c-right.svg"></ion-icon>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="pt-4"></div>
+    </div>
+</section>
+
+<!-- <section class="m-section">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 col-xl-6 p-0 bg-yellow">
+                <div class="mw680 c-margin-left">
+                    <div class="m-box">
+                        <div class="d-flex align-items-center">
+                            <div class="section-title">Our Media</div>
+                            <div class="ml-auto text-center swiper-nav">
+                                <button mat-icon-button class="media-button-prev">
+                                    <ion-icon src="assets/svg/c-left.svg"></ion-icon>
+                                </button>
+                                <button mat-icon-button class="media-button-next">
+                                    <ion-icon src="assets/svg/c-right.svg"></ion-icon>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="pt-4"></div>
+                        <div class="overflow-hidden">
+                            <div class="media-container">
+                                <div class="swiper-wrapper">
+                                    <ng-container *ngFor="let media of medias">
+                                        <div class="swiper-slide">
+                                            <div class="section-card">
+                                                <div class="c-title">{{media.title}}</div>
+                                                <div class="c-subtitle">{{media.subtitle}}</div>
+                                                <div class="c-date">{{media.date}}</div>
+
+                                                <div class="sc-card-img embed-responsive embed-responsive-4by3">
+                                                    <img [src]="media.img" alt="" class="embed-responsive-item h-auto">
+                                                </div>
+
+                                                <div class="c-content">{{media.content}}</div>
+                                            </div>
+                                        </div>
+                                    </ng-container>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-3 m-1"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-xl-6 p-0 bg-grey-1">
+                <div class="mw680 c-margin-right">
+                    <div class="gallery-box">
+                        <div class="g-title">Gallery</div>
+                        <div class="g-box">
+                            <img class="view-img" [src]="selectedGallery.img" alt="">
+                            <div class="g-slider">
+                                <div class="rel">
+                                    <div class="gs-box">
+                                        <div class="d-flex align-items-center">
+                                            <div class="gs-title">{{selectedGallery.title}}</div>
+                                            <div class=" ml-auto">
+                                                <button mat-button color="white" class="gs-subtitle">View
+                                                    Gallery</button>
+
+                                            </div>
+                                        </div>
+                                        <div class="gs-date">{{selectedGallery.date}}</div>
+                                    </div>
+                                    <div class="overflow-hidden pl-4 pr-4">
+                                        <div class="gallery-container">
+                                            <div class="swiper-wrapper">
+                                                <ng-container *ngFor="let gallery of galleries">
+                                                    <div class="swiper-slide text-center"
+                                                        (click)="selectedGalleryFn(gallery)">
+                                                        <div class="sc-card-img embed-responsive embed-responsive-4by3">
+                                                            <img [src]="gallery.img" alt=""
+                                                                class="embed-responsive-item h-auto g-img">
+                                                        </div>
+                                                    </div>
+                                                </ng-container>
+                                            </div>
+                                            <div class="swiper-nav f-left">
+                                                <button mat-icon-button class="gallery-button-prev">
+                                                    <ion-icon name="chevron-back-outline"></ion-icon>
+                                                </button>
+                                            </div>
+                                            <div class="swiper-nav f-right">
+                                                <button mat-icon-button class="gallery-button-next">
+                                                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section> -->
+<section class="c-section" *ngIf="homePageData.testimonials.length > 0">
+    <div class="wrapper">
+        <div class="section-subtitle">Testimonials</div>
+        <div class="section-title">Client’s voice</div>
+        <div class="pt-3"></div>
+        <div class="mw1366">
+            <div class="container-fluid overflow-hidden">
+                <div class="testimonial-container">
+                    <div class="swiper-wrapper">
+                        <ng-container *ngFor="let testimonial of homePageData.testimonials">
+                            <div class="swiper-slide">
+                                <div class="section-card">
+                                    <div class="section-content">{{testimonial.content}}
+                                    </div>
+                                    <div class="d-flex align-items-center justify-content-center">
+                                        <div class="avatar">
+                                            <img src="assets/un-img/random.jpg" alt="">
+                                        </div>
+                                        <div class="d-box">
+                                            <div class="name">{{testimonial.name}}</div>
+                                            <div class="des">{{testimonial.designation}}</div>
+                                            <div class="date">{{testimonial.date}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-container>
+                    </div>
+                    <div class="pt-3 text-center swiper-nav">
+                        <div class="swiper-pagination d-flex align-items-center justify-content-center"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="pt-4"></div>
+    </div>
+</section>
+<section class="c-section bg-grey-light p-3" *ngIf="homePageData.clients">
+    <div class="wrapper">
+        <div class="mw960">
+            <div class="container-fluid overflow-hidden">
+                <div class="client-container">
+                    <div class="swiper-wrapper">
+                        <ng-container *ngFor="let client of homePageData.clients">
+                            <div class="swiper-slide text-center">
+                                <img [src]="client.img" alt="" class="client-img">
+                            </div>
+                        </ng-container>
+                    </div>
+                    <div class="swiper-nav f-left">
+                        <button mat-icon-button class="client-button-prev">
+                            <ion-icon name="chevron-back-outline"></ion-icon>
+                        </button>
+                    </div>
+                    <div class="swiper-nav f-right">
+                        <button mat-icon-button class="client-button-next">
+                            <ion-icon name="chevron-forward-outline"></ion-icon>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- <section class="c-section bg-sandal">
+    <div class="wrapper">
+        <div class="section-subtitle">faq</div>
+        <div class="section-title">How may i Help you?</div>
+        <div class="pt-3"></div>
+        <div class="mw1366">
+            <div class="container-fluid overflow-hidden">
+                <div class="mw450">
+                    <div class="form-group">
+                        <input type="text" class="form-control h48" placeholder="Ask your questions">
+                    </div>
+                    <div class="text-center">
+                        <button mat-button color="dark" class="fw500">View All Questions</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="pt-4"></div>
+    </div>
+</section> -->

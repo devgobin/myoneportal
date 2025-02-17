@@ -1,0 +1,389 @@
+<div class="content-body" [parentId]="pageId" appAccess="SUSDT">
+    <div class="content-body">
+        <div class="rel">
+            <div class="cus-card m-0">
+                <div class="container-fluid ">
+                    <div class="row">
+                        <div class="col-md-12 py-2 heading">
+                            Member Detail
+                        </div>
+                    </div>
+                    <div class="row border-bottom">
+                        <div class="col-md-3" *ngIf="service.suspense.suspenseStatusValue ==='PEND' ">
+                            <app-input-control label="FNPF No" [(ngModel)]="service.suspense.fnpfId" name="fnpfId"
+                                search="true" (onsearchevent)="getFNPFNo()">
+                            </app-input-control>
+                        </div>
+
+                        <div class="col-md-3" *ngIf="service.suspense.suspenseStatusValue !=='PEND' ">
+                            <label>FNPF No</label>
+                            <div class="fw500">
+                                <ng-container *ngIf="service.suspense.fnpfId === ''">
+                                    -
+                                </ng-container>
+                                <ng-container *ngIf="service.suspense.fnpfId !== ''">
+                                    {{service.suspense.fnpfId}}
+                                </ng-container>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label>Member Full Name</label>
+                            <div class="fw500">
+                                <ng-container *ngIf="service.suspense.promisMemberFullName === ''">
+                                    -
+                                </ng-container>
+                                <ng-container *ngIf="service.suspense.promisMemberFullName !== ''">
+                                    {{service.suspense.promisMemberFullName}}
+                                </ng-container>
+                            </div>
+                        </div>
+                        <!-- <div class="col-md-3">
+                            <label>Date Of Birth</label>
+                            <div class="fw500">
+                                <ng-container *ngIf="service.suspense.birthDate === ''">
+                                    -
+                                </ng-container>
+                                <ng-container *ngIf="service.suspense.birthDate !== ''">
+                                    {{service.suspense.birthDate | moment :
+                                    'DD-MM-YYYY' :
+                                    'DD MMM YYYY'}}
+                                </ng-container>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <label>Contact No</label>
+                            <div class="fw500">
+                                <ng-container *ngIf="service.suspense.mobileNo === ''">
+                                    -
+                                </ng-container>
+                                <ng-container *ngIf="service.suspense.mobileNo !== ''">
+                                    {{service.suspense.mobileNo}}
+                                </ng-container>
+                            </div>
+                        </div> -->
+                    </div>
+                    <div class="row">
+                        <div class="col-md-5 py-2 heading">
+                            Suspense Detail
+                        </div>
+                        <div class="ml-auto d-flex align-item-center pt-1">
+                            <ng-container *ngIf="service.suspense.suspenseStatusValue ==='PEND' && !service.suspense.isRefund &&
+                                    service.suspense.suspenseAccountId > 0">
+                                <button mat-raised-button [parentId]="pageId" appAccess="BTNGenerateRefund"
+                                    color="accent" class="ml-3 fs" (click)="generatesuspesnseresolutionform()">
+                                    Generate Suspense Resolution Form
+                                </button>
+                            </ng-container>
+                            <ng-container *ngIf="service.suspense.suspenseStatusValue ==='PEND' && service.suspense.isRefund &&
+                                    service.suspense.suspenseAccountId >  0">
+                                <button mat-raised-button color="accent" class="ml-3" [parentId]="pageId"
+                                    appAccess="BTNGenerateRefundform" (click)="generatesuspesnserefundform()">
+                                    Generate Refund Form
+                                </button>
+                            </ng-container>
+                        </div>
+                    </div>
+                    <div class="row pt-2">
+                        <div class="col-md-3">
+                            <label>Suspense ID</label>
+                            <div class="fw500">
+                                <ng-container *ngIf="service.suspense.suspenseAccountId === 0">
+                                    -
+                                </ng-container>
+                                <ng-container *ngIf="service.suspense.suspenseAccountId >0">
+                                    {{service.suspense.suspenseAccountId}}
+                                </ng-container>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <label>Suspense Status</label>
+                            <div class="fw500">
+                                <ng-container *ngIf="service.suspense.suspenseStatusDescription === ''">
+                                    -
+                                </ng-container>
+                                <ng-container *ngIf="service.suspense.suspenseStatusDescription !== ''">
+                                    {{service.suspense.suspenseStatusDescription}}
+                                </ng-container>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <label>Member Name</label>
+                            <div class="fw500">
+                                <ng-container *ngIf="service.suspense.memberFullName === ''">
+                                    -
+                                </ng-container>
+                                <ng-container *ngIf="service.suspense.memberFullName !== ''">
+                                    {{service.suspense.memberFullName}}
+                                </ng-container>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <label>Amount</label>
+                            <div class="fw500">
+                                <ng-container *ngIf="service.suspense.suspenseAmt === ''">
+                                    -
+                                </ng-container>
+                                <ng-container *ngIf="service.suspense.suspenseAmt !== ''">
+                                    {{service.suspense.suspenseAmt | appCurrency}}
+                                </ng-container>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row py-2 border-bottom">
+                        <div class="col-md-3">
+                            <label>CS Month</label>
+                            <div class="fw500">
+                                <ng-container *ngIf="service.suspense.csMonthDescription === ''">
+                                    -
+                                </ng-container>
+                                <ng-container *ngIf="service.suspense.csMonthDescription !== ''">
+                                    {{service.suspense.csMonthDescription}}
+                                </ng-container>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <label>CS Year</label>
+                            <div class="fw500">
+                                <ng-container *ngIf="service.suspense.csYear === 0">
+                                    -
+                                </ng-container>
+                                <ng-container *ngIf="service.suspense.csYear !== 0">
+                                    {{service.suspense.csYear}}
+                                </ng-container>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <label>Wages Month</label>
+                            <div class="fw500">
+                                <ng-container *ngIf="service.suspense.wagesMonthDescription === ''">
+                                    -
+                                </ng-container>
+                                <ng-container *ngIf="service.suspense.wagesMonthDescription !== ''">
+                                    {{service.suspense.wagesMonthDescription}}
+                                </ng-container>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <label>Wages Year</label>
+                            <div class="fw500">
+                                <ng-container *ngIf="service.suspense.wagesYear === 0">
+                                    -
+                                </ng-container>
+                                <ng-container *ngIf="service.suspense.wagesYear !== 0">
+                                    {{service.suspense.wagesYear}}
+                                </ng-container>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 py-2 heading">
+                            Member Account Detail
+                        </div>
+                    </div>
+                    <div class="row pb-3 border-bottom">
+                        <div class="col-md-3">
+                            <label>Member Account Type</label>
+                            <div class="fw500">
+                                <ng-container *ngIf="service.suspense.accountTypeDescription === ''">
+                                    -
+                                </ng-container>
+                                <ng-container *ngIf="service.suspense.accountTypeDescription !== ''">
+                                    {{service.suspense.accountTypeDescription}}
+                                </ng-container>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <label>Member Account Status</label>
+                            <div class="fw500">
+                                <ng-container *ngIf="service.suspense.accountStatusDescription === ''">
+                                    -
+                                </ng-container>
+                                <ng-container *ngIf="service.suspense.accountStatusDescription !== ''">
+                                    {{service.suspense.accountStatusDescription}}
+                                </ng-container>
+                            </div>
+                        </div>
+                        <!-- <div class="col-md-3">
+                            <label>Start Date</label>
+                            <div class="fw500">
+                                <ng-container *ngIf="service.suspense.memberAccountStartDate === ''">
+                                    -
+                                </ng-container>
+                                <ng-container *ngIf="service.suspense.memberAccountStartDate !== ''">
+                                    {{service.suspense.memberAccountStartDate | moment :
+                                    'DD-MM-YYYY' :
+                                    'DD MMM YYYY'}}
+                                </ng-container>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <label>End Date</label>
+                            <div class="fw500">
+                                <ng-container *ngIf="service.suspense.memberAccountEndDate === ''">
+                                    -
+                                </ng-container>
+                                <ng-container *ngIf="service.suspense.memberAccountEndDate !== ''">
+                                    {{service.suspense.memberAccountEndDate | moment :
+                                    'DD-MM-YYYY' :
+                                    'DD MMM YYYY'}}
+                                </ng-container>
+                            </div>
+                        </div> -->
+                    </div>
+                    <ng-container *ngIf="service.suspense.suspenseStatusValue==='PEND'">
+
+
+                        <div class="row py-3">
+                            <div class="col-md-12 pb-3 heading">
+                                Proof of Identity
+                            </div>
+
+                            <div class="col-md-11">
+                                <div class="row">
+                                    <div class="col-md-7 pr-0">
+                                        <app-file-upload label="Proof of Identity" accept="application/pdf, image/*"
+                                            required [errorTrue]="photoidentityerror" [mandatory]="true"
+                                            (onclear)="clearPhotoFile()" (onload)="uploadPhotoIdentityDocument($event)"
+                                            [xFile]="service.suspense.protoPhotoIdentity.pdocumentFile"
+                                            [expanded]="true">
+                                        </app-file-upload>
+                                    </div>
+                                    <div class="col-md-2 pl-0">
+                                        <div class="label-space"></div>
+                                        <button mat-raised-button [parentId]="pageId" appAccess="BTNUploadSuspenseForm"
+                                            color="secondary"
+                                            (click)="uploadsuspensephotoidentityform()">Upload</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row py-3 ">
+                            <div class="col-md-12 pb-3 heading" *ngIf="service.suspense.isRefund">
+                                Upload Refund Form
+                            </div>
+                            <div class="col-md-12 pb-3 heading" *ngIf="!service.suspense.isRefund">
+                                Upload Suspense Resolution Form
+                            </div>
+                            <div class="col-md-11">
+                                <div class="row">
+                                    <div class="col-md-7 pr-0">
+
+                                        <app-file-upload label="Refund Form" accept="application/pdf, image/*" required
+                                            [errorTrue]="errorTrue" [mandatory]="true" (onclear)="clearFile()"
+                                            (onload)="uploadDocument($event)"
+                                            [xFile]="service.suspense.protoSuspenseRefundForm.pdocumentFile"
+                                            [expanded]="true" *ngIf="service.suspense.isRefund">
+                                        </app-file-upload>
+
+                                        <app-file-upload label="Suspense Resolution Form"
+                                            accept="application/pdf, image/*" required [errorTrue]="errorTrue"
+                                            [mandatory]="true" (onclear)="clearFile()" (onload)="uploadDocument($event)"
+                                            [xFile]="service.suspense.protoSuspenseRefundForm.pdocumentFile"
+                                            [expanded]="true" *ngIf="!service.suspense.isRefund">
+                                        </app-file-upload>
+
+                                    </div>
+                                    <div class="col-md-1 pl-0" *ngIf="service.suspense.isRefund">
+                                        <div class="label-space"></div>
+                                        <button mat-raised-button [parentId]="pageId" appAccess="BTNUploadSuspenseForm"
+                                            color="secondary" (click)="uploadsuspenserefundform()">Upload</button>
+                                    </div>
+
+                                    <div class="col-md-1 pl-0 " *ngIf="!service.suspense.isRefund">
+                                        <div class="label-space"></div>
+                                        <button mat-raised-button [parentId]="pageId" appAccess="BTNUploadSuspenseForm"
+                                            color="secondary" (click)="uploadsuspenseresolutionform()">Upload</button>
+                                    </div>
+
+                                    <div class="col-md-1 pl-0">
+                                        <div class="label-space1"></div>
+                                        <ng-container *ngIf="service.suspense.suspenseStatusValue==='PEND'">
+                                            <button mat-raised-button [parentId]="pageId" appAccess="BTNSuspenseResolve"
+                                                color="accent" class="ml-5" (click)="resolvesuspense()">
+                                                Resolve
+                                            </button>
+                                        </ng-container>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-container>
+
+                    <ng-container *ngIf="service.suspense.suspenseStatusValue ==='RSLD'">
+
+                        <div class="row">
+                            <div class="col-md-12 py-3 heading">
+                                Photo Identity
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>File Name</label>
+                                <div class="fw500">
+                                    <ng-container *ngIf="service.suspense.protoPhotoIdentity.uploadedFileName === ''">
+                                        -
+                                    </ng-container>
+                                    <ng-container *ngIf="service.suspense.protoPhotoIdentity.uploadedFileName !== ''">
+                                        {{service.suspense.protoPhotoIdentity.uploadedFileName}}
+                                    </ng-container>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label>Upload Date</label>
+                                <div class="fw500">
+                                    <ng-container *ngIf="service.suspense.protoPhotoIdentity.uploadedDate === ''">
+                                        -
+                                    </ng-container>
+                                    <ng-container *ngIf="service.suspense.protoPhotoIdentity.uploadedDate !== ''">
+                                        {{service.suspense.protoPhotoIdentity.uploadedDate | moment :
+                                        'DD-MM-YYYY' :
+                                        'DD MMM YYYY'}}
+                                    </ng-container>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12 py-3 heading" *ngIf="service.suspense.isRefund  ">
+                                Refund Form Details
+                            </div>
+                            <div class="col-md-12 py-3 heading" *ngIf="!service.suspense.isRefund ">
+                                Suspense Resolution Form Details
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>File Name</label>
+                                <div class="fw500">
+                                    <ng-container
+                                        *ngIf="service.suspense.protoSuspenseRefundForm.uploadedFileName === ''">
+                                        -
+                                    </ng-container>
+                                    <ng-container
+                                        *ngIf="service.suspense.protoSuspenseRefundForm.uploadedFileName !== ''">
+                                        {{service.suspense.protoSuspenseRefundForm.uploadedFileName}}
+                                    </ng-container>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label>Upload Date</label>
+                                <div class="fw500">
+                                    <ng-container *ngIf="service.suspense.protoSuspenseRefundForm.uploadedDate === ''">
+                                        -
+                                    </ng-container>
+                                    <ng-container *ngIf="service.suspense.protoSuspenseRefundForm.uploadedDate !== ''">
+                                        {{service.suspense.protoSuspenseRefundForm.uploadedDate | moment :
+                                        'DD-MM-YYYY' :
+                                        'DD MMM YYYY'}}
+                                    </ng-container>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,42 @@
+.mat-dialog-title {
+    padding: 6px 8px;
+    font-size: 14px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+    margin-bottom: 0;
+    // line-height: 22px;
+    height: 45px;
+}
+
+.pt45 {
+    padding-top: 45px;
+}
+.pb50{
+    padding-bottom: 50px;
+}
+
+.table-responsive table {
+    border-collapse: separate;
+    tbody tr:nth-of-type(odd) {
+        background-color: white;
+    }
+}
+.mw-200p{
+    min-width: 200px;
+    padding:0;
+    height: 34px;
+    // border: 0; 
+}
+.w70{
+    width: 70px;
+    padding: 0;
+    
+}
+.table-input{
+    width: 100%;
+    padding: 3px 6px;
+    height: 32px;
+    border: none;
+    background-color: transparent;
+    // border: 1px solid rgba(0,0,0,0.24);
+}
+

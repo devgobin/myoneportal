@@ -1,0 +1,223 @@
+<div class="content-body">
+    <div class="vertical-flex h100">
+        <ng-container
+            *ngIf="(validCompliance.oneYearCompliance==='Y'||validCompliance.conditionalCompliance==='Y') && !isError ">
+            <div class="d-flex align-items-center">
+                <div class="">
+                    <img class="excel-img" src="assets/logo.svg" alt="">
+                </div>
+                <div class="ml-2 heading">
+                    Compliance Check
+                </div>
+            </div>
+            <div class="container-fluid py-3 px-5 flex-1">
+                <div class="cus-card m-0 py-2">
+                    <div class="text-center align-items-center justify-content-center pb-3">
+                        <div>
+                            <ion-icon name="checkmark-circle-outline" class="mw100"></ion-icon>
+                        </div>
+                        <div>
+                            <h6>Valid Compliance Letter</h6>
+                        </div>
+                    </div>
+                    <div class="pb-3">
+                        <div class="row align-items-center justify-content-center fs12px">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-6 t-center-right">
+                                        <b>Compliance ID :
+                                        </b>
+
+                                    </div>
+                                    <div class="col-md-6 t-center-left pl-0">
+                                        {{validCompliance.complianceRefNo}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 pt-2">
+                                <div class="row">
+                                    <div class="col-md-6 t-center-right">
+                                        <b>Company Trading Name :
+                                        </b>
+                                    </div>
+                                    <div class="col-md-6 t-center-left pl-0">
+                                        {{validCompliance.tradeName}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 pt-2">
+                                <div class="row">
+                                    <div class="col-md-6 t-center-right">
+                                        <b>Validity Period :
+                                        </b>
+
+                                    </div>
+                                    <div class="col-md-6 t-center-left pl-0">
+                                        From
+                                        {{validCompliance.generatedDate}} To
+                                        {{validCompliance.expiryDate}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pb-3 pt-4">
+                        <span class="pl-0">Contact Us :</span>
+                        <div>
+                            <label class="pb-2 pt-2 fs13px"> If you have any questions regarding
+                                verifying
+                                an
+                                organizations compliance, Please contact us on :</label>
+                        </div>
+                        <div>
+                            <label class="pb-1 fs13px"> Employers Helpline :
+                                <span>3238999</span></label>
+                        </div>
+                        <div>
+                            <label class="pb-1 fs13px"> Email :<span>
+                                    FNPFCompliance@fnpf.com.fj</span></label>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="border">
+            </div>
+        </ng-container>
+        <ng-container
+            *ngIf="(validCompliance.oneYearCompliance==='N'&&validCompliance.conditionalCompliance==='N') && !isError ">
+            <div class="d-flex align-items-center">
+                <div class="">
+                    <img class="excel-img" src="assets/logo.svg" alt="">
+                </div>
+                <div class="ml-2 heading">
+                    Compliance Check
+                </div>
+            </div>
+            <div class="container-fluid py-3 px-5 flex-1">
+                <div class="cus-card m-0 py-2">
+                    <div class="text-center align-items-center justify-content-center pb-3">
+                        <div>
+                            <ion-icon name="close-circle-outline" class="mw"></ion-icon>
+                        </div>
+                        <div>
+                            <h6>Invalid Compliance Letter</h6>
+                        </div>
+                    </div>
+                    <div class=" pb-3">
+                        <div class="row align-items-center justify-content-center fs12px">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-6 t-center-right">
+                                        <b>Compliance ID :
+                                        </b>
+
+                                    </div>
+                                    <div class="col-md-6 t-center-left pl-0">
+                                        {{validCompliance.complianceRefNo}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 pt-2">
+                                <div class="row">
+                                    <div class="col-md-6 t-center-right">
+                                        <b>Company Trading Name :
+                                        </b>
+                                    </div>
+                                    <div class="col-md-6 t-center-left pl-0">
+                                        {{validCompliance.tradeName}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 pt-2">
+                                <div class="row">
+                                    <div class="col-md-6 t-center-right">
+                                        <b>Validity Period :
+                                        </b>
+
+                                    </div>
+                                    <div class="col-md-6 t-center-left pl-0">
+                                        From
+                                        {{validCompliance.generatedDate}} To
+                                        {{validCompliance.expiryDate}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pb-3 pt-4">
+                        <span class="pl-0">Contact Us :</span>
+                        <div>
+                            <label class="pb-2 pt-2 fs13px"> If you have any questions regarding
+                                verifying
+                                an
+                                organizations compliance, Please contact us on :</label>
+                        </div>
+                        <div>
+                            <label class="pb-1 fs13px"> Employers Helpline :
+                                <span>3238999</span></label>
+                        </div>
+                        <div>
+                            <label class="pb-1 fs13px"> Email :<span>
+                                    FNPFCompliance@fnpf.com.fj</span></label>
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="border1">
+            </div>
+        </ng-container>
+        <ng-container *ngIf="isError">
+            <div class="d-flex align-items-center">
+                <div class="">
+                    <img class="excel-img" src="assets/logo.svg" alt="">
+                </div>
+                <div class="ml-2 heading">
+                    Compliance Check
+                </div>
+            </div>
+            <div class="container-fluid py-3 px-5 flex-1">
+                <div class="cus-card m-0 py-2">
+                    <div class="text-center align-items-center justify-content-center pb-3">
+                        <div>
+                            <ion-icon src="assets/svg/triangle.svg" class="mw"></ion-icon>
+                        </div>
+                        <div>
+                            <b class="align-items-center justify-content-center">
+                                Bula, We are currently facing some technical issues with the Portal right now.Please
+                                try
+                                again after some time.
+                            </b>
+                        </div>
+                    </div>
+
+                    <div class="pb-3 pt-4">
+                        <span class="pl-0">Contact Us :</span>
+                        <div>
+                            <label class="pb-2 pt-2 fs13px"> If you have any questions regarding
+                                verifying
+                                an
+                                organizations compliance, Please contact us on :</label>
+                        </div>
+                        <div>
+                            <label class="pb-1 fs13px"> Employers Helpline :
+                                <span>3238999</span></label>
+                        </div>
+                        <div>
+                            <label class="pb-1 fs13px"> Email :<span>
+                                    FNPFCompliance@fnpf.com.fj</span></label>
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="border1">
+            </div>
+        </ng-container>
+    </div>
+</div>

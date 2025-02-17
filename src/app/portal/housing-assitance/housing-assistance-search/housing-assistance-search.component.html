@@ -1,0 +1,251 @@
+<div class="content-body" appAccess="HAASC" [parentId]="pageId">
+    <div class="rel">
+        <div class="d-flex z-2">
+            <div class="mr-auto d-flex align-items-center">
+                <h6 class="mb-0">Housing Assistance</h6>
+            </div>
+            <div class="ml-auto d-flex align-items-center">
+                <!-- <div class="search-box-d"> 
+                <button mat-raised-button color="accent" cdkOverlayOrigin #trigger="cdkOverlayOrigin"
+                        (click)="isOpen = !isOpen" appAccess="BTNFilterHousingAssistanceSearch" [parentId]="pageId">
+                        <ion-icon name="funnel-outline"></ion-icon>
+                        Filter
+                    </button>
+                 </div>  -->
+                <app-filter-button [searchPanelTemplate]="searchPanelTemplate" [parentId]="pageId"
+                    appAccess="BTNFilterHousingAssistanceSearch">
+                </app-filter-button>
+                <ng-container *ngIf="!data.isMobile">
+                    <button mat-raised-button color="accent" class="ml-3" (click)="newapplication()"
+                        appAccess="BTNCreateNewHousingAssistanceSearch" [parentId]="pageId">
+                        <ion-icon name="add"></ion-icon>
+                        Create New
+                    </button>
+                </ng-container>
+            </div>
+        </div>
+        <div class="ab pt35">
+            <div class="rel">
+                <div class="table-responsive h100" *ngIf="!loadingTrue && dataSource.data.length > 0">
+                    <div class=" ab pb40">
+                        <div class="rel">
+                            <table mat-table [dataSource]="dataSource" class="table-hover" matSort
+                                (matSortChange)="sortData($event)">
+                                <ng-container matColumnDef="housingAssistanceApplicationId">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Portal Application No </th>
+                                    <td mat-cell *matCellDef="let element" class="hyperlink-td text-nowrap"
+                                        (click)="editapplication(element)">
+                                        {{element.housingAssistanceApplicationId}}
+                                    </td>
+                                </ng-container>
+                                <ng-container matColumnDef="loanAccountName">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Loan Account Name </th>
+                                    <td mat-cell *matCellDef="let element" class="text-nowrap">
+                                        {{element.pLoadDetail.loanAccountName}}
+                                    </td>
+                                </ng-container>
+                                <ng-container matColumnDef="loanAccountNumber">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Loan Account No </th>
+                                    <td mat-cell *matCellDef="let element" class="text-nowrap">
+                                        {{element.pLoadDetail.loanAccountNumber}}
+                                    </td>
+                                </ng-container>
+                                <ng-container matColumnDef="fnpfNo">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Primary Applicant FNPF No
+                                    </th>
+                                    <td mat-cell *matCellDef="let element" class="text-nowrap"> {{element.fnpfNo}} </td>
+                                </ng-container>
+                                <ng-container matColumnDef="fnpfName">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Primary Applicant FNPF Name
+                                    </th>
+                                    <td mat-cell *matCellDef="let element" class="text-nowrap"> {{element.fnpfName}}
+                                    </td>
+                                </ng-container>
+                                <ng-container matColumnDef="createdDate">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Created Date </th>
+                                    <td mat-cell *matCellDef="let element" class="text-nowrap"> {{element.createdDate |
+                                        moment :
+                                        'DD-MM-YYYY hh:mm a' : 'DD MMM YYYY hh:mm a'}} </td>
+                                </ng-container>
+                                <ng-container matColumnDef="statusDescription">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Application Status </th>
+                                    <td mat-cell *matCellDef="let element" class="text-nowrap">
+                                        {{element.statusDescription}} </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="submittedByFullName">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Submitted by </th>
+                                    <td mat-cell *matCellDef="let element" class="text-nowrap">
+                                        {{element.submittedByFullName}} </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="action">
+                                    <th mat-header-cell *matHeaderCellDef class="text-center"
+                                        appAccess="BTNEditHousingAssistanceSearch" [parentId]="pageId"> Action </th>
+                                    <td mat-cell *matCellDef="let element" class="text-center py-0">
+                                        <button mat-icon-button class="icon-only-btn" matTooltip="Edit"
+                                            (click)="editapplication(element)"
+                                            appAccess="BTNEditHousingAssistanceSearch" [parentId]="pageId">
+                                            <ion-icon name="pencil-outline"></ion-icon>
+                                        </button>
+                                    </td>
+                                </ng-container>
+
+                                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                                <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+                                    [ngClass]="{'active': activeIndex == row}" (click)="active(row)"></tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="table-footer">
+                        <mat-paginator [showFirstLastButtons]="!data.isMobile" [hideTotalCount]="data.isMobile"
+                            [pageIndex]="pageIndex" [length]="totalCount" [pageSize]="pageSize"
+                            showFirstLastButtons="true" [pageSizeOptions]="[10, 25, 50, 100]"
+                            (page)="pageChanged($event)">
+                        </mat-paginator>
+                    </div>
+                </div>
+                <ng-container *ngIf="!loadingTrue && dataSource.data.length === 0 && showEmpty">
+                    <app-empty-state></app-empty-state>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- <ng-template cdkConnectedOverlay [cdkConnectedOverlayOrigin]="trigger" [cdkConnectedOverlayOpen]="isOpen"
+    cdkConnectedOverlayHasBackdrop="true" [cdkConnectedOverlayLockPosition]="trigger" (backdropClick)="isOpen = !isOpen"
+    cdkConnectedOverlayBackdropClass="search-backdrop">
+    <form>
+        <div class="search-panel">
+            <div class="ab">
+                <div class="rel">
+                    <div class="container-fluid pt-3">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <app-input-control label="Application No"
+                                    [(ngModel)]="searchParams.housingAssistanceApplicationId" tabindex="1"
+                                    name="housingAssistanceApplicationId">
+                                </app-input-control>
+                            </div>
+                            <div class="col-md-6">
+                                <app-input-control label="Loan Account No" [(ngModel)]="searchParams.loanAccountNumber"
+                                    tabindex="2" name="loanAccountNumber">
+                                </app-input-control>
+                            </div>
+                            <div class="col-md-6">
+                                <app-input-control label="FNPF No" [(ngModel)]="searchParams.primaryApplicantFnpfNo"
+                                    tabindex="3" name="primaryApplicantFnpfNo">
+                                </app-input-control>
+                            </div>
+                            <div class="col-md-6">
+                                <app-date-control label="Applied From Date" [(ngModel)]="searchParams.createdDateFrom"
+                                    tabindex="5" name="createdDateFrom" [maxDate]="searchParams.createdDateTo">
+                                </app-date-control>
+                            </div>
+                            <div class="col-md-6">
+                                <app-date-control label="Applied To Date" [(ngModel)]="searchParams.createdDateTo"
+                                    tabindex="6" name="createdDateTo" [minDate]="searchParams.createdDateFrom">
+                                </app-date-control>
+                            </div>
+                            <div class="col-md-6">
+                                <app-select-control label="Application Status" [(ngModel)]="searchParams.statusValue"
+                                    tabindex="7" name="statusValue" [items]="service.DDL.DDLApplicationStatus"
+                                    key="constant" keyname="description">
+                                </app-select-control>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="search-footer">
+                <div class="ml-auto d-flex align-items-center">
+                    <button mat-raised-button class="ml-3" color="accent" (click)="doSearch()"
+                        appAccess="BTNApplyHousingAssistanceSearch" [parentId]="pageId">
+                        <div class="d-flex align-items-center">
+                            <ion-icon name="checkmark-circle-outline"></ion-icon>
+                            <div class="pl-2">Apply</div>
+                        </div>
+                    </button>
+                    <button mat-button (click)="doClear()" appAccess="BTNClearHousingAssistanceSearch"
+                        [parentId]="pageId">
+                        <div class="d-flex align-items-center">
+                            <ion-icon name="close-circle-outline"></ion-icon>
+                            <div class="pl-1">Clear</div>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+</ng-template> -->
+
+<ng-template #searchPanelTemplate>
+    <form>
+        <div class="search-panel">
+            <div class="ab">
+                <div class="rel">
+                    <div class="container-fluid pt-3">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <app-input-control label="Application No"
+                                    [(ngModel)]="searchParams.housingAssistanceApplicationId" tabindex="1"
+                                    name="housingAssistanceApplicationId">
+                                </app-input-control>
+                            </div>
+                            <div class="col-md-6">
+                                <app-input-control label="Loan Account No" [(ngModel)]="searchParams.loanAccountNumber"
+                                    tabindex="2" name="loanAccountNumber">
+                                </app-input-control>
+                            </div>
+                            <div class="col-md-6">
+                                <app-input-control label="FNPF No" [(ngModel)]="searchParams.primaryApplicantFnpfNo"
+                                    tabindex="3" name="primaryApplicantFnpfNo">
+                                </app-input-control>
+                            </div>
+                            <!-- <div class="col-md-6">
+                                <app-input-control label="TIN No"
+                                    [(ngModel)]="searchParams.housingAssistanceApplicationId" tabindex="4"
+                                    name="housingAssistanceApplicationId">
+                                </app-input-control>
+                            </div> -->
+                            <div class="col-md-6">
+                                <app-date-control label="Applied From Date" [(ngModel)]="searchParams.createdDateFrom"
+                                    tabindex="5" name="createdDateFrom" [maxDate]="searchParams.createdDateTo">
+                                </app-date-control>
+                            </div>
+                            <div class="col-md-6">
+                                <app-date-control label="Applied To Date" [(ngModel)]="searchParams.createdDateTo"
+                                    tabindex="6" name="createdDateTo" [minDate]="searchParams.createdDateFrom">
+                                </app-date-control>
+                            </div>
+                            <div class="col-md-6">
+                                <app-select-control label="Application Status" [(ngModel)]="searchParams.statusValue"
+                                    tabindex="7" name="statusValue" [items]="service.DDL.DDLApplicationStatus"
+                                    key="constant" keyname="description">
+                                </app-select-control>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="search-footer">
+                <div class="ml-auto d-flex align-items-center">
+                    <button mat-raised-button class="ml-3" color="accent" (click)="doSearch()"
+                        appAccess="BTNApplyHousingAssistanceSearch" [parentId]="pageId">
+                        <div class="d-flex align-items-center">
+                            <ion-icon name="checkmark-circle-outline"></ion-icon>
+                            <div class="pl-2">Apply</div>
+                        </div>
+                    </button>
+                    <button mat-button (click)="doClear()" appAccess="BTNClearHousingAssistanceSearch"
+                        [parentId]="pageId">
+                        <div class="d-flex align-items-center">
+                            <ion-icon name="close-circle-outline"></ion-icon>
+                            <div class="pl-1">Clear</div>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+</ng-template>

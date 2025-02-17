@@ -1,0 +1,19 @@
+<div class="">
+    <div mat-dialog-title class="text-center text-danger">
+        <div class="d-flex align-items-center justify-content-center">
+            <ion-icon src="assets/svg/triangle.svg"></ion-icon>
+            <div class="ml-2">Alert</div>
+        </div>
+        
+    </div>
+    <div mat-dialog-content class="container-b text-center">
+        <p class="tc">{{data.msg}}</p>
+    </div>
+    <div class="pt-3"></div>
+    <div mat-dialog-actions class="d-flex align-items-center justify-content-center">
+        <ng-container>
+            <button mat-raised-button (click)="valueClicked(true)" color="secondary"
+            >Go To Login</button>
+        </ng-container>
+    </div>
+</div>

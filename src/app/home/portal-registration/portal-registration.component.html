@@ -1,0 +1,415 @@
+<div class="panel-spacer">
+    <div class="mw1280">
+        <div class="panel">
+            <div class="panel-header">
+                <div class="panel-title">Portal Registration</div>
+            </div>
+            <div class="panel-body">
+                <ng-container *ngIf="!successTrue">
+                    <app-stepper #registrationSteps>
+                        <cdk-step label="Organization Information" [completed]="step1Completed">
+                            <div class="panel-step">
+                                <form #m="ngForm" (ngSubmit)="onSubmitOrganization(m)" autocomplete="off" class="h100">
+                                    <div class="panel-stepper h100">
+                                        <div class="panel-stepper-body">
+                                            <div class="ab">
+                                                <div class="rel">
+                                                    <div class="pt-4">
+                                                        <div class="container-fluid">
+                                                            <div class="row">
+                                                                <div class="col-md-9">
+                                                                    <div class="row">
+                                                                        <div class="col-xl-9 pl-0 pr-0">
+                                                                            <app-input-control
+                                                                                label="Organization Ref No"
+                                                                                [(ngModel)]="portal.register.employerRefNo"
+                                                                                tabindex="-1" required
+                                                                                [errorTrue]="errorTrueStep1"
+                                                                                btnClicked="true" name="employerRefNo"
+                                                                                mandatory="true">
+                                                                            </app-input-control>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-xl-9 pl-0 pr-0">
+                                                                            <app-input-control label="Organization Name"
+                                                                                [(ngModel)]="portal.register.employerName"
+                                                                                tabindex="1" required
+                                                                                [errorTrue]="errorTrueStep1"
+                                                                                btnClicked="true" name="employerName"
+                                                                                #employerName mandatory="true">
+                                                                            </app-input-control>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-xl-9 pl-0 pr-0">
+                                                                            <app-input-control label="Trading as"
+                                                                                [(ngModel)]="portal.register.tradeName"
+                                                                                tabindex="2" required
+                                                                                [errorTrue]="errorTrueStep1"
+                                                                                btnClicked="true" name="Tradingname"
+                                                                                #Tradingas mandatory="true">
+                                                                            </app-input-control>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-xl-9 pl-0 pr-0">
+                                                                            <app-input-control
+                                                                                label="Business Registration No"
+                                                                                [(ngModel)]="portal.register.businessRegistrationNo"
+                                                                                tabindex="3"
+                                                                                [required]="businessRegistrationNoRequired"
+                                                                                [errorTrue]="businessRegistrationNoRequired && errorTrueStep1"
+                                                                                [btnClicked]="btnClicked"
+                                                                                name="businessRegistrationNo"
+                                                                                (ngModelChange)="checkRequired()"
+                                                                                [mandatory]="businessRegistrationNoRequired">
+                                                                            </app-input-control>
+                                                                        </div>
+                                                                        <div class="col-xl-1 d-flex align-items-center">
+                                                                            (Or)</div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-xl-9 pl-0 pr-0 ">
+                                                                            <app-number-control label="TIN"
+                                                                                [(ngModel)]="portal.register.companyTin"
+                                                                                tabindex="4"
+                                                                                [required]="companyTinRequired"
+                                                                                [errorTrue]="companyTinRequired && errorTrueStep1"
+                                                                                [btnClicked]="btnClicked"
+                                                                                name="companyTin"
+                                                                                (ngModelChange)="checkRequired()"
+                                                                                [mandatory]="companyTinRequired"
+                                                                                limit="10" pattern="[0-9]{9,10}$"
+                                                                                #companyTin="ngModel"
+                                                                                errorText="{{companyTin.invalid && errorTrueStep1 ? 'Should be 9 or 10 digit numbers' : ''}}">
+                                                                            </app-number-control>
+                                                                        </div>
+                                                                        <div class="col-xl-1 d-flex align-items-center">
+                                                                            (Or)</div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-xl-9 pl-0 pr-0 ">
+                                                                            <app-input-control
+                                                                                label="Business License No"
+                                                                                [(ngModel)]="portal.register.businessLicenseNo"
+                                                                                tabindex="5"
+                                                                                [required]="businessLicenseNoRequired"
+                                                                                [errorTrue]="businessLicenseNoRequired && errorTrueStep1"
+                                                                                [btnClicked]="btnClicked"
+                                                                                name="businessLicenseNo"
+                                                                                (ngModelChange)="checkRequired()"
+                                                                                [mandatory]="businessLicenseNoRequired">
+                                                                            </app-input-control>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-xl-3 p-0">
+                                                                    <div class="info-box">
+                                                                        <div class="info-container">
+                                                                            <h3>Why is this required?</h3>
+                                                                            <ul>
+                                                                                <li>Lorem ipsum dolor sit amet,
+                                                                                    consectetur
+                                                                                    adipiscing
+                                                                                    elitscele risque varius Lorem
+                                                                                    ipsum</li>
+                                                                            </ul>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel-stepper-footer">
+                                            <div class="text-right">
+                                                <button mat-raised-button color="accent" type="submit" tabindex="5"
+                                                    [disabled]="loadingTrue">
+                                                    <ng-container *ngIf="!loadingTrue">
+                                                        Next
+                                                        <ion-icon name="arrow-forward-outline"></ion-icon>
+                                                    </ng-container>
+                                                    <ng-container *ngIf="loadingTrue">
+                                                        <app-dot class="dot-big"></app-dot>
+                                                    </ng-container>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </cdk-step>
+                        <cdk-step label="Contact Information" [completed]="step2Completed">
+                            <div class="panel-step">
+                                <form #c="ngForm" (ngSubmit)="onSubmitContact(c)" autocomplete="off" class="h100">
+                                    <div class="panel-stepper h100">
+                                        <div class="panel-stepper-body">
+                                            <div class="ab">
+                                                <div class="rel">
+                                                    <div class="pt-4">
+                                                        <div class="container-fluid">
+                                                            <div class="row">
+                                                                <div class="col-xl-9">
+                                                                    <div class="row">
+                                                                        <div
+                                                                            class="col-xl-12 d-flex align-items-center pb-1">
+                                                                            <mat-checkbox labelPosition="before"
+                                                                                [checked]="portal.register.isFijiCitizen  === 'Y'"
+                                                                                (change)="CheckedorNot($event.checked)">
+                                                                                <b> Is a Fiji
+                                                                                    citizen</b>
+                                                                            </mat-checkbox>
+                                                                            <div class="ml-auto">
+                                                                                <div class="form-group mb-1">
+                                                                                    <label for="">Contact Type:
+                                                                                        <b>Primary</b>
+                                                                                    </label>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-xl-4">
+                                                                            <app-input-control label="First Name"
+                                                                                mandatory="true"
+                                                                                [(ngModel)]="portal.register.contactFirstName"
+                                                                                tabindex="1" required
+                                                                                [errorTrue]="errorTrueStep2"
+                                                                                [btnClicked]="btnClicked"
+                                                                                name="contactFirstName"
+                                                                                [upperCase]="true" emojiType="name">
+                                                                            </app-input-control>
+                                                                        </div>
+                                                                        <div class="col-xl-4">
+                                                                            <app-input-control label="Middle Name"
+                                                                                [(ngModel)]="portal.register.contactMiddleName"
+                                                                                tabindex="1" [btnClicked]="btnClicked"
+                                                                                name="contactMiddleName"
+                                                                                [upperCase]="true" emojiType="name">
+                                                                            </app-input-control>
+                                                                        </div>
+                                                                        <div class="col-xl-4">
+                                                                            <app-input-control label="Last Name"
+                                                                                mandatory="true" required
+                                                                                [errorTrue]="errorTrueStep2"
+                                                                                [(ngModel)]="portal.register.contactLastName"
+                                                                                tabindex="1" [btnClicked]="btnClicked"
+                                                                                name="contactLastName"
+                                                                                [upperCase]="true" emojiType="name">
+                                                                            </app-input-control>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-xl-6">
+                                                                            <app-email-control label="Email Id"
+                                                                                mandatory="true"
+                                                                                [(ngModel)]="portal.register.contactEmailId"
+                                                                                tabindex="2" required
+                                                                                [errorTrue]="errorTrueStep2"
+                                                                                [btnClicked]="btnClicked"
+                                                                                name="contactEmailId"
+                                                                                #contactEmailId="ngModel" email="true"
+                                                                                errorText="Invalid Email Format">
+                                                                            </app-email-control>
+                                                                        </div>
+                                                                        <div class="col-xl-6">
+                                                                            <app-phone-control
+                                                                                [(ngModel)]="portal.register.contactPhoneNo"
+                                                                                label="Phone"
+                                                                                placeholder="eg. 679-8888888"
+                                                                                pattern="([0-9]{10})$" tabindex="3"
+                                                                                required [errorTrue]="errorTrueStep2"
+                                                                                [btnClicked]="btnClicked"
+                                                                                name="contactPhoneNo" mandatory="true"
+                                                                                errorText="Invalid Phone No">
+                                                                            </app-phone-control>
+                                                                            <!-- <app-number-control label="Phone"
+                                                                                mandatory="true"
+                                                                                [(ngModel)]="portal.register.contactPhoneNo"
+                                                                                tabindex="3" required
+                                                                                [errorTrue]="errorTrue"
+                                                                                [btnClicked]="btnClicked"
+                                                                                name="contactPhoneNo">
+                                                                            </app-number-control> -->
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-xl-6">
+                                                                            <app-input-control label="FNPF No"
+                                                                                [(ngModel)]="portal.register.contactFnpfNo"
+                                                                                tabindex="4" name="contactFnpfNo">
+                                                                            </app-input-control>
+                                                                        </div>
+                                                                        <div class="col-xl-6">
+                                                                            <app-input-control label="Passport No"
+                                                                                [(ngModel)]="portal.register.contactPassportNo"
+                                                                                [required]="PassportNoRequired"
+                                                                                [errorTrue]="PassportNoRequired && errorTrueStep2"
+                                                                                tabindex="5" [btnClicked]="btnClicked"
+                                                                                name="passportNo"
+                                                                                [mandatory]="PassportNoRequired">
+                                                                            </app-input-control>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-xl-6">
+                                                                            <app-input-control label="Birth Reg No"
+                                                                                [(ngModel)]="portal.register.contactBrn"
+                                                                                [required]="BirthRegistationNoRequired"
+                                                                                [errorTrue]="BirthRegistationNoRequired && errorTrueStep2"
+                                                                                tabindex="6" [btnClicked]="btnClicked"
+                                                                                name="contactBrn"
+                                                                                [mandatory]="BirthRegistationNoRequired">
+                                                                            </app-input-control>
+                                                                        </div>
+                                                                        <div class="col-xl-6">
+                                                                            <app-number-control label="TIN"
+                                                                                [(ngModel)]="portal.register.contactTin"
+                                                                                [required]="ContactTinNoRequired"
+                                                                                [errorTrue]="ContactTinNoRequired && errorTrueStep2"
+                                                                                tabindex="7" [btnClicked]="btnClicked"
+                                                                                name="contactTin"
+                                                                                [mandatory]="ContactTinNoRequired"
+                                                                                limit="10" pattern="[0-9]{9,10}$"
+                                                                                #contactTin="ngModel"
+                                                                                errorText="{{contactTin.invalid && errorTrueStep2 ? 'Should be 9 or 10 digit numbers' : ''}}">
+                                                                            </app-number-control>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-xl-3 p-0">
+                                                                    <div class="info-box">
+                                                                        <div class="info-container">
+                                                                            <h3>Why is this required?</h3>
+                                                                            <ul>
+                                                                                <li>Lorem ipsum dolor sit amet,
+                                                                                    consectetur
+                                                                                    adipiscing
+                                                                                    elitscele risque varius Lorem
+                                                                                    ipsum</li>
+                                                                            </ul>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel-stepper-footer">
+                                            <div class="text-right">
+                                                <a mat-raised-button color="accent" (click)="clickPrev()">
+                                                    <ion-icon name="arrow-back-outline"></ion-icon>
+                                                    Back
+                                                </a>
+                                                <button mat-raised-button color="accent" class="ml-3" type="submit">
+                                                    Next
+                                                    <ion-icon name="arrow-forward-outline"></ion-icon>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </cdk-step>
+                        <cdk-step label="Supporting documents" [completed]="step3Completed">
+                            <div class="panel-step">
+                                <div class="panel-stepper h100">
+                                    <div class="panel-stepper-body">
+                                        <div class="ab">
+                                            <div class="rel">
+                                                <div class="pt-4">
+                                                    <div class="container-fluid">
+                                                        <div class="row">
+                                                            <div class="col-xl-9">
+
+                                                                <ng-container
+                                                                    *ngFor="let document of portal.register.employerPortalRegistrationDocument">
+                                                                    <app-file-upload
+                                                                        [label]="document.documentTypeDescription"
+                                                                        [data]="document"
+                                                                        (onload)="uploadDocument($event,document.documentTypeValue)"
+                                                                        [mandatory]="document.isMandatory === 'Y'"
+                                                                        dname="document.documentFile.fileName"
+                                                                        [loading]="fileUploading === document.documentTypeValue"
+                                                                        required [errorTrue]="portal.register.errorTrue"
+                                                                        [xFile]="document.documentFile"
+                                                                        (onclear)="clearFile($event)" expanded="true"
+                                                                        [accept]="appSettingService.environment.fileAccept">
+                                                                    </app-file-upload>
+                                                                </ng-container>
+                                                            </div>
+                                                            <div class="col-xl-3 p-0">
+                                                                <div class="info-box">
+                                                                    <div class="info-container">
+                                                                        <h3>Why is this required?</h3>
+                                                                        <ul>
+                                                                            <li>Lorem ipsum dolor sit amet,
+                                                                                consectetur
+                                                                                adipiscing
+                                                                                elitscele risque varius Lorem
+                                                                                ipsum</li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="panel-stepper-footer">
+                                        <div class="text-right">
+                                            <button mat-raised-button color="accent" (click)="clickPrev()">
+                                                <ion-icon name="arrow-back-outline"></ion-icon>
+                                                Back
+                                            </button>
+                                            <button mat-raised-button color="accent" (click)="onSubmit()" type="submit"
+                                                [disabled]="btnClicked" class="ml-3">
+                                                <ng-container *ngIf="!btnClicked">
+                                                    Submit
+                                                    <ion-icon name="arrow-forward-outline"></ion-icon>
+                                                </ng-container>
+                                                <ng-container *ngIf="btnClicked">
+                                                    <app-dot class="dot-big"></app-dot>
+                                                </ng-container>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </cdk-step>
+                    </app-stepper>
+                </ng-container>
+                <div class="h100 bg-white" *ngIf="successTrue">
+                    <div class="stepper-container">
+                        <div class="stepper-content">
+                            <div class="panel-step">
+                                <div class="v-center">
+                                    <div class="s-box text-center">
+                                        <div class="circle-tick"></div>
+                                        <p>Your Portal registration request has been successfully submitted.
+                                            You will receive an email to login once the request
+                                            has been verified and completed by FNPF staff, in 2 working days.
+                                            Please contact FNPF customer service for any queries.</p>
+                                        <button mat-raised-button color="accent" class="ml-3" [routerLink]="['/']">
+                                            <ion-icon name="arrow-back-outline"></ion-icon>
+                                            Home
+
+                                        </button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

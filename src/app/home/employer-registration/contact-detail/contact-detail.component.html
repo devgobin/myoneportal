@@ -1,0 +1,130 @@
+<div class="adjust-margin">
+    <form class="h100" #c="ngForm" autocomplete="off">
+        <div class="dialogue-header z-2">
+            <ng-container *ngIf="employer.communicationtype === 'new'">
+                New Employer Communication Detail
+            </ng-container>
+            <ng-container *ngIf="employer.communicationtype === 'edit'">
+                Edit Employer Communication Detail
+            </ng-container>
+            <div class="ml-auto d-flex align-items-center">
+                <button mat-icon-button mat-dialog-close>
+                    <ion-icon name="close-outline"></ion-icon>
+                </button>
+            </div>
+        </div>
+        <div class="ab pt50 pb50">
+            <div class="rel">
+                <div class="h100">
+                    <div class="h100">
+                        <div class="panel-stepper h100">
+                            <div class="panel-stepper-body">
+                                <div class="ab">
+                                    <div class="rel">
+                                        <div class="container-fluid pt-3">
+                                            <div class="row">
+                                                <div class="col-xl-12 p-0">
+                                                    <div class="container-fluid">
+                                                        <div class="row relative">
+                                                            <ng-container *ngIf="!loadingTrue">
+                                                            <div class="col-xl-6">
+                                                                <app-select-control label="Contact Type"
+                                                                    [(ngModel)]="employer.newEmployer.pEmployerRegistraionCommunicationDetails.contactTypeValue"
+                                                                    name="contactTypeValue"
+                                                                    [items]="employer.initialData.ERPreferredCommunication"
+                                                                    key="constant" keyname="description" required
+                                                                    [errorTrue]="employer.errorTrue" mandatory="true"
+                                                                    (onChanges)="OnChangeContactValue()">
+                                                                </app-select-control>
+                                                            </div>
+                                                            <ng-container
+                                                                *ngIf="employer.newEmployer.pEmployerRegistraionCommunicationDetails.contactTypeValue==='FAX'">
+                                                                <div class="col-xl-6 ">
+                                                                    <app-input-control label="Contact Detail"
+                                                                        [(ngModel)]="employer.newEmployer.pEmployerRegistraionCommunicationDetails.communicationDetails"
+                                                                        name="communicationDetails" required
+                                                                        [errorTrue]="employer.errorTrue"
+                                                                        mandatory="true">
+                                                                    </app-input-control>
+                                                                </div>
+                                                            </ng-container>
+
+                                                            <ng-container
+                                                                *ngIf="employer.newEmployer.pEmployerRegistraionCommunicationDetails.contactTypeValue==='EMIL'">
+                                                                <div class="col-xl-6 ">
+                                                                    <app-email-control label="Contact Detail"
+                                                                        [(ngModel)]="employer.newEmployer.pEmployerRegistraionCommunicationDetails.communicationDetails"
+                                                                        name="communicationDetails" required
+                                                                        [errorTrue]="employer.errorTrue" email="true"
+                                                                        mandatory="true" #communicationDetails="ngModel"
+                                                                        errorText="{{
+                                                                            communicationDetails.invalid &&
+                                                                      (communicationDetails.dirty || communicationDetails.touched)
+                                                                        ? 'Invalid Email Format'
+                                                                        : ''
+                                                                    }}">
+                                                                    </app-email-control>
+                                                                </div>
+                                                            </ng-container>
+
+                                                            <ng-container
+                                                                *ngIf="employer.newEmployer.pEmployerRegistraionCommunicationDetails.contactTypeValue==='PHNE'">
+                                                                <div class="col-xl-6">
+                                                                    <app-phone-control label="Contact Detail"
+                                                                        [(ngModel)]="employer.newEmployer.pEmployerRegistraionCommunicationDetails.communicationDetails"
+                                                                        name="communicationDetails"
+                                                                        placeholder="eg. 679-8888888"
+                                                                        errorText="Invalid Phone No"
+                                                                       required
+                                                                        [errorTrue]="employer.errorTrue"
+                                                                        mandatory="true" #communicationDetails>
+                                                                    </app-phone-control>
+                                                                </div>
+                                                            </ng-container>
+                                                        </ng-container>
+                                                        <ng-container *ngIf="loadingTrue">
+                                                            <div class="p-3 d-flex justify-content-center w100 ">
+                                                            <app-spinner></app-spinner>
+                                                        </div>
+                                                        </ng-container>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="dialogue-footer z-2">
+            <ng-container *ngIf="employer.communicationtype === 'new'">
+                <button mat-raised-button color="accent" class="ml-3" (click)="saveData(c)">
+                    Save
+                </button>
+
+                <a mat-button>
+                    <div class="d-flex align-items-center" (click)="doClear()" type="submit">
+                        <ion-icon name="close-circle-outline"></ion-icon>
+                        <div class="pl-1">Clear</div>
+                    </div>
+                </a>
+            </ng-container>
+            <ng-container *ngIf="employer.communicationtype === 'edit'">
+                <button mat-raised-button color="accent" class="ml-3" (click)="saveData(c)">
+                    Update
+                </button>
+                <a mat-button>
+                    <div class="d-flex align-items-center" (click)="openContact()" type="submit">
+                        <ion-icon name="refresh-outline"></ion-icon>
+                        <div class="pl-1">Refresh</div>
+                    </div>
+                </a>
+
+            </ng-container>
+        </div>
+    </form>
+</div>

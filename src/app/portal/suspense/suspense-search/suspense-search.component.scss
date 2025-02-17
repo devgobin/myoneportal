@@ -1,0 +1,49 @@
+@import '../../../../scss/responsive-mixin.scss';
+
+.pt35 {
+  padding-top: 0px;
+
+  @include desktop {
+    padding-top: 35px;
+  }
+}
+
+.f12px {
+  font-size: 12px;
+  margin-bottom: 2px;
+  color: #212121;
+}
+
+.fs {
+  font-size: 12px;
+}
+
+.m-search {
+  @include desktop {
+    height: 330px !important;
+  }
+}
+
+.m-ab {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.m-rel {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  z-index: 2;
+  scrollbar-color: #96afaa #b5b5b5;
+  scrollbar-width: thin;
+}
+
+.pt50 {
+  padding-top: 50px;
+}

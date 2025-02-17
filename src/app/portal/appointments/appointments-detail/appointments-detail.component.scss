@@ -1,0 +1,63 @@
+@import '../../../../scss/responsive-mixin.scss';
+
+.pl {
+  padding-left: 0px;
+
+  @include desktop {
+    padding-left: 15px;
+  }
+}
+
+textarea {
+  resize: none !important;
+  text-decoration: none !important;
+}
+
+.h100 {
+  height: 100% !important;
+}
+
+.time-table {
+  .selected {
+    background-color: var(--secondary);
+    color: white !important;
+
+    .check-mark {
+      display: block;
+    }
+  }
+}
+
+.gear-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 0.25rem;
+
+  img {
+    width: 100%;
+    vertical-align: top;
+  }
+}
+
+.w100 {
+  width: 100% !important;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.clock {
+  width: 170px;
+  display: flex;
+  align-items: center;
+  padding: 4px 0;
+  border: 1px solid #5e2a2b;
+  border-radius: 42px;
+  color: #797272;
+  font-size: 12px;
+}
+
+.pointerNone {
+  pointer-events: none !important;
+}

@@ -1,0 +1,52 @@
+<div [parentId]="pageId" appAccess="GCSFL">
+    <div class="content-body">
+        <div class="rel">
+            <div class="container-fluid z-2">
+                <div class="row">
+                    <div class="col-md-12 pb-2 px-0">
+                        <div class="cus-card h100 m-0 pb-1 pt-3">
+                            <form class="h100" #h="ngForm" (ngSubmit)="onsubmit(h)" autocomplete="off">
+                                <div class="container-fluid p-0">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="heading pb-1">GENERATE CS FILE FROM PREVIOUS HEADER</div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <app-select-control label="CS Month" search="true"
+                                                [(ngModel)]="service.createdetail.csMonthValue" tabindex="1"
+                                                [items]="service.DDL.DDLMonthValue" key="constant" keyname="description"
+                                                name="MonthValue" required mandatory="true" [errorTrue]="errorTrue">
+                                            </app-select-control>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <app-number-control label="CS Year" max="2200" limit="4"
+                                                [(ngModel)]="service.createdetail.year" tabindex="2" name="year"
+                                                required [errorTrue]="errorTrue" [btnClicked]="btnClicked"
+                                                mandatory="true">
+                                            </app-number-control>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <app-select-control label="CS Code"
+                                                [(ngModel)]="service.createdetail.csCode" tabindex="3"
+                                                [items]="service.DDL.DDLCSCodeValue" key="constant"
+                                                keyname="description" name="cscode" required [errorTrue]="errorTrue"
+                                                mandatory="true">
+                                            </app-select-control>
+                                        </div>
+                                        <div class="col-md-3 text-right pt19">
+                                            <button mat-raised-button color="accent" [parentId]="pageId"
+                                                appAccess="BTNGenerateCSFileFromPreviousHeader">
+                                                Generate
+                                                <ion-icon name="arrow-forward-circle" class="pb-3px"></ion-icon>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

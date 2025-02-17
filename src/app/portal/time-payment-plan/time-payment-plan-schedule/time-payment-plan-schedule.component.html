@@ -1,0 +1,193 @@
+<div class="content-body" [parentId]="pageId" appAccess="TIPLS">
+    <div class="content-body">
+        <div class="rel">
+            <div class="vertical-flex h100">
+                <div>
+                    <div class="cus-card mt-0 mx-0">
+                        <div class="container-fluid p-0">
+                            <div class="row">
+                                <div class="col-xl-3 pb-3 heading">
+                                    Time Payment Plan Schedule
+                                </div>
+                                <div class="col-xl-9 pt-1 pb-1 ml-auto d-flex"
+                                    *ngIf="service.TimePaymentPlan.timePaymentId !== 0">
+                                    <div class="d-flex ml-auto align-items-center">
+                                        <button mat-raised-button color="accent" type="submit"
+                                            (click)="viewScreen()">View
+                                            Payment Plans
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <label for="name">Payment Plan ID</label>
+                                    <ng-container *ngIf="service.TimePaymentPlan.timePaymentId===0">
+                                        <div>
+                                            <b>-</b>
+                                        </div>
+                                    </ng-container>
+                                    <ng-container *ngIf="service.TimePaymentPlan.timePaymentId>0">
+                                        <div>
+                                            <b>{{service.TimePaymentPlan.timePaymentId}}</b>
+                                        </div>
+                                    </ng-container>
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="name">Date of Submission</label>
+                                    <ng-container *ngIf="service.TimePaymentPlan.submissionDate===''">
+                                        <div>
+                                            <b>-</b>
+                                        </div>
+                                    </ng-container>
+                                    <ng-container *ngIf="service.TimePaymentPlan.submissionDate!==''">
+                                        <div>
+                                            <b>{{service.TimePaymentPlan.submissionDate | moment :
+                                                'DD-MM-YYYY' : 'DD MMM YYYY'}}</b>
+                                        </div>
+                                    </ng-container>
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="name">Approval Date</label>
+                                    <ng-container *ngIf="service.TimePaymentPlan.effectiveDate ===''">
+                                        <div>
+                                            <b>-</b>
+                                        </div>
+                                    </ng-container>
+                                    <ng-container *ngIf="service.TimePaymentPlan.effectiveDate !==''">
+                                        <div>
+                                            <b>{{service.TimePaymentPlan.effectiveDate | moment :
+                                                'DD-MM-YYYY' : 'DD MMM YYYY'}}</b>
+                                        </div>
+                                    </ng-container>
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="name">Total Invoice Amount</label>
+                                    <ng-container *ngIf="service.TimePaymentPlan.totalInvoiceAmount===''">
+                                        <div>
+                                            <b>-</b>
+                                        </div>
+                                    </ng-container>
+                                    <ng-container *ngIf="service.TimePaymentPlan.totalInvoiceAmount!==''">
+                                        <div>
+                                            <b>{{service.TimePaymentPlan.totalInvoiceAmount | appCurrency }}</b>
+                                        </div>
+                                    </ng-container>
+                                </div>
+                            </div>
+                            <div class="row pt-2">
+                                <div class="col-md-3">
+                                    <label for="name">Total Installments</label>
+                                    <ng-container *ngIf="service.TimePaymentPlan.noOfInstallment===0">
+                                        <div>
+                                            <b>-</b>
+                                        </div>
+                                    </ng-container>
+                                    <ng-container *ngIf="service.TimePaymentPlan.noOfInstallment>0">
+                                        <div>
+                                            <b>{{service.TimePaymentPlan.noOfInstallment}}</b>
+                                        </div>
+                                    </ng-container>
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="name">Status</label>
+                                    <ng-container *ngIf="service.TimePaymentPlan.statusDescription===''">
+                                        <div>
+                                            <b>-</b>
+                                        </div>
+                                    </ng-container>
+                                    <ng-container *ngIf="service.TimePaymentPlan.statusDescription!==''">
+                                        <div>
+                                            <b>{{service.TimePaymentPlan.statusDescription}}</b>
+                                        </div>
+                                    </ng-container>
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="name">Paid Amount</label>
+                                    <ng-container *ngIf="service.TimePaymentPlan.totalRecoveredAmt===''">
+                                        <div>
+                                            <b>-</b>
+                                        </div>
+                                    </ng-container>
+                                    <ng-container *ngIf="service.TimePaymentPlan.totalRecoveredAmt!==''">
+                                        <div>
+                                            <b>{{service.TimePaymentPlan.totalRecoveredAmt | appCurrency }}</b>
+                                        </div>
+                                    </ng-container>
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="name">Invoice Balance Amount</label>
+                                    <ng-container *ngIf="service.TimePaymentPlan.invoiceBalanceAmt===''">
+                                        <div>
+                                            <b>-</b>
+                                        </div>
+                                    </ng-container>
+                                    <ng-container *ngIf="service.TimePaymentPlan.invoiceBalanceAmt!==''">
+                                        <div>
+                                            <b>{{service.TimePaymentPlan.invoiceBalanceAmt | appCurrency }}</b>
+                                        </div>
+                                    </ng-container>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-1 cus-card m-0 relative">
+                    <div class="d-flex align-items-center pb-2">
+                        <div class="heading">Schedule Detail</div>
+                    </div>
+                    <div class="table-responsive">
+                        <table mat-table [dataSource]="dataSource" class="table-hover" matSort>
+                            <ng-container matColumnDef="timePaymentScheduleId">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Schedule ID </th>
+                                <td mat-cell *matCellDef="let element" class="hyperlink-td"
+                                    (click)="newSchedule(element)">
+                                    {{element.timePaymentScheduleId}}
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="installmentDueDate">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Date Due </th>
+                                <td mat-cell *matCellDef="let element" class="text-nowrap"> {{element.installmentDueDate
+                                    | moment :
+                                    'DD-MM-YYYY' : 'DD MMM YYYY'}}</td>
+                            </ng-container>
+                            <ng-container matColumnDef="monthlyInstallmentAmt">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Monthly Installment Amount </th>
+                                <td mat-cell *matCellDef="let element"> {{element.monthlyInstallmentAmt | appCurrency }}
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="invoiceBalanceAmt">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Invoice Balance Amt </th>
+                                <td mat-cell *matCellDef="let element"> {{element.invoiceBalanceAmt| appCurrency }}</td>
+                            </ng-container>
+                            <ng-container matColumnDef="employeeShareAmt">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Employee Share Amt </th>
+                                <td mat-cell *matCellDef="let element"> {{element.employeeShareAmt| appCurrency }}</td>
+                            </ng-container>
+                            <ng-container matColumnDef="viewDetail">
+                                <th mat-header-cell *matHeaderCellDef class="text-center w100" [parentId]="pageId"
+                                    appAccess="BTNViewScheduleDetail"> View Detail </th>
+                                <td mat-cell *matCellDef="let element" class="text-center py-0 text-nowrap"
+                                    [parentId]="pageId" appAccess="BTNViewScheduleDetail">
+                                    <button mat-icon-button class="icon-only-btn" matTooltip="Edit"
+                                        (click)="newSchedule(element)" [parentId]="pageId"
+                                        appAccess="BTNViewScheduleDetail">
+                                        <ion-icon name="pencil-outline"></ion-icon>
+                                    </button>
+                                </td>
+                            </ng-container>
+                            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+                                [ngClass]="{'active': activeIndex == row}" (click)="active(row)"></tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="table-footer">
+                    <mat-paginator [showFirstLastButtons]="!data.isMobile" [hideTotalCount]="data.isMobile"
+                        showFirstLastButtons="true" [pageSizeOptions]="[10, 25, 50, 100]">
+                    </mat-paginator>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

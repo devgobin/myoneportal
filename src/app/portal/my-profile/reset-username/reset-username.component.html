@@ -1,0 +1,106 @@
+<div class="content-body" [parentId]="pageId" appAccess="RSUNM">
+    <div class="rel">
+        <div class="ab bg-white">
+            <form class="h100" #ru="ngForm" (ngSubmit)="onsubmit(ru)" autocomplete="off">
+                <div class=" container-fluid reset-p-responsive">
+                    <div class="row">
+                        <div class="col-md-12 pb-3 heading">
+                            CHANGE USER NAME
+                        </div>
+                        <div class="col-md-7">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <label for="" class="pb-1">User Name</label>
+                                        <div class="fw500">
+                                            <ng-container *ngIf="resetusername.currentusername !== ''">
+                                                {{resetusername.currentusername}}
+                                            </ng-container>
+                                            <ng-container *ngIf="resetusername.currentusername === ''">
+                                                -
+                                            </ng-container>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-7">
+                                    <div class="form-group">
+                                        <label for="" class="pb-1">Registered Email ID</label>
+                                        <div class="fw500">
+                                            <ng-container *ngIf="resetusername.currentEmailId !== ''">
+                                                {{resetusername.currentEmailId}}
+                                            </ng-container>
+                                            <ng-container *ngIf="resetusername.currentEmailId === ''">
+                                                -
+                                            </ng-container>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 pt-1">
+                                    <div class="form-group">
+                                        <mat-checkbox (change)="checkDeclartion($event.checked)"
+                                            [checked]="resetusername.makeemailusmyusername  === 'Y'">Set email as my
+                                            Username</mat-checkbox>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <app-input-control label="New User Name" [(ngModel)]="resetusername.newusername"
+                                        tabindex="1" name="newusername" required [errorTrue]="errorTrue"
+                                        mandatory="true"></app-input-control>
+                                </div>
+                                <div class="col-md-8">
+                                    <app-input-control label="Confirm User Name"
+                                        [(ngModel)]="resetusername.confirmusername" tabindex="2" name="confirmusername"
+                                        required [errorTrue]="errorTrue" mandatory="true">
+                                    </app-input-control>
+                                    <p class="text-danger  mt-15px"
+                                        *ngIf="resetusername.confirmusername !== '' && resetusername.newusername !== resetusername.confirmusername">
+                                        <small>Username Mismatch</small>
+                                    </p>
+                                </div>
+                                <div class="col-md-12 pt-3">
+                                    <!-- *ngIf="resetusername.newusername === resetusername.confirmusername && resetusername.newusername !== ''" -->
+                                    <div class="heading">
+                                        Transaction PIN
+                                    </div>
+                                    <app-pin-control boxes="4" id="tun" clearbtn="true" tabindex="3" alignLeft="true"
+                                        [(ngModel)]="resetusername.transactionPin" name="transactionPin" required
+                                        password="true" [errorTrue]="errorTrue" mandatory="true">
+                                    </app-pin-control>
+                                    <p class="text-danger mt-15px"
+                                        *ngIf="errorTrue && resetusername.transactionPin.length < 4">
+                                        <small>Please Enter Transaction PIN</small>
+                                    </p>
+                                </div>
+                                <div class="col-md-12 pb-3 text-right" [parentId]="pageId" appAccess="BTNResetUserName">
+                                    <button mat-raised-button color="accent" type="submit" [disabled]="btnClicked">
+                                        <ng-container *ngIf="!btnClicked">
+                                            Reset
+                                        </ng-container>
+                                        <ng-container *ngIf="btnClicked">
+                                            <app-dot class="dot-big"></app-dot>
+                                        </ng-container>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="info-box">
+                                <div class="info-container">
+                                    <h3>Why is this required?</h3>
+                                    <ul>
+                                        <li> username will be used with your password when logging into the Employer
+                                            Portal. This means your username must be Unique. On the screen now, is your
+                                            current User Name.
+                                        </li>
+                                        <li>
+                                            You may change this to something you prefer and click RESET</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

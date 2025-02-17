@@ -1,0 +1,100 @@
+<div class="adjust-margin">
+    <form class="h100" autocomplete="off" #a="ngForm" (ngSubmit)="saveAddress(a)">
+        <div class="dialogue-header z-2">
+            <div>
+                Edit Address
+            </div>
+            <div class="ml-auto d-flex align-items-center">
+                <button mat-icon-button mat-dialog-close>
+                    <ion-icon name="close-outline"></ion-icon>
+                </button>
+            </div>
+        </div>
+        <div class="ab pt50 pb50">
+            <div class="rel">
+                <div class="h100">
+                    <div class="container-fluid p-3">
+                        <!-- <div class="row">
+                            <div class="col-xl-6">
+                                <app-select-control label="Address Type"
+                                    [(ngModel)]="service.ProtoHousingAssitanceApplication.pHousingProperty.pAddress.addressTypeValue"
+                                    tabindex="10" name="addressTypeValue" [items]="service.DDL.HWLandType"
+                                    key="constant" keyname="description">
+                                </app-select-control>
+                            </div>
+                        </div> -->
+                        <!-- <div class="row">
+                            <div class="col-xl-6">
+                                <app-input-control label="PO Box No"
+                                    [(ngModel)]="service.ProtoHousingAssitanceApplication.pHousingProperty.pAddress.boxNo"
+                                    tabindex="10" name="boxNo">
+                                </app-input-control>
+                            </div>
+                            <div class="col-xl-6">
+                                <app-input-control label="Post Office Name"
+                                    [(ngModel)]="service.ProtoHousingAssitanceApplication.pHousingProperty.pAddress.postOfficeName"
+                                    tabindex="10" name="postOfficeName">
+                                </app-input-control>
+                            </div>
+                        </div> -->
+                        <div class="row">
+                            <div class="col-xl-6">
+                                <app-input-control label="Address Line 1" placeholder="Line 1"
+                                    [(ngModel)]="service.microfinance.ibusMicroFinanceApplicationBusinessDetails.ibusMicroFinanceApplicationBusinessAddress.line1"
+                                    tabindex="10" name="line1" required [btnClicked]="btnClicked"
+                                    [errorTrue]="errorTrue" mandatory="true">
+                                </app-input-control>
+                            </div>
+                            <div class="col-xl-6">
+                                <app-input-control placeholder="Line 2" label="Address Line 2"
+                                    [(ngModel)]="service.microfinance.ibusMicroFinanceApplicationBusinessDetails.ibusMicroFinanceApplicationBusinessAddress.line2"
+                                    tabindex="10" name="line2">
+                                </app-input-control>
+                            </div>
+                            <div class="col-xl-6">
+                                <app-input-control placeholder="Line 3" label="Address Line 3"
+                                    [(ngModel)]="service.microfinance.ibusMicroFinanceApplicationBusinessDetails.ibusMicroFinanceApplicationBusinessAddress.line3"
+                                    tabindex="10" name="line3">
+                                </app-input-control>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xl-6">
+                                <app-select-control label="Country"
+                                    [(ngModel)]="service.microfinance.ibusMicroFinanceApplicationBusinessDetails.ibusMicroFinanceApplicationBusinessAddress.countryValue"
+                                    tabindex="10" name="country" [items]="service.DDL.DDLcountry" key="constant"
+                                    keyname="description" required [btnClicked]="btnClicked" [errorTrue]="errorTrue"
+                                    mandatory="true">
+                                </app-select-control>
+                            </div>
+                            <div class="col-xl-6">
+                                <app-input-control label="Province"
+                                    [(ngModel)]="service.microfinance.ibusMicroFinanceApplicationBusinessDetails.ibusMicroFinanceApplicationBusinessAddress.province"
+                                    tabindex="10" name="province">
+                                </app-input-control>
+                            </div>
+                            <div class="col-xl-6">
+                                <app-input-control label="Sub Division / Island"
+                                    [(ngModel)]="service.microfinance.ibusMicroFinanceApplicationBusinessDetails.ibusMicroFinanceApplicationBusinessAddress.island"
+                                    tabindex="10" name="island">
+                                </app-input-control>
+                            </div>
+                            <div class="col-xl-6">
+                                <app-input-control label="Location / City / Town"
+                                    [(ngModel)]="service.microfinance.ibusMicroFinanceApplicationBusinessDetails.ibusMicroFinanceApplicationBusinessAddress.cityTown"
+                                    tabindex="10" name="cityTown" required [btnClicked]="btnClicked"
+                                    [errorTrue]="errorTrue" mandatory="true">
+                                </app-input-control>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="dialogue-footer z-2">
+            <button mat-raised-button color="accent" class="ml-3" type="submit">
+                Save
+            </button>
+        </div>
+    </form>
+</div>

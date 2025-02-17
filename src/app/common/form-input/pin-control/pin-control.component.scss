@@ -1,0 +1,60 @@
+@import'../../../../scss/responsive-mixin.scss';
+
+.form-group {
+    .form-control {
+        padding: 12px 12px;
+        margin: 0 5px;
+        width: 40px;
+        text-align: center;
+
+        @include desktop {
+            padding: 12px 12px;
+            margin: 0 5px;
+            // width: 75px;
+            width: 50px;
+            text-align: center;
+        }
+
+        &::-webkit-input-placeholder {
+            // font-size: 0.75rem;
+            opacity: 0.4;
+            font-weight: 300;
+            transform: scale(0.8);
+        }
+
+        &::-moz-placeholder {
+            opacity: 0.4;
+            font-weight: 300;
+            transform: scale(0.8);
+        }
+
+        &::-ms-input-placeholder {
+            opacity: 0.4;
+            font-weight: 300;
+            transform: scale(0.8);
+        }
+
+        &::-moz-placeholder {
+            opacity: 0.4;
+            font-weight: 300;
+            transform: scale(0.8);
+        }
+    }
+}
+
+input::-ms-reveal,
+input::-ms-clear {
+    display: none;
+}
+
+.w71 {
+    width: 71px;
+}
+
+.justify-center {
+    justify-content: center !important;
+}
+
+.mt10 {
+    margin-top: 10px;
+}

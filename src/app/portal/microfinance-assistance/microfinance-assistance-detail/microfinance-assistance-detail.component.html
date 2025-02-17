@@ -1,0 +1,1067 @@
+<div class="content-body" [parentId]="pageId" appAccess="MROFD">
+    <div class="rel">
+        <div class="ab">
+            <div class="rel">
+                <div class="h100">
+                    <div class="cus-card mt-0 mx-0 h78px z-2">
+                        <div class="container-fluid p-0">
+                            <div class="row">
+                                <div class="col-xl-3 py-1 heading">
+                                    Microbusiness Assistance
+                                </div>
+                                <div class="col-xl-9 pt-1 pb-1 ml-auto d-flex">
+                                    <div class="d-flex ml-auto align-items-center">
+                                        <div class="label-badge1 ml-3">
+                                            <label for="">
+                                                <b>Loan Info: </b>
+                                                <ng-container *ngIf="service.microfinance.loanAccountNo !== ''">
+                                                    {{service.microfinance.loanAccountNo}}
+                                                </ng-container>
+                                                <ng-container *ngIf="service.microfinance.loanAccountName !== ''">
+                                                    | {{service.microfinance.loanAccountName}}
+                                                </ng-container>
+                                                <ng-container *ngIf="service.microfinance.loanAmount !== ''">
+                                                    | {{service.microfinance.loanAmount | appCurrency}}
+                                                </ng-container>
+                                            </label>
+                                        </div>
+                                        <div class="label-badge1 ml-3">
+                                            <label for="">
+                                                <b>Application Info: </b>
+                                                <ng-container *ngIf="service.microfinance.applicationRefNo !== ''">
+                                                    {{service.microfinance.applicationRefNo}}
+                                                </ng-container>
+                                                <ng-container *ngIf="service.microfinance.statusDescription !== ''">
+                                                    | {{service.microfinance.statusDescription}}
+                                                </ng-container>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div>
+                                    <label class="pl-3">Created Details</label>
+                                    <span class="fw500">:
+                                        <ng-container *ngIf="service.microfinance.orgContactName !== ''">
+                                            {{service.microfinance.orgContactName}}
+                                        </ng-container>
+                                        <ng-container *ngIf="service.microfinance.branchName !== ''">
+                                            | {{service.microfinance.branchName}}
+                                        </ng-container>
+                                        <ng-container *ngIf="service.microfinance.raisedDate !== ''">
+                                            | {{service.microfinance.raisedDate | moment :
+                                            'DD-MM-YYYY' : 'DD MMM YYYY'}}
+                                        </ng-container>
+                                    </span>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="">Approved Date</label>
+                                    <span class="fw500">:
+                                        <ng-container *ngIf="service.microfinance.approvedDate !== ''">
+                                            {{service.microfinance.approvedDate | moment : 'DD-MM-YYYY hh:mm a' : 'DD
+                                            MMM YYYY hh:mm a'}}
+                                        </ng-container>
+                                        <ng-container *ngIf="service.microfinance.approvedDate === ''">
+                                            -
+                                        </ng-container>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ab pt80">
+                        <div class="rel">
+                            <div class="cus-card m-0 p-0 h100">
+                                <app-stepper #microassistanceSteps>
+                                    <cdk-step label="Applicant Details" [completed]="step1Completed">
+                                        <div class="h100">
+                                            <form class="h100" autocomplete="off" #a="ngForm"
+                                                (ngSubmit)="saveApplicantDetails(a)">
+                                                <div class="panel-stepper h100">
+                                                    <div class="panel-stepper-body">
+                                                        <div class="ab">
+                                                            <div class="rel">
+                                                                <div class="cus-card mt-0 mx-0">
+                                                                    <div class="container-fluid">
+                                                                        <div class="row pb-2">
+                                                                            <div class="col-md-2x">
+                                                                                <label class="">Application No</label>
+                                                                                <div class="fw500">
+                                                                                    <ng-container
+                                                                                        *ngIf="service.microfinance.applicationRefNo !== ''">
+                                                                                        {{service.microfinance.applicationRefNo}}
+                                                                                    </ng-container>
+                                                                                    <ng-container
+                                                                                        *ngIf="service.microfinance.applicationRefNo === ''">
+                                                                                        -
+                                                                                    </ng-container>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-2 px-1">
+                                                                                <label class="">Application Date</label>
+                                                                                <div class="fw500">
+                                                                                    <ng-container
+                                                                                        *ngIf="service.microfinance.raisedDate !== ''">
+                                                                                        {{service.microfinance.raisedDate
+                                                                                        | moment : 'DD-MM-YYYY a' : 'DD
+                                                                                        MMM YYYY'}}
+                                                                                    </ng-container>
+                                                                                    <ng-container
+                                                                                        *ngIf="service.microfinance.raisedDate === ''">
+                                                                                        -
+                                                                                    </ng-container>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-2x">
+                                                                                <label class="">Loan Amount ($)</label>
+                                                                                <div class="fw500">
+                                                                                    <ng-container
+                                                                                        *ngIf="service.microfinance.loanAmount !== ''">
+                                                                                        {{service.microfinance.loanAmount
+                                                                                        | appCurrency}}
+                                                                                    </ng-container>
+                                                                                    <ng-container
+                                                                                        *ngIf="service.microfinance.loanAmount === ''">
+                                                                                        -
+                                                                                    </ng-container>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-3 px-0">
+                                                                                <label class="">Loan Repayment Amount
+                                                                                    ($)
+                                                                                </label>
+                                                                                <div class="fw500">
+                                                                                    <ng-container
+                                                                                        *ngIf="service.microfinance.balanceLoanAmount !== ''">
+                                                                                        {{service.microfinance.balanceLoanAmount
+                                                                                        | appCurrency}}
+                                                                                    </ng-container>
+                                                                                    <ng-container
+                                                                                        *ngIf="service.microfinance.balanceLoanAmount === ''">
+                                                                                        -
+                                                                                    </ng-container>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-2">
+                                                                                <label class="">Loan Ac No</label>
+                                                                                <div class="fw500">
+                                                                                    <ng-container
+                                                                                        *ngIf="service.microfinance.loanAccountNo !== ''">
+                                                                                        {{service.microfinance.loanAccountNo}}
+                                                                                    </ng-container>
+                                                                                    <ng-container
+                                                                                        *ngIf="service.microfinance.loanAccountNo === ''">
+                                                                                        -
+                                                                                    </ng-container>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            <div class="col-md-12 heading py-2">
+                                                                                Applicant Detail
+                                                                            </div>
+                                                                            <div class="col-md-10">
+                                                                                <div class="row">
+                                                                                    <div class="col-md-8">
+                                                                                        <app-input-control search="true"
+                                                                                            label="FNPF No"
+                                                                                            [(ngModel)]="service.microfinance.ibusMicroFinanceApplicationApplicant.applicantFnpfNo"
+                                                                                            name="applicantFnpfNo"
+                                                                                            (onsearchevent)="getApplicantDetailbyFNPFNo()"
+                                                                                            [btnClicked]="btnClicked"
+                                                                                            required
+                                                                                            [errorTrue]="errorFnpfNoTrue"
+                                                                                            mandatory="true">
+                                                                                        </app-input-control>
+                                                                                    </div>
+                                                                                    <div class="col-md-4">
+                                                                                        <label class="">Applicant Full
+                                                                                            Name
+                                                                                        </label>
+                                                                                        <div class="fw500 py-1">
+                                                                                            <ng-container
+                                                                                                *ngIf="service.microfinance.ibusMicroFinanceApplicationApplicant.applicantFullName !== ''">
+                                                                                                {{service.microfinance.ibusMicroFinanceApplicationApplicant.applicantFullName}}
+                                                                                            </ng-container>
+                                                                                            <ng-container
+                                                                                                *ngIf="service.microfinance.ibusMicroFinanceApplicationApplicant.applicantFullName === ''">
+                                                                                                -
+                                                                                            </ng-container>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="col-md-4">
+                                                                                        <label class="">Date of Birth
+                                                                                        </label>
+                                                                                        <div class="fw500 py-1">
+                                                                                            <ng-container
+                                                                                                *ngIf="service.microfinance.ibusMicroFinanceApplicationApplicant.dateOfBirth !== ''">
+                                                                                                {{service.microfinance.ibusMicroFinanceApplicationApplicant.dateOfBirth
+                                                                                                | moment : 'DD-MM-YYYY'
+                                                                                                : 'DD MMM YYYY'}}
+                                                                                            </ng-container>
+                                                                                            <ng-container
+                                                                                                *ngIf="service.microfinance.ibusMicroFinanceApplicationApplicant.dateOfBirth === ''">
+                                                                                                -
+                                                                                            </ng-container>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="col-md-4">
+                                                                                        <app-number-control label="TIN"
+                                                                                            [(ngModel)]="service.microfinance.ibusMicroFinanceApplicationApplicant.tin"
+                                                                                            [btnClicked]="btnClicked"
+                                                                                            required
+                                                                                            [errorTrue]="error1True"
+                                                                                            mandatory="true" name="tin"
+                                                                                            limit="10"
+                                                                                            pattern="[0-9]{9,10}$"
+                                                                                            #tin="ngModel"
+                                                                                            errorText="{{tin.invalid && error2True ? 'Should be 9 or 10 digit numbers' : ''}}">
+                                                                                        </app-number-control>
+                                                                                    </div>
+                                                                                    <div class="col-md-4">
+                                                                                        <label class="">Birth
+                                                                                            Registration No
+                                                                                        </label>
+                                                                                        <div class="fw500 py-1">
+                                                                                            <ng-container
+                                                                                                *ngIf="service.microfinance.ibusMicroFinanceApplicationApplicant.brithRegNo !== ''">
+                                                                                                {{service.microfinance.ibusMicroFinanceApplicationApplicant.brithRegNo}}
+                                                                                            </ng-container>
+                                                                                            <ng-container
+                                                                                                *ngIf="service.microfinance.ibusMicroFinanceApplicationApplicant.brithRegNo === ''">
+                                                                                                -
+                                                                                            </ng-container>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="row pt-1">
+                                                                                    <div class="col-md-4">
+                                                                                        <app-phone-control
+                                                                                            label="Home No"
+                                                                                            [(ngModel)]="service.microfinance.ibusMicroFinanceApplicationApplicant.homeNo"
+                                                                                            placeholder="eg. 679-8888888"
+                                                                                            name="homeNo" tabindex="7"
+                                                                                            #homeNo tabindex="4">
+                                                                                        </app-phone-control>
+                                                                                    </div>
+                                                                                    <div class="col-md-4">
+                                                                                        <app-phone-control
+                                                                                            label="Work No"
+                                                                                            [(ngModel)]="service.microfinance.ibusMicroFinanceApplicationApplicant.workNo"
+                                                                                            name="workNo" #workNo
+                                                                                            placeholder="eg. 679-8888888"
+                                                                                            tabindex="4">
+                                                                                        </app-phone-control>
+                                                                                    </div>
+                                                                                    <div class="col-md-4">
+                                                                                        <app-phone-control
+                                                                                            label="Mobile No"
+                                                                                            tabindex="4"
+                                                                                            placeholder="eg. 679-8888888"
+                                                                                            [(ngModel)]="service.microfinance.ibusMicroFinanceApplicationApplicant.mobileNo"
+                                                                                            name="mobileNo" #MobileNo
+                                                                                            [btnClicked]="btnClicked"
+                                                                                            [required]="service.microfinance.ibusMicroFinanceApplicationApplicant.preferredCommunicationValue === 'MOBIL'"
+                                                                                            [errorTrue]="error1True && service.microfinance.ibusMicroFinanceApplicationApplicant.preferredCommunicationValue === 'MOBIL'"
+                                                                                            [mandatory]="service.microfinance.ibusMicroFinanceApplicationApplicant.preferredCommunicationValue === 'MOBIL'">
+                                                                                        </app-phone-control>
+                                                                                    </div>
+                                                                                    <div class="col-md-6">
+                                                                                        <app-email-control
+                                                                                            label="Email ID"
+                                                                                            [(ngModel)]="service.microfinance.ibusMicroFinanceApplicationApplicant.emailId"
+                                                                                            name="emailId"
+                                                                                            [btnClicked]="btnClicked"
+                                                                                            [required]="service.microfinance.ibusMicroFinanceApplicationApplicant.preferredCommunicationValue === 'EMAIL'"
+                                                                                            [errorTrue]="error1True && service.microfinance.ibusMicroFinanceApplicationApplicant.preferredCommunicationValue === 'EMAIL'"
+                                                                                            [mandatory]="service.microfinance.ibusMicroFinanceApplicationApplicant.preferredCommunicationValue === 'EMAIL'"
+                                                                                            email="true"
+                                                                                            #emailId="ngModel"
+                                                                                            errorText="{{
+                                                                                                emailId.invalid &&
+                                                                                                (emailId.dirty || emailId.touched)
+                                                                                                  ? 'Invalid Email Format'
+                                                                                                  : ''
+                                                                                              }}">
+                                                                                        </app-email-control>
+                                                                                    </div>
+                                                                                    <div class="col-md-6">
+                                                                                        <app-select-control
+                                                                                            label="Preferred Communication"
+                                                                                            [(ngModel)]="service.microfinance.ibusMicroFinanceApplicationApplicant.preferredCommunicationValue"
+                                                                                            name="preferredCommunicationValue"
+                                                                                            [btnClicked]="btnClicked"
+                                                                                            required
+                                                                                            [errorTrue]="error1True"
+                                                                                            mandatory="true"
+                                                                                            [items]="service.DDL.DDLPreferredCommunication"
+                                                                                            key="constant"
+                                                                                            keyname="description">
+                                                                                        </app-select-control>
+                                                                                    </div>
+                                                                                    <div class="col-md-6">
+                                                                                        <app-input-control
+                                                                                            label="Married Name"
+                                                                                            [upperCase]="true"
+                                                                                            [(ngModel)]="service.microfinance.ibusMicroFinanceApplicationApplicant.marriedName"
+                                                                                            name="marriedName"
+                                                                                            emojiType="name">
+                                                                                        </app-input-control>
+                                                                                    </div>
+                                                                                    <div class="col-md-6">
+                                                                                        <app-number-control
+                                                                                            label="Requested Amount ($)"
+                                                                                            [(ngModel)]="service.microfinance.ibusMicroFinanceApplicationApplicant.requestedAmount"
+                                                                                            name="requestedAmount"
+                                                                                            [btnClicked]="btnClicked"
+                                                                                            required
+                                                                                            [errorTrue]="error1True"
+                                                                                            mandatory="true"
+                                                                                            decimal="2">
+                                                                                        </app-number-control>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="row">
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="form-group">
+                                                                                            <div
+                                                                                                class="d-flex align-item-center">
+                                                                                                <label>Postal Address
+                                                                                                    <span
+                                                                                                        *ngIf="service.microfinance.ibusMicroFinanceApplicationApplicant.preferredCommunicationValue === 'POSTL'"
+                                                                                                        class="text-danger">*</span>
+                                                                                                </label>
+                                                                                                <div class="ml-auto">
+                                                                                                    <small
+                                                                                                        *ngIf="service.microfinance.ibusMicroFinanceApplicationApplicant.ibusMicroFinanceApplicationPostalAddress.line1 === '' && error1True && service.microfinance.ibusMicroFinanceApplicationApplicant.preferredCommunicationValue === 'POSTL'"
+                                                                                                        class="text-danger pr-3">mandatory</small>
+                                                                                                    <a (click)="openpostaladdress()"
+                                                                                                        [parentId]="pageId"
+                                                                                                        appAccess="BTNPostalAddessMicrofinanceAssistance">Edit</a>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="form-control div-text"
+                                                                                                [ngClass]="{'border-warn': service.microfinance.ibusMicroFinanceApplicationApplicant.ibusMicroFinanceApplicationPostalAddress.line1 === '' && error1True && service.microfinance.ibusMicroFinanceApplicationApplicant.preferredCommunicationValue === 'POSTL'}">
+                                                                                                <ng-container
+                                                                                                    *ngIf="service.microfinance.ibusMicroFinanceApplicationApplicant.ibusMicroFinanceApplicationPostalAddress.line1 !== '' ">
+                                                                                                    {{service.microfinance.ibusMicroFinanceApplicationApplicant.ibusMicroFinanceApplicationPostalAddress.line1}},
+                                                                                                </ng-container>
+                                                                                                <ng-container
+                                                                                                    *ngIf="service.microfinance.ibusMicroFinanceApplicationApplicant.ibusMicroFinanceApplicationPostalAddress.line2 !== '' ">
+                                                                                                    {{service.microfinance.ibusMicroFinanceApplicationApplicant.ibusMicroFinanceApplicationPostalAddress.line2}},
+                                                                                                </ng-container>
+                                                                                                <ng-container
+                                                                                                    *ngIf="service.microfinance.ibusMicroFinanceApplicationApplicant.ibusMicroFinanceApplicationPostalAddress.line3 !== '' ">
+                                                                                                    {{service.microfinance.ibusMicroFinanceApplicationApplicant.ibusMicroFinanceApplicationPostalAddress.line3}}
+                                                                                                </ng-container>
+                                                                                                <br>
+                                                                                                <ng-container
+                                                                                                    *ngIf="service.microfinance.ibusMicroFinanceApplicationApplicant.ibusMicroFinanceApplicationPostalAddress.province !== '' ">
+                                                                                                    {{service.microfinance.ibusMicroFinanceApplicationApplicant.ibusMicroFinanceApplicationPostalAddress.province}},
+                                                                                                </ng-container>
+                                                                                                <ng-container
+                                                                                                    *ngIf="service.microfinance.ibusMicroFinanceApplicationApplicant.ibusMicroFinanceApplicationPostalAddress.island !== '' ">
+                                                                                                    {{service.microfinance.ibusMicroFinanceApplicationApplicant.ibusMicroFinanceApplicationPostalAddress.island}},
+                                                                                                </ng-container>
+                                                                                                <ng-container
+                                                                                                    *ngIf="service.microfinance.ibusMicroFinanceApplicationApplicant.ibusMicroFinanceApplicationPostalAddress.cityTown !== '' ">
+                                                                                                    {{service.microfinance.ibusMicroFinanceApplicationApplicant.ibusMicroFinanceApplicationPostalAddress.cityTown}},
+                                                                                                </ng-container>
+                                                                                                <ng-container
+                                                                                                    *ngIf="service.microfinance.ibusMicroFinanceApplicationApplicant.ibusMicroFinanceApplicationPostalAddress.countryDescription !== '' ">
+                                                                                                    {{service.microfinance.ibusMicroFinanceApplicationApplicant.ibusMicroFinanceApplicationPostalAddress.countryDescription}}
+                                                                                                </ng-container>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="form-group">
+                                                                                            <div
+                                                                                                class="d-flex align-item-center">
+                                                                                                <label>Residential
+                                                                                                    Address
+                                                                                                    <span
+                                                                                                        class="text-danger">*</span>
+                                                                                                </label>
+                                                                                                <div class="ml-auto">
+                                                                                                    <small
+                                                                                                        *ngIf="service.microfinance.ibusMicroFinanceApplicationApplicant.ibusMicroFinanceApplicationResidentialAddress.line1 === '' && error1True"
+                                                                                                        class="text-danger pr-3">mandatory</small>
+                                                                                                    <a (click)="openresidentialaddress()"
+                                                                                                        [parentId]="pageId"
+                                                                                                        appAccess="BTNResidentialAddessMicrofinanceAssistance">Edit</a>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="form-control div-text"
+                                                                                                [ngClass]="{'border-warn': service.microfinance.ibusMicroFinanceApplicationApplicant.ibusMicroFinanceApplicationResidentialAddress.line1 === '' && error1True}">
+                                                                                                <ng-container
+                                                                                                    *ngIf="service.microfinance.ibusMicroFinanceApplicationApplicant.ibusMicroFinanceApplicationResidentialAddress.line1 !== '' ">
+                                                                                                    {{service.microfinance.ibusMicroFinanceApplicationApplicant.ibusMicroFinanceApplicationResidentialAddress.line1}},
+                                                                                                </ng-container>
+                                                                                                <ng-container
+                                                                                                    *ngIf="service.microfinance.ibusMicroFinanceApplicationApplicant.ibusMicroFinanceApplicationResidentialAddress.line2 !== '' ">
+                                                                                                    {{service.microfinance.ibusMicroFinanceApplicationApplicant.ibusMicroFinanceApplicationResidentialAddress.line2}},
+                                                                                                </ng-container>
+                                                                                                <ng-container
+                                                                                                    *ngIf="service.microfinance.ibusMicroFinanceApplicationApplicant.ibusMicroFinanceApplicationResidentialAddress.line3 !== '' ">
+                                                                                                    {{service.microfinance.ibusMicroFinanceApplicationApplicant.ibusMicroFinanceApplicationResidentialAddress.line3}}
+                                                                                                </ng-container>
+                                                                                                <br>
+                                                                                                <ng-container
+                                                                                                    *ngIf="service.microfinance.ibusMicroFinanceApplicationApplicant.ibusMicroFinanceApplicationResidentialAddress.province !== '' ">
+                                                                                                    {{service.microfinance.ibusMicroFinanceApplicationApplicant.ibusMicroFinanceApplicationResidentialAddress.province}},
+                                                                                                </ng-container>
+                                                                                                <ng-container
+                                                                                                    *ngIf="service.microfinance.ibusMicroFinanceApplicationApplicant.ibusMicroFinanceApplicationResidentialAddress.island !== '' ">
+                                                                                                    {{service.microfinance.ibusMicroFinanceApplicationApplicant.ibusMicroFinanceApplicationResidentialAddress.island}},
+                                                                                                </ng-container>
+                                                                                                <ng-container
+                                                                                                    *ngIf="service.microfinance.ibusMicroFinanceApplicationApplicant.ibusMicroFinanceApplicationResidentialAddress.cityTown !== '' ">
+                                                                                                    {{service.microfinance.ibusMicroFinanceApplicationApplicant.ibusMicroFinanceApplicationResidentialAddress.cityTown}},
+                                                                                                </ng-container>
+                                                                                                <ng-container
+                                                                                                    *ngIf="service.microfinance.ibusMicroFinanceApplicationApplicant.ibusMicroFinanceApplicationResidentialAddress.countryDescription !== '' ">
+                                                                                                    {{service.microfinance.ibusMicroFinanceApplicationApplicant.ibusMicroFinanceApplicationResidentialAddress.countryDescription}}
+                                                                                                </ng-container>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-2">
+                                                                                <div class="profile-img">
+                                                                                    <ng-container
+                                                                                        *ngIf="service.microfinance.ibusMicroFinanceApplicationApplicant.personImage === ''">
+                                                                                        <img class="image-responsive"
+                                                                                            src="assets/blank-profile.png"
+                                                                                            alt="">
+                                                                                    </ng-container>
+                                                                                    <ng-container
+                                                                                        *ngIf="service.microfinance.ibusMicroFinanceApplicationApplicant.personImage !== ''">
+                                                                                        <img class="image-responsive"
+                                                                                            [src]="service.microfinance.ibusMicroFinanceApplicationApplicant.personImage"
+                                                                                            alt="">
+                                                                                    </ng-container>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="panel-stepper-footer">
+                                                        <div class="text-right">
+                                                            <!-- <a mat-raised-button color="accent" class="ml-3"
+                                                                *ngIf="service.microfinance.statusValue === 'APRVD'"
+                                                                (click)="generateApprovalLetter()" [parentId]="pageId"
+                                                                appAccess="BTNGenerateApprovalLetterMicrofinanceAssistance">
+                                                                Generate Approval Letter
+                                                            </a>
+                                                            <a mat-raised-button color="accent" class="ml-3"
+                                                                *ngIf="service.microfinance.statusValue === 'CMPTD'"
+                                                                (click)="generatePaymentLetter()" [parentId]="pageId"
+                                                                appAccess="BTNGeneratePaymentLetterMicrofinanceAssistance">
+                                                                Generate Payment Letter
+                                                            </a> -->
+                                                            <!-- <a mat-raised-button color="accent" class="ml-3"
+                                                                (click)="printPreFilledForm()" [parentId]="pageId"
+                                                                appAccess="BTNPrintPrefilledFormMicrofinanceAssistance">
+                                                                Print Prefilled Form
+                                                            </a> -->
+                                                            <ng-container
+                                                                *ngIf="service.microfinance.statusValue === 'PNSUB'">
+                                                                <button mat-raised-button color="accent" type="submit"
+                                                                    class="ml-3" [parentId]="pageId"
+                                                                    appAccess="BTNStep1NextApplicantMicrofinanceAssistance">
+                                                                    Save and Next
+                                                                    <ion-icon name="arrow-forward-outline"></ion-icon>
+                                                                </button>
+                                                            </ng-container>
+
+                                                            <ng-container
+                                                                *ngIf="service.microfinance.statusValue !== 'PNSUB'">
+                                                                <a mat-raised-button color="accent"
+                                                                    (click)="step1Click()" class="ml-3"
+                                                                    [parentId]="pageId"
+                                                                    appAccess="BTNStep1NextMicrofinanceAssistance">
+                                                                    Next
+                                                                    <ion-icon name="arrow-forward-outline"></ion-icon>
+                                                                </a>
+                                                            </ng-container>
+                                                            <a mat-raised-button color="accent" (click)="step1Click()"
+                                                                class="ml-3" [parentId]="pageId"
+                                                                appAccess="BTNStep1ViewOnlyNextMicrofinanceAssistance">
+                                                                Next
+                                                                <ion-icon name="arrow-forward-outline"></ion-icon>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </cdk-step>
+                                    <cdk-step label="Business Owner Details" [completed]="step2Completed">
+                                        <div class="h100">
+                                            <form class="h100" autocomplete="off" #o="ngForm"
+                                                (ngSubmit)="saveBusinessOwnerDetails(o)">
+                                                <div class="panel-stepper h100">
+                                                    <div class="panel-stepper-body">
+                                                        <div class="ab">
+                                                            <div class="rel">
+                                                                <div class="cus-card mt-0 mx-0">
+                                                                    <div class="container-fluid pt-3">
+                                                                        <div class="row">
+                                                                            <div class="col-md-6">
+                                                                                <app-input-control label="FNPF No"
+                                                                                    search="true"
+                                                                                    (onsearchevent)="getBusinessOwnerDetailbyFNPFNo()"
+                                                                                    [(ngModel)]="service.microfinance.ibusMicroFinanceApplicationBusinessDetails.ownerFnpfNo"
+                                                                                    name="ownerFnpfNo"
+                                                                                    [btnClicked]="btnClicked" required
+                                                                                    [errorTrue]="error2True"
+                                                                                    mandatory="true" limit="11"
+                                                                                    pattern="[a-zA-Z0-9]{11}$"
+                                                                                    #ownerFnpfNo="ngModel"
+                                                                                    errorText="{{ownerFnpfNo.invalid && error2True && service.microfinance.ibusMicroFinanceApplicationBusinessDetails.ownerFnpfNo !== '' ? 'Should be 11 Characters' : ''}}">
+                                                                                </app-input-control>
+                                                                                <app-input-control label="Full Name"
+                                                                                    [(ngModel)]="service.microfinance.ibusMicroFinanceApplicationBusinessDetails.ownerFullName"
+                                                                                    name="ownerFullName"
+                                                                                    [btnClicked]="btnClicked" required
+                                                                                    [errorTrue]="error2True"
+                                                                                    mandatory="true" emojiType="name">
+                                                                                </app-input-control>
+                                                                                <app-number-control
+                                                                                    label="Business Owner TIN"
+                                                                                    [(ngModel)]="service.microfinance.ibusMicroFinanceApplicationBusinessDetails.ownerTin"
+                                                                                    [btnClicked]="btnClicked" required
+                                                                                    [errorTrue]="error2True"
+                                                                                    mandatory="true" name="ownerTin"
+                                                                                    limit="10" pattern="[0-9]{9,10}$"
+                                                                                    #ownerTin="ngModel"
+                                                                                    errorText="{{ownerTin.invalid && error2True ? 'Should be 9 or 10 digit numbers' : ''}}">
+                                                                                </app-number-control>
+                                                                                <app-input-control label="Occupation"
+                                                                                    [(ngModel)]="service.microfinance.ibusMicroFinanceApplicationBusinessDetails.occupation"
+                                                                                    name="occupation"
+                                                                                    [btnClicked]="btnClicked" required
+                                                                                    [errorTrue]="error2True"
+                                                                                    mandatory="true">
+                                                                                </app-input-control>
+                                                                                <app-select-control
+                                                                                    label="Employment Status"
+                                                                                    [(ngModel)]="service.microfinance.ibusMicroFinanceApplicationBusinessDetails.employmentTypeValue"
+                                                                                    name="employmentTypeValue"
+                                                                                    [btnClicked]="btnClicked" required
+                                                                                    [errorTrue]="error2True"
+                                                                                    mandatory="true"
+                                                                                    [items]="service.DDL.DDLBusinessDetailEmployementStatus"
+                                                                                    key="constant"
+                                                                                    keyname="description">
+                                                                                </app-select-control>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="panel-stepper-footer">
+                                                        <div class="text-right">
+                                                            <a mat-raised-button color="accent" (click)="clickPrev()"
+                                                                [parentId]="pageId"
+                                                                appAccess="BTNStep2BackBODMicrofinanceAssistance">
+                                                                <ion-icon name="arrow-back-outline"></ion-icon>
+                                                                Back
+                                                            </a>
+                                                            <ng-container
+                                                                *ngIf="service.microfinance.statusValue === 'PNSUB'">
+                                                                <button type="submit" mat-raised-button color="accent"
+                                                                    class="ml-3" [parentId]="pageId"
+                                                                    appAccess="BTNStep2NextBODMicrofinanceAssistance">
+                                                                    Save and Next
+                                                                    <ion-icon name="arrow-forward-outline"></ion-icon>
+                                                                </button>
+                                                            </ng-container>
+                                                            <ng-container
+                                                                *ngIf="service.microfinance.statusValue !== 'PNSUB'">
+                                                                <a mat-raised-button color="accent" class="ml-3"
+                                                                    [parentId]="pageId"
+                                                                    appAccess="BTNStep2NextMicrofinanceAssistance"
+                                                                    (click)="step2Click()">
+                                                                    Next
+                                                                    <ion-icon name="arrow-forward-outline"></ion-icon>
+                                                                </a>
+                                                            </ng-container>
+                                                            <a mat-raised-button color="accent" class="ml-3"
+                                                                [parentId]="pageId"
+                                                                appAccess="BTNStep2ViewOnlyNextMicrofinanceAssistance"
+                                                                (click)="step2Click()">
+                                                                Next
+                                                                <ion-icon name="arrow-forward-outline"></ion-icon>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </cdk-step>
+                                    <cdk-step label="Business Details" [completed]="step3Completed">
+                                        <div class="h100">
+                                            <form class="h100" autocomplete="off" #b="ngForm"
+                                                (ngSubmit)="saveBusinessDetails(b)">
+                                                <div class="panel-stepper h100">
+                                                    <div class="panel-stepper-body">
+                                                        <div class="ab">
+                                                            <div class="rel">
+                                                                <div class="cus-card mt-0 mx-0">
+                                                                    <div class="container-fluid pt-3">
+                                                                        <div class="row">
+                                                                            <div class="col-md-5">
+                                                                                <app-select-control
+                                                                                    label="Business Type"
+                                                                                    [(ngModel)]="service.microfinance.ibusMicroFinanceApplicationBusinessDetails.businessStructureValue"
+                                                                                    name="businessStructureValue"
+                                                                                    [btnClicked]="btnClicked" required
+                                                                                    [errorTrue]="error3True"
+                                                                                    mandatory="true"
+                                                                                    [items]="service.DDL.DDLBusinessStructureValue"
+                                                                                    key="constant"
+                                                                                    keyname="description">
+                                                                                </app-select-control>
+                                                                                <app-input-control
+                                                                                    label="Business Registration Name"
+                                                                                    [(ngModel)]="service.microfinance.ibusMicroFinanceApplicationBusinessDetails.registrationName"
+                                                                                    name="registrationName"
+                                                                                    [btnClicked]="btnClicked" required
+                                                                                    [errorTrue]="error3True"
+                                                                                    mandatory="true">
+                                                                                </app-input-control>
+                                                                                <app-input-control
+                                                                                    label="Business Registration Number"
+                                                                                    [(ngModel)]="service.microfinance.ibusMicroFinanceApplicationBusinessDetails.registrationNo"
+                                                                                    name="registrationNo"
+                                                                                    [btnClicked]="btnClicked" required
+                                                                                    [errorTrue]="error3True"
+                                                                                    mandatory="true">
+                                                                                </app-input-control>
+                                                                                <app-date-control
+                                                                                    label="Business Registration Date"
+                                                                                    [(ngModel)]="service.microfinance.ibusMicroFinanceApplicationBusinessDetails.registrationDate"
+                                                                                    name="registrationDate"
+                                                                                    [maxDate]="currentDate"
+                                                                                    [btnClicked]="btnClicked" required
+                                                                                    [errorTrue]="error3True"
+                                                                                    mandatory="true">
+                                                                                </app-date-control>
+                                                                                <app-number-control label="Business TIN"
+                                                                                    [(ngModel)]="service.microfinance.ibusMicroFinanceApplicationBusinessDetails.businessTin"
+                                                                                    name="businessTin"
+                                                                                    [btnClicked]="btnClicked" required
+                                                                                    [errorTrue]="error3True"
+                                                                                    mandatory="true" limit="10"
+                                                                                    pattern="[0-9]{9,10}$"
+                                                                                    #businessTin="ngModel"
+                                                                                    errorText="{{businessTin.invalid && error3True ? 'Should be 9 or 10 digit numbers' : ''}}">
+                                                                                </app-number-control>
+                                                                            </div>
+                                                                            <div class="col-md-6">
+                                                                                <div class="form-group">
+                                                                                    <div
+                                                                                        class="d-flex align-item-center">
+                                                                                        <label>Business Address
+                                                                                            <span
+                                                                                                class="text-danger">*</span>
+                                                                                        </label>
+                                                                                        <div class="ml-auto">
+                                                                                            <small
+                                                                                                *ngIf="service.microfinance.ibusMicroFinanceApplicationBusinessDetails.ibusMicroFinanceApplicationBusinessAddress.line1 === '' && error3True"
+                                                                                                class="text-danger pr-3">mandatory</small>
+                                                                                            <a (click)="openrbusinessaddress()"
+                                                                                                [parentId]="pageId"
+                                                                                                appAccess="BTNBusinessAddessMicrofinanceAssistance">Edit</a>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="form-control div-text"
+                                                                                        [ngClass]="{'border-warn': service.microfinance.ibusMicroFinanceApplicationBusinessDetails.ibusMicroFinanceApplicationBusinessAddress.line1 === '' && error3True}">
+                                                                                        <ng-container
+                                                                                            *ngIf="service.microfinance.ibusMicroFinanceApplicationBusinessDetails.ibusMicroFinanceApplicationBusinessAddress.line1 !== '' ">
+                                                                                            {{service.microfinance.ibusMicroFinanceApplicationBusinessDetails.ibusMicroFinanceApplicationBusinessAddress.line1}},
+                                                                                        </ng-container>
+                                                                                        <ng-container
+                                                                                            *ngIf="service.microfinance.ibusMicroFinanceApplicationBusinessDetails.ibusMicroFinanceApplicationBusinessAddress.line2 !== '' ">
+                                                                                            {{service.microfinance.ibusMicroFinanceApplicationBusinessDetails.ibusMicroFinanceApplicationBusinessAddress.line2}},
+                                                                                        </ng-container>
+                                                                                        <ng-container
+                                                                                            *ngIf="service.microfinance.ibusMicroFinanceApplicationBusinessDetails.ibusMicroFinanceApplicationBusinessAddress.line3 !== '' ">
+                                                                                            {{service.microfinance.ibusMicroFinanceApplicationBusinessDetails.ibusMicroFinanceApplicationBusinessAddress.line3}}
+                                                                                        </ng-container>
+                                                                                        <br>
+                                                                                        <ng-container
+                                                                                            *ngIf="service.microfinance.ibusMicroFinanceApplicationBusinessDetails.ibusMicroFinanceApplicationBusinessAddress.province !== '' ">
+                                                                                            {{service.microfinance.ibusMicroFinanceApplicationBusinessDetails.ibusMicroFinanceApplicationBusinessAddress.province}},
+                                                                                        </ng-container>
+                                                                                        <ng-container
+                                                                                            *ngIf="service.microfinance.ibusMicroFinanceApplicationBusinessDetails.ibusMicroFinanceApplicationBusinessAddress.island !== '' ">
+                                                                                            {{service.microfinance.ibusMicroFinanceApplicationBusinessDetails.ibusMicroFinanceApplicationBusinessAddress.island}},
+                                                                                        </ng-container>
+                                                                                        <ng-container
+                                                                                            *ngIf="service.microfinance.ibusMicroFinanceApplicationBusinessDetails.ibusMicroFinanceApplicationBusinessAddress.cityTown !== '' ">
+                                                                                            {{service.microfinance.ibusMicroFinanceApplicationBusinessDetails.ibusMicroFinanceApplicationBusinessAddress.cityTown}},
+                                                                                        </ng-container>
+                                                                                        <ng-container
+                                                                                            *ngIf="service.microfinance.ibusMicroFinanceApplicationBusinessDetails.ibusMicroFinanceApplicationBusinessAddress.countryDescription !== '' ">
+                                                                                            {{service.microfinance.ibusMicroFinanceApplicationBusinessDetails.ibusMicroFinanceApplicationBusinessAddress.countryDescription}}
+                                                                                        </ng-container>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="panel-stepper-footer">
+                                                        <div class="text-right">
+                                                            <a mat-raised-button color="accent" (click)="clickPrev()"
+                                                                [parentId]="pageId"
+                                                                appAccess="BTNStep3BackBDMicrofinanceAssistance">
+                                                                <ion-icon name="arrow-back-outline"></ion-icon>
+                                                                Back
+                                                            </a>
+                                                            <ng-container
+                                                                *ngIf="service.microfinance.statusValue === 'PNSUB'">
+                                                                <button type="submit" mat-raised-button color="accent"
+                                                                    class="ml-3" [parentId]="pageId"
+                                                                    appAccess="BTNStep3NextBDMicrofinanceAssistance">
+                                                                    Save and Next
+                                                                    <ion-icon name="arrow-forward-outline"></ion-icon>
+                                                                </button>
+                                                            </ng-container>
+                                                            <ng-container
+                                                                *ngIf="service.microfinance.statusValue !== 'PNSUB'">
+                                                                <a mat-raised-button color="accent" class="ml-3"
+                                                                    [parentId]="pageId"
+                                                                    appAccess="BTNStep3NextMicrofinanceAssistance"
+                                                                    (click)="step3Click()">
+                                                                    Next
+                                                                    <ion-icon name="arrow-forward-outline"></ion-icon>
+                                                                </a>
+                                                            </ng-container>
+                                                            <a mat-raised-button color="accent" class="ml-3"
+                                                                [parentId]="pageId"
+                                                                appAccess="BTNStep3ViewOnlyNextMicrofinanceAssistance"
+                                                                (click)="step3Click()">
+                                                                Next
+                                                                <ion-icon name="arrow-forward-outline"></ion-icon>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </cdk-step>
+                                    <cdk-step label="Loan Details" [completed]="step4Completed">
+                                        <div class="h100">
+                                            <form class="h100" autocomplete="off" #l="ngForm"
+                                                (ngSubmit)="saveLoanDetails(l)">
+                                                <div class="panel-stepper h100">
+                                                    <div class="panel-stepper-body">
+                                                        <div class="ab">
+                                                            <div class="rel">
+                                                                <div class="cus-card mt-0 mx-0">
+                                                                    <div class="container-fluid">
+                                                                        <div class="row">
+                                                                            <div class="col-md-12 pb-3 pt-3">
+                                                                                <div>
+                                                                                    <label>Select if Business is an
+                                                                                        Existing Business
+                                                                                        or a New Start Up Business
+                                                                                        <span
+                                                                                            class="text-danger pr-2">*</span>
+                                                                                        <small
+                                                                                            *ngIf="service.microfinance.applicationTypeValue === '' && error4True"
+                                                                                            class="text-danger">
+                                                                                            mandatory</small>
+                                                                                    </label>
+                                                                                    <div class="pt-2">
+                                                                                        <mat-radio-group
+                                                                                            [(ngModel)]="service.microfinance.applicationTypeValue"
+                                                                                            name="applicationTypeValue"
+                                                                                            [btnClicked]="btnClicked"
+                                                                                            required
+                                                                                            [errorTrue]="error4True"
+                                                                                            mandatory="true">
+                                                                                            <ng-container
+                                                                                                *ngFor="let appData of service.DDL.DDLApplicationTypeValue">
+                                                                                                <mat-radio-button
+                                                                                                    [value]="appData.constant">
+                                                                                                    {{appData.description}}
+                                                                                                </mat-radio-button>
+                                                                                            </ng-container>
+                                                                                        </mat-radio-group>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            <div class="col-md-6">
+                                                                                <app-input-control
+                                                                                    label="Loan Account Name"
+                                                                                    [upperCase]="true"
+                                                                                    [(ngModel)]="service.microfinance.loanAccountName"
+                                                                                    name="loanAccountName"
+                                                                                    [btnClicked]="btnClicked" required
+                                                                                    [errorTrue]="error4True"
+                                                                                    mandatory="true" emojiType="name">
+                                                                                </app-input-control>
+                                                                            </div>
+                                                                            <div class="col-md-6">
+                                                                                <app-input-control
+                                                                                    label="Loan Account Number"
+                                                                                    [(ngModel)]="service.microfinance.loanAccountNo"
+                                                                                    name="loanAccountNo"
+                                                                                    [btnClicked]="btnClicked" required
+                                                                                    [errorTrue]="error4True"
+                                                                                    mandatory="true">
+                                                                                </app-input-control>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            <div class="col-md-6">
+                                                                                <app-number-control
+                                                                                    label="Existing / New Loan Amount ($)"
+                                                                                    [(ngModel)]="service.microfinance.loanAmount"
+                                                                                    name="loanAmount"
+                                                                                    [btnClicked]="btnClicked" required
+                                                                                    [errorTrue]="error4True"
+                                                                                    mandatory="true"
+                                                                                    (ngModelChange)="getAmount()"
+                                                                                    decimal="2">
+                                                                                </app-number-control>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            <div class="col-md-6">
+                                                                                <app-number-control
+                                                                                    label="Applicant FNPF Contribution Amount ($)"
+                                                                                    [(ngModel)]="service.microfinance.fnpfContributionAmount"
+                                                                                    name="fnpfContributionAmount"
+                                                                                    decimal="2"
+                                                                                    [btnClicked]="btnClicked" required
+                                                                                    [errorTrue]="error4True"
+                                                                                    mandatory="true"
+                                                                                    (ngModelChange)="getAmount()">
+                                                                                </app-number-control>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            <div class="col-md-6">
+                                                                                <app-number-control
+                                                                                    label="Total Remaining Loan Balance Amount ($)"
+                                                                                    [(ngModel)]="service.microfinance.balanceLoanAmount"
+                                                                                    name="balanceLoanAmount"
+                                                                                    [btnClicked]="true" required
+                                                                                    [errorTrue]="error4True"
+                                                                                    mandatory="true" decimal="2">
+                                                                                </app-number-control>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="panel-stepper-footer">
+                                                        <div class="text-right">
+                                                            <a mat-raised-button color="accent" (click)="clickPrev()"
+                                                                [parentId]="pageId"
+                                                                appAccess="BTNStep4BackMicrofinanceAssistance">
+                                                                <ion-icon name="arrow-back-outline"></ion-icon>
+                                                                Back
+                                                            </a>
+                                                            <a mat-raised-button color="accent" class="ml-3 "
+                                                                (click)="printPreFilledForm(l)" [parentId]="pageId"
+                                                                appAccess="BTNPrintPrefilledFormMicrofinanceAssistance">
+                                                                Print Prefilled Form
+                                                            </a>
+                                                            <ng-container
+                                                                *ngIf="service.microfinance.statusValue === 'PNSUB'">
+                                                                <button type="submit" mat-raised-button color="accent"
+                                                                    class="ml-3" [parentId]="pageId"
+                                                                    appAccess="BTNStep4NextMicrofinanceAssistance">
+                                                                    Save and Next
+                                                                    <ion-icon name="arrow-forward-outline"></ion-icon>
+                                                                </button>
+                                                            </ng-container>
+                                                            <ng-container
+                                                                *ngIf="service.microfinance.statusValue !== 'PNSUB'">
+                                                                <a mat-raised-button color="accent" class="ml-3"
+                                                                    [parentId]="pageId"
+                                                                    appAccess="BTNStep4NextMicrofinance"
+                                                                    (click)="step4Click()">
+                                                                    Next
+                                                                    <ion-icon name="arrow-forward-outline"></ion-icon>
+                                                                </a>
+                                                            </ng-container>
+                                                            <a mat-raised-button color="accent" class="ml-3"
+                                                                [parentId]="pageId"
+                                                                appAccess="BTNStep4ViewOnlyNextMicrofinance"
+                                                                (click)="step4Click()">
+                                                                Next
+                                                                <ion-icon name="arrow-forward-outline"></ion-icon>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </cdk-step>
+                                    <cdk-step label="Document Upload" [completed]="step5Completed">
+                                        <div class="h100">
+                                            <div class="panel-stepper h100">
+                                                <div class="panel-stepper-body">
+                                                    <div class="ab">
+                                                        <div class="rel">
+                                                            <div class="container-fluid">
+                                                                <div class="p-3"></div>
+                                                                <div class="row">
+                                                                    <div class="col-xl-12 heading">
+                                                                        Document Upload
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row pt-2 pb-1">
+                                                                    <div class="col-xl-10">
+                                                                        <ng-container
+                                                                            *ngFor="let document of service.microfinance.ilstbusMicroFinanceApplicationDocument">
+                                                                            <app-file-upload
+                                                                                accept="application/pdf, image/*"
+                                                                                [label]="document.documentTypeDescription"
+                                                                                [data]="document"
+                                                                                (onload)="uploadDocument($event,document)"
+                                                                                [mandatory]="document.isMandatory === 'Y'"
+                                                                                dname="document.ibusDocumentFile.fileName"
+                                                                                [loading]="fileUploading === document.documentTypeValue"
+                                                                                [disabled]="disabled" required
+                                                                                [errorTrue]="error5True"
+                                                                                [xFile]="document.ibusDocumentFile"
+                                                                                expanded="true"
+                                                                                (onclear)="clearFile($event)"
+                                                                                [accept]="appSettingService.environment.fileAccept">
+                                                                            </app-file-upload>
+                                                                        </ng-container>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="panel-stepper-footer">
+                                                    <div class="text-right">
+                                                        <a mat-raised-button color="accent" (click)="clickPrev()"
+                                                            [parentId]="pageId"
+                                                            appAccess="BTNStep5BackDUMicrofinanceAssistance">
+                                                            <ion-icon name="arrow-back-outline"></ion-icon>
+                                                            Back
+                                                        </a>
+                                                        <ng-container
+                                                            *ngIf="service.microfinance.statusValue === 'PNSUB'">
+                                                            <button mat-raised-button color="accent" class="ml-3"
+                                                                (click)="saveDocumentDetails()" [parentId]="pageId"
+                                                                appAccess="BTNStep5NextDUMicrofinanceAssistance">
+                                                                Save and Next
+                                                                <ion-icon name="arrow-forward-outline"></ion-icon>
+                                                            </button>
+                                                        </ng-container>
+                                                        <ng-container
+                                                            *ngIf="service.microfinance.statusValue !== 'PNSUB'">
+                                                            <a mat-raised-button color="accent" class="ml-3"
+                                                                (click)="step5Click()" [parentId]="pageId"
+                                                                appAccess="BTNStep5NextMicrofinanceAssistance">
+                                                                Next
+                                                                <ion-icon name="arrow-forward-outline"></ion-icon>
+                                                            </a>
+                                                        </ng-container>
+                                                        <a mat-raised-button color="accent" class="ml-3"
+                                                            (click)="step5Click()" [parentId]="pageId"
+                                                            appAccess="BTNStep5ViewOnlyNextMicrofinanceAssistance">
+                                                            Next
+                                                            <ion-icon name="arrow-forward-outline"></ion-icon>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </cdk-step>
+                                    <cdk-step label="Submit" [completed]="step6Completed">
+                                        <div class="h100">
+                                            <form class="h100" autocomplete="off">
+                                                <div class="panel-stepper h100">
+                                                    <div class="panel-stepper-body">
+                                                        <div class="ab">
+                                                            <div class="rel">
+                                                                <div class="container-fluid">
+                                                                    <div class="row pt-3 pb-2">
+                                                                        <div class="col-xl-12 heading">
+                                                                            Consent
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row pb-2">
+                                                                        <div class="col-xl-12">
+                                                                            <div>
+                                                                                <p>
+                                                                                    {{service.microfinance.istrCosentContent}}
+                                                                                </p>
+                                                                            </div>
+                                                                            <mat-radio-group
+                                                                                [(ngModel)]="service.microfinance.isConsent"
+                                                                                name="isConsent">
+                                                                                <mat-radio-button value="Y">
+                                                                                    Yes
+                                                                                </mat-radio-button>
+                                                                                <mat-radio-button value="N"
+                                                                                    class="ml-3">
+                                                                                    No
+                                                                                </mat-radio-button>
+                                                                            </mat-radio-group>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="panel-stepper-footer">
+                                                        <div class="text-right">
+                                                            <a mat-raised-button color="accent" (click)="clickPrev()"
+                                                                [parentId]="pageId"
+                                                                appAccess="BTNStep6BackMicrofinanceAssistance">
+                                                                <ion-icon name="arrow-back-outline"></ion-icon>
+                                                                Back
+                                                            </a>
+                                                            <ng-container
+                                                                *ngIf="service.microfinance.statusValue === 'PNSUB'">
+                                                                <button mat-raised-button color="accent" class="ml-3"
+                                                                    (click)="submitApplication()" [parentId]="pageId"
+                                                                    appAccess="BTNStep6SubmitMicrofinanceAssistance">
+                                                                    Submit
+                                                                    <ion-icon name="arrow-forward-outline"></ion-icon>
+                                                                </button>
+                                                            </ng-container>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </cdk-step>
+                                </app-stepper>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

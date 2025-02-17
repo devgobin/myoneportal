@@ -1,0 +1,21 @@
+@import '../../../../scss/responsive-mixin.scss';
+
+.text-only-btn {
+    color: var(--blue);
+    font-size: 95%;
+}
+
+.w270 {
+    width: 270px;
+}
+
+.table-responsive table th.mat-header-cell {
+    height: 35px;
+}
+
+
+.m-search {
+    @include desktop {
+        height: 300px !important;
+    }
+}

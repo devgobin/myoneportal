@@ -1,0 +1,98 @@
+<div class="content-body" [parentId]="pageId" appAccess="RSEMA">
+    <div class="rel">
+        <div class="ab bg-white">
+            <form class="h100" #re="ngForm" (ngSubmit)="onsubmit(re)" autocomplete="off">
+                <div class=" container-fluid reset-p-responsive">
+                    <div class="row">
+                        <div class="col-md-12 pb-3 heading">
+                            CHANGE EMAIL
+                        </div>
+                        <div class="col-md-7">
+                            <div class="form-group">
+                                <label for="" class="pb-1">Current Email</label>
+                                <div class="fw500">
+                                    <ng-container *ngIf="resetemail.currentMail !== ''">
+                                        {{resetemail.currentMail}}
+                                    </ng-container>
+                                    <ng-container *ngIf="resetemail.currentMail === ''">
+                                        -
+                                    </ng-container>
+                                </div>
+                            </div>
+                            <div class="col-md-7 px-0 pb-2">
+                                <app-input-control label="New Email" [(ngModel)]="resetemail.newMail" tabindex="1"
+                                    name="newMail" required [errorTrue]="errorTrue" mandatory="true" email="true"
+                                    #newMail="ngModel"
+                                    errorText="{{newMail.invalid && (newMail.dirty || newMail.touched) ? 'Invalid Email Format' : ''}}">
+                                </app-input-control>
+                            </div>
+                            <div class="form-group pb-3">
+                                <!-- <label class="pb-2">Your current email id and the username are same</label> -->
+                                <div>
+                                    <mat-radio-group [(ngModel)]="resetemail.resetmyusername" name="resetmyusername"
+                                        (ngModelChange)="resetmyusername(resetemail.resetmyusername)">
+                                        <div>
+                                            <mat-radio-button class="pb-2" value="Y">Reset my
+                                                username to the new
+                                                Email
+                                                ID
+                                            </mat-radio-button>
+                                        </div>
+                                        <div>
+                                            <mat-radio-button value="N">Don't
+                                                reset my username
+                                            </mat-radio-button>
+                                        </div>
+                                    </mat-radio-group>
+                                </div>
+                            </div>
+                            <div class="pt-2">
+                                <!-- *ngIf="resetemail.newMail !== '' && resetemail.resetmyusername !== '' || resetemail.donotResetmyusername !== ''" -->
+                                <div class="heading">
+                                    Transaction PIN
+                                </div>
+                                <app-pin-control alignLeft="true" id="tpre" boxes="4" tabindex="2"
+                                    [(ngModel)]="resetemail.transactionPin" name="transactionPin" required
+                                    [errorTrue]="errorTrue" mandatory="true" password="true"
+                                    clearbtn="true"></app-pin-control>
+                                <p class="text-danger mt-15px"
+                                    *ngIf="errorTrue && resetemail.transactionPin.length < 4">
+                                    <small>Please Enter Transaction PIN</small>
+                                </p>
+                            </div>
+                            <div class="pb-3 text-right" [parentId]="pageId" appAccess="BTNResetEmail">
+                                <button mat-raised-button color="accent" type="submit" [disabled]="btnClicked">
+                                    <ng-container *ngIf="!btnClicked">
+                                        Reset
+                                    </ng-container>
+                                    <ng-container *ngIf="btnClicked">
+                                        <app-dot class="dot-big"></app-dot>
+                                    </ng-container>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="info-box">
+                                <div class="info-container">
+                                    <h3>Why is this required?</h3>
+                                    <ul>
+                                        <li>
+                                            Your new email must be in a valid format.
+                                        </li>
+                                        <li>
+                                            Select the first option if you wish to reset your current username to the
+                                            new email ID
+                                        </li>
+                                        <li>
+                                            Select the second option if you do not wish to reset your username.
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

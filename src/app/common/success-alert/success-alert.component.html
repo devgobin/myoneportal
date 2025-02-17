@@ -1,0 +1,18 @@
+<div>
+    <div mat-dialog-title class="text-center text-danger">
+        <div class="d-flex align-items-center justify-content-center">
+            <div class="circle-tick"></div>
+        </div>
+    </div>
+    <div mat-dialog-content class="container-b text-center">
+        <p class="tc">{{data.msg}}</p>
+    </div>
+    <div class="d-flex align-items-center justify-content-center">
+        <ng-container *ngIf="data.Showbtn1">
+            <button mat-raised-button (click)="OnClicked(true)" class="mat-raised-button ml-3">{{data.button1}}</button>
+        </ng-container>
+        <ng-container *ngIf="data.Showbtn2">
+            <button mat-raised-button (click)="OnClicked(false)" class="mat-raised-button ml-3">{{data.button2}}</button>
+        </ng-container>
+    </div>
+</div>

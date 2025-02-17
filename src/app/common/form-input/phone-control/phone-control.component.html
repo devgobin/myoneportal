@@ -1,0 +1,37 @@
+<div class="form-group">
+    <div class="d-flex align-item-center">
+        <label for="" *ngIf="label !== ''">{{label}} <span class="text-danger" *ngIf="mandatory">*</span></label>
+        <div class="ml-auto text-danger d-flex align-item-center lh18">
+            <ng-container *ngIf="errorText !== '' && xvalue !== '' && !errorTrueNow">
+                <ng-container *ngIf="xvalue">
+                    <ng-container *ngIf="xvalue.length<10">
+                        <div class="lh18"><small>{{errorText}}</small>
+                        </div>
+                    </ng-container>
+                </ng-container>
+            </ng-container>
+            <ng-container *ngIf="value === '' && errorTrueNow">
+                <div class="ml-2 lh18"><small>mandatory</small></div>
+            </ng-container>
+        </div>
+        <!-- <a mat-icon-button class="i-btn-small ml-auto text-center" *ngIf="helptext" [matTooltip]="helptext">
+            <ion-icon name="help-circle-outline"></ion-icon>
+        </a>
+        <div class="ml-auto text-danger lh18" *ngIf="value === '' && errorTrueNow">
+            <small>mandatory</small>
+        </div> -->
+    </div>
+    <!-- <label for="" *ngIf="label !== ''" >{{label}}</label> -->
+    <div class="input-group">
+        <input appNoEmoji autocomplete="none" type="text" class="form-control" [(ngModel)]="xvalue" name="{{name}}" id="{{name}}"
+            placeholder="{{placeholder}}" [ngClass]="{'border-warn': xvalue === '' && errorTrueNow}"
+            [disabled]="btnClickedNow" (blur)="blured()" #inputbox (keydown)="checkenter($event)" 
+            (input)="checkValue($event)"  (focus)="whenFocused()" appLimit="20">
+        <div class="input-group-append in-1" *ngIf="xvalue && !btnClickedNow">
+            <a mat-button class="i-btn" (click)="clearValue()" matTooltip="Clear" matTooltipPosition="right"
+                tabIndex="-1">
+                <ion-icon name="close-outline"></ion-icon>
+            </a>
+        </div>
+    </div>
+</div>

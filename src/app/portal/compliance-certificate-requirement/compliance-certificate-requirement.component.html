@@ -1,0 +1,291 @@
+<div class="content-body" [parentId]="pageId" appAccess="COMPL">
+    <div class="rel">
+        <div class="d-flex z-2 pb-2">
+            <ng-container *ngIf="!data.isMobile">
+                <div class="mr-auto d-flex align-items-center">
+                    <h6 class="mb-0">Compliance Certificate</h6>
+                </div>
+                <div class="ml-auto d-flex align-items-center">
+                    <div class="search-box-d">
+                        <button mat-raised-button color="accent" (click)="viewCertificate()" class="mr-2">
+                            View Details
+                        </button>
+                        <ng-container *ngIf="complianceService.compliancecertificate.iProtoentCompliance.oneYearCompliance==='Y' && 
+                    complianceService.compliancecertificate.iProtoentCompliance.alreadyGenerated==='N'">
+                            <button mat-raised-button color="success" class="mr-2" (click)="viewComplainceCertificate()"
+                                [parentId]="pageId" appAccess="BTNGenerateCertificate">
+                                Generate One year Compliance Certificate
+                            </button>
+                        </ng-container>
+                        <ng-container
+                            *ngIf="complianceService.compliancecertificate.iProtoentCompliance.conditionalCompliance==='Y' && complianceService.compliancecertificate.iProtoentCompliance.alreadyGenerated==='N'">
+                            <button mat-raised-button color="success" class="mr-2" (click)="viewComplainceCertificate()"
+                                [parentId]="pageId" appAccess="BTNGenerateCertificate">
+                                Generate Conditional Compliance Certificate
+                            </button>
+                        </ng-container>
+                        <ng-container *ngIf="complianceService.compliancecertificate.iProtoentCompliance.oneYearCompliance==='Y'&&
+                        complianceService.compliancecertificate.iProtoentCompliance.alreadyGenerated==='Y'">
+                            <button mat-raised-button color="success" class="mr-2" (click)="viewComplainceCertificate()"
+                                [parentId]="pageId" appAccess="BTNGenerateCertificate">
+                                Reprint One year Compliance Certificate
+                            </button>
+                        </ng-container>
+
+                        <ng-container *ngIf="complianceService.compliancecertificate.iProtoentCompliance.conditionalCompliance==='Y' &&
+                        complianceService.compliancecertificate.iProtoentCompliance.alreadyGenerated==='Y'">
+                            <button mat-raised-button color="success" class="mr-2" (click)="viewComplainceCertificate()"
+                                [parentId]="pageId" appAccess="BTNGenerateCertificate">
+                                Reprint Conditional Compliance Certificate
+                            </button>
+                        </ng-container>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+        <ng-container *ngIf="data.isMobile">
+            <div class="mr-auto d-flex align-items-center">
+                <h6 class="mb-0">Compliance Certificate</h6>
+            </div>
+            <div class="d-flex align-items-center pt-2">
+                <button mat-raised-button color="accent" (click)="viewCertificate()" class="mr-2">
+                    View Details
+                </button>
+                <ng-container *ngIf="complianceService.compliancecertificate.iProtoentCompliance.oneYearCompliance==='Y' && 
+                    complianceService.compliancecertificate.iProtoentCompliance.alreadyGenerated==='N'">
+                    <button mat-raised-button color="success" class="mr-2" (click)="viewComplainceCertificate()"
+                        [parentId]="pageId" appAccess="BTNGenerateCertificate">
+                        Generate One year Compliance Certificate
+                    </button>
+                </ng-container>
+                <ng-container
+                    *ngIf="complianceService.compliancecertificate.iProtoentCompliance.conditionalCompliance==='Y' && complianceService.compliancecertificate.iProtoentCompliance.alreadyGenerated==='N'">
+                    <button mat-raised-button color="success" class="mr-2" (click)="viewComplainceCertificate()"
+                        [parentId]="pageId" appAccess="BTNGenerateCertificate">
+                        Generate Conditional Compliance Certificate
+                    </button>
+                </ng-container>
+                <ng-container *ngIf="complianceService.compliancecertificate.iProtoentCompliance.oneYearCompliance==='Y'&&
+                        complianceService.compliancecertificate.iProtoentCompliance.alreadyGenerated==='Y'">
+                    <button mat-raised-button color="success" class="mr-2" (click)="viewComplainceCertificate()"
+                        [parentId]="pageId" appAccess="BTNGenerateCertificate">
+                        Reprint One year Compliance Certificate
+                    </button>
+                </ng-container>
+
+                <ng-container *ngIf="complianceService.compliancecertificate.iProtoentCompliance.conditionalCompliance==='Y' &&
+                        complianceService.compliancecertificate.iProtoentCompliance.alreadyGenerated==='Y'">
+                    <button mat-raised-button color="success" (click)="viewComplainceCertificate()" [parentId]="pageId"
+                        appAccess="BTNGenerateCertificate">
+                        Reprint Conditional Compliance Certificate
+                    </button>
+                </ng-container>
+            </div>
+        </ng-container>
+        <div class="m-top"></div>
+        <ng-container *ngIf="(complianceService.compliancecertificate.iProtoentCompliance.oneYearCompliance==='Y' || 
+        complianceService.compliancecertificate.iProtoentCompliance.conditionalCompliance==='Y') &&
+        complianceService.compliancecertificate.iProtoentCompliance.alreadyGenerated==='Y'">
+            <div class="complaince-info-card">
+                <ul class="complaince-list">
+                    <li class="complaince-list-item">
+                        If you are reprinting compliance letter for a period within a year of the initial Compliance
+                        Generated Date the dates in the letter will remain unchanged to the initial dates
+                    </li>
+                    <li class="complaince-list-item">
+                        The initial Generated Date for the Current Compliance Letter is {{
+                        complianceService.compliancecertificate.iProtoentCompliance.dtmGeneratedDate | moment :
+                        'DD-MM-YYYY hh:mm a' : 'DD MMM YYYY hh:mm a' }}
+                    </li>
+                    <li class="complaince-list-item">
+                        The Due Date for the Current Compliance Letter is {{
+                        complianceService.compliancecertificate.iProtoentCompliance.dtmExpiryDate | moment :
+                        'DD-MM-YYYY hh:mm a' : 'DD MMM YYYY hh:mm a' }}
+                    </li>
+                </ul>
+            </div>
+        </ng-container>
+
+        <div class="ab pt35" [ngClass]="{'pt116': (complianceService.compliancecertificate.iProtoentCompliance.oneYearCompliance==='Y' || 
+        complianceService.compliancecertificate.iProtoentCompliance.conditionalCompliance==='Y') &&
+        complianceService.compliancecertificate.iProtoentCompliance.alreadyGenerated==='Y'}">
+            <div class="rel">
+                <div class="ab">
+                    <div class="rel">
+                        <div class="table-responsive h100">
+                            <table class="mat-table h100">
+                                <thead>
+                                    <tr class="mat-header-row">
+                                        <th class="mat-header-cell">Compliance Category
+                                        </th>
+                                        <th class="mat-header-cell">Status
+                                        </th>
+                                        <th class="mat-header-cell text-center">Is Fully Compliance</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="h100">
+                                    <tr class="mat-row">
+                                        <th class="mat-header-cell">
+                                            Employer Status
+                                        </th>
+                                        <td class="mat-cell">
+                                            {{complianceService.compliancecertificate.iProtoentCompliance.employerStatus}}
+                                        </td>
+                                        <td class="mat-cell text-center">
+                                            <mat-checkbox class="disable-checkbox"
+                                                [checked]="complianceService.compliancecertificate.iProtoentCompliance.employerStatus ==='Active'">
+                                            </mat-checkbox>
+                                        </td>
+                                    </tr>
+                                    <tr class="mat-row">
+                                        <th class="mat-header-cell">
+                                            Using Employer Portal
+                                        </th>
+                                        <td class="mat-cell">
+                                            {{complianceService.compliancecertificate.iProtoentCompliance.usingEmployerPortal}}
+                                        </td>
+                                        <td class="mat-cell text-center">
+                                            <mat-checkbox class="disable-checkbox"
+                                                [checked]="complianceService.compliancecertificate.iProtoentCompliance.usingEmployerPortal ==='Registered'">
+                                            </mat-checkbox>
+                                        </td>
+                                    </tr>
+                                    <tr class="mat-row">
+                                        <th class="mat-header-cell">
+                                            Last Contribution Schedule Submitted Through Employers Portal
+                                        </th>
+                                        <td class="mat-cell">
+                                            {{complianceService.compliancecertificate.iProtoentCompliance.lastContributionSubmittedThroughEmployersPortal}}
+                                        </td>
+                                        <td class="mat-cell text-center">
+                                            <mat-checkbox class="disable-checkbox"
+                                                [checked]="complianceService.compliancecertificate.iProtoentCompliance.lastContributionSubmittedThroughEmployersPortal ==='Yes'">
+                                            </mat-checkbox>
+                                        </td>
+                                    </tr>
+                                    <tr class="mat-row">
+                                        <th class="mat-header-cell">
+                                            Last Contribution Submitted and Paid
+                                        </th>
+                                        <td class="mat-cell">
+                                            {{complianceService.compliancecertificate.iProtoentCompliance.lastContributionSubmittedAndPaid}}
+                                        </td>
+                                        <td class="mat-cell text-center">
+                                            <mat-checkbox class="disable-checkbox"
+                                                [checked]="complianceService.compliancecertificate.iProtoentCompliance.lastContributionSubmittedAndPaid ==='Yes'">
+                                            </mat-checkbox>
+                                        </td>
+                                    </tr>
+                                    <tr class="mat-row">
+                                        <th class="mat-header-cell">
+                                            Debt Exists (For Contribution Schedule And CS Adjustment)
+                                        </th>
+                                        <td class="mat-cell">
+                                            {{complianceService.compliancecertificate.iProtoentCompliance.debtExists}}
+                                        </td>
+                                        <td class="mat-cell text-center">
+                                            <mat-checkbox class="disable-checkbox"
+                                                [checked]="complianceService.compliancecertificate.iProtoentCompliance.debtExists ==='No Debt'">
+                                            </mat-checkbox>
+                                        </td>
+                                    </tr>
+                                    <tr class="mat-row">
+                                        <th class="mat-header-cell">
+                                            Unpaid Penalties Exists
+                                        </th>
+                                        <td class="mat-cell">
+                                            {{complianceService.compliancecertificate.iProtoentCompliance.unpaidPenalities}}
+                                        </td>
+                                        <td class="mat-cell text-center">
+                                            <mat-checkbox class="disable-checkbox"
+                                                [checked]="complianceService.compliancecertificate.iProtoentCompliance.unpaidPenalities ==='No Penalties'">
+                                            </mat-checkbox>
+                                        </td>
+                                    </tr>
+                                    <tr class="mat-row">
+                                        <th class="mat-header-cell">
+                                            Unresolved Suspense Exists
+                                        </th>
+                                        <td class="mat-cell">
+                                            {{complianceService.compliancecertificate.iProtoentCompliance.unresolvedSuspense}}
+                                        </td>
+                                        <td class="mat-cell text-center">
+                                            <mat-checkbox class="disable-checkbox"
+                                                [checked]="complianceService.compliancecertificate.iProtoentCompliance.unresolvedSuspense ==='No Suspense'">
+                                            </mat-checkbox>
+                                        </td>
+                                    </tr>
+                                    <tr class="mat-row">
+                                        <th class="mat-header-cell">
+                                            Unclaimed Funds Exists
+                                        </th>
+                                        <td class="mat-cell">
+                                            {{complianceService.compliancecertificate.iProtoentCompliance.unclaimedFundsExists}}
+                                        </td>
+                                        <td class="mat-cell text-center">
+                                            <mat-checkbox class="disable-checkbox"
+                                                [checked]="complianceService.compliancecertificate.iProtoentCompliance.unclaimedFundsExists ==='No Unclaimed Funds'">
+                                            </mat-checkbox>
+                                        </td>
+                                    </tr>
+                                    <tr class="mat-row">
+                                        <th class="mat-header-cell">
+                                            Undistributed Funds Exists
+                                        </th>
+                                        <td class="mat-cell">
+                                            {{complianceService.compliancecertificate.iProtoentCompliance.undistributedFundsExists}}
+                                        </td>
+                                        <td class="mat-cell text-center">
+                                            <mat-checkbox class="disable-checkbox"
+                                                [checked]="complianceService.compliancecertificate.iProtoentCompliance.undistributedFundsExists ==='No Undistributed Funds'">
+                                            </mat-checkbox>
+                                        </td>
+                                    </tr>
+                                    <tr class="mat-row">
+                                        <th class="mat-header-cell">
+                                            Accruals Exists
+                                        </th>
+                                        <td class="mat-cell">
+                                            {{complianceService.compliancecertificate.iProtoentCompliance.accruals}}
+                                        </td>
+                                        <td class="mat-cell text-center">
+                                            <mat-checkbox class="disable-checkbox"
+                                                [checked]="complianceService.compliancecertificate.iProtoentCompliance.accruals ==='No Pending Accruals'">
+                                            </mat-checkbox>
+                                        </td>
+                                    </tr>
+                                    <tr class="mat-row">
+                                        <th class="mat-header-cell">
+                                            Complaints Exists
+                                        </th>
+                                        <td class="mat-cell">
+                                            {{complianceService.compliancecertificate.iProtoentCompliance.complaints}}
+                                        </td>
+                                        <td class="mat-cell text-center">
+                                            <mat-checkbox class="disable-checkbox"
+                                                [checked]="complianceService.compliancecertificate.iProtoentCompliance.complaints ==='None'">
+                                            </mat-checkbox>
+                                        </td>
+                                    </tr>
+                                    <tr class="mat-row">
+                                        <th class="mat-header-cell">
+                                            Inspection Exists
+                                        </th>
+                                        <td class="mat-cell">
+                                            {{complianceService.compliancecertificate.iProtoentCompliance.isInspectionExist}}
+                                        </td>
+                                        <td class="mat-cell text-center">
+                                            <mat-checkbox class="disable-checkbox"
+                                                [checked]="complianceService.compliancecertificate.iProtoentCompliance.isInspectionExist ==='Yes'">
+                                            </mat-checkbox>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

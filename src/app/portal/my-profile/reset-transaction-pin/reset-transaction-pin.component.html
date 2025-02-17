@@ -1,0 +1,105 @@
+<div class="content-body" [parentId]="pageId" appAccess="RSTSP">
+    <div class="rel">
+        <form class="h100" #rtp="ngForm" autocomplete="off">
+            <div class=" ab container-fluid bg-white reset-p-responsive">
+                <div class="row">
+                    <div class="col-md-12 pb-3 heading">
+                        RESET TRANSACTION PIN
+                    </div>
+                    <div class="col-md-7 text-center">
+                        <div class="row">
+                            <div class="col-md-6 pl-0 ml-3">
+                                <app-pin-control id="cpr" boxes="4" label="Current PIN"
+                                    [(ngModel)]="resettransactionpin.currentpin" name="currentpin" required
+                                    [errorTrue]="errorTrue" mandatory="true" password="true" #currentpin="ngModel"
+                                    (onFinished)="currentPINFinished()" clearbtn="true">
+                                </app-pin-control>
+                                <p class="text-danger mt-15px"
+                                    *ngIf="errorTrue && resettransactionpin.currentpin.length < 4 ">
+                                    <small>Please Enter Current PIN</small>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 pl-0 ml-3">
+                                <app-pin-control id="npr" boxes="4" label="New PIN"
+                                    [(ngModel)]="resettransactionpin.newpin" name="newpin" required
+                                    [errorTrue]="errorTrue" mandatory="true" password="true" #newpin="ngModel"
+                                    #fcurrentpin (onFinished)="newPINFinished()" clearbtn="true">
+                                </app-pin-control>
+                                <p class="text-danger mt-15px"
+                                    *ngIf="errorTrue && resettransactionpin.newpin.length < 4">
+                                    <small>Please Enter New PIN</small>
+                                </p>
+                                <ng-container *ngIf="resettransactionpin.newpin.length === 4">
+                                    <p class="text-danger mt-15px"
+                                        *ngIf="resettransactionpin.newpin === resettransactionpin.currentpin">
+                                        <small>New Pin cannot be the same as the Current PIN</small>
+                                    </p>
+                                </ng-container>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 pl-0 ml-3">
+                                <app-pin-control id="cp" boxes="4" label="Confirm PIN"
+                                    [(ngModel)]="resettransactionpin.confirmpin" name="confirmpin" required
+                                    [errorTrue]="errorTrue" mandatory="true" password="true" #newpin="ngModel" #snewpin
+                                    clearbtn="true">
+                                </app-pin-control>
+                                <p class="text-danger mt-15px"
+                                    *ngIf="errorTrue && resettransactionpin.confirmpin.length < 4">
+                                    <small>Please Enter Confirm PIN</small>
+                                </p>
+                                <ng-container *ngIf="resettransactionpin.confirmpin.length === 4">
+                                    <p class="text-danger mt-15px"
+                                        *ngIf="resettransactionpin.confirmpin !== '' && resettransactionpin.newpin !== resettransactionpin.confirmpin">
+                                        <small>PIN Mismatch</small>
+                                    </p>
+                                </ng-container>
+                            </div>
+                        </div>
+                        <div class="row"
+                            *ngIf="resettransactionpin.newpin === resettransactionpin.confirmpin && resettransactionpin.newpin !== ''">
+                            <div class="col-md-6">
+                                <!-- <div class="heading">
+                                        Password
+                                    </div> -->
+                                <app-password-control label="Password" [(ngModel)]="resettransactionpin.password"
+                                    name="password" required [errorTrue]="errorTrue" mandatory="true">
+                                </app-password-control>
+
+                            </div>
+                        </div>
+                        <div class="row" [parentId]="pageId" appAccess="BTNResetTransactionPIN">
+                            <div class="col-md-6 pb-3 text-right">
+                                <button mat-raised-button color="accent" (click)="onsubmit(rtp)"
+                                    [disabled]="btnClicked">
+                                    <ng-container *ngIf="!btnClicked">
+                                        Reset
+                                    </ng-container>
+                                    <ng-container *ngIf="btnClicked">
+                                        <app-dot class="dot-big"></app-dot>
+                                    </ng-container>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="info-box">
+                            <div class="info-container">
+                                <h3>Why is this required?</h3>
+                                <ul>
+                                    <li>Your Transaction PIN is a 4-Digit code you will use when making amendments on
+                                        your login detail or making submissions on the Portal.</li>
+                                    <li> Keep your transaction PIN secret and safe. Do NOT share your transaction PIN
+                                        with anyone.</li>
+                                    <li> You may change this to a PIN you prefer and click RESET</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

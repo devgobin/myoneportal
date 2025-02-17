@@ -1,0 +1,47 @@
+@import '../../../../../scss/responsive-mixin.scss';
+
+.margin-adjust {
+  margin-top: -16px;
+}
+
+.v-flex {
+  display: flex;
+  flex-direction: column;
+  height: calc(300px - 100px);
+}
+
+.container-b {
+  position: relative;
+  height: 172px;
+}
+
+.message-box {
+  padding: 0 1rem;
+}
+
+.error-message {
+  padding: 0;
+
+  li {
+    padding: 0;
+
+    @include desktop {
+      padding: 0.5rem 0 0.5rem 1rem;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    }
+  }
+}
+
+.tri-icon {
+  width: 16px;
+  height: 16px;
+  padding-top: 3px;
+}
+
+.mat-dialog-content {
+  overflow: hidden;
+
+  @include desktop {
+    overflow: auto;
+  }
+}

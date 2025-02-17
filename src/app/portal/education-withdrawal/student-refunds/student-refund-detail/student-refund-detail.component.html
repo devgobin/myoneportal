@@ -1,0 +1,267 @@
+<div class="content-body" [parentId]="pageId" appAccess="STRDT">
+    <div class="vertical-flex h100">
+        <div>
+            <div class="cus-card mt-0 mx-0">
+                <div class="d-flex align-items-center p-0">
+                    <div class=" pb-3 heading">
+                        Refund Details
+                    </div>
+                    <div class="ml-auto d-flex align-items-center">
+                        <ng-container
+                            *ngIf="service.unClaimedWithdrawal.unclaimedWithdrawalRefundId >0 && service.unClaimedWithdrawal.statusValue==='PNSUB'">
+                            <button mat-raised-button color="accent" (click)="onSubmit()" [parentId]="pageId"
+                                appAccess="BTNSubmitRefundDetail">
+                                Submit
+                            </button>
+                        </ng-container>
+                        <ng-container *ngIf="service.unClaimedWithdrawal.unclaimedWithdrawalRefundId === 0">
+                            <button mat-raised-button color="accent" class="ml-3" (click)="saveRefund()"
+                                [parentId]="pageId" appAccess="BTNSaveRefundDetail">
+                                Save
+                            </button>
+                        </ng-container>
+                        <ng-container
+                            *ngIf="service.unClaimedWithdrawal.unclaimedWithdrawalRefundId > 0 && service.unClaimedWithdrawal.statusValue==='PNSUB'">
+                            <button mat-raised-button color="accent" class="ml-3" [parentId]="pageId"
+                                appAccess="BTNAddStudentRefundDetail" (click)="addRefund()">
+                                Add Refund
+                            </button>
+                        </ng-container>
+                        <ng-container *ngIf="service.unClaimedWithdrawal.statusValue !=='PNSUB'">
+                            <button mat-raised-button color="accent"
+                                (click)="generateRefundStatement(service.unClaimedWithdrawal)" [parentId]="pageId"
+                                appAccess="BTNGenerateRefundStatementRefundDetail">
+                                Generate Refund Statement
+                            </button>
+                        </ng-container>
+                    </div>
+                </div>
+                <div class="container-fluid pt-4 pl-0">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label class="">Refund ID</label>
+                                <span class="fw500">:
+                                    {{service.unClaimedWithdrawal.unclaimedWithdrawalRefundId}}</span>
+
+                            </div>
+                            <div class="col-md-3">
+                                <label class="">Refund Date</label>
+                                <span class="fw500">:
+                                    {{service.unClaimedWithdrawal.refundDate | moment:
+                                    'DD-MM-YYYY' :
+                                    'DD MMM YYYY'}}</span>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="">Total Refund Amount</label>
+                                <span class="fw500">:
+                                    {{service.unClaimedWithdrawal.totalRefundAmount | appCurrency}}</span>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="">Status</label>
+                                <span class="fw500">:
+                                    {{service.unClaimedWithdrawal.statusDescription}}</span>
+                            </div>
+                            <div class="col-md-3 pt-3">
+                                <app-input-control label="Reference No :"
+                                    [(ngModel)]="service.unClaimedWithdrawal.referenceNo" name="referenceNo"
+                                    [required]="refNoRequired" [errorTrue]="refNoError" [mandatory]="refNoError">
+                                </app-input-control>
+                            </div>
+                            <ng-container *ngIf="service.unClaimedWithdrawal.unclaimedWithdrawalRefundId >0">
+                                <div class="col-md-6 pt-3">
+                                    <app-file-upload label="Refund Document :" (onload)="uploadDocument($event)"
+                                        [data]="service.unClaimedWithdrawal.iProtoUnclaimedWithdrawalRefundDocument.pDocumentFile"
+                                        dname="unClaimedWithdrawal.iProtoUnclaimedWithdrawalRefundDocument.pDocumentFile.fileName"
+                                        [loading]="fileUploading === service.unClaimedWithdrawal.iProtoUnclaimedWithdrawalRefundDocument.documentTypeValue"
+                                        [xFile]="service.unClaimedWithdrawal.iProtoUnclaimedWithdrawalRefundDocument.pDocumentFile"
+                                        (onclear)="clearFile()"
+                                        [accept]="appSettingService.environment.fileAcceptImages" [expanded]="true">
+                                    </app-file-upload>
+                                </div>
+                            </ng-container>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="flex-1 cus-card m-0 relative">
+            <div class="vertical-flex h100">
+                <div class="d-flex align-items-center z-2 pb-2 pt-1">
+                    <div class="ml-auto d-flex align-items-center">
+                        <div class="search-box-d">
+                            <button mat-raised-button color="accent" cdkOverlayOrigin #trigger="cdkOverlayOrigin"
+                                (click)="isOpen = !isOpen" [parentId]="pageId" appAccess="BTNFilterStudentRefundDetail">
+                                <ion-icon name="funnel-outline"></ion-icon>
+                                Filter
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="table-responsive h100">
+                    <div class="ab pb40">
+                        <div class="rel">
+                            <table mat-table [dataSource]="dataSource" class="table-hover" matSort
+                                (matSortChange)="sortData($event)">
+                                <ng-container matColumnDef="withdrawalAppplicationId">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Application ID
+                                    </th>
+                                    <td mat-cell *matCellDef="let element" (click)="openDetail(element)"
+                                        class="hyperlink-td">
+                                        {{element.withdrawalAppplicationId}}
+                                    </td>
+                                </ng-container>
+                                <ng-container matColumnDef="studentId">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Student ID</th>
+                                    <td mat-cell *matCellDef="let element">
+                                        {{element.studentId}}
+                                </ng-container>
+                                <ng-container matColumnDef="studentName">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Student Name</th>
+                                    <td mat-cell *matCellDef="let element">
+                                        {{element.studentFirstName}} {{element.studentMiddleName}}
+                                        {{element.studentLastName}}
+                                </ng-container>
+                                <ng-container matColumnDef="fnpfId">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header>FNPF ID</th>
+                                    <td mat-cell *matCellDef="let element">
+                                        {{element.memberFnpfId}}
+                                </ng-container>
+                                <ng-container matColumnDef="batchNo">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Batch #</th>
+                                    <td mat-cell *matCellDef="let element">
+                                        {{element.batchNo}}
+                                </ng-container>
+                                <ng-container matColumnDef="invoiceId">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Invoice ID</th>
+                                    <td mat-cell *matCellDef="let element">
+                                        {{element.invoiceNo}}
+                                </ng-container>
+                                <ng-container matColumnDef="totalInvoiceAmount">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Total Invoice Amount </th>
+                                    <td mat-cell *matCellDef="let element">
+                                        {{element.totalInvoiceAmount | appCurrency}}
+                                </ng-container>
+                                <ng-container matColumnDef="totalReceivedAmount">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header>FNPF Received Amount </th>
+                                    <td mat-cell *matCellDef="let element">
+                                        {{element.totalReceivedAmount | appCurrency}}
+                                </ng-container>
+                                <ng-container matColumnDef="refundAmount">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Refund Amount </th>
+                                    <td mat-cell *matCellDef="let element">
+                                        {{element.refundAmount | appCurrency}}
+                                </ng-container>
+                                <ng-container matColumnDef="withdrawalStatusDescription">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.withdrawalStatusDescription}}
+                                    </td>
+                                </ng-container>
+                                <ng-container matColumnDef="postingStatusDescription">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Remittance Status </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.postingStatusDescription}}
+                                    </td>
+                                </ng-container>
+                                <ng-container matColumnDef="action">
+                                    <th mat-header-cell *matHeaderCellDef class="text-center"> Action </th>
+                                    <td mat-cell *matCellDef="let element" class="text-center py-0 text-nowrap">
+                                        <ng-container *ngIf="element.postingStatusValue ==='POSTD'">
+                                            <a mat-button class="text-only-btn hyperlink-td" [parentId]="pageId"
+                                                appAccess="BTNViewDocumentRefundDetail" (click)="viewReceipt(element)">
+                                                View Receipt
+                                            </a>
+                                        </ng-container>
+                                        <ng-container *ngIf="(element.postingStatusValue ==='PENDG' || element.postingStatusValue ==='POSFI')
+                                             && service.unClaimedWithdrawal.statusValue==='PNSUB'">
+                                            <button mat-icon-button class="icon-only-btn" matTooltip="Edit"
+                                                (click)="openDetail(element)" [parentId]="pageId"
+                                                appAccess="BTNEditStudentRefundDetail">
+                                                <ion-icon name="pencil-outline"></ion-icon>
+                                            </button>
+                                            <button class="ml-1" mat-icon-button matTooltip="Delete"
+                                                class="text-danger icon-only-btn" (click)="openDelete(element)"
+                                                [parentId]="pageId" appAccess="BTNDeleteStudentRefundDetail">
+                                                <ion-icon name="trash-outline">
+                                                </ion-icon>
+                                            </button>
+                                        </ng-container>
+                                    </td>
+                                </ng-container>
+
+                                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                                <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+                                    [ngClass]="{'active': activeIndex == row}" (click)="active(row)"></tr>
+                            </table>
+                            <ng-container *ngIf="dataSource.data.length === 0">
+                                <app-empty-state></app-empty-state>
+                            </ng-container>
+                        </div>
+                    </div>
+                    <div class="table-footer">
+                        <mat-paginator [showFirstLastButtons]="!data.isMobile" [hideTotalCount]="data.isMobile"
+                            showFirstLastButtons="true" [pageSizeOptions]="[10, 25, 50, 100]">
+                        </mat-paginator>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<ng-template cdkConnectedOverlay [cdkConnectedOverlayOrigin]="trigger" [cdkConnectedOverlayOpen]="isOpen"
+    cdkConnectedOverlayHasBackdrop="true" [cdkConnectedOverlayLockPosition]="trigger" (backdropClick)="isOpen = !isOpen"
+    cdkConnectedOverlayBackdropClass="search-backdrop">
+    <form>
+        <div class="search-panel" style="height:250px !important;">
+            <div class="ab">
+                <div class="rel">
+                    <div class="container-fluid pt-3">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <app-number-control label="Application ID"
+                                    [(ngModel)]="searchParams.withdrawalAppplicationId" name="withdrawalAppplicationId">
+                                </app-number-control>
+                            </div>
+                            <div class="col-md-6">
+                                <app-input-control label="Invoice Number" [(ngModel)]="searchParams.invoiceNo"
+                                    name="invoiceNo">
+                                </app-input-control>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <app-input-control label="Student First Name"
+                                    [(ngModel)]="searchParams.studentFirstName" name="studentFirstName">
+                                </app-input-control>
+                            </div>
+                            <div class="col-md-6">
+                                <app-select-control label="Status" [(ngModel)]="searchParams.postingStatusValue"
+                                    name="postingStatusValue" [items]="service.initialData.DDLPostingStatus"
+                                    key="constant" keyname="description">
+                                </app-select-control>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="search-footer">
+                <div class="ml-auto d-flex align-items-center">
+                    <button mat-raised-button class="ml-3" color="accent" (click)="doSearch(true)" [parentId]="pageId"
+                        appAccess="BTNApplyRefund">
+                        <div class="d-flex align-items-center">
+                            <ion-icon name="checkmark-circle-outline"></ion-icon>
+                            <div class="pl-2">Apply</div>
+                        </div>
+                    </button>
+                    <button mat-button (click)="doClear()" [parentId]="pageId" appAccess="BTNClearRefund">
+                        <div class="d-flex align-items-center">
+                            <ion-icon name="close-circle-outline"></ion-icon>
+                            <div class="pl-1">Clear</div>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+</ng-template>

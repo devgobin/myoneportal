@@ -1,0 +1,45 @@
+<div class="search-box-d">
+    <ng-container *ngIf="!data.isMobile">
+        <button mat-raised-button color="accent" cdkOverlayOrigin #trigger="cdkOverlayOrigin"
+            (click)="isOpen = !isOpen">
+            <ion-icon name="funnel-outline"></ion-icon>
+            Filter
+        </button>
+    </ng-container>
+    <ng-container *ngIf="data.isMobile">
+        <button mat-raised-button color="accent" (click)="openDialog()">
+            <ion-icon name="funnel-outline"></ion-icon>
+            Filter
+        </button>
+    </ng-container>
+</div>
+
+<ng-template cdkConnectedOverlay [cdkConnectedOverlayOrigin]="trigger" [cdkConnectedOverlayOpen]="isOpen"
+    cdkConnectedOverlayHasBackdrop="true" [cdkConnectedOverlayLockPosition]="trigger" (backdropClick)="isOpen = !isOpen"
+    cdkConnectedOverlayBackdropClass="search-backdrop">
+    <ng-container *ngTemplateOutlet="currentTemplate"></ng-container>
+</ng-template>
+
+<ng-template #searchPanelDialog>
+    <div class="adjust-margin h100">
+        <div class="dialogue-header z-2">
+            <div>
+                Search By
+            </div>
+            <div class="ml-auto d-flex align-items-center">
+                <button mat-icon-button (click)="close()" class="mr-2">
+                    <ion-icon name="close-outline"></ion-icon>
+                </button>
+            </div>
+        </div>
+        <div mat-dialog-content>
+            <div class="flex-1 ">
+                <div class="m-ab pt50">
+                    <div class="m-rel">
+                        <ng-container *ngTemplateOutlet="currentTemplate"></ng-container>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>

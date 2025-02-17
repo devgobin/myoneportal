@@ -1,0 +1,16 @@
+@import '../../../../scss/responsive-mixin.scss';
+
+.text-only-btn {
+    color: var(--blue);
+    font-size: 95%;
+}
+
+.w270 {
+    width: 270px;
+}
+
+.m-search {
+    @include desktop {
+        height: 300px !important;
+    }
+}

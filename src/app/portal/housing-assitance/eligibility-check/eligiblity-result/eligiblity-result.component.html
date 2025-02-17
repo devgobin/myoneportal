@@ -1,0 +1,149 @@
+<div class="content-body" [parentId]="pageId" appAccess="ELIGI">
+    <div class="rel">
+        <div class="h100">
+            <div class="cus-card mt-0 mx-0 p-4 pl-5 h100">
+                <div class="container-fluid p-0">
+                    <div class="row">
+                        <div class="col-xl-7">
+                            <div class="row">
+                                <div class="col-xl-12 pb-1 heading">
+                                    Member Information
+                                </div>
+                            </div>
+                            <div class="row py-3">
+                                <div class="col-md-4">
+                                    <div class="profile-img">
+                                        <ng-container *ngIf="housingAssitance.memberImage === ''">
+                                            <img class="image-responsive" src="assets/blank-profile.png" alt="">
+                                        </ng-container>
+                                        <ng-container *ngIf="housingAssitance.memberImage !== ''">
+                                            <img class="image-responsive" [src]="housingAssitance.memberImage" alt="">
+                                        </ng-container>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="container-fluid p-0">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>FNPF No</label>
+                                                <div class="fw500">
+                                                    <ng-container *ngIf="housingAssitance.fnpfNo === ''">
+                                                        -
+                                                    </ng-container>
+                                                    <ng-container *ngIf="housingAssitance.fnpfNo !== ''">
+                                                        {{housingAssitance.fnpfNo}}
+                                                    </ng-container>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label>TIN</label>
+                                                <div class="fw500">
+                                                    <ng-container *ngIf="housingAssitance.tin === ''">
+                                                        -
+                                                    </ng-container>
+                                                    <ng-container *ngIf="housingAssitance.tin !== ''">
+                                                        {{housingAssitance.tin}}
+                                                    </ng-container>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row py-3">
+                                            <div class="col-md-6">
+                                                <label>Name</label>
+                                                <div class="fw500">
+                                                    <ng-container *ngIf="housingAssitance.fnpfNo === ''">
+                                                        -
+                                                    </ng-container>
+                                                    <ng-container *ngIf="housingAssitance.fnpfNo !== ''">
+                                                        {{housingAssitance.fnpfNo}}
+                                                    </ng-container>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label>Date Of Birth</label>
+                                                <div class="fw500">
+                                                    <ng-container *ngIf="housingAssitance.dob === ''">
+                                                        -
+                                                    </ng-container>
+                                                    <ng-container *ngIf="housingAssitance.dob !== ''">
+                                                        {{housingAssitance.dob | moment :
+                                                        'DD-MM-YYYY' :
+                                                        'DD MMM YYYY'}}
+                                                    </ng-container>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row border-top py-3">
+                                <div class="col-md-12">
+                                    <p class="tc">Eligible to apply for Hosuing
+                                        Assitance</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>Member Eligibity</label>
+                                    <div class="fw500">
+                                        {{housingAssitance.memberEligibilityAmount | appCurrency }}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Revised Payment Period</label>
+                                    <div class="fw500">
+                                        {{housingAssitance.revisedRepaymentPeriod}}
+                                    </div>
+                                </div>
+                                <!-- <div class="col-md-6 pt-4 text-left" *ngIf="housingAssitance.isStatementGenerated === 'Y'">
+                                                            <label>Application No</label>
+                                                            <div class="fw500">
+                                                                #123456
+                                                            </div>
+                                                        </div> -->
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 text-right py-3">
+                                    <button mat-raised-button class="ml-3" color="secondary"
+                                        (click)="printEligibiltyStatement()">Print
+                                        Eligibility Statement</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-5 br-left">
+                            <div class="row">
+                                <div class="col-xl-12 pb-1 heading">
+                                    Loan Information
+                                </div>
+                            </div>
+                            <div class="row pt-2">
+                                <div class="col-md-12">
+                                    <app-number-control label="Outstanding Loan Balance"
+                                        [(ngModel)]="housingAssitance.outstandingLoanBalance" tabindex="1"
+                                        name="outstandingLoanBalance" required [errorTrue]="errorTrue" mandatory="true"
+                                        btnClicked="true">
+                                    </app-number-control>
+                                    <app-number-control label="Existing Housing Loan Amount ($)"
+                                        [(ngModel)]="housingAssitance.existingHousingLoanAmount" tabindex="2"
+                                        name="existingHousingLoanAmount" required [errorTrue]="errorTrue"
+                                        mandatory="true" btnClicked="true">
+                                    </app-number-control>
+                                    <app-number-control label="Monthly Repayment Amount($)"
+                                        [(ngModel)]="housingAssitance.monthlyRepaymentAmount" tabindex="3"
+                                        name="monthlyRepaymentAmount" required [errorTrue]="errorTrue" mandatory="true"
+                                        btnClicked="true">
+                                    </app-number-control>
+                                    <app-number-control label="Repayment Period"
+                                        [(ngModel)]="housingAssitance.repaymentPeriod" tabindex="4"
+                                        name="repaymentPeriod" required [errorTrue]="errorTrue" mandatory="true"
+                                        btnClicked="true">
+                                    </app-number-control>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

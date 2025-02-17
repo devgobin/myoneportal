@@ -1,0 +1,139 @@
+<div class="adjust-margin" appAccess="COMCO" [parentId]="pageId">
+    <form class="h100" #c="ngForm" (ngSubmit)="onsubmit(c)" autocomplete="off">
+        <div class="dialogue-header z-2">
+            <div>
+                Communication
+            </div>
+            <div class="ml-auto d-flex align-items-center">
+                <button mat-icon-button mat-dialog-close matTooltip="Close">
+                    <ion-icon name="close-outline"></ion-icon>
+                </button>
+            </div>
+        </div>
+        <div class="ab pt50 pb50">
+            <div class="rel">
+                <div class="h100">
+                    <div class="container-fluid pt-3 px-4">
+                        <ng-container *ngIf="service.communication.orgCommunicationId === 0">
+                            <div class="row">
+                                <div class="col-xl-6">
+                                    <app-select-control label="Communication Type"
+                                        [(ngModel)]="service.communication.orgCommunicationTypeValue" tabindex="1"
+                                        name="orgCommunicationTypeValue" [items]="service.DDL.DDLCommunictionTypeValue"
+                                        key="constant" keyname="description" [btnClicked]="btnClicked" required
+                                        mandatory="true"
+                                        [errorTrue]="errorTrue">
+                                    </app-select-control>
+                                </div>
+                                <div class="col-xl-6">
+                                    <app-select-control label="Communication Status"
+                                        [(ngModel)]="service.communication.orgCommunicationStatusValue" tabindex="2"
+                                        name="orgCommunicationStatusValue"
+                                        [items]="service.DDL.DDLCommunictionStatusValue" key="constant"
+                                        keyname="description" [btnClicked]="btnClicked"
+                                        mandatory="true" required
+                                        [errorTrue]="errorTrue">
+                                    </app-select-control>
+                                </div>
+                                <div class="col-xl-6">
+                                    <ng-container *ngIf="service.communication.orgCommunicationTypeValue ==='EMIL'">
+                                    <app-input-control class="form-2" label="Email Address"
+                                        [(ngModel)]="service.communication.communicationDetail" tabindex="3"
+                                        name="communicationDetail" [btnClicked]="btnClicked" required
+                                        mandatory="true"
+                                        [errorTrue]="errorTrue">
+                                    </app-input-control>
+                                </ng-container>
+                                <ng-container  *ngIf="service.communication.orgCommunicationTypeValue ==='PHNE'">
+                                    <app-phone-control label="Phone" [(ngModel)]="service.communication.communicationDetail"
+                                    placeholder="eg. 679-8888888" name="communicationDetail" tabindex="3"
+                                    [btnClicked]="btnClicked" errorText="Invalid Phone No" required
+                                    [errorTrue]="errorTrue" [mandatory]="true">
+                                  </app-phone-control>
+                                    <!-- <app-phone-control class="form-2" label="Phone"
+                                        [(ngModel)]="service.communication.communicationDetail" tabindex="3"
+                                        name="communicationDetail" [btnClicked]="btnClicked" required
+                                        mandatory="true"
+                                        [errorTrue]="errorTrue">
+                                    </app-phone-control> -->
+                                </ng-container>
+                                <ng-container  *ngIf="service.communication.orgCommunicationTypeValue ==='FAX'">
+                                    <app-number-control class="form-2" label="Fax"
+                                        [(ngModel)]="service.communication.communicationDetail" tabindex="4"
+                                        name="communicationDetail" [btnClicked]="btnClicked" required
+                                        mandatory="true"
+                                        [errorTrue]="errorTrue">
+                                    </app-number-control>
+                                </ng-container>
+                                </div>
+                            </div>
+                        </ng-container>
+                        <ng-container *ngIf="service.communication.orgCommunicationId !== 0">
+                            <div class="row">
+                                <div class="col-xl-6">
+                                    <app-select-control label="Communication Type"
+                                        [(ngModel)]="service.communication.orgCommunicationTypeValue" tabindex="1"
+                                        name="orgCommunicationTypeValue" [items]="service.DDL.DDLCommunictionTypeValue"
+                                        key="constant" keyname="description" btnClicked="true" required
+                                        mandatory="true"
+                                        [errorTrue]="errorTrue">
+                                    </app-select-control>
+                                </div>
+                                <div class="col-xl-6">
+                                    <app-select-control label="Communication Status"
+                                        [(ngModel)]="service.communication.orgCommunicationStatusValue" tabindex="2"
+                                        name="orgCommunicationStatusValue"
+                                        [items]="service.DDL.DDLCommunictionStatusValue" key="constant"
+                                        keyname="description" btnClicked="true" required
+                                        mandatory="true"
+                                        [errorTrue]="errorTrue">
+                                    </app-select-control>
+                                </div>
+                                <div class="col-xl-6">
+                                        <ng-container *ngIf="service.communication.orgCommunicationTypeValue ==='EMIL'">
+                                                <app-input-control class="form-2" label="Email Address"
+                                                    [(ngModel)]="service.communication.communicationDetail" tabindex="3"
+                                                    name="communicationDetail" [btnClicked]="btnClicked" required
+                                                    mandatory="true"
+                                                    [errorTrue]="errorTrue">
+                                                </app-input-control>
+                                            </ng-container>
+                                            <ng-container  *ngIf="service.communication.orgCommunicationTypeValue ==='FAX' || service.communication.orgCommunicationTypeValue ==='PHNE'">
+                                                <app-phone-control class="form-2" label="Phone / Fax"
+                                                    [(ngModel)]="service.communication.communicationDetail" tabindex="3"
+                                                    name="communicationDetail" [btnClicked]="btnClicked" required
+                                                    mandatory="true"
+                                                    [errorTrue]="errorTrue">
+                                                </app-phone-control>
+                                            </ng-container>
+                                    <!-- <app-textarea-control class="form-2" label="Communication Detail"
+                                        [(ngModel)]="service.communication.communicationDetail" tabindex="3"
+                                        name="communicationDetail" btnClicked="true" required
+                                        mandatory="true"
+                                        [errorTrue]="errorTrue">
+                                    </app-textarea-control> -->
+                                </div>
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <ng-container *ngIf="service.communication.orgCommunicationId === 0">
+            <div class="dialogue-footer z-2">
+                <button mat-raised-button class="ml-3" color="accent" type="submit"  [parentId]="pageId" appAccess="BTNSaveCommunicationCompanyProfile" >
+                    <div class="d-flex align-items-center">
+                        <ion-icon name="save-outline"></ion-icon>
+                        <div class="pl-2">Save</div>
+                    </div>
+                </button>
+                <a mat-button (click)="doClear()"  [parentId]="pageId" appAccess="BTNClearCommunicationCompanyProfile" >
+                    <div class="d-flex align-items-center">
+                        <ion-icon name="close-circle-outline"></ion-icon>
+                        <div class="pl-1">Clear</div>
+                    </div>
+                </a>
+            </div>
+        </ng-container>
+    </form>
+</div>

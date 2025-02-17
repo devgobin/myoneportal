@@ -1,0 +1,40 @@
+@import '../../../../../scss/responsive-mixin.scss';
+
+.m-search {
+    @include desktop {
+        height: 280px !important;
+    }
+}
+
+.view-btn {
+    .mat-raised-button {
+        white-space: pre-wrap;
+        font-size: 12px;
+
+        @include desktop {
+            white-space: nowrap;
+            font-size: 14px;
+        }
+    }
+
+    .mat-raised-button,
+    .mat-button {
+        line-height: 17px !important;
+        height: 100% !important;
+        max-width: 50%;
+
+        @include desktop {
+            line-height: 28px !important;
+            height: 28px !important;
+        }
+    }
+
+}
+
+.w100 {
+    width: 100%;
+}
+
+.pt100 {
+    padding-top: 110px;
+}

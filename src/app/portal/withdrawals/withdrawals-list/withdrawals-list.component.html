@@ -1,0 +1,171 @@
+<div class="content-body" [parentId]="pageId" appAccess="WDLIS">
+    <div class="rel">
+        <div class="d-flex z-2">
+            <div class="mr-auto d-flex align-items-center">
+                <h6 class="mb-0">Withdrawals List</h6>
+            </div>
+            <div class="ml-auto d-flex align-items-center">
+                <div class="search-box-d">
+
+                    <button mat-raised-button color="accent" class="ml-3" (click)="doNew()" [parentId]="pageId"
+                        appAccess="BTNAddNewApplicationWithdrawalsList">
+                        <ion-icon name="add"></ion-icon>
+                        New Application
+                    </button>
+
+                </div>
+            </div>
+        </div>
+        <div class="ab pt35">
+            <div class="rel">
+                <div class="table-responsive h100" *ngIf="!loadingTrue && dataSource.data.length > 0">
+                    <div class="ab pb40">
+                        <div class="rel">
+                            <table mat-table [dataSource]="dataSource" class="table-hover">
+                                <ng-container matColumnDef="withdrawalApplicationId">
+                                    <th mat-header-cell *matHeaderCellDef>Submission ID</th>
+                                    <td mat-cell *matCellDef="let element"> {{element.promisWithdrawalApplicationId}}
+                                    </td>
+                                </ng-container>
+                                <ng-container matColumnDef="fnpfNo">
+                                    <th mat-header-cell *matHeaderCellDef>FNPF No</th>
+                                    <td mat-cell *matCellDef="let element"> {{element.fnpfNo}} </td>
+                                </ng-container>
+                                <ng-container matColumnDef="fullname">
+                                    <th mat-header-cell *matHeaderCellDef>Full Name</th>
+                                    <td mat-cell *matCellDef="let element"> {{element.fullname}} </td>
+                                </ng-container>
+                                <ng-container matColumnDef="istrCurrentStatus">
+                                    <th mat-header-cell *matHeaderCellDef> Status </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.istrCurrentStatus}}
+                                    </td>
+                                </ng-container>
+                                <ng-container matColumnDef="dateOfBirth">
+                                    <th mat-header-cell *matHeaderCellDef>Date Of Birth</th>
+                                    <td mat-cell *matCellDef="let element" class="text-nowrap"> {{element.dateOfBirth|
+                                        moment : 'DD-MM-YYYY' : 'DD MMM YYYY'}} </td>
+                                </ng-container>
+                                <ng-container matColumnDef="createdDate">
+                                    <th mat-header-cell *matHeaderCellDef>Created Date</th>
+                                    <td mat-cell *matCellDef="let element" class="text-nowrap"> {{element.createdDate|
+                                        moment : 'DD-MM-YYYY hh:mm a' : 'DD MMM YYYY hh:mm a'}}
+                                    </td>
+                                </ng-container>
+                                <!-- <ng-container matColumnDef="phase">
+                                    <th mat-header-cell *matHeaderCellDef>Phase</th>
+                                    <td mat-cell *matCellDef="let element" class="text-nowrap"> {{element.phase}} </td>
+                                </ng-container> -->
+                                <ng-container matColumnDef="employmentStatusDescription">
+                                    <th mat-header-cell *matHeaderCellDef> Employment Status </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.employmentStatusDescription}}
+                                    </td>
+                                </ng-container>
+                                <ng-container matColumnDef="paymentMethodDescription">
+                                    <th mat-header-cell *matHeaderCellDef> Payment Method </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.paymentMethodDescription}} </td>
+                                </ng-container>
+                                <ng-container matColumnDef="memberConsentDescription">
+                                    <th mat-header-cell *matHeaderCellDef> Member Consent </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.memberConsentDescription}} </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="action">
+                                    <th mat-header-cell *matHeaderCellDef class="text-center" [parentId]="pageId"
+                                        appAccess="BTNActionWithdrawalsList"> Action </th>
+                                    <td mat-cell *matCellDef="let element" class="text-center py-0 text-nowrap"
+                                        [parentId]="pageId" appAccess="BTNActionWithdrawalsList">
+
+                                        <button mat-icon-button class="icon-only-btn" matTooltip="Edit"
+                                            (click)="doEdit(element)">
+                                            <ion-icon name="pencil-outline"></ion-icon>
+                                        </button>
+
+                                    </td>
+                                </ng-container>
+
+                                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                                <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+                                    [ngClass]="{'active': activeIndex == row}" (click)="active(row)"></tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="table-footer">
+                        <mat-paginator [showFirstLastButtons]="!data.isMobile" [hideTotalCount]="data.isMobile"
+                            showFirstLastButtons="true" [pageSizeOptions]="[10, 25, 50, 100]" [pageIndex]="pageIndex"
+                            [length]="totalrows" [pageSize]="searchParams.pageSize" (page)="getPagination($event)">
+                        </mat-paginator>
+
+                        <!-- (page)="pageEvent = getPagination($event)" -->
+                    </div>
+                </div>
+                <ng-container *ngIf="!loadingTrue && dataSource.data.length === 0 && showEmpty">
+                    <app-empty-state></app-empty-state>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- <ng-template cdkConnectedOverlay [cdkConnectedOverlayOrigin]="trigger" [cdkConnectedOverlayOpen]="isOpen"
+    cdkConnectedOverlayHasBackdrop="true" [cdkConnectedOverlayLockPosition]="trigger" (backdropClick)="isOpen = !isOpen"
+    cdkConnectedOverlayBackdropClass="search-backdrop">
+    <form>
+        <div class="search-panel">
+            <div class="ab">
+                <div class="rel">
+                    <div class="container-fluid pt-3">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <app-select-control label="CS Code">
+                                </app-select-control>
+                            </div>
+                            <div class="col-md-6">
+                                <app-input-control label="CS Month">
+                                </app-input-control>
+                            </div>
+                            <div class="col-md-6">
+                                <app-input-control label="CS Year">
+                                </app-input-control>
+                            </div>
+                            <div class="col-md-6">
+                                <app-select-control label="Status">
+                                </app-select-control>
+                            </div>
+                            <div class="col-md-6">
+                                <app-select-control label="Wages Month">
+                                </app-select-control>
+                            </div>
+                            <div class="col-md-6">
+                                <app-input-control label="Wages Year">
+                                </app-input-control>
+                            </div>
+                            <div class="col-md-6">
+                                <app-date-control label="From Due Date">
+                                </app-date-control>
+                            </div>
+                            <div class="col-md-6">
+                                <app-date-control label="To Due Date">
+                                </app-date-control>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="search-footer">
+                <div class="ml-auto d-flex align-items-center">
+                    <button mat-raised-button class="ml-3" color="accent" type="submit">
+                        <div class="d-flex align-items-center">
+                            <ion-icon name="checkmark-circle-outline"></ion-icon>
+                            <div class="pl-2">Apply</div>
+                        </div>
+                    </button>
+                    <button mat-button>
+                        <div class="d-flex align-items-center">
+                            <ion-icon name="close-circle-outline"></ion-icon>
+                            <div class="pl-1">Clear</div>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+</ng-template> -->

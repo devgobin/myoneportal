@@ -1,0 +1,137 @@
+<div class="content-body" [parentId]="pageId" appAccess="TIRSR">
+    <div class="content-body">
+        <div class="rel">
+            <div class="d-flex z-2">
+                <div class="mr-auto d-flex align-items-center">
+                    <h6 class="mb-0">Time Payment Schedule</h6>
+                </div>
+                <div class="ml-auto d-flex align-items-center">
+                    <div class="search-box-d">
+                        <button [parentId]="pageId" appAccess="BTNFilterTimePaymentRequest" mat-raised-button
+                            color="accent" cdkOverlayOrigin #trigger="cdkOverlayOrigin" (click)="isOpen = !isOpen">
+                            <ion-icon name="funnel-outline"></ion-icon>
+                            Filter
+                        </button>
+                        <button [parentId]="pageId" appAccess="BTNCeateNewTimePaymentRequest" mat-raised-button
+                            color="accent" class="ml-3" (click)="newPaymentRequest()">
+                            <ion-icon name="add"></ion-icon>
+                            New Payment Request
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="ab pt35">
+                <div class="rel">
+                    <div class="table-responsive h100">
+                        <div class="ab pb40">
+                            <div class="rel">
+                                <table mat-table [dataSource]="dataSource" class="table-hover" matSort
+                                    (matSortChange)="sortData($event)" *ngIf="dataSource.data.length > 0">
+                                    <ng-container matColumnDef="requestRefNo">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Request No </th>
+                                        <td mat-cell *matCellDef="let element" class="hyperlink-td"
+                                            (click)="onEdit(element)">
+                                            {{element.requestRefNo}}
+                                        </td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="requestedDate">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Request Date </th>
+                                        <td mat-cell *matCellDef="let element"> {{element.requestedDate | moment :
+                                            'DD-MM-YYYY' :
+                                            'DD MMM YYYY'}} </td>
+                                    </ng-container>
+                                    <!-- <ng-container matColumnDef="fileName">
+                                        <th mat-header-cell *matHeaderCellDef> Document </th>
+                                        <td mat-cell *matCellDef="let element">
+                                            {{element.protoTimePaymentPlanRequestDocument.pDocumentFile.fileName}} </td>
+                                    </ng-container> -->
+                                    <ng-container matColumnDef="timePaymentRequestStatusDescription">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+                                        <td mat-cell *matCellDef="let element">
+                                            {{element.timePaymentRequestStatusDescription}} </td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="action">
+                                        <th mat-header-cell *matHeaderCellDef class="text-center" [parentId]="pageId"
+                                            appAccess="BTNEditTimePaymentRequest"> Action </th>
+                                        <td mat-cell *matCellDef="let element" class="text-center py-0 text-nowrap"
+                                            [parentId]="pageId" appAccess="BTNEditTimePaymentRequest">
+                                            <button mat-icon-button class="icon-only-btn" matTooltip="Edit"
+                                                (click)="onEdit(element)" [parentId]="pageId"
+                                                appAccess="BTNEditTimePaymentRequest">
+                                                <ion-icon name="pencil-outline"></ion-icon>
+                                            </button>
+                                        </td>
+                                    </ng-container>
+
+                                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+                                        [ngClass]="{'active': activeIndex == row}" (click)="active(row)"></tr>
+                                </table>
+                                <ng-container *ngIf="dataSource.data.length === 0">
+                                    <app-empty-state></app-empty-state>
+                                </ng-container>
+                            </div>
+                        </div>
+                        <div class="table-footer">
+                            <mat-paginator [showFirstLastButtons]="!data.isMobile" [hideTotalCount]="data.isMobile"
+                                showFirstLastButtons="true" [pageSizeOptions]="[10, 25, 50, 100]">
+                            </mat-paginator>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <ng-template cdkConnectedOverlay [cdkConnectedOverlayOrigin]="trigger" [cdkConnectedOverlayOpen]="isOpen"
+        cdkConnectedOverlayHasBackdrop="true" [cdkConnectedOverlayLockPosition]="trigger"
+        (backdropClick)="isOpen = !isOpen" cdkConnectedOverlayBackdropClass="search-backdrop">
+        <form>
+            <div class="search-panel" style="height:250px !important;">
+                <div class="ab">
+                    <div class="rel">
+                        <div class="container-fluid pt-3">
+                            <div class="row pt-2">
+                                <div class="col-md-6">
+                                    <app-input-control label="Request Ref No" [(ngModel)]="searchParams.requestRefNo"
+                                        tabindex="2" name="requestRefNo">
+                                    </app-input-control>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <app-date-control label="Request From Date"
+                                        [(ngModel)]="searchParams.requestedDateFrom" tabindex="2"
+                                        name="requestedDateFrom" [maxDate]="searchParams.requestedDateTo">
+                                    </app-date-control>
+                                </div>
+                                <div class="col-md-6">
+                                    <app-date-control label="Request To Date" [(ngModel)]="searchParams.requestedDateTo"
+                                        tabindex="2" name="requestedDateTo" [minDate]="searchParams.requestedDateFrom">
+                                    </app-date-control>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="search-footer">
+                    <div class="ml-auto d-flex align-items-center">
+                        <button [parentId]="pageId" appAccess="BTNSearchTimePaymentRequest" mat-raised-button
+                            class="ml-3" color="accent" (click)="doSearch()">
+                            <div class="d-flex align-items-center">
+                                <ion-icon name="checkmark-circle-outline"></ion-icon>
+                                <div class="pl-2">Apply</div>
+                            </div>
+                        </button>
+                        <a mat-button [parentId]="pageId" appAccess="BTNClearTimePaymentRequestSearch"
+                            (click)="doClear()">
+                            <div class="d-flex align-items-center">
+                                <ion-icon name="close-circle-outline"></ion-icon>
+                                <div class="pl-1">Clear</div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </ng-template>
+</div>

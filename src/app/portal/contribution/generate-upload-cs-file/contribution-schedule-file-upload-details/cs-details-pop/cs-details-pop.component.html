@@ -1,0 +1,137 @@
+<div class="adjust-margin">
+    <div mat-dialog-title class="text-secondary z-2">
+        {{xData.title}}
+    </div>
+    <div class="ab pt45 pb50">
+        <div class="rel">
+            <div class="container-fluid h100">
+                <div class="row h100">
+                    <div class="col-md-7 h100">
+                        <div class="ab">
+                            <div class="rel">
+                                <div class="py-2 px-4">
+                                    <div class="table-responsive">
+                                        <table class="cs-table">
+                                            <tbody>
+                                                <ng-container *ngFor="let xbody of xData.header; let i = index">
+                                                    <tr>
+                                                        <td>{{xbody.name}}
+                                                            <ng-container *ngIf="xbody.required">
+                                                                <span class="mandatory">*</span>
+                                                            </ng-container>
+                                                        </td>
+                                                        <!-- <td class="mw-200p">
+                                                    <ng-container *ngIf="xData.row.listfilecolumn[i]">
+                                                        <input type="text" class="table-input" [(ngModel)]="xData.row.listfilecolumn[i].columnValue">
+                                                    </ng-container>
+                                                    
+                                                </td> -->
+                                                        <ng-container
+                                                            *ngIf="xData.row.listfilecolumn[i] else successTd">
+                                                            <ng-container
+                                                                *ngIf="xData.row.listfilecolumn[i].lsterrormessage;then errorTemplate else successTemplate">
+                                                            </ng-container>
+                                                            <ng-template #errorTemplate>
+                                                                <ng-container
+                                                                    *ngIf="xData.row.listfilecolumn[i].lsterrormessage.length > 0; else successTemplate">
+                                                                    <td class="mw-200p cs-error"
+                                                                        matTooltip="{{xData.row.listfilecolumn[i].lsterrormessage | csErrorTooltip}}"
+                                                                        matTooltipClass="cs-error-tooltip"
+                                                                        matTooltipPosition="right"
+                                                                        #tooltip="matTooltip">
+                                                                        <input type="text" class="table-input"
+                                                                            [(ngModel)]="xData.row.listfilecolumn[i].columnValue"
+                                                                            (focus)="setError(xData.row.listfilecolumn[i].lsterrormessage)"
+                                                                            (focusout)="clearOut()" name="body[i]">
+                                                                    </td>
+                                                                </ng-container>
+                                                            </ng-template>
+                                                            <ng-template #successTemplate>
+                                                                <td class="mw-200p cs-success">
+                                                                    <input type="text" class="table-input"
+                                                                        [(ngModel)]="xData.row.listfilecolumn[i].columnValue">
+                                                                </td>
+                                                            </ng-template>
+                                                        </ng-container>
+                                                        <ng-template #successTd>
+                                                            <td class="mw-200p">
+
+                                                            </td>
+                                                        </ng-template>
+                                                        <ng-container *ngIf="xData.title !== 'CS Footer Information'">
+                                                            <td class="w70">
+                                                                <button mat-icon-button matTooltip="Remove"
+                                                                    matTooltipPosition="left" (click)="removeRow(i)">
+                                                                    <ion-icon name="remove-circle-outline"></ion-icon>
+                                                                </button>
+                                                                <button mat-icon-button class="ml-1"
+                                                                    matTooltip="Push Down" matTooltipPosition="left"
+                                                                    (click)="insertRow(i)">
+                                                                    <ion-icon name="arrow-down-outline"></ion-icon>
+                                                                </button>
+                                                            </td>
+                                                        </ng-container>
+
+                                                    </tr>
+                                                </ng-container>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-5 h100 ml-auto">
+                        <div class="p-3 h100">
+                            <div class="info-box">
+                                <div class="info-container">
+                                    <ng-container *ngIf="xData.title !== 'CS Footer Information'">
+                                        <h3>Information</h3>
+                                        <ul>
+                                            <li>
+                                                Use <ion-icon name="arrow-down-outline"></ion-icon> to insert a row.
+                                            </li>
+                                            <li>
+                                                Use <ion-icon name="remove-circle-outline"></ion-icon> to remove a row.
+                                            </li>
+                                        </ul>
+                                    </ng-container>
+                                    <ng-container *ngIf="selectedError.length > 0">
+                                        <h3 class="text-danger">Error</h3>
+                                        <ul>
+                                            <ng-container *ngFor="let err of selectedError">
+                                                <li class="text-danger">
+                                                    {{err.msgDescription}}
+                                                </li>
+                                            </ng-container>
+                                        </ul>
+                                    </ng-container>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="dialogue-footer z-2">
+        <div class="d-flex align-items-center">
+            <div>
+                <button mat-button color="accent" (click)="resetData()">
+                    Reset
+                </button>
+            </div>
+            <div class="ml-auto">
+                <div class="d-flex align-items-center">
+                    <button mat-button color="accent" (click)="close()">
+                        Cancel
+                    </button>
+                    <button mat-raised-button color="accent" class="ml-3" (click)="saveData()"
+                        *ngIf="csService.csFileDetails.statusValue!='SUBMT'">
+                        Save
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

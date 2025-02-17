@@ -1,0 +1,387 @@
+<div class="adjust-margin" appAccess="EEMDE" [parentId]="pageId">
+    <form class="h100" #c="ngForm" autocomplete="off">
+        <ng-container *ngIf="!data.isMobile">
+            <div class="dialogue-header z-2">
+                <div>
+                    <ng-container *ngIf="xdata.type === 'new'">
+                        New Employee Contribution Details
+                    </ng-container>
+                    <ng-container *ngIf="xdata.type === 'edit'">
+                        Edit Employee Contribution Details
+                    </ng-container>
+                </div>
+                <div class="ml-auto d-flex align-items-center">
+                    <div class=" mr-3" *ngIf="service.createemployee.detailStatusDescription != ''">
+                        Status :
+                        <b class="pl-2">{{service.createemployee.detailStatusDescription}}</b>
+                    </div>
+                    <button mat-icon-button mat-dialog-close matTooltip="Close" (click)="closeDialogue()">
+                        <ion-icon name="close-outline"></ion-icon>
+                    </button>
+                </div>
+            </div>
+        </ng-container>
+        <ng-container *ngIf="data.isMobile">
+            <div class="dialogue-header1 z-2">
+                <div class="d-flex align-items-center p-1">
+                    <div>
+                        <ng-container *ngIf="xdata.type === 'new'">
+                            New Employee Contribution
+                        </ng-container>
+                        <ng-container *ngIf="xdata.type === 'edit'">
+                            Edit Employee Contribution
+                        </ng-container>
+                    </div>
+                    <div class="ml-auto">
+                        <button mat-icon-button mat-dialog-close matTooltip="Close" (click)="closeDialogue()" class="d-flex  align-items-center
+                        justify-content-center ">
+                            <ion-icon name="close-outline"></ion-icon>
+                        </button>
+                    </div>
+                </div>
+                <div class="pl-1" *ngIf="service.createemployee.detailStatusDescription != ''">
+                    Status :
+                    <b class="pl-2">{{service.createemployee.detailStatusDescription}}</b>
+                </div>
+            </div>
+
+        </ng-container> -
+        <div class="ab pt50 pb50">
+            <div class="rel">
+                <div class="h100">
+                    <div class="h100">
+                        <div class="panel-stepper h100">
+                            <div class="panel-stepper-body">
+                                <div class="ab">
+                                    <div class="rel">
+                                        <div class="container-fluid pt-3">
+                                            <div class="row">
+                                                <div class="col-md-12 p-0">
+                                                    <div class="container-fluid">
+                                                        <div class="row relative">
+                                                            <div class="col-md-3">
+                                                                <app-input-control label="FNPF No"
+                                                                    [(ngModel)]="service.createemployee.fnpfNo"
+                                                                    tabindex="1" name="fnpfNo" [required]="fnpfRequired"
+                                                                    [errorTrue]="fnpfError" [mandatory]="fnpfError">
+                                                                </app-input-control>
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <app-number-control label="TIN"
+                                                                    [(ngModel)]="service.createemployee.tin"
+                                                                    tabindex="6" name="tin" [required]="tinRequired"
+                                                                    [errorTrue]="tinError" [mandatory]="tinError"
+                                                                    limit="10" pattern="[0-9]{9,10}$" #tin="ngModel"
+                                                                    [errorTrue]="service.createemployee.tin === '' && (tin.dirty || tin.touched)"
+                                                                    errorText="{{tin.invalid && InvalidtinError ? 'Should be 9 or 10 digit numbers' : ''}}">
+                                                                </app-number-control>
+                                                            </div>
+                                                            <div class="col-md-2">
+                                                                <div class="label-space"></div>
+                                                                <a mat-raised-button color="accent" [parentId]="pageId"
+                                                                    appAccess="BTNGetFromLastContributionSubmitted"
+                                                                    (click)="retrivedata()">
+                                                                    RETRIEVE
+                                                                </a>
+                                                            </div>
+                                                            <!-- <ng-container *ngIf="!data.isMobile"> -->
+                                                            <div class="col-md-4 pl-0">
+                                                                <div class="label-space-17"></div>
+                                                                <div
+                                                                    class="d-flex m-0 w-100 cus-card cus-pad justify-content-center bg-card align-items-center cs-mw">
+                                                                    <div>
+                                                                        <mat-checkbox
+                                                                            (change)="CheckSurpressWarning($event.checked)"
+                                                                            [checked]="service.createemployee.suppressWaringFlag  === 'Y'">
+                                                                            Suppress Warning</mat-checkbox>
+                                                                    </div>
+                                                                    <div class="d-flex">
+                                                                        <div class="error-title" matRipple>
+                                                                            {{service.createemployee.errorMessageCount}}
+                                                                        </div>
+                                                                        <div class="warning-title" matRipple>
+                                                                            {{service.createemployee.warningMessageCount}}
+                                                                        </div>
+                                                                        <div class="information-title" matRipple>
+                                                                            {{service.createemployee.infoMessageCount}}
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- </ng-container> -->
+                                                            <div class="col-md-12 mar-1" *ngIf="fnpfError && tinError">
+                                                                <span class="text-danger"><small>Either
+                                                                        FNPF No or TIN required to retrieve
+                                                                        data</small></span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row mt-2 pt-2 border-top">
+                                                            <div class="col-md-12 pb-1 heading">Employee Details
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <app-input-control label="First Name"
+                                                                    [(ngModel)]="service.createemployee.firstName"
+                                                                    tabindex="2" name="firstName" required
+                                                                    [errorTrue]="errorTrue" mandatory="true"
+                                                                    [upperCase]="true" emojiType="name">
+                                                                </app-input-control>
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <app-input-control label="Middle Name"
+                                                                    [(ngModel)]="service.createemployee.middleName"
+                                                                    tabindex="3" name="middleName" [upperCase]="true"
+                                                                    emojiType="name">
+                                                                </app-input-control>
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <app-input-control label="Last Name"
+                                                                    [(ngModel)]="service.createemployee.lastName"
+                                                                    tabindex="4" name="lastName" [upperCase]="true"
+                                                                    emojiType="name">
+                                                                </app-input-control>
+                                                            </div>
+                                                            <!-- <div class="col-md-4">
+                                                                        <app-date-control label="Date of Birth"
+                                                                            [(ngModel)]="service.createemployee.dob" tabindex="5"
+                                                                            name="dateOfBirth" required [errorTrue]="errorTrue"
+                                                                            mandatory="true">
+                                                                        </app-date-control>
+                                                                    </div> -->
+                                                            <!-- <div class="col-md-4">
+                                                                        <app-input-control label="Payroll Name" tabindex="5">
+                                                                        </app-input-control>
+                                                                    </div> -->
+
+                                                            <!-- <div class="col-md-4">
+                                                                        <app-input-control label="Payroll TIN" tabindex="7">
+                                                                        </app-input-control>
+                                                                    </div> -->
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-3">
+                                                                <app-select-control label="Employment Status"
+                                                                    [(ngModel)]="service.createemployee.employmentStatusValue"
+                                                                    tabindex="6"
+                                                                    [items]="service.DDL.DDLEmploymentStatusValue"
+                                                                    key="constant" keyname="description"
+                                                                    name="employmentstatus">
+                                                                </app-select-control>
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <app-date-control label="Employment Status Date"
+                                                                    [(ngModel)]="service.createemployee.employmentStatusDate"
+                                                                    tabindex="5" name="employmentStatusDate">
+                                                                </app-date-control>
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <app-select-control label="Payment Frequency"
+                                                                    [(ngModel)]="service.createemployee.paymentFrequencyValue"
+                                                                    tabindex="6"
+                                                                    [items]="service.DDL.DDLPaymentFrequencyValue"
+                                                                    key="constant" keyname="description"
+                                                                    name="paymentfrequency">
+                                                                </app-select-control>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div class="fs12px">
+                                                                    Occupation Code
+                                                                </div>
+                                                                <div class="d-flex align-items-center">
+                                                                    <div class="mw200p mr-2">
+                                                                        <div class="">
+                                                                            <b>
+                                                                                <ng-container
+                                                                                    *ngIf="service.createemployee.occupation=== ''">
+                                                                                    -
+                                                                                </ng-container>
+                                                                                <ng-container
+                                                                                    *ngIf="service.createemployee.occupation!== ''">
+                                                                                    {{service.createemployee.occupation}}
+                                                                                </ng-container>
+                                                                            </b>
+                                                                        </div>
+                                                                    </div>
+                                                                    <button mat-raised-button color="accent"
+                                                                        class="padding" (click)="openCode()">
+                                                                        <ion-icon name="search-outline"></ion-icon>
+                                                                    </button>
+                                                                </div>
+
+                                                                <!-- <app-input-control label="Occupation Code"
+                                                                    [(ngModel)]="service.createemployee.occupationCode"
+                                                                    tabindex="2" name="occupationcodee">
+                                                                </app-input-control> -->
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12 mt-2 px-0 border-top pt-2">
+                                                    <div class="container-fluid">
+                                                        <div class="row">
+                                                            <div class="col-md-12 pb-1 heading">Contribution Details
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="row">
+                                                                    <div class="col-md-6">
+                                                                        <app-number-control label="Monthly Gross Salary"
+                                                                            [(ngModel)]="service.createemployee.grossSalary"
+                                                                            tabindex="7" name="grossSalary" required
+                                                                            [errorTrue]="errorTrue" mandatory="true"
+                                                                            decimal="2" (input)="doCalcCCA()">
+                                                                        </app-number-control>
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <app-number-control
+                                                                            label="Compulsory Contribution Amount"
+                                                                            [(ngModel)]="service.createemployee.complulsoryContri"
+                                                                            tabindex="8" name="compl" required
+                                                                            [errorTrue]="errorTrue" mandatory="true"
+                                                                            decimal="2"
+                                                                            (input)="CalculateTotalContribution()">
+                                                                        </app-number-control>
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <app-number-control
+                                                                            label="Employee Additional Contribution"
+                                                                            [(ngModel)]="service.createemployee.employeeAddContri"
+                                                                            tabindex="9" name="employeeAddContri"
+                                                                            decimal="2"
+                                                                            (input)="CalculateTotalContribution()">
+                                                                        </app-number-control>
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <app-number-control
+                                                                            label="Employer Additional Contribution"
+                                                                            [(ngModel)]="service.createemployee.employerAddContri"
+                                                                            tabindex="10" name="employerAddContri"
+                                                                            decimal="2"
+                                                                            (input)="CalculateTotalContribution()">
+                                                                        </app-number-control>
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-group">
+                                                                            <label for="">Payroll Name</label>
+                                                                            <div>
+                                                                                <b>{{service.createemployee.payrollName}}</b>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-group">
+                                                                            <label for="">Payroll TIN</label>
+                                                                            <div>
+                                                                                <b>{{service.createemployee.payrollTin}}</b>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4 pl-4">
+                                                                <div class="table-responsive">
+                                                                    <table class="table table-bordered">
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                <td>Employer
+                                                                                    Contribution
+                                                                                    Rate (%)</td>
+                                                                                <td>{{service.createemployee.employerContriRate}}
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>Employee
+                                                                                    Contribution
+                                                                                    Rate (%)</td>
+                                                                                <td>{{service.createemployee.employeeContriRate}}
+                                                                                </td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="">Total
+                                                                        Contribution</label>
+                                                                    <h4> {{service.createemployee.totalContri
+                                                                        | appCurrency}}
+                                                                    </h4>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="dialogue-footer z-2">
+            <button mat-raised-button color="accent" class="ml-3" (click)="saveData(c)" [parentId]="pageId"
+                appAccess="BTNConfirmAndSubmitStep3Confirmation">
+                SAVE AND SUBMIT
+            </button>
+        </div>
+    </form>
+</div>
+<ng-template #occupationCode>
+    <div class="adjust-margin h100">
+        <form class="h100" #c="ngForm" autocomplete="off">
+            <div class="dialogue-header z-2">
+                <div>
+                    Search
+                </div>
+                <div class="ml-auto d-flex align-items-center">
+                    <button mat-icon-button mat-dialog-close matTooltip="Close">
+                        <ion-icon name="close-outline"></ion-icon>
+                    </button>
+                </div>
+            </div>
+            <div mat-dialog-content class="flex-1 h100 m-0 px-0">
+                <div class="h100 vertical-flex p-3 ">
+                    <div>
+                        <label class="mb-0">Description :</label>
+                        <app-input-control>
+                        </app-input-control>
+                    </div>
+                    <div class="flex-1 h100">
+                        <div class="table-responsive h100">
+                            <div class="ab">
+                                <div class="rel">
+                                    <table class="table-hover mat-table">
+                                        <thead>
+                                            <tr class="mat-header-row">
+                                                <th class="mat-header-cell"></th>
+                                                <th class="mat-header-cell">Code</th>
+                                                <th class="mat-header-cell">Description</th>
+                                            </tr>
+                                        <tbody>
+                                            <tr class="mat-row"
+                                                *ngFor="let config of service.DDL.DDLCSDetailOccupationCode">
+                                                <td class="mat-cell">
+                                                    <mat-checkbox (change)="getOccupationCode($event.checked, config)"
+                                                        [checked]="config.isChecked === true"></mat-checkbox>
+                                                </td>
+                                                <td class="mat-cell">{{config.constant}}</td>
+                                                <td class="mat-cell">{{config.description}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="dialogue-footer z-2">
+                <button mat-raised-button color="accent" class="ml-3" (click)="saveCode()">
+                    OK
+                </button>
+            </div>
+        </form>
+    </div>
+</ng-template>

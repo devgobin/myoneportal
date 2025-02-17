@@ -1,0 +1,119 @@
+<div class="adjust-margin overflow" [parentId]="pageId" appAccess="SENDM">
+    <div class="dialogue-header z-2">
+        <div>
+            Send Message Detail
+        </div>
+        <div class="ml-auto d-flex align-items-center">
+            <button [parentId]="pageId" appAccess="BTNCloseMessage" mat-icon-button mat-dialog-close matTooltip="Close">
+                <ion-icon name="close-outline"></ion-icon>
+            </button>
+        </div>
+    </div>
+    <div class="ab pt50 pb50">
+        <div class="rel">
+            <div class="h100">
+                <form #l="ngForm" (ngSubmit)="onSubmit(l)" class="h100">
+                    <div class="container-fluid">
+                        <div class="row pt-3">
+                            <div class="col-md-3">
+                                <app-select-control label="Service Type"
+                                    [(ngModel)]="service.createMessage.categoryValue" tabindex="1"
+                                    [items]="viewAppointmentParams.DDLAppointmentMessageCategory" key="constant"
+                                    keyname="description" mandatory="true" name="categoryValue" required
+                                    [errorTrue]="errorTrue" [btnClicked]="btnClicked">
+                                </app-select-control>
+                            </div>
+                            <div class="col-md-3">
+                                <app-select-control label="Business Type"
+                                    [(ngModel)]="service.createMessage.transactionTypeValue" tabindex="1"
+                                    [items]="viewAppointmentParams.DDLAppointmentMessageTransactionType" key="constant"
+                                    keyname="description" mandatory="true" [btnClicked]="btnClicked"
+                                    name="transactionTypeValue" required [errorTrue]="errorTrue">
+                                </app-select-control>
+                            </div>
+                            <div class="col-md-6">
+                                <app-select-control label="Transaction Type"
+                                    [(ngModel)]="service.createMessage.reasonTypeValue" tabindex="1"
+                                    [items]="viewAppointmentParams.DDLAppointmentMessageReason" key="constant"
+                                    keyname="description" name="reasonTypeValue" required [errorTrue]="errorTrue"
+                                    mandatory="true" [btnClicked]="btnClicked">
+                                </app-select-control>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <app-textarea-control label="Content" class="form-5"
+                                    [(ngModel)]="service.createMessage.messageContent" name="messageContent" required
+                                    [errorTrue]="errorTrue" mandatory="true" [btnClicked]="btnClicked"
+                                    maxlength="{{maxlength}}" [errorText]="errorText">
+                                </app-textarea-control>
+                            </div>
+                            <div class="col-md-12 text-right">
+                                <small *ngIf="service.createMessage.messageContent !== null">
+                                    Maximum
+                                    {{service.createMessage.messageContent.length}}
+                                    / {{service.createMessage.sendMsgContent}} ,
+                                    {{service.createMessage.sendMsgContent -
+                                    service.createMessage.messageContent.length}}
+                                    characters left.
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="dialogue-footer z-2">
+        <ng-container *ngIf="!data.isMobile">
+            <div class="d-flex align-items-center">
+                <div class="mr-auto pl-3">
+                    <label>Status</label>
+                    <span class="px-1">:</span>
+                    <b>{{service.createMessage.deliveryStatusDescription}}</b>
+                </div>
+                <div class="ml-auto d-flex align-items-center"
+                    *ngIf="this.service.createMessage.deliveryStatusValue !== 'SENT'">
+                    <button [parentId]="pageId" appAccess="BTNSendMessage" mat-raised-button color="accent" class="ml-2"
+                        (click)="sendMessage(l)">
+                        Send
+                    </button>
+                    <a [parentId]="pageId" appAccess="BTNSaveMessage" mat-raised-button color="accent" class="ml-2"
+                        (click)="onSubmit(l)">
+                        Save
+                    </a>
+                    <ng-container *ngIf="service.createMessage.messageId > 0">
+                        <a [parentId]="pageId" appAccess="BTNDeleteMessage" mat-raised-button color="danger"
+                            class="ml-2" (click)="checkdelete()">
+                            Delete
+                        </a>
+                    </ng-container>
+                </div>
+            </div>
+        </ng-container>
+        <ng-container *ngIf="data.isMobile">
+            <div class="mr-auto pl-3">
+                <label>Status</label>
+                <span class="px-1">:</span>
+                <b>{{service.createMessage.deliveryStatusDescription}}</b>
+            </div>
+            <div class="pl-2 d-flex align-items-center"
+                *ngIf="this.service.createMessage.deliveryStatusValue !== 'SENT'">
+                <button [parentId]="pageId" appAccess="BTNSendMessage" mat-raised-button color="accent" class="ml-2"
+                    (click)="sendMessage(l)">
+                    Send
+                </button>
+                <a [parentId]="pageId" appAccess="BTNSaveMessage" mat-raised-button color="accent" class="ml-2"
+                    (click)="onSubmit(l)">
+                    Save
+                </a>
+                <ng-container *ngIf="service.createMessage.messageId > 0">
+                    <a [parentId]="pageId" appAccess="BTNDeleteMessage" mat-raised-button color="danger" class="ml-2"
+                        (click)="checkdelete()">
+                        Delete
+                    </a>
+                </ng-container>
+            </div>
+        </ng-container>
+    </div>
+</div>

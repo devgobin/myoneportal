@@ -1,0 +1,7 @@
+@import '../../../../scss/responsive-mixin.scss';
+
+.m-search {
+    @include desktop {
+        height: 250px !important;
+    }
+}

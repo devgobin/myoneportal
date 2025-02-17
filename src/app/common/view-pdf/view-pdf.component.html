@@ -1,0 +1,22 @@
+<div class="adjust-margin">
+    <!-- <div class="ab">
+        <div class="rel"> -->
+    <div class="pdf-viewer">
+        <ng-container *ngIf="!isImage">
+            <div class="ab">
+                <!-- <div class="rel"> -->
+                <object [data]="data.url | safe: 'resourceUrl'" type='application/pdf'></object>
+                <!-- <embed [src]="data.url | safe: 'resourceUrl'" type='application/pdf' /> -->
+                <!-- </div> -->
+            </div>
+        </ng-container>
+        <ng-container *ngIf="isImage">
+            <div class="image-box">
+                <img [src]="data.url | safe: 'resourceUrl'" alt="" class="viewer-img" />
+            </div>
+        </ng-container>
+    </div>
+    <!-- </div>
+    </div> -->
+    <!-- {{data.url}} -->
+</div>

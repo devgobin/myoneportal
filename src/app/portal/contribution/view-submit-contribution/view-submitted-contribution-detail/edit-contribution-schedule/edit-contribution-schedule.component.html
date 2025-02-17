@@ -1,0 +1,244 @@
+<div class="adjust-margin">
+    <div class="dialogue-header z-2">
+        <div>
+            Edit Employee Detail
+        </div>
+        <div class="ml-auto d-flex align-items-center">
+            <button mat-icon-button mat-dialog-close matTooltip="Close">
+                <ion-icon name="close-outline"></ion-icon>
+            </button>
+        </div>
+    </div>
+    <div class="ab pt50 pb50">
+        <div class="rel">
+            <div class="h100">
+                <app-stepper #registrationSteps>
+                    <cdk-step label="Employee Details" [completed]="step1Completed">
+                        <div class="h100">
+                            <form class="h100">
+                                <div class="panel-stepper h100">
+                                    <div class="panel-stepper-body">
+                                        <div class="ab">
+                                            <div class="rel">
+                                                <div class="container-fluid pt-3">
+                                                    <div class="row">
+                                                        <div class="col-xl-4">
+                                                            <app-input-control label="FNPF No">
+                                                            </app-input-control>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-xl-4">
+                                                            <app-input-control label="First Name">
+                                                            </app-input-control>
+                                                        </div>
+                                                        <div class="col-xl-4">
+                                                            <app-input-control label="Middle Name">
+                                                            </app-input-control>
+                                                        </div>
+                                                        <div class="col-xl-4">
+                                                            <app-input-control label="Last Name">
+                                                            </app-input-control>
+                                                        </div>
+                                                        <div class="col-xl-4">
+                                                            <app-input-control label="Payroll Name">
+                                                            </app-input-control>
+                                                        </div>
+                                                        <div class="col-xl-4">
+                                                            <app-input-control label="TIN" limit="10">
+                                                            </app-input-control>
+                                                        </div>
+                                                        <div class="col-xl-4">
+                                                            <app-input-control label="Payroll TIN" limit="10">
+                                                            </app-input-control>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </cdk-step>
+                    <cdk-step label="Contribution Details" [completed]="step2Completed">
+                        <div class="h100">
+                            <form class="h100">
+                                <div class="panel-stepper h100">
+                                    <div class="panel-stepper-body">
+                                        <div class="ab">
+                                            <div class="rel">
+                                                <div class="container-fluid pt-3">
+                                                    <div class="row">
+                                                        <div class="col-md-12 pb-3">
+                                                            <button mat-raised-button color="accent">
+                                                                GET FROM LAST CONTRIBUTION SUBMITTED
+                                                            </button>
+                                                        </div>
+                                                        <div class="col-xl-5">
+                                                            <div>
+                                                                <app-input-control label="Gross Salary $">
+                                                                </app-input-control>
+                                                            </div>
+                                                            <div>
+                                                                <app-input-control label="Compl $">
+                                                                </app-input-control>
+                                                            </div>
+                                                            <div>
+                                                                <app-input-control label="Employee Add $">
+                                                                </app-input-control>
+                                                            </div>
+                                                            <div>
+                                                                <app-input-control label="Employer Add $">
+                                                                </app-input-control>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-7 pl-4">
+                                                            <div class="table-responsive">
+                                                                <table class="table table-bordered">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td>Employer Contr Rate</td>
+                                                                            <td>12.15</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>Employee Contr Rate</td>
+                                                                            <td>12.15</td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="">Total Contribution:</label>
+                                                                <h4>$2,25,000.00</h4>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </cdk-step>
+                    <cdk-step label="Confirmation" [completed]="step3Completed">
+                        <div class="h100">
+                            <form class="h100">
+                                <div class="panel-stepper h100">
+                                    <div class="panel-stepper-body">
+                                        <div class="ab">
+                                            <div class="rel">
+                                                <div class="container-fluid pt-3">
+                                                    <div class="row">
+                                                        <div class="col-xl-6">
+                                                            <div class="row">
+                                                                <div class="col-md-6 pl-0">
+                                                                    <div class="form-group">
+                                                                        <label for="">
+                                                                            FNPF No</label>
+                                                                        <div class="fw500">87678</div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6 pr-0">
+                                                                    <div class="form-group">
+                                                                        <label for="">
+                                                                            Employee Name</label>
+                                                                        <div class="fw500">ABT</div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6 pl-0">
+                                                                    <div class="form-group">
+                                                                        <label for="">
+                                                                            TIN</label>
+                                                                        <div class="fw500">87678</div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6 pr-0">
+                                                                    <div class="form-group">
+                                                                        <label for="">
+                                                                            Gross Salary $</label>
+                                                                        <div class="fw500">87678</div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6 pl-0">
+                                                                    <div class="form-group">
+                                                                        <label for="">
+                                                                            Employer Contr Rate</label>
+                                                                        <div class="fw500">87678</div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6 pr-0">
+                                                                    <div class="form-group">
+                                                                        <label for="">
+                                                                            Employee Contr Rate</label>
+                                                                        <div class="fw500">87678</div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="table-responsive">
+                                                                <table class="table table-bordered">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td>Compl $</td>
+                                                                            <td>1200</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>Employer Add Contr $</td>
+                                                                            <td>12000</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>Employee Add Contr</td>
+                                                                            <td>1000</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>Total Contr $</td>
+                                                                            <td>12000</td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </cdk-step>
+                </app-stepper>
+            </div>
+        </div>
+    </div>
+    <div class="dialogue-footer z-2">
+        <ng-container *ngIf="step1">
+            <button mat-raised-button color="accent" (click)="step1Click()">
+                Save and Next
+                <ion-icon name="arrow-forward-outline"></ion-icon>
+            </button>
+        </ng-container>
+        <ng-container *ngIf="step2">
+            <button mat-raised-button color="accent" (click)="click2Prev()">
+                <ion-icon name="arrow-back-outline"></ion-icon>
+                Back
+            </button>
+            <button mat-raised-button color="accent" class="ml-3" (click)="step2Click()">
+                Save and Next
+                <ion-icon name="arrow-forward-outline"></ion-icon>
+            </button>
+        </ng-container>
+        <ng-container *ngIf="step3">
+            <button mat-raised-button color="accent" (click)="click3Prev()">
+                <ion-icon name="arrow-back-outline"></ion-icon>
+                Back
+            </button>
+            <button mat-raised-button color="accent" class="ml-3">
+                CONFIRM AND SUBMIT
+            </button>
+        </ng-container>
+    </div>
+</div>

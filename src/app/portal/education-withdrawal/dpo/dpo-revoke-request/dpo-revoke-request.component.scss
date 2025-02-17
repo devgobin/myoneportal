@@ -1,0 +1,59 @@
+@import'../../../../../scss/responsive-mixin.scss';
+
+.w60 {
+  width: 60%;
+}
+
+.pt165 {
+  padding-top: 160px;
+}
+
+.text-only-btn {
+  color: var(--blue);
+  font-size: 95%;
+}
+
+.label-center {
+  margin: 0px;
+  display: flex;
+  align-items: center;
+  height: 48px;
+  padding-top: 18px;
+  // line-height: 30px;
+}
+
+.h360 {
+  height: 350px;
+}
+
+
+.table-wrap {
+  width: 100%;
+  min-height: 215px;
+  max-height: 28vh;
+  height: auto;
+  margin: auto;
+  overflow: auto;
+}
+
+.pl-0 {
+  padding-left: 15px !important;
+
+  @include desktop {
+    padding-left: 0px !important;
+  }
+}
+
+.pt50 {
+  padding-top: 0px;
+
+  @include desktop {
+    padding-top: 50px;
+  }
+}
+
+.overflow {
+  overflow: hidden;
+
+  @include desktop {}
+}

@@ -1,0 +1,22 @@
+<div class="adjust-margin">
+    <div class="dialogue-header z-2">
+        Crop Image
+        <div class="ml-auto d-flex align-items-center">
+            <button mat-icon-button (click)="closeDialog(false)">
+                <ion-icon name="close-outline"></ion-icon>
+            </button>
+        </div>
+    </div>
+    <div class="ab pt50 pb50">
+        <div class="rel">
+            <div class="crop-box">
+                <img [src]="imageSrc" alt="" id="imagetocrop">
+            </div>
+        </div>
+    </div>
+    <div class="dialogue-footer z-2">
+        <button mat-raised-button color="accent" class="ml-3" type="submit" (click)="doCropImage()">
+            Save
+        </button>
+    </div>
+</div>

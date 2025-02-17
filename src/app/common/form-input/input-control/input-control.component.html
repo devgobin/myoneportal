@@ -1,0 +1,61 @@
+<div class="form-group" *ngIf="icononly === 'false'">
+    <div class="d-flex align-item-center lh18">
+        <label for="" *ngIf="label !== ''">{{label}} <span class="text-danger" *ngIf="mandatory">*</span></label>
+        <div class="ml-auto text-danger lh18" *ngIf="errorText !== ''">
+            <small>{{errorText}}</small>
+        </div>
+        <div class="ml-auto text-danger lh18" *ngIf="value === '' && mandatory && errorTrueNow">
+            <small>mandatory</small>
+        </div>
+        <a mat-icon-button class="i-btn-small ml-auto text-center" *ngIf="helptext" [matTooltip]="helptext">
+            <!-- <mat-icon class="f16">help_outline</mat-icon> -->
+            <ion-icon name="help-circle-outline"></ion-icon>
+        </a>
+    </div>
+    <!-- <label for="" *ngIf="label !== ''" >{{label}}</label> -->
+    <div class="d-flex align-items-center">
+        <div class="input-group">
+            <input appNoEmoji [emojiType]="emojiType" [appUpperCase]="upperCase" autocomplete="none" type="text"
+                class="form-control" [(ngModel)]="value" name="{{name}}" id="{{name}}" placeholder="{{placeholder}}"
+                [ngClass]="{'border-warn': value === '' && errorTrueNow}" [disabled]="btnClickedNow" (blur)="blured()"
+                #inputbox (keydown)="checkenter($event)" #selectInput (change)="doChange($event)">
+            <div class="input-group-append d-flex in-1" *ngIf="value !== '' && !btnClickedNow">
+
+                <ng-container *ngIf="value">
+                    <a mat-button class="i-btn" (click)="doClear()" matTooltip="Clear" matTooltipPosition="right"
+                        tabIndex="-1">
+                        <!-- <mat-icon>clear</mat-icon> -->
+                        <ion-icon name="close-outline"></ion-icon>
+                    </a>
+                </ng-container>
+            </div>
+        </div>
+        <ng-container *ngIf="search === 'true'">
+            <a mat-raised-button color="accent" class="i-btn i-btn-search" (click)="onSearch()" matTooltip="Search"
+                matTooltipPosition="right" tabIndex="-1">
+                <ion-icon name="search-outline" class="mtm3"></ion-icon>
+            </a>
+        </ng-container>
+    </div>
+</div>
+
+<div class="form-group" *ngIf="icononly === 'true'">
+    <div class="input-group">
+        <input appNoEmoji [emojiType]="emojiType" autocomplete="none" type="text" class="form-control"
+            [(ngModel)]="value" name="{{name}}" placeholder="{{placeholder}}"
+            [ngClass]="{'border-warn': value === '' && errorTrueNow}" [disabled]="btnClickedNow">
+        <div class="input-group-append d-flex in-1" *ngIf="value !== '' && !btnClickedNow">
+            <ng-container *ngIf="search === 'true'">
+                <a mat-button class="i-btn" (click)="onSearch()" matTooltip="Search" matTooltipPosition="right"
+                    tabIndex="-1">
+                    <ion-icon name="search-outline"></ion-icon>
+                </a>
+            </ng-container>
+            <a mat-button class="i-btn" (click)="value = ''" matTooltip="Clear" matTooltipPosition="right"
+                tabIndex="-1">
+                <!-- <mat-icon>clear</mat-icon> -->
+                <ion-icon name="close-outline"></ion-icon>
+            </a>
+        </div>
+    </div>
+</div>

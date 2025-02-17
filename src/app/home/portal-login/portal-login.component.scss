@@ -1,0 +1,98 @@
+@import'../../../scss/responsive-mixin.scss';
+
+.panel-step {
+    @include desktop {
+        height: 425px;
+    }
+
+}
+
+.panel-stepper {
+    display: flex;
+    flex-direction: column;
+
+    .panel-stepper-body {
+        flex: 1;
+        position: relative;
+    }
+
+    .panel-stepper-footer {
+        padding: 0.5rem 1rem;
+        border-top: 1px solid rgba(0, 0, 0, 0.12);
+    }
+}
+
+.w100 {
+    width: 100%;
+}
+
+.mw300 {
+    min-width: 300px;
+}
+
+.s-box {
+    max-width: 420px;
+    line-height: 1.5;
+    margin: auto;
+
+    p {
+        line-height: 2;
+    }
+}
+
+.pt60 {
+    padding-top: 15px;
+
+    @include desktop {
+        padding-top: 60px;
+    }
+}
+
+.btn-send {
+    margin-left: 0rem !important;
+
+    @include desktop {
+        margin-left: 1rem !important;
+    }
+}
+
+
+
+.display-flex {
+    @include desktop {
+        display: flex !important;
+    }
+}
+
+.side-content {
+    width: 100%;
+
+    @include desktop {
+        width: 300px;
+    }
+}
+
+.passcode-display {
+    display: contents;
+
+    @include desktop {
+        display: flex;
+        align-items: center;
+    }
+}
+
+.pt-1 {
+    padding-top: .25rem !important;
+
+    @include desktop {
+        padding-top: 0rem !important;
+    }
+}
+
+.pad {
+    padding: .5rem;
+
+    @include desktop {
+        padding: 0;
+    }
+}

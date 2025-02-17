@@ -1,0 +1,10 @@
+<div class="timer">
+    <div class="d-flex align-items-center c-text">
+        <ion-icon src="assets/svg/location.svg"></ion-icon>
+        <div class="text">: {{location}}</div>
+    </div>
+    <div class="d-flex align-items-center c-text mb-0">
+        <ion-icon src="assets/svg/time.svg"></ion-icon>
+        <div class="text">: {{time | moment : 'YYYY/MM/DD hh:mm a' : 'DD MMM YYYY'}} | {{time | moment : 'YYYY/MM/DD hh:mm a' : 'hh:mm a'}}</div>
+    </div>
+</div>

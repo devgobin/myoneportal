@@ -1,0 +1,225 @@
+<div class="content-body" [parentId]="pageId" appAccess="INPSM">
+    <div class="rel">
+        <div class="cus-card m-0 z-2">
+            <div class="container-fluid p-0">
+                <ng-container *ngIf="!data.isMobile">
+                    <div class="d-flex z-2">
+                        <div class="mr-auto d-flex align-items-center">
+                            <h6 class="mb-0">Invoice Payment Summary
+                            </h6>
+                        </div>
+                        <ng-container
+                            *ngIf="(service.invoicepayment.statusValue==='PENPY' && service.invoicepayment.invoicePaymentId===0)">
+                            <div class="ml-auto d-flex align-items-center">
+                                <button mat-raised-button color="accent" class="mr-3" (click)="saveinvoicepayment()"
+                                    [parentId]="pageId" appAccess="BTNSaveInvoicePaymentSummary">
+                                    Save
+                                </button>
+                            </div>
+                        </ng-container>
+                        <ng-container *ngIf="(service.invoicepayment.statusValue==='PENPY' || service.invoicepayment.statusValue==='PAYFI') 
+                        && service.invoicepayment.invoicePaymentId>0">
+                            <div class="ml-auto d-flex align-items-center">
+                                <button mat-raised-button color="accent" class="mr-3" (click)="openCancel()"
+                                    [parentId]="pageId" appAccess="BTNCancelInvoicePaymentSummary">
+                                    Cancel
+                                </button>
+                                <ng-container *ngIf="service.invoicepayment.totalInvoicePaymentAmount>0">
+                                    <button mat-raised-button color="accent" class="mr-3" (click)="makeinvoicepayment()"
+                                        [parentId]="pageId" appAccess="BTNMakePaymentInvoicePaymentSummary">
+                                        Make Payment
+                                    </button>
+                                </ng-container>
+                                <button mat-raised-button color="accent" (click)="addInvoice()" [parentId]="pageId"
+                                    appAccess="BTNAddInvoicePaymentSummary">
+                                    Add Invoices
+                                </button>
+                            </div>
+                        </ng-container>
+                    </div>
+                </ng-container>
+                <ng-container *ngIf="data.isMobile">
+                    <div class="d-flex">
+                        <div class="mr-auto d-flex align-items-center">
+                            <h6 class="mb-0">Invoice Payment Summary
+                            </h6>
+                        </div>
+                        <ng-container
+                            *ngIf="(service.invoicepayment.statusValue==='PENPY' && service.invoicepayment.invoicePaymentId===0)">
+                            <div class="ml-auto d-flex align-items-center">
+                                <button mat-raised-button color="accent" class="mr-3" (click)="saveinvoicepayment()"
+                                    [parentId]="pageId" appAccess="BTNSaveInvoicePaymentSummary">
+                                    Save
+                                </button>
+                            </div>
+                        </ng-container>
+                    </div>
+                    <ng-container *ngIf="(service.invoicepayment.statusValue==='PENPY' || service.invoicepayment.statusValue==='PAYFI') 
+                        && service.invoicepayment.invoicePaymentId>0">
+                        <div class="ml-auto d-flex align-items-center pt-3">
+                            <button mat-raised-button color="accent" class="mr-3" (click)="openCancel()"
+                                [parentId]="pageId" appAccess="BTNCancelInvoicePaymentSummary">
+                                Cancel
+                            </button>
+                            <ng-container *ngIf="service.invoicepayment.totalInvoicePaymentAmount>0">
+                                <button mat-raised-button color="accent" class="mr-3" (click)="makeinvoicepayment()"
+                                    [parentId]="pageId" appAccess="BTNMakePaymentInvoicePaymentSummary">
+                                    Make Payment
+                                </button>
+                            </ng-container>
+                            <button mat-raised-button color="accent" (click)="addInvoice()" [parentId]="pageId"
+                                appAccess="BTNAddInvoicePaymentSummary">
+                                Add Invoices
+                            </button>
+                        </div>
+                    </ng-container>
+                </ng-container>
+                <div class="col-md-12 pt-3">
+                    <div class="row">
+                        <div class="col-md-7">
+                            <div class="row d-flex align-items-center">
+                                <div class="col-md-5">
+                                    <label>Invoice Payment ID:
+                                    </label>
+                                </div>
+                                <div class="col-md-7">
+                                    <b>{{service.invoicepayment.invoicePaymentId}}</b>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="row d-flex align-items-center">
+                                <div class="col-md-5">
+                                    <label>Invoice Payment Status:
+                                    </label>
+                                </div>
+                                <div class="col-md-7">
+                                    <b>{{service.invoicepayment.statusDescription}} </b>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-7 pt-2">
+                            <div class="row d-flex align-items-center">
+                                <div class="col-md-5">
+                                    <label>Total Invoice Payment Amount :
+                                    </label>
+                                </div>
+                                <div class="col-md-7">
+                                    <b> {{service.invoicepayment.totalInvoicePaymentAmount | appCurrency}}</b>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-5 pt-2">
+                            <div class="row d-flex align-items-center">
+                                <div class="col-md-5">
+                                    <label>Total Invoice Count:
+                                    </label>
+                                </div>
+                                <div class="col-md-7">
+                                    <b>{{service.invoicepayment.totalInvoiceCount}} </b>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="ab pt60">
+            <div class="rel">
+                <div class="d-flex align-items-center z-2 pb-2 pt-1">
+                    <div class="heading">Invoice Details</div>
+                </div>
+                <div class="ab pt35">
+                    <div class="rel">
+                        <div class="table-responsive h100 p-2">
+                            <div class="ab pb40">
+                                <div class="rel">
+                                    <ng-container
+                                        *ngIf="service.invoicepayment.ilstprotoInvoicePaymentDetail &&service.invoicepayment.ilstprotoInvoicePaymentDetail.length>0">
+                                        <table class="table-hover">
+                                            <thead>
+                                                <th> Invoice ID </th>
+                                                <th> Invoice Type </th>
+                                                <th> Payable Amount </th>
+                                                <th> Payment Amount </th>
+                                                <th> Balance
+                                                    Amount</th>
+                                                <th>
+                                                    Action</th>
+                                            </thead>
+                                            <tbody>
+                                                <tr
+                                                    *ngFor="let element of  service.invoicepayment.ilstprotoInvoicePaymentDetail; let i=index">
+                                                    <td>{{element.invoiceId}}</td>
+                                                    <td>{{element.iProtoentViewInvoice.invoiceTypeDescription}}
+                                                    </td>
+                                                    <td> {{element.iProtoentViewInvoice.invoiceBalanceAmount|
+                                                        appCurrency}}</td>
+                                                    <td>
+                                                        <div class="lh0">
+                                                            <app-number-control [(ngModel)]="element.invoiceAmountToPay"
+                                                                label="" name="invoiceAmountToPay{{i}}" decimal="2"
+                                                                [isZeroOnEmpty]="true"
+                                                                [btnClicked]="!(service.invoicepayment.statusValue==='PENPY' || service.invoicepayment.statusValue==='PAYFI')"></app-number-control>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <app-value-control [(ngModel)]="element.balanceAmount"
+                                                            name="balanceAmount{{i}}"
+                                                            [totalAmount]="element.iProtoentViewInvoice.invoiceBalanceAmount"
+                                                            [amountToPay]="element.invoiceAmountToPay">
+                                                        </app-value-control>
+                                                    </td>
+                                                    <td>
+                                                        <button
+                                                            *ngIf="(service.invoicepayment.statusValue==='PENPY' || service.invoicepayment.statusValue==='PAYFI')"
+                                                            mat-icon-button class="icon-only-btn ml-1" color="danger"
+                                                            matTooltip="Delete" (click)="openDelete(element)"
+                                                            [parentId]="pageId"
+                                                            appAccess="BTNDeleteInvoicePaymentSummary">
+                                                            <ion-icon name="trash-outline"></ion-icon>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                            <tr class="tfoot-td">
+                                                <td></td>
+                                                <td><b>Total</b></td>
+                                                <td>
+                                                    <b> <app-total-control
+                                                            [items]="service.invoicepayment.ilstprotoInvoicePaymentDetail"
+                                                            name="totalPayableAmount"
+                                                            [(ngModel)]="service.invoicepayment.totalPayableAmount"></app-total-control></b>
+                                                </td>
+                                                <td>
+                                                    <b>
+                                                        <app-total-control
+                                                            [items]="service.invoicepayment.ilstprotoInvoicePaymentDetail"
+                                                            name="totalInvoicePaymentAmount"
+                                                            [(ngModel)]="service.invoicepayment.totalInvoicePaymentAmount"></app-total-control>
+                                                    </b>
+                                                </td>
+                                                <td>
+                                                    <b>
+                                                        <app-total-control
+                                                            [items]="service.invoicepayment.ilstprotoInvoicePaymentDetail"
+                                                            name="totalBalanceAmount"
+                                                            [(ngModel)]="service.invoicepayment.totalBalanceAmount"></app-total-control>
+                                                    </b>
+                                                </td>
+                                        </table>
+                                    </ng-container>
+                                </div>
+
+                            </div>
+                        </div>
+                        <ng-container
+                            *ngIf="!loadingTrue && service.invoicepayment.ilstprotoInvoicePaymentDetail.length === 0 && showEmpty">
+                            <app-empty-state></app-empty-state>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

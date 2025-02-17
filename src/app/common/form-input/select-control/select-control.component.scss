@@ -1,0 +1,6 @@
+.pe-none {
+  pointer-events: none;
+}
+mat-select[aria-disabled="true"] {
+  background-color: #e9ecef;
+}

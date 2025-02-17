@@ -1,0 +1,240 @@
+<div class="content-body" [parentId]="pageId" appAccess="DPOTR">
+    <div class="rel">
+        <form #a="ngForm" (ngSubmit)="onSubmit(a)" autocomplete="off" class="h100">
+            <div class="vertical-flex h100">
+                <div>
+                    <div class="cus-card mt-0 mx-0">
+                        <div class="container-fluid p-0">
+                            <div class="d-flex align-items-center">
+                                <div class=" pb-2 heading">
+                                    DPO Conditional Travel Request
+                                </div>
+                                <div class="ml-auto d-flex align-items-center">
+                                    <ng-container *ngIf="service.dpoConditionalTravelRequest.statusValue !=='SUBMT'">
+                                        <button mat-raised-button color="accent" type="submit" class="mr-3"
+                                            [parentId]="pageId" appAccess="BTNSubmitDpoConditionalTravelRequest">
+                                            Submit
+                                        </button>
+                                    </ng-container>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="row d-flex align-items-center">
+                                            <div class="col-md-5">
+                                                <label>DPO ID :
+                                                </label>
+                                            </div>
+                                            <div class="col-md-7">
+                                                <b> {{service.dpoConditionalTravelRequest.dpoId}}</b>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="row d-flex align-items-center">
+                                            <div class="col-md-5">
+                                                <label>DPO Effective Date:
+                                                </label>
+                                            </div>
+                                            <div class="col-md-7">
+                                                <b> {{service.dpoConditionalTravelRequest.dpoDate | moment :
+                                                    'DD-MM-YYYY' :
+                                                    'DD MMM YYYY'}}</b>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 pt-3">
+                                        <div class="row d-flex align-items-center">
+                                            <div class="col-md-5">
+                                                <label>DPO Debt Amount :
+                                                </label>
+                                            </div>
+                                            <div class="col-md-7">
+                                                <b> {{service.dpoConditionalTravelRequest.dpoDeptAmt | appCurrency}}</b>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 pt-3">
+                                        <div class="row d-flex align-items-center">
+                                            <div class="col-md-5">
+                                                <label>Debt Paid Since DPO:
+                                                </label>
+                                            </div>
+                                            <div class="col-md-7">
+                                                <b> {{service.dpoConditionalTravelRequest.dpoPaidAmt | appCurrency}}</b>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="row d-flex align-items-center">
+                                            <div class="col-md-5 pr-0 nomar">
+                                                <div class="label-center">
+                                                    <label>Destination Country <span class="text-danger">*</span>
+                                                        :
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-7 nomar pl-0">
+                                                <app-select-control
+                                                    [(ngModel)]="service.dpoConditionalTravelRequest.destinationCountryValue"
+                                                    name="destinationCountryValue"
+                                                    [items]="service.initialData.DPODestinationCountry" key="constant"
+                                                    keyname="description" required mandatory="true" label=""
+                                                    [errorTrue]="errorTrue" search="true">
+                                                </app-select-control>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 ">
+                                        <div class="row d-flex align-items-center">
+                                            <div class="col-md-5 nomar pr-0">
+                                                <div class="label-center">
+                                                    <label>Reason For Travel <span class="text-danger">*</span>
+                                                        :
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-7 nomar pl-0">
+                                                <app-select-control
+                                                    [(ngModel)]="service.dpoConditionalTravelRequest.reasonForTravelValue"
+                                                    name="reasonForTravelValue"
+                                                    [items]="service.initialData.DPOReasonForTravel" key="constant"
+                                                    keyname="description" (onChanges)="reasonForTravel()" required
+                                                    mandatory="true" label="" [errorTrue]="errorTrue">
+                                                </app-select-control>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="row d-flex align-items-center">
+                                            <div class="col-md-5 nomar pr-0">
+                                                <div class="label-center">
+                                                    <label>Departure Date <span class="text-danger">*</span>
+                                                        :
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-7 nomar pl-0">
+                                                <app-date-control
+                                                    [(ngModel)]="service.dpoConditionalTravelRequest.departureDate"
+                                                    name="departureDate" required mandatory="true" label=""
+                                                    [errorTrue]="errorTrue" [minDate]="currentDate"
+                                                    (change)="clearDate()">
+                                                </app-date-control>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 ">
+                                        <div class="row d-flex align-items-center">
+                                            <div class="col-md-5 nomar pr-0">
+                                                <div class="label-center">
+                                                    <label>Destination Arrival Date <span class="text-danger">*</span>
+                                                        :
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-7 pl-0 nomar">
+                                                <app-date-control
+                                                    [(ngModel)]="service.dpoConditionalTravelRequest.destinationArrivalDate"
+                                                    name="destinationArrivalDate" required mandatory="true" label=""
+                                                    [errorTrue]="errorTrue" [minDate]="
+                                                    service.dpoConditionalTravelRequest.departureDate
+                                                  " (change)="clearArrivalDate()"></app-date-control>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 ">
+                                        <div class="row d-flex align-items-center">
+                                            <div class="col-md-5 nomar pr-0">
+                                                <div class="label-center">
+                                                    <label>Return Date <span class="text-danger">*</span>
+                                                        :
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-7 pl-0 nomar">
+                                                <app-date-control
+                                                    [(ngModel)]="service.dpoConditionalTravelRequest.returnDate"
+                                                    name="returnDate" required mandatory="true" label=""
+                                                    [errorTrue]="errorTrue" [minDate]="
+                                                    service.dpoConditionalTravelRequest.destinationArrivalDate
+                                                  "></app-date-control>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="row d-flex">
+                                            <div class="col-md-5 nomar pr-0">
+                                                <div class="label-center">
+                                                    <label>Comment <span class="text-danger">*</span>
+                                                        :
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-7 nomar pl-0">
+                                                <app-textarea-control class="form-1"
+                                                    [(ngModel)]="service.dpoConditionalTravelRequest.comment"
+                                                    name="comment" required mandatory="true" label=""
+                                                    [errorTrue]="errorTrue"></app-textarea-control>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-1 cus-card m-0 relative">
+                    <div class="ab">
+                        <div class="rel">
+                            <div class="vertical-flex h100">
+                                <div class="d-flex align-items-center z-2 pt-2">
+                                    <div class="px-3 py-1">
+                                        <div class="heading">
+                                            Evidence Document Upload
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex-1 relative">
+                                    <div class="ab">
+                                        <div class="rel">
+                                            <ng-container
+                                                *ngFor="let document of service.dpoConditionalTravelRequest.plstDpoRequestDocument">
+                                                <div class="d-flex pt-2 pl-4">
+                                                    <div class="wd-60">
+                                                        <app-file-upload [label]="document.documentTypeDescription"
+                                                            [data]="document"
+                                                            (onload)="uploadTravelRequestDocument($event, document)"
+                                                            [mandatory]="document.isMandatory === 'Y'"
+                                                            dname="document.pdocumentFile.fileName"
+                                                            [loading]="fileUploading === document.documentTypeValue"
+                                                            required [errorTrue]="errorTrue"
+                                                            [xFile]="document.pdocumentFile"
+                                                            (onclear)="clearFile($event)"
+                                                            [accept]="appSettingService.environment.fileAcceptImages"
+                                                            [expanded]='true'>
+                                                        </app-file-upload>
+                                                    </div>
+                                                    <div class="m-pad-file-spacer">
+                                                        <a mat-raised-button color="accent" [parentId]="pageId"
+                                                            appAccess="BTNViewDpoConditionalTravelRequest"
+                                                            (click)="viewDocument(document)">
+                                                            <ion-icon name="eye-outline"></ion-icon>
+                                                            View
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </ng-container>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,15 @@
+@import '../../../../scss/responsive-mixin.scss';
+
+.m-search {
+    @include desktop {
+        height: 270px !important;
+    }
+}
+
+.pt35 {
+    padding-top: 20px;
+
+    @include desktop {
+        padding-top: 35px;
+    }
+}

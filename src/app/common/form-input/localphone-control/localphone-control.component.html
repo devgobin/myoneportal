@@ -1,0 +1,32 @@
+<div class="form-group">
+    <div class="d-flex align-item-center">
+        <label for="" *ngIf="label !== ''">{{label}} <span class="text-danger" *ngIf="mandatory">*</span></label>
+        <div class="ml-auto text-danger d-flex align-item-center lh18">
+            <ng-container *ngIf="errorText !== '' && xvalue !== '' && !errorTrueNow">
+                <ng-container *ngIf="xvalue">
+                    <ng-container *ngIf="xvalue.length<7">
+                        <div class="lh18"><small>{{errorText}}</small>
+                        </div>
+                    </ng-container>
+                </ng-container>
+            </ng-container>
+            <ng-container *ngIf="value === '' && errorTrueNow">
+                <div class="ml-2 lh18"><small>mandatory</small></div>
+            </ng-container>
+        </div>
+        
+    </div>
+    <div class="input-group">
+        <div class="prefix">+{{countrycode}} -</div>
+        <input appNoEmoji autocomplete="none" type="text" class="form-control" [(ngModel)]="xvalue" name="{{name}}" id="{{name}}"
+            placeholder="{{placeholder}}" [ngClass]="{'border-warn': xvalue === '' && errorTrueNow}"
+            [disabled]="btnClickedNow" (blur)="blured()" #inputbox (keydown)="checkenter($event)" 
+            (input)="checkValue($event)"  (focus)="whenFocused()" appLimit="7">
+        <div class="input-group-append in-1" *ngIf="xvalue && !btnClickedNow">
+            <a mat-button class="i-btn" (click)="clearValue()" matTooltip="Clear" matTooltipPosition="right"
+                tabIndex="-1">
+                <ion-icon name="close-outline"></ion-icon>
+            </a>
+        </div>
+    </div>
+</div>

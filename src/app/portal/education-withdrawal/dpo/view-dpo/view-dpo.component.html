@@ -1,0 +1,358 @@
+<div class="content-body" [parentId]="pageId" appAccess="VWDPO">
+    <div class="rel">
+        <div class="vertical-flex h100">
+            <div>
+                <div class="cus-card mt-0 mx-0">
+                    <div class="container-fluid p-0">
+                        <ng-container *ngIf="!data.isMobile">
+                            <div class="d-flex align-items-center">
+                                <div class=" pb-3 heading">
+                                    View Departure Probation Order
+                                </div>
+                                <div class="ml-auto d-flex align-items-center">
+                                    <ng-container
+                                        *ngIf="hideDpoRevokeReqButton === true && service.viewDpo.ilstentDPOHeader.length > 0">
+                                        <button mat-raised-button color="accent" [parentId]="pageId"
+                                            appAccess="BTNDpoRevokeRequestViewDpo" (click)="openRevokeRequest()">
+                                            DPO Revoke Request
+                                        </button>
+                                    </ng-container>
+                                    <ng-container
+                                        *ngIf="hideDpoConditionalTravelButton === true && service.viewDpo.ilstentDPOHeader.length > 0">
+                                        <button mat-raised-button color="accent" class="ml-3" [parentId]="pageId"
+                                            appAccess="BTNDpoConditionalTravelRequestViewDpo"
+                                            (click)="openTravelRequest()">
+                                            DPO Conditional Travel Request
+                                        </button>
+                                    </ng-container>
+                                </div>
+                            </div>
+                        </ng-container>
+                        <ng-container *ngIf="data.isMobile">
+                            <div class="">
+                                <div class=" pb-3 heading">
+                                    View Departure Probation Order
+                                </div>
+                                <div class="d-flex align-items-center view-btn">
+                                    <ng-container
+                                        *ngIf="hideDpoRevokeReqButton === true && service.viewDpo.ilstentDPOHeader.length > 0">
+                                        <button mat-raised-button color="accent" [parentId]="pageId"
+                                            appAccess="BTNDpoRevokeRequestViewDpo" (click)="openRevokeRequest()">
+                                            DPO Revoke Request
+                                        </button>
+                                    </ng-container>
+                                    <ng-container
+                                        *ngIf="hideDpoConditionalTravelButton === true && service.viewDpo.ilstentDPOHeader.length > 0">
+                                        <button mat-raised-button color="accent" class="ml-3" [parentId]="pageId"
+                                            appAccess="BTNDpoConditionalTravelRequestViewDpo"
+                                            (click)="openTravelRequest()">
+                                            DPO Conditional Travel Request
+                                        </button>
+                                    </ng-container>
+                                </div>
+                            </div>
+                        </ng-container>
+                        <div class="col-md-12 pt-4">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <label>Name :
+                                            </label>
+                                        </div>
+                                        <div class="col-md-7">
+                                            <b>{{service.viewDpo.ientPerson.firstName}}
+                                                {{service.viewDpo.ientPerson.middleName}}
+                                                {{service.viewDpo.ientPerson.lastName}}</b>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <label>FNPF No :
+                                            </label>
+                                        </div>
+                                        <div class="col-md-7">
+                                            <b>{{service.viewDpo.ientPerson.fnpfNo}}</b>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <label>TIN Number :
+                                            </label>
+                                        </div>
+                                        <div class="col-md-7">
+                                            <b>{{service.viewDpo.ientPerson.tin}}</b>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <label>Date Of Birth :
+                                            </label>
+                                        </div>
+                                        <div class="col-md-7">
+                                            <b>{{service.viewDpo.ientPerson.dateOfBirth | moment:
+                                                'DD-MM-YYYY' :'DD MMM YYYY'}}</b>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <label>Father's Name :
+                                            </label>
+                                        </div>
+                                        <div class="col-md-7">
+                                            <b>{{service.viewDpo.ientPerson.fatherName}}</b>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="flex-1 cus-card m-0 relative">
+                <div class="vertical-flex h100">
+                    <div class="d-flex align-items-center z-2 pb-2 pt-1">
+                        <div class="ml-auto d-flex align-items-center">
+                            <!-- <div class="search-box-d">
+                                <button mat-raised-button color="accent" cdkOverlayOrigin #trigger="cdkOverlayOrigin"
+                                    (click)="isOpen = !isOpen" [parentId]="pageId" appAccess="BTNFilterViewDpo">
+                                    <ion-icon name="funnel-outline"></ion-icon>
+                                    Filter
+                                </button>
+                            </div> -->
+                            <app-filter-button [searchPanelTemplate]="searchPanelTemplate" [parentId]="pageId"
+                                appAccess="BTNFilterViewDpo">
+                            </app-filter-button>
+                        </div>
+                    </div>
+                    <div class="table-responsive h100 ">
+                        <div class="ab pb40">
+                            <div class="rel">
+                                <table mat-table [dataSource]="dataSource" class="table-hover pt-2" matSort>
+                                    <ng-container matColumnDef="selectedDPO">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Select DPO
+                                        </th>
+                                        <td mat-cell *matCellDef="let element" class="text-center">
+                                            <mat-radio-button
+                                                (change)="getPrimary(element.dpoHeaderId,element.invoiceAmount,element)"
+                                                value="Y">
+                                            </mat-radio-button>
+                                        </td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="dpoHeaderId">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header>DPO ID
+                                        </th>
+                                        <td mat-cell *matCellDef="let element">
+                                            {{element.dpoHeaderId}}
+                                        </td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="orgRefNo">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Organization Ref Number
+                                        </th>
+                                        <td mat-cell *matCellDef="let element">
+                                            {{element.ientOrganization.orgRefNo}}
+                                    </ng-container>
+                                    <ng-container matColumnDef="tradeName">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Organization Name
+                                        </th>
+                                        <td mat-cell *matCellDef="let element">
+                                            {{element.ientOrganization.tradeName}}
+                                    </ng-container>
+                                    <ng-container matColumnDef="contactTypeDescription">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Contact Type
+                                        </th>
+                                        <td mat-cell *matCellDef="let element">
+                                            {{element.ientOrgContact.contactTypeDescription}}
+                                    </ng-container>
+                                    <ng-container matColumnDef="invoiceAmount">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> DPO Balance Amount
+                                        </th>
+                                        <td mat-cell *matCellDef="let element">
+                                            {{element.invoiceAmount |appCurrency}}
+                                    </ng-container>
+                                    <ng-container matColumnDef="dpoEffectiveDate">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header>DPO Effective Date
+                                        </th>
+                                        <td mat-cell *matCellDef="let element">
+                                            {{element.dpoEffectiveDate | moment :
+                                            'DD-MM-YYYY' :
+                                            'DD MMM YYYY'}}
+                                    </ng-container>
+                                    <ng-container matColumnDef="upliftStatusDescription">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+                                        <td mat-cell *matCellDef="let element">
+                                            {{element.lentDPODetail.
+                                            upliftStatusDescription}}
+                                        </td>
+                                    </ng-container>
+                                    <!-- <ng-container matColumnDef="action">
+                                        <th mat-header-cell *matHeaderCellDef class="text-center"> Action </th>
+                                        <td mat-cell *matCellDef="let element" class="text-center py-0 text-nowrap">
+                                            <button mat-icon-button class="icon-only-btn" matTooltip="Edit"
+                                                (click)="onEdit(element)">
+                                                <ion-icon name="pencil-outline"></ion-icon>
+                                            </button>
+                                        </td>
+                                    </ng-container> -->
+
+                                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+                                        [ngClass]="{'active': activeIndex == row}" (click)="active(row)"></tr>
+                                </table>
+                                <ng-container *ngIf="!loadingTrue && dataSource.data.length === 0 && showEmpty">
+                                    <app-empty-state></app-empty-state>
+                                </ng-container>
+                            </div>
+                        </div>
+                        <div class="table-footer">
+                            <mat-paginator [showFirstLastButtons]="!data.isMobile" [hideTotalCount]="data.isMobile"
+                                showFirstLastButtons="true" [pageSizeOptions]="[10, 25, 50, 100]">
+                            </mat-paginator>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- <ng-template cdkConnectedOverlay [cdkConnectedOverlayOrigin]="trigger" [cdkConnectedOverlayOpen]="isOpen"
+    cdkConnectedOverlayHasBackdrop="true" [cdkConnectedOverlayLockPosition]="trigger" (backdropClick)="isOpen = !isOpen"
+    cdkConnectedOverlayBackdropClass="search-backdrop">
+    <form>
+        <div class="search-panel m-search">
+            <div class="ab">
+                <div class="rel">
+                    <div class="container-fluid pt-3">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <app-number-control label="DPO ID" [(ngModel)]="searchParams.dpoId" name="dpoId">
+                                </app-number-control>
+                            </div>
+                            <div class="col-md-6">
+                                <app-input-control label="Organization Ref Number" [(ngModel)]="searchParams.orgRefNo"
+                                    name="orgRefNo">
+                                </app-input-control>
+                            </div>
+                            <div class="col-md-6">
+                                <app-select-control label="Contact Type" [(ngModel)]="searchParams.contactTypeValue"
+                                    tabindex="1" name="contactTypeValue" [items]="service.initialData.DPOContactType"
+                                    key="constant" keyname="description">
+                                </app-select-control>
+                            </div>
+                            <div class="col-md-6">
+                                <app-select-control label="Status" [(ngModel)]="searchParams.statusValue" tabindex="1"
+                                    name="statusValue" [items]="service.initialData.DPOStatus" key="constant"
+                                    keyname="description">
+                                </app-select-control>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <app-date-control label="From Date" [(ngModel)]="searchParams.fromDate" name="fromDate">
+                                </app-date-control>
+                            </div>
+                            <div class="col-md-6">
+                                <app-date-control label="To Date" [(ngModel)]="searchParams.toDate" name="toDate">
+                                </app-date-control>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="search-footer">
+                <div class="ml-auto d-flex align-items-center">
+                    <button mat-raised-button class="ml-3" color="accent" (click)="doSearch()" [parentId]="pageId"
+                        appAccess="BTNApplyViewDpo">
+                        <div class="d-flex align-items-center">
+                            <ion-icon name="checkmark-circle-outline"></ion-icon>
+                            <div class="pl-2">Apply</div>
+                        </div>
+                    </button>
+                    <button mat-button (click)="doClear()" [parentId]="pageId" appAccess="BTNClearViewDpo">
+                        <div class="d-flex align-items-center">
+                            <ion-icon name="close-circle-outline"></ion-icon>
+                            <div class="pl-1">Clear</div>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+</ng-template> -->
+
+<ng-template #searchPanelTemplate>
+    <form>
+        <div class="search-panel m-search">
+            <div class="ab">
+                <div class="rel">
+                    <div class="container-fluid pt-3">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <app-number-control label="DPO ID" [(ngModel)]="searchParams.dpoId" name="dpoId">
+                                </app-number-control>
+                            </div>
+                            <div class="col-md-6">
+                                <app-input-control label="Organization Ref Number" [(ngModel)]="searchParams.orgRefNo"
+                                    name="orgRefNo">
+                                </app-input-control>
+                            </div>
+                            <div class="col-md-6">
+                                <app-select-control label="Contact Type" [(ngModel)]="searchParams.contactTypeValue"
+                                    tabindex="1" name="contactTypeValue" [items]="service.initialData.DPOContactType"
+                                    key="constant" keyname="description">
+                                </app-select-control>
+                            </div>
+                            <div class="col-md-6">
+                                <app-select-control label="Status" [(ngModel)]="searchParams.statusValue" tabindex="1"
+                                    name="statusValue" [items]="service.initialData.DPOStatus" key="constant"
+                                    keyname="description">
+                                </app-select-control>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <app-date-control label="From Date" [(ngModel)]="searchParams.fromDate" name="fromDate">
+                                </app-date-control>
+                            </div>
+                            <div class="col-md-6">
+                                <app-date-control label="To Date" [(ngModel)]="searchParams.toDate" name="toDate">
+                                </app-date-control>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="search-footer">
+                <div class="ml-auto d-flex align-items-center">
+                    <button mat-raised-button class="ml-3" color="accent" (click)="doSearch()" [parentId]="pageId"
+                        appAccess="BTNApplyViewDpo">
+                        <div class="d-flex align-items-center">
+                            <ion-icon name="checkmark-circle-outline"></ion-icon>
+                            <div class="pl-2">Apply</div>
+                        </div>
+                    </button>
+                    <button mat-button (click)="doClear()" [parentId]="pageId" appAccess="BTNClearViewDpo">
+                        <div class="d-flex align-items-center">
+                            <ion-icon name="close-circle-outline"></ion-icon>
+                            <div class="pl-1">Clear</div>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+</ng-template>

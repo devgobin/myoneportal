@@ -1,0 +1,90 @@
+<div class="panel-spacer">
+    <div class="mw1280">
+        <div class="panel">
+            <div class="panel-header">
+                <div class="panel-title">
+                    LOGIN VALIDATION
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="panel-step p-0 rel h100">
+                    <div class="panel-stepper h100">
+                        <div class="panel-stepper-body">
+                            <div class="ab">
+                                <div class="rel">
+                                    <div class="mw768 pt-3 rel">
+                                        <ng-container>
+                                            <div class="heading pl-4 text-center">
+                                                TWO FACTOR AUTHENTICATION
+                                            </div>
+                                            <div class="ab pt60 pb50">
+                                                <div class="rel pl-4">
+                                                    <div class="text-center">Send One Time Passcode</div>
+                                                    <div class="form-box pt-4 w50 m-auto">
+                                                        <ng-container *ngIf="general.userData.sendOtpToEmail==='Y'">
+                                                            <div class="d-flex align-items-center pb-4">
+                                                                <div class="flex-1 text-right">
+                                                                    <p class="mb-0">To Email
+                                                                        ({{general.userData.maskedEmail}})</p>
+                                                                </div>
+                                                                <div class="flex-1 text-left">
+                                                                    <button class="btn-send" mat-button
+                                                                        (click)="sendOTP('email')"
+                                                                        [disabled]="resetDisabled">{{resendText}}</button>
+                                                                </div>
+                                                            </div>
+                                                        </ng-container>
+                                                        <ng-container *ngIf="general.userData.sendOtpToMobile==='Y'">
+                                                            <div class="d-flex align-items-center pb-5">
+                                                                <div class="flex-1 text-right">
+                                                                    <p class="mb-0">To Mobile
+                                                                        ({{general.userData.maskedMobileNo}})
+                                                                    </p>
+                                                                </div>
+                                                                <div class="flex-1 text-left">
+                                                                    <button class="btn-send" mat-button
+                                                                        (click)="sendOTP('sms')"
+                                                                        [disabled]="resetDisabled">{{resendText}}</button>
+                                                                </div>
+                                                            </div>
+                                                        </ng-container>
+                                                    </div>
+                                                    <div class="text-center">Enter One Time Passcode</div>
+                                                    <app-pin-control id="potp" boxes="4" password="true"
+                                                        [(ngModel)]="login.otp" [errorTrue]="errorTrue">
+                                                    </app-pin-control>
+                                                    <p class="text-danger text-center mt-15px"
+                                                        *ngIf="errorTrue && login.otp.length < 4">
+                                                        <small>Please Enter One Time Passcode</small>
+                                                    </p>
+                                                    <!-- <div class="pb-3"></div> -->
+                                                </div>
+                                            </div>
+                                        </ng-container>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-stepper-footer">
+                            <div class="text-right">
+                                <ng-container>
+                                    <button mat-raised-button color="accent" (click)="verifyOTP()" type="submit"
+                                        [disabled]="btnClicked" class="ml-3">
+                                        <ng-container *ngIf="!btnClicked">
+                                            Submit
+                                            <ion-icon name="arrow-forward-outline"></ion-icon>
+                                        </ng-container>
+                                        <ng-container *ngIf="btnClicked">
+                                            <app-dot class="dot-big"></app-dot>
+                                        </ng-container>
+                                    </button>
+                                </ng-container>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

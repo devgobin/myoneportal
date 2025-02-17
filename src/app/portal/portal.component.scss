@@ -1,0 +1,22 @@
+.f18 {
+  font-size: 18px;
+}
+.setting-panel {
+  padding: 10px 20px;
+  .setting-item {
+    padding-bottom: 15px;
+  }
+  .setting-item:last-child {
+    padding-bottom: 0;
+  }
+  label {
+    margin: 0;
+    color: #7b7b7b;
+    font-weight: 300;
+    font-size: small;
+  }
+  a {
+    padding-left: 1rem;
+  }
+}
+

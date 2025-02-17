@@ -1,0 +1,23 @@
+Step 1: 
+Add JSON file in IIS mime type
+
+Step 2:
+Check app.settings.json working when directly hitting the browser. (example): http://localhost/<folder-name>/app.settings.json
+
+Step 3:
+Make sure web config redirect any url except folder and file to index.html.
+
+Step 4:
+Add base href path in index.html  <base href="/<folder-name>/"> 
+
+Step 5:
+If this application is sandbox change sandboxMode to true else mark as false in app.settings.json;
+
+Step 6:
+Base path in app.settings.json is API (service) url path change accordingly.
+
+Step 7:
+In app.settings.json - Add folder name added in the Step 4 in baseAppPath if direct then leave as '/';
+
+Step 8:
+encrypt in app.settings.json is used to send the username password at login with encrypt or not. True means encrypted, False mean not encrypted.

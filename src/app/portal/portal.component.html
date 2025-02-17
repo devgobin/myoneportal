@@ -1,0 +1,283 @@
+<mat-sidenav-container scrollable="false">
+    <mat-sidenav #drawer mode="over" position="end" opened="false" fixedInViewport="true">
+        <div class="drawer-container">
+            <div class="d-ab">
+                <div class="d-rel">
+                    <ng-container [ngTemplateOutlet]="sidemenuheader"></ng-container>
+                    <div class="view-container" (click)="drawer.toggle()">
+                        <div class="side-bar open">
+                            <app-side-bar></app-side-bar>
+                        </div>
+                    </div>
+                    <div class="pt-5"></div>
+                </div>
+            </div>
+
+
+        </div>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <div class="vertical-flex h100">
+            <header class="home-header portal-header">
+                <div class="wrapper">
+                    <nav class="d-flex head-xl">
+                        <div class="brand cursor-pointer" (click)="landingPage()">
+                            <img src="assets/logo.svg" alt="" />
+                        </div>
+                        <div class="brand-name" (click)="logout()">
+                            Employer<br>
+                            E-Service Portal
+                        </div>
+                        <div class="menu-desktop d-none d-lg-block flex-1">
+                            <ng-container [ngTemplateOutlet]="sidemenuheader"></ng-container>
+                        </div>
+                        <div class="ml-auto d-lg-none">
+                            <button mat-icon-button class="m-icon" (click)="drawer.toggle()">
+                                <ion-icon src="assets/svg/menu.svg"></ion-icon>
+                            </button>
+                        </div>
+                    </nav>
+                </div>
+            </header>
+            <div class="flex-1 relative">
+                <div class="ab">
+                    <div class="rel">
+                        <div class="view-container">
+                            <div class="side-bar" [ngClass]="{'open' : sideBarOpen}">
+                                <app-side-bar (clicked)="sideBarExpand()"></app-side-bar>
+                            </div>
+                            <div class="main">
+                                <div class="ab">
+                                    <div class="rel">
+                                        <router-outlet></router-outlet>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <footer class="portal-footer">
+                <ng-container *ngIf="data.message.hasError">
+                    <div class="footer-msg-box">
+                        <div class="bg-toolbar" matRipple (click)="data.openMessageBox()">
+                        </div>
+                        <div class="title-1">Message</div>
+                        <div class="p-3"></div>
+                        <ng-container *ngIf="data.message.errorMessage">
+                            <!-- <ng-container *ngIf="data.message.errorMessage.length > 0">
+                                
+                            </ng-container> -->
+                            <!-- <ng-container *ngIf="(data.message.errorMessage | messagePortal : 0).length > 0">
+                                <div class="error-title" matRipple (click)="data.openMessageBox('error')">Error
+                                    ({{(data.message.errorMessage | messagePortal: 0).length}})</div>
+                            </ng-container> -->
+                            <ng-container *ngIf="(data.message.errorMessage | messagePortal : 0).length > 0">
+                                <div class="error-title" matRipple (click)="data.openMessageBox('error')">Error
+                                    ({{(data.message.errorMessage | messagePortal: 0).length}})</div>
+                            </ng-container>
+                            <ng-container *ngIf="(data.message.errorMessage | messagePortal : 1).length > 0">
+                                <div class="warning-title" matRipple (click)="data.openMessageBox('warn')">Warning
+                                    ({{(data.message.errorMessage | messagePortal: 1).length}})</div>
+                            </ng-container>
+                            <ng-container *ngIf="(data.message.errorMessage | messagePortal : 2).length > 0">
+                                <div class="information-title" matRipple (click)="data.openMessageBox('info')">
+                                    Information
+                                    ({{(data.message.errorMessage | messagePortal: 2).length}})</div>
+                            </ng-container>
+                        </ng-container>
+                        <!-- <div class="warning-title" matRipple>Warning (15)</div>
+                        <div class="information-title" matRipple>Information (15)</div> -->
+                        <div class="ml-auto">
+                            <button mat-icon-button class="text-center" (click)="data.openMessageBox()">
+                                <ion-icon name="chevron-up-outline"></ion-icon>
+                            </button>
+                        </div>
+                    </div>
+                </ng-container>
+                <ng-container *ngIf="!data.message.hasError && csFile.csFileDetails.plsterrormessage.length > 0">
+                    <div class="footer-msg-box">
+                        <div class="bg-toolbar" matRipple (click)="csFile.openMessageBox()">
+                        </div>
+                        <div class="title-1">Message</div>
+                        <div class="p-3"></div>
+                        <ng-container *ngIf="csFile.csFileDetails.plsterrormessage">
+                            <ng-container *ngIf="csFile.csFileDetails.plsterrormessage.length > 0">
+                                <div class="error-title" matRipple (click)="csFile.openMessageBox('error')">Error
+                                    ({{csFile.csFileDetails.plsterrormessage.length}})</div>
+                            </ng-container>
+
+                        </ng-container>
+                        <!-- <div class="warning-title" matRipple>Warning (15)</div>
+                        <div class="information-title" matRipple>Information (15)</div> -->
+                        <div class="ml-auto">
+                            <button mat-icon-button class="text-center" (click)="csFile.openMessageBox()">
+                                <ion-icon name="chevron-up-outline"></ion-icon>
+                            </button>
+                        </div>
+                    </div>
+                </ng-container>
+                <div class="footer-flex">
+                    <div class="bg-primary">2021 © FNPF | <a href="https://myfnpf.com.fj/index.php/privacy-policy "
+                            target="_blank">Privacy
+                            Policy</a> | <a href="https://myfnpf.com.fj/index.php/terms-of-use " target="_blank">Terms
+                            and
+                            Conditions</a>
+                    </div>
+                    <ng-container *ngIf="appSetting.environment.sandboxMode">
+                        <div class="flex-1">
+                            <marquee>This is Sandbox Mode</marquee>
+                        </div>
+                    </ng-container>
+                </div>
+            </footer>
+        </div>
+    </mat-sidenav-content>
+</mat-sidenav-container>
+
+<ng-template #sidemenuheader>
+    <div class="s-header">
+        <div class="timer-d">
+            <app-timer></app-timer>
+        </div>
+        <div class="ml-3 pl-3 screen-d br-left">
+            <h3>{{data.headerName.screenName}}</h3>
+            <div *ngIf="data.headerName.paths.length > 0">
+                <ol class="breadcrumb">
+                    <ng-container *ngFor="let path of data.headerName.paths">
+                        <ng-container *ngIf="path.link !== ''">
+                            <li class="breadcrumb-item"><a [routerLink]="path.link">{{path.name}}</a>
+                            </li>
+                        </ng-container>
+                        <ng-container *ngIf="path.link === ''">
+                            <li class="breadcrumb-item active" aria-current="page">{{path.name}}
+                            </li>
+                        </ng-container>
+                    </ng-container>
+                </ol>
+            </div>
+        </div>
+        <div class="ml-d-flex-center">
+            <ng-container *ngIf="appSetting.environment.sandboxMode">
+                <div class="sandbox">Sandbox Mode</div>
+            </ng-container>
+            <!-- <div class="sandbox">Sandbox Mode</div> -->
+            <!-- <div class="search-box-d">
+                <app-portal-search></app-portal-search>
+            </div> -->
+            <button mat-button class="fullscreen-btn mw45 f18 mr-1" (click)="openFullscreen()"
+                [matTooltip]="fsview ? 'Collapse': 'View Fullscreen'" matTooltipPosition="left">
+                <ng-container *ngIf="!fsview">
+                    <ion-icon name="expand-outline"></ion-icon>
+                </ng-container>
+                <ng-container *ngIf="fsview">
+                    <ion-icon name="scan-outline"></ion-icon>
+                </ng-container>
+            </button>
+            <!-- <ng-container *ngIf="appSetting.environment.showBotWindow">
+                <button mat-button class="mw45 f18 mr-1" (click)="openBot()" matTooltip="May I help you"
+                    matTooltipPosition="left">
+                    <ion-icon src="assets/bot-icon.svg"></ion-icon>
+                </button>
+            </ng-container> -->
+            <div class="notification-btn-desktop nav-btn mr-4"
+                *ngIf="general.userData.showNotificationAlertFlag === 'Y'">
+                <ng-container [ngTemplateOutlet]="notificationbell"></ng-container>
+            </div>
+            <div class="company-details">
+                <div class="d-flex align-items-center">
+                    <!-- <div class="company-logo">
+                        <img src="assets/un-img/sample-logo.svg">
+                    </div> -->
+                    <div class="">
+                        <h3>{{general.userData.entOrgContact.organization.businessName}}</h3>
+                        <p>Welcome
+                            <ng-container *ngIf="general.userData.entOrgContact.person.firstName !== ''">
+                                {{general.userData.entOrgContact.person.firstName}}
+                            </ng-container>
+                            <ng-container *ngIf="general.userData.entOrgContact.person.middleName !== ''">
+                                {{general.userData.entOrgContact.person.middleName}}
+                            </ng-container>
+                            <ng-container *ngIf="general.userData.entOrgContact.person.lastName !== ''">
+                                {{general.userData.entOrgContact.person.lastName}}
+                            </ng-container>
+
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="nav-btn">
+                <div class="notification-btn-mobile" *ngIf="general.userData.showNotificationAlertFlag === 'Y'">
+                    <ng-container [ngTemplateOutlet]="notificationbell"></ng-container>
+                </div>
+                <button mat-button [matMenuTriggerFor]="menu">
+                    <ion-icon src="assets/svg/cog.svg"></ion-icon>
+                </button>
+                <mat-menu #beforeMenu #menu="matMenu">
+                    <div class="setting-panel">
+                        <div class="setting-item">
+                            <label>Current Employer</label>
+                            <div class="d-flex align-items-center">
+                                <div class="mr-auto">
+                                    {{general.userData.entOrgContact.organization.businessName}}
+                                </div>
+                                <div class="ml-auto" *ngIf="showchange">
+                                    <a (click)="changeEmployer()">Change</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="setting-item">
+                            <label>Default Landing Page</label>
+                            <div class="d-flex align-items-center">
+                                <div class="mr-auto">
+                                    {{general.userData.defaultLandingPageName}}
+                                </div>
+                                <div class="ml-auto">
+                                    <a (click)="changeDefaultLandingPage()">Change</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="setting-item">
+                            <label>Two Factor Authentication</label>
+                            <div class="d-flex align-items-center">
+                                <div class="mr-auto">
+                                    <ng-container *ngIf="general.userData.enableTwoFactor === ''">
+                                        Disabled
+                                    </ng-container>
+                                    <ng-container *ngIf="general.userData.enableTwoFactor === 'Y'">
+                                        Enabled
+                                    </ng-container>
+                                    <ng-container *ngIf="general.userData.enableTwoFactor === 'N'">
+                                        Disabled
+                                    </ng-container>
+                                </div>
+                                <div class="ml-auto">
+                                    <mat-slide-toggle (change)="twofactorAuthentication($event)"
+                                        [checked]="general.userData.enableTwoFactor === 'Y'">
+                                    </mat-slide-toggle>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </mat-menu>
+                <button mat-button (click)="confirmLogout()">
+                    <ion-icon src="assets/svg/logout.svg"></ion-icon>
+                </button>
+            </div>
+        </div>
+    </div>
+</ng-template>
+<ng-template #notificationbell>
+    <ng-container *ngIf="general.userData.totalUnreadMessageCount > 0">
+        <span [matBadge]="general.userData.totalUnreadMessageCount" matBadgeOverlap="true" color="danger">
+            <button mat-button class="mw45" (click)="readMessage()">
+                <ion-icon name="notifications" class="bell animate"></ion-icon>
+            </button>
+        </span>
+    </ng-container>
+    <ng-container *ngIf="general.userData.totalUnreadMessageCount === 0">
+        <button mat-button class="mw45">
+            <ion-icon name="notifications" class="bell"></ion-icon>
+        </button>
+    </ng-container>
+</ng-template>

@@ -1,0 +1,306 @@
+<div class="content-body" [parentId]="pageId" appAccess="CSADT">
+    <div class="content-body">
+        <div class="rel">
+            <div class="vertical-flex h100">
+                <div>
+                    <div class="cus-card mt-0 mx-0">
+                        <div class="container-fluid p-0">
+                            <form class="h100" #h="ngForm" autocomplete="off">
+                                <div class="row">
+                                    <div class="col-xl-6 pb-3 heading">
+                                        Contribution Schedule Adjustment Detail
+                                    </div>
+                                    <div class="text-right col-md-6">
+                                        <ng-container>
+                                            <button mat-raised-button color="accent" [parentId]="pageId"
+                                                appAccess="BTNSaveCSAdjustment" (click)="saveCSAdjHeader(h)"
+                                                *ngIf="service.protoentCSAdjustmentHeader.blnIsEditable">
+                                                Save
+                                            </button>
+                                            <a mat-raised-button matTooltip="Cancel" class="ml-2" color="danger"
+                                                [parentId]="pageId" appAccess="BTNCancelCSAdjustment"
+                                                (click)="opencancel()" *ngIf="service.protoentCSAdjustmentHeader.blnIsEditable &&
+                                                service.protoentCSAdjustmentHeader.adjHeaderId > 0">
+                                                Cancel
+                                            </a>
+                                        </ng-container>
+                                    </div>
+                                </div>
+                                <div class="row pb-3">
+                                    <div class="col-md-3 noformmb notallowEdit"
+                                        [ngClass]="{'allowEdit': (service.protoentCSAdjustmentHeader.blnIsEditable)}">
+                                        <app-number-control label="Parent CS Header ID" search="true"
+                                            [(ngModel)]="service.protoentCSAdjustmentHeader.contHeaderId"
+                                            [errorTrue]="errorTrue" [btnClicked]="btnClicked" required
+                                            name="contHeaderId" (onsearchevent)="getCSHeaderbycsheaderid(h)">
+                                        </app-number-control>
+                                        <div>
+                                            <label>CS Adjustment Header ID</label>
+                                            <div class="fw500">
+                                                <ng-container
+                                                    *ngIf="service.protoentCSAdjustmentHeader.adjHeaderId !== 0">
+                                                    {{service.protoentCSAdjustmentHeader.adjHeaderId}}
+                                                </ng-container>
+                                                <ng-container
+                                                    *ngIf="service.protoentCSAdjustmentHeader.adjHeaderId === 0">
+                                                    -
+                                                </ng-container>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <label>CS Month Year</label>
+                                                <div class="fw500">
+                                                    <ng-container
+                                                        *ngIf="service.protoentCSAdjustmentHeader.protoentCSHeader.year !== 0">
+                                                        {{service.protoentCSAdjustmentHeader.protoentCSHeader.year}}/{{service.protoentCSAdjustmentHeader.protoentCSHeader.csMonthDescription}}
+                                                    </ng-container>
+                                                    <ng-container
+                                                        *ngIf="service.protoentCSAdjustmentHeader.protoentCSHeader.year === 0">
+                                                        -
+                                                    </ng-container>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label>Wages Month Year</label>
+                                                <div class="fw500">
+                                                    <ng-container
+                                                        *ngIf="service.protoentCSAdjustmentHeader.protoentCSHeader.csMonthDescription !== ''">
+                                                        {{service.protoentCSAdjustmentHeader.protoentCSHeader.wagesPaidYear}}/{{service.protoentCSAdjustmentHeader.protoentCSHeader.wagesPaidMonthDescription}}
+                                                    </ng-container>
+                                                    <ng-container
+                                                        *ngIf="service.protoentCSAdjustmentHeader.protoentCSHeader.csMonthDescription === ''">
+                                                        -
+                                                    </ng-container>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label>CS Code</label>
+                                                <div class="fw500">
+                                                    <ng-container
+                                                        *ngIf="service.protoentCSAdjustmentHeader.protoentCSHeader.csCode !== ''">
+                                                        {{service.protoentCSAdjustmentHeader.protoentCSHeader.csCode}}
+                                                    </ng-container>
+                                                    <ng-container
+                                                        *ngIf="service.protoentCSAdjustmentHeader.protoentCSHeader.csCode === ''">
+                                                        -
+                                                    </ng-container>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 pt-2">
+                                                <label>Total Member</label>
+                                                <div class="fw500">
+                                                    <ng-container
+                                                        *ngIf="service.protoentCSAdjustmentHeader.lstprotoentCSAdjustmentDetail.length !== 0">
+                                                        {{service.protoentCSAdjustmentHeader.lstprotoentCSAdjustmentDetail.length}}
+                                                    </ng-container>
+                                                    <ng-container
+                                                        *ngIf="service.protoentCSAdjustmentHeader.lstprotoentCSAdjustmentDetail.length === 0">
+                                                        -
+                                                    </ng-container>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 pt-2">
+                                                <label>Total CS Adjustment Amount</label>
+                                                <div class="fw500">
+                                                    <ng-container
+                                                        *ngIf="service.protoentCSAdjustmentHeader.totalAdjAmt !== ''">
+                                                        {{service.protoentCSAdjustmentHeader.totalAdjAmt | appCurrency}}
+                                                    </ng-container>
+                                                    <ng-container
+                                                        *ngIf="service.protoentCSAdjustmentHeader.totalAdjAmt === ''">
+                                                        -
+                                                    </ng-container>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 pt-2">
+                                                <label>CS Adjustment Status</label>
+                                                <div class="fw500">
+                                                    <ng-container
+                                                        *ngIf="service.protoentCSAdjustmentHeader.headerStatusDescription !== ''">
+                                                        {{service.protoentCSAdjustmentHeader.headerStatusDescription}}
+                                                    </ng-container>
+                                                    <ng-container
+                                                        *ngIf="service.protoentCSAdjustmentHeader.headerStatusDescription === ''">
+                                                        -
+                                                    </ng-container>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div
+                                        class="col-md-4 ml-auto d-flex cus-card cus-pad justify-content-center bg-card align-items-center m-0 mb-1 cs-mw">
+                                        <div>
+                                            <mat-checkbox (change)="CheckSurpressWarning($event.checked)"
+                                                [checked]="service.protoentCSAdjustmentHeader.protoentCSAdjustmentDetail.suppressWaringFlag  === 'Y'">
+                                                Suppress
+                                                Warning</mat-checkbox>
+                                        </div>
+                                        <div class="d-flex">
+                                            <div class="error-title" matRipple>
+                                                {{service.protoentCSAdjustmentHeader.errorMessageCount}}
+                                            </div>
+                                            <div class="warning-title" matRipple>
+                                                {{service.protoentCSAdjustmentHeader.warningMessageCount}}
+                                            </div>
+                                            <div class="information-title" matRipple>
+                                                {{service.protoentCSAdjustmentHeader.infoMessageCount}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="flex-1 cus-card m-0 relative"> -->
+                <mat-tab-group class="h100" animationDuration="0ms" (selectedTabChange)="tabChanged($event)">
+                    <mat-tab label="Cs Detail" class="h100">
+                        <div class="d-flex pt-2 z-2">
+                            <div class="ml-auto d-flex align-items-center">
+                                <ng-container *ngIf="service.protoentCSAdjustmentHeader.blnIsEditable &&
+                                service.protoentCSAdjustmentHeader.adjHeaderId > 0">
+                                    <button mat-raised-button color="accent" [parentId]="pageId"
+                                        appAccess="BTNAddNewCSAdjustmentDetail" (click)="createNewAdjutmentDetail()">
+                                        <ion-icon name="add"></ion-icon>
+                                        ADD NEW
+                                    </button>
+                                </ng-container>
+                            </div>
+                        </div>
+                        <div class="ab pt45">
+                            <div class="rel">
+                                <div class="table-responsive h100">
+                                    <div class="ab pb40">
+                                        <div class="rel">
+                                            <table mat-table [dataSource]="dataSource" class="table-hover" matSort>
+                                                <ng-container matColumnDef="adjDetailId">
+                                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> CS Detail ID
+                                                    </th>
+                                                    <td mat-cell *matCellDef="let element"
+                                                        (click)="openDetail(element)">
+                                                        {{element.adjDetailId}}
+                                                    </td>
+                                                </ng-container>
+                                                <ng-container matColumnDef="fnpfId">
+                                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> FNPF No </th>
+                                                    <td mat-cell *matCellDef="let element"> {{element.fnpfId}}</td>
+                                                </ng-container>
+                                                <ng-container matColumnDef="EmployeeName">
+                                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Employee Name
+                                                    </th>
+                                                    <td mat-cell *matCellDef="let element" class="text-nowrap">
+                                                        {{element.firstName}}
+                                                        {{element.middleName}}
+                                                        {{element.lastName}}
+                                                    </td>
+                                                </ng-container>
+                                                <ng-container matColumnDef="oldTotalContri">
+                                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Previous
+                                                        Contribution </th>
+                                                    <td mat-cell *matCellDef="let element"> {{element.oldTotalContri |
+                                                        appCurrency}}</td>
+                                                </ng-container>
+                                                <ng-container matColumnDef="newTotalContri">
+                                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> New
+                                                        Contribution </th>
+                                                    <td mat-cell *matCellDef="let element"> {{element.newTotalContri |
+                                                        appCurrency}}</td>
+                                                </ng-container>
+                                                <ng-container matColumnDef="detailStatusDescription">
+                                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+                                                    <td mat-cell *matCellDef="let element">
+                                                        {{element.detailStatusDescription}}
+                                                    </td>
+                                                </ng-container>
+                                                <ng-container matColumnDef="action">
+                                                    <th mat-header-cell *matHeaderCellDef class="text-center w100">
+                                                        Action </th>
+                                                    <td mat-cell *matCellDef="let element"
+                                                        class="text-center py-0 text-nowrap">
+                                                        <button mat-icon-button class="icon-only-btn" matTooltip="Edit"
+                                                            (click)="openDetail(element)">
+                                                            <ion-icon name="pencil-outline"></ion-icon>
+                                                        </button>
+                                                        <button *ngIf="service.protoentCSAdjustmentHeader.blnIsEditable"
+                                                            mat-icon-button class="icon-only-btn ml-1" color="danger"
+                                                            matTooltip="Delete" (click)="checkdelete(element)">
+                                                            <ion-icon name="trash-outline"></ion-icon>
+                                                        </button>
+                                                    </td>
+                                                </ng-container>
+                                                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                                                <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+                                                    [ngClass]="{'active': activeIndex == row}" (click)="active(row)">
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="table-footer d-flex">
+                                        <mat-paginator [showFirstLastButtons]="!data.isMobile"
+                                            [hideTotalCount]="data.isMobile" showFirstLastButtons="true"
+                                            [pageSizeOptions]="[10, 25, 50, 100]">
+                                        </mat-paginator>
+                                        <div class="ml-auto mr-1">
+                                            <div class="text-right">
+                                                <ng-container *ngIf="service.protoentCSAdjustmentHeader.blnIsEditable &&
+                                    service.protoentCSAdjustmentHeader.adjHeaderId > 0">
+                                                    <button mat-raised-button color="accent" [parentId]="pageId"
+                                                        appAccess="BTNSubmitCSAdjustment" class="ml-3"
+                                                        (click)="onsubmit(h)">
+                                                        Submit
+                                                    </button>
+                                                </ng-container>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </mat-tab>
+                    <mat-tab label="Document" class="h100" *ngIf="(service.protoentCSAdjustmentHeader.adjHeaderId > 0)">
+                        <div class="vertical-flex h100">
+                            <div class="cus-card relative px-0 mt-0 mx-0 mb-1 h100">
+                                <div class="container-fluid pt-3 pb-0">
+                                    <div class="row">
+                                        <div class="col-md-9">
+                                            <div class="row">
+                                                <ng-container
+                                                    *ngFor="let document of service.protoentCSAdjustmentHeader.lstprotoadjustmentdocuments">
+                                                    <div class="col-md-8">
+                                                        <app-file-upload accept="application/pdf, image/*"
+                                                            [label]="document.docTypeDescription" [data]="document"
+                                                            (onload)="uploadDocument($event,document)"
+                                                            [mandatory]="document.isMandatory === 'Y'"
+                                                            [loading]="fileUploading === document.docTypeValue"
+                                                            [disabled]="disabled" required [errorTrue]="errorTrue"
+                                                            [xFile]="document.pdocumentFile" expanded="true"
+                                                            (onclear)="clearFile($event)"
+                                                            [accept]="appSettingService.environment.fileAccept">
+                                                        </app-file-upload>
+                                                    </div>
+                                                    <div class="col-md-1">
+                                                        <div class="label-space"></div>
+                                                        <button mat-raised-button color="secondary"
+                                                            *ngIf="service.protoentCSAdjustmentHeader.blnIsEditable && service.protoentCSAdjustmentHeader.adjHeaderId > 0"
+                                                            (click)="savedocument()">
+                                                            Upload
+                                                        </button>
+                                                    </div>
+                                                </ng-container>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </mat-tab>
+                </mat-tab-group>
+            </div>
+        </div>
+    </div>
+</div>

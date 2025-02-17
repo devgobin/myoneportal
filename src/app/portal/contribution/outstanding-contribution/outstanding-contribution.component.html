@@ -1,0 +1,129 @@
+<div [parentId]="pageId" appAccess="OUTSC">
+    <div class="content-body">
+        <div class="rel">
+            <div class="d-flex z-2">
+                <div class="mr-auto d-flex align-items-center">
+                    <h6 class="mb-0">Outstanding Contribution</h6>
+                </div>
+                <div class="ml-auto d-flex align-items-center">
+                    <div class="search-box-d">
+                        <button mat-raised-button color="accent" cdkOverlayOrigin #trigger="cdkOverlayOrigin"
+                            (click)="isOpen = !isOpen" [parentId]="pageId" appAccess="BTNFilterOutstandingContribution">
+                            <ion-icon name="funnel-outline"></ion-icon>
+                            Filter
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="ab pt35">
+                <div class="rel">
+                    <div class="table-responsive h100">
+                        <div class="ab pb40">
+                            <div class="rel">
+                                <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+                                    <ng-container matColumnDef="month">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> CS Month </th>
+                                        <td mat-cell *matCellDef="let element" class="hyperlink-td"> {{element.month}}
+                                        </td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="year">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> CS Year </th>
+                                        <td mat-cell *matCellDef="let element"> {{element.year}} </td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="code">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> CS Code </th>
+                                        <td mat-cell *matCellDef="let element"> {{element.code}} </td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="due">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Due Date </th>
+                                        <td mat-cell *matCellDef="let element"> {{element.due}} </td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="status">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+                                        <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="input">
+                                        <th mat-header-cell *matHeaderCellDef class="text-center"> </th>
+                                        <td mat-cell *matCellDef="let element">
+                                            <app-select-control placeholder="Create">
+                                            </app-select-control>
+                                        </td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="select">
+                                        <th mat-header-cell *matHeaderCellDef class="text-center"> </th>
+                                        <td mat-cell *matCellDef="let element" class="text-center">
+                                            <app-select-control></app-select-control>
+                                        </td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="action">
+                                        <th mat-header-cell *matHeaderCellDef class="text-center"> Action </th>
+                                        <td mat-cell *matCellDef="let element" class="text-center">
+                                            <button mat-button class="icon-only-btn" [parentId]="pageId"
+                                                appAccess="BTNEditOutstandingContribution">
+                                                <ion-icon name="pencil-outline"></ion-icon>
+                                            </button>
+                                        </td>
+                                    </ng-container>
+
+                                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+                                        [ngClass]="{'active': activeIndex == row}" (click)="active(row)"></tr>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="table-footer">
+                            <mat-paginator [showFirstLastButtons]="!data.isMobile" [hideTotalCount]="data.isMobile"
+                                showFirstLastButtons="true" [pageSizeOptions]="[10, 25, 50, 100]">
+                            </mat-paginator>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <ng-template cdkConnectedOverlay [cdkConnectedOverlayOrigin]="trigger" [cdkConnectedOverlayOpen]="isOpen"
+        cdkConnectedOverlayHasBackdrop="true" [cdkConnectedOverlayLockPosition]="trigger"
+        (backdropClick)="isOpen = !isOpen" cdkConnectedOverlayBackdropClass="search-backdrop">
+        <form>
+            <div class="search-panel">
+                <div class="ab">
+                    <div class="rel">
+                        <div class="container-fluid pt-3">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <app-date-control label="From Date">
+                                    </app-date-control>
+                                </div>
+                                <div class="col-md-6">
+                                    <app-date-control label="To Date">
+                                    </app-date-control>
+                                </div>
+                                <div class="col-md-6">
+                                    <app-input-control label="CS Code">
+                                    </app-input-control>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="search-footer">
+                    <div class="ml-auto d-flex align-items-center">
+                        <button mat-raised-button class="ml-3" color="accent" type="submit" [parentId]="pageId"
+                            appAccess="BTNApplyOutstandingContribution">
+                            <div class="d-flex align-items-center">
+                                <ion-icon name="checkmark-circle-outline"></ion-icon>
+                                <div class="pl-2">Apply</div>
+                            </div>
+                        </button>
+                        <button mat-button [parentId]="pageId" appAccess="BTNClearOutstandingContribution">
+                            <div class="d-flex align-items-center">
+                                <ion-icon name="close-circle-outline"></ion-icon>
+                                <div class="pl-1">Clear</div>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </ng-template>
+</div>

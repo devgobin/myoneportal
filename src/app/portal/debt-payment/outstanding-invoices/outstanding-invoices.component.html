@@ -1,0 +1,200 @@
+<div class="content-body" [parentId]="pageId" appAccess="OTINV">
+    <div class="rel">
+        <ng-container *ngIf="!data.isMobile">
+            <div class="d-flex z-2">
+                <div class="mr-auto d-flex align-items-center">
+                    <h6 class="mb-0">Outstanding Invoices</h6>
+                </div>
+                <div class="ml-auto d-flex align-items-center">
+                    <!-- <div class="search-box-d">
+                    <button mat-raised-button color="accent" cdkOverlayOrigin #trigger="cdkOverlayOrigin"
+                        (click)="isOpen = !isOpen" [parentId]="pageId" appAccess="BTNFilterOutstandingInvoices">
+                        <ion-icon name="funnel-outline"></ion-icon>
+                        Filter
+                    </button>
+                </div> -->
+                    <app-filter-button [searchPanelTemplate]="searchPanelTemplate" [parentId]="pageId"
+                        appAccess="BTNFilterOutstandingInvoices">
+                    </app-filter-button>
+                    <button mat-raised-button color="accent" class="ml-3" (click)="saveinvoicepaymentdetail()"
+                        [parentId]="pageId" appAccess="BTNAddForPaymentOutstandingInvoices">
+                        Add For Payment
+                    </button>
+                </div>
+            </div>
+        </ng-container>
+        <ng-container *ngIf="data.isMobile">
+            <div class="mr-auto d-flex align-items-center">
+                <h6 class="mb-0">Outstanding Invoices</h6>
+            </div>
+            <div class="ml-auto d-flex align-items-center pt-3">
+                <!-- <div class="search-box-d">
+                    <button mat-raised-button color="accent" cdkOverlayOrigin #trigger="cdkOverlayOrigin"
+                        (click)="isOpen = !isOpen" [parentId]="pageId" appAccess="BTNFilterOutstandingInvoices">
+                        <ion-icon name="funnel-outline"></ion-icon>
+                        Filter
+                    </button>
+                </div> -->
+                <app-filter-button [searchPanelTemplate]="searchPanelTemplate" [parentId]="pageId"
+                    appAccess="BTNFilterOutstandingInvoices">
+                </app-filter-button>
+                <button mat-raised-button color="accent" class="ml-3" (click)="saveinvoicepaymentdetail()"
+                    [parentId]="pageId" appAccess="BTNAddForPaymentOutstandingInvoices">
+                    Add For Payment
+                </button>
+            </div>
+        </ng-container>
+        <div class="ab pt35">
+            <div class="rel">
+                <div class="table-responsive h100">
+                    <div class="ab pb40">
+                        <div class="rel">
+                            <table mat-table [dataSource]="dataSource" class="table-hover" matSort>
+                                <ng-container matColumnDef="invoiceId">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Invoice ID </th>
+                                    <td mat-cell *matCellDef="let element" class="hyperlink-td"
+                                        (click)="viewInvoice(element.invoiceId)">
+                                        {{element.invoiceId}}
+                                    </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="invoiceTypeDescription">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Invoice Type</th>
+                                    <td mat-cell *matCellDef="let element"> {{element.invoiceTypeDescription}}</td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="csMonthDescription">
+                                    <th mat-header-cell *matHeaderCellDef class="text-center" mat-sort-header> CS Month
+                                    </th>
+                                    <td mat-cell *matCellDef="let element">
+                                        {{element.csMonthDescription}}
+                                    </td>
+                                </ng-container>
+                                <ng-container matColumnDef="csYear">
+                                    <th mat-header-cell *matHeaderCellDef class="text-center" mat-sort-header> CS Year
+                                    </th>
+                                    <td mat-cell *matCellDef="let element">
+                                        <ng-container *ngIf="element.csYear>0">{{element.csYear}}</ng-container>
+                                    </td>
+                                </ng-container>
+                                <ng-container matColumnDef="invoiceDate">
+                                    <th mat-header-cell *matHeaderCellDef class="text-center" mat-sort-header> Invoice
+                                        Due Date
+                                    </th>
+                                    <td mat-cell *matCellDef="let element">{{element.invoiceDate | moment :
+                                        'DD-MM-YYYY' :
+                                        'DD MMM YYYY'}}
+                                    </td>
+                                </ng-container>
+                                <ng-container matColumnDef="totalAmount">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Invoice Total</th>
+                                    <td mat-cell *matCellDef="let element">
+                                        {{element.totalAmount |appCurrency}}
+                                    </td>
+                                </ng-container>
+                                <ng-container matColumnDef="paidAmount">
+                                    <th mat-header-cell *matHeaderCellDef class="text-center" mat-sort-header>
+                                        Paid Amount </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.paidAmount|appCurrency}} </td>
+                                </ng-container>
+                                <ng-container matColumnDef="invoiceBalanceAmount">
+                                    <th mat-header-cell *matHeaderCellDef class="text-center" mat-sort-header>
+                                        Invoice Balance Amount </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.invoiceBalanceAmount
+                                        |appCurrency}} </td>
+                                </ng-container>
+                                <ng-container matColumnDef="action">
+                                    <th mat-header-cell *matHeaderCellDef class="text-center">
+                                        Select </th>
+                                    <td mat-cell *matCellDef="let element" class="text-center py-0 text-nowrap">
+                                        <mat-checkbox (change)="SelectInvoice($event.checked,element)"
+                                            [checked]="element.isSelected === 'Y'"
+                                            [disabled]="element.isAddedForPayment === 'Y'">
+                                        </mat-checkbox>
+                                    </td>
+                                </ng-container>
+
+                                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                                <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+                                    [ngClass]="{'active': activeIndex == row}" (click)="active(row)"></tr>
+                            </table>
+                            <ng-container *ngIf="!loadingTrue && dataSource.data.length === 0 && showEmpty">
+                                <app-empty-state></app-empty-state>
+                            </ng-container>
+                        </div>
+                    </div>
+                    <div class="table-footer">
+                        <mat-paginator [showFirstLastButtons]="!data.isMobile" [hideTotalCount]="data.isMobile"
+                            showFirstLastButtons="true" [pageSizeOptions]="[10, 25, 50, 100]">
+                        </mat-paginator>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<ng-template #searchPanelTemplate>
+    <form>
+        <div class="search-panel m-search">
+            <div class="ab">
+                <div class="rel">
+                    <div class="container-fluid pt-3">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <app-number-control label="Invoice ID" [(ngModel)]="searchParams.invoiceId" tabindex="2"
+                                    name="invoiceId">
+                                </app-number-control>
+                            </div>
+                            <div class="col-md-6">
+                                <app-select-control label="Invoice Type" [(ngModel)]="searchParams.invoiceTypeValue"
+                                    tabindex="1" name="invoiceTypeValue" [items]="service.initialData.DDLTypeValue"
+                                    key="constant" keyname="description">
+                                </app-select-control>
+                            </div>
+                            <div class="col-md-6">
+                                <app-select-control label="CS Month" [(ngModel)]="searchParams.csMonth" tabindex="1"
+                                    name="csMonth" [items]="service.initialData.DDLMonthValue" key="constant"
+                                    keyname="description">
+                                </app-select-control>
+                            </div>
+                            <div class="col-md-6">
+                                <app-number-control label="CS Year" [(ngModel)]="searchParams.csYear" tabindex="2"
+                                    name="csYear">
+                                </app-number-control>
+                            </div>
+                            <div class="col-md-6">
+                                <app-date-control label="From Date" [(ngModel)]="searchParams.fromDate" tabindex="3"
+                                    name="fromDate" [maxDate]="searchParams.toDate">
+                                </app-date-control>
+                            </div>
+                            <div class="col-md-6">
+                                <app-date-control label="To Date" [(ngModel)]="searchParams.toDate" tabindex="4"
+                                    name="toDate" [minDate]="searchParams.fromDate">
+                                </app-date-control>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="search-footer">
+                <div class="ml-auto d-flex align-items-center">
+                    <button mat-raised-button class="ml-3" color="accent" type="submit" (click)="doSearch()"
+                        appAccess="BTNApplyOutstandingInvoices" [parentId]="pageId">
+                        <div class="d-flex align-items-center">
+                            <ion-icon name="checkmark-circle-outline"></ion-icon>
+                            <div class="pl-2">Apply</div>
+                        </div>
+                    </button>
+                    <button mat-button (click)="doClear()" appAccess="BTNClearOutstandingInvoices" [parentId]="pageId">
+                        <div class="d-flex align-items-center">
+                            <ion-icon name="close-circle-outline"></ion-icon>
+                            <div class="pl-1">Clear</div>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+</ng-template>

@@ -1,0 +1,644 @@
+<div class="content-body" [parentId]="pageId" appAccess="NEWCO">
+    <div class="rel">
+        <div class="cus-card m-0 py-0 z-2">
+            <div class="container-fluid p-0">
+                <div class="row">
+                    <div class="col-md-3 py-1 heading">
+                        CONTRIBUTION HEADER
+                    </div>
+                    <ng-container *ngIf="!data.isMobile">
+                        <div class="col-md-9 pt-1 pb-1 d-flex">
+                            <div class="d-flex ml-auto align-items-center">
+                                <!-- <ng-container *ngIf="service.createdetail.iAdjCount > 0">
+                                <button mat-raised-button color="accent" type="submit"
+                                    (click)="viewScreen(service.createdetail.csHeaderId)">View
+                                    Adjustment
+                                </button>
+                            </ng-container> -->
+
+                                <div class="label-badge ml-3">
+                                    <label for=""><b>CS Header ID: </b>
+                                        {{service.createdetail.csHeaderId}}
+                                    </label>
+                                </div>
+                                <div class="label-badge ml-3">
+                                    <label for=""><b>CS Period: </b>
+                                        {{service.createdetail.csMonthValue}}/{{service.createdetail.year}}</label>
+                                </div>
+                                <!-- <div class="label-badge ml-3">
+                                    <label for=""><b>Record Status: </b> -</label>
+                                </div> -->
+                                <div class="label-badge ml-3">
+                                    <label for=""><b>Header Status: </b>
+                                        {{service.createdetail.headerStatusDescription}}</label>
+                                </div>
+                                <ng-container *ngIf="service.createdetail.iAdjCount > 0">
+                                    <button mat-raised-button color="accent" type="submit" class="ml-3"
+                                        (click)="viewScreen(service.createdetail.csHeaderId)">View
+                                        Adjustment
+                                    </button>
+                                </ng-container>
+                                <button *ngIf="service.createdetail.csHeaderId <=0 ||service.createdetail.headerStatusValue==='VALD'
+                                                    || service.createdetail.headerStatusValue==='REVW'"
+                                    mat-raised-button color="accent" type="submit" class="ml-3"
+                                    (click)="onsubmit(h)">Save
+                                </button>
+                            </div>
+                        </div>
+                    </ng-container>
+                    <ng-container *ngIf="data.isMobile">
+                        <div class="d-flex align-items-center pt-1 pb-1">
+                            <div class="label-badge ml-3">
+                                <label for=""><b>CS Header ID: </b>
+                                    {{service.createdetail.csHeaderId}}
+                                </label>
+                            </div>
+                            <div class="label-badge ml-3">
+                                <label for=""><b>CS Period: </b>
+                                    {{service.createdetail.csMonthValue}}/{{service.createdetail.year}}</label>
+                            </div>
+                            <div class="label-badge ml-3">
+                                <label for=""><b>Header Status: </b>
+                                    {{service.createdetail.headerStatusDescription}}</label>
+                            </div>
+                        </div>
+                        <div class="pt-2">
+                            <button *ngIf="service.createdetail.csHeaderId <=0 ||service.createdetail.headerStatusValue==='VALD'
+                                || service.createdetail.headerStatusValue==='REVW'" mat-raised-button color="accent"
+                                class="ml-3" type="submit" (click)="onsubmit(h)">Save
+                            </button>
+                            <ng-container *ngIf="service.createdetail.iAdjCount > 0">
+                                <button mat-raised-button color="accent" type="submit" class="ml-3"
+                                    (click)="viewScreen(service.createdetail.csHeaderId)">View
+                                    Adjustment
+                                </button>
+                            </ng-container>
+                        </div>
+                    </ng-container>
+                    <div class="col-md-5 pr-0">
+                        <form class="h100" #h="ngForm" (ngSubmit)="onsubmit(h)" autocomplete="off">
+                            <div class="container-fluid p-0">
+                                <div class="row pb-1">
+                                    <div class="col-md-6">
+                                        <div class="row mb-1">
+                                            <div class="col-md-5 pr-0 nomar">
+                                                <div class="label-center">
+                                                    <label>Wages Month<span class="text-danger">*</span></label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-7 pl-0 nomar">
+                                                <app-select-control search="true"
+                                                    [(ngModel)]="service.createdetail.wagesPaidMonthValue" tabindex="1"
+                                                    [items]="service.DDL.DDLMonthValue" key="constant"
+                                                    keyname="description" name="MonthValue" required
+                                                    [errorTrue]="errorTrue"
+                                                    [btnClicked]="btnClicked || service.createdetail.csHeaderId>0">
+                                                </app-select-control>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="row mb-1">
+                                            <div class="col-md-5 pr-0 nomar">
+                                                <div class="label-center">
+                                                    <label>Wages Year<span class="text-danger">*</span></label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-7 pl-0 nomar">
+                                                <app-number-control max="2200" limit="4" label=""
+                                                    [(ngModel)]="service.createdetail.wagesPaidYear" tabindex="2"
+                                                    name="wagesPaidYear" required [errorTrue]="errorTrue"
+                                                    [btnClicked]="btnClicked || service.createdetail.csHeaderId>0">
+                                                </app-number-control>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="row mb-1">
+                                            <div class="col-md-5 pr-0 nomar">
+                                                <div class="label-center ">
+                                                    <label>CS Code <span class="text-danger">*</span></label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-7 pl-0 nomar">
+                                                <app-select-control [(ngModel)]="service.createdetail.csCode"
+                                                    tabindex="3" [items]="service.DDL.DDLCSCodeValue" key="constant"
+                                                    keyname="description" name="cscode" required
+                                                    [errorTrue]="errorTrue">
+                                                </app-select-control>
+                                                <!-- <mat-select tabindex="3" class="form-control ng-pristine ng-valid ng-touched required" [(ngModel)]="service.createdetail.csCode"
+                                                name="cscode" [ngClass]="{'border-warn':  errorTrue}"
+                                                [disabled]="btnClicked">
+                                                <ng-container *ngFor="let values of service.DDL.DDLCSCodeValue">
+                                                    <mat-option [value]="values.constant">
+                                                        {{values.description}}
+                                                    </mat-option>
+                                                </ng-container>
+
+                                            </mat-select> -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-md-7 pt-2">
+                        <div class="rel">
+                            <ng-container *ngIf="!data.isMobile">
+                                <div class="mw720">
+                                    <table class="cs-table">
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <label class="">Contribution Type</label>
+                                                    <span class="fw500">:
+                                                        {{service.createdetail.scheduleTypeDescription}}</span>
+                                                </td>
+                                                <td>
+                                                    <label class="">Received Date</label>
+                                                    <span class="fw500">: {{service.createdetail.receivedDate| moment :
+                                                        'DD-MM-YYYY' : 'DD MMM YYYY'}}</span>
+                                                </td>
+                                                <td>
+                                                    <label class="">Due Date</label>
+                                                    <span class="fw500">: {{service.createdetail.dueDate| moment :
+                                                        'DD-MM-YYYY' :'DD MMM YYYY'}}</span>
+                                                </td>
+
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <label class="">Total Contribution Amt</label>
+                                                    <span class="fw500">:
+                                                        <ng-container
+                                                            *ngIf="service.createdetail.totalContributionAmount !== ''">
+                                                            {{service.createdetail.totalContributionAmount |
+                                                            appCurrency}}
+                                                        </ng-container>
+                                                        <ng-container
+                                                            *ngIf="service.createdetail.totalContributionAmount === ''">
+                                                            -
+                                                        </ng-container>
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                    <label class="">Total Gross Salary</label>
+                                                    <span class="fw500">:
+                                                        <ng-container
+                                                            *ngIf="service.createdetail.totalGrossSalary !== ''">
+                                                            {{service.createdetail.wages | appCurrency}}
+                                                        </ng-container>
+                                                        <ng-container
+                                                            *ngIf="service.createdetail.totalGrossSalary === ''">
+                                                            -
+                                                        </ng-container>
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                    <label class="">Employee</label>
+                                                    <span class="fw500">:
+                                                        <!-- *ngIf="service.createdetail.totalEmployee !== 0" -->
+                                                        <ng-container>
+                                                            {{service.createdetail.totalEmployee}}
+                                                        </ng-container>
+                                                        <!-- <ng-container *ngIf="service.createdetail.totalEmployee === 0">
+                                                        -
+                                                    </ng-container> -->
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <!-- <div class="d-flex align-items-center pl-3 pb-1">
+                                    <div class="pr-2">
+                                        <label class="">Contribution Type</label>
+                                        <span class="fw500">: {{service.createdetail.scheduleTypeDescription}}</span>
+                                    </div>
+                                    |
+                                    <div class="pl-2 pr-2">
+                                        <label class="">Received Date</label>
+                                        <span class="fw500">: {{service.createdetail.receivedDate| moment :
+                                            'DD-MM-YYYY' : 'DD
+                                            MMM YYYY'}}</span>
+                                    </div>
+                                    |
+                                    <div class="pl-2 pr-2">
+                                        <label class="">Due Date</label>
+                                        <span class="fw500">: {{service.createdetail.dueDate| moment : 'DD-MM-YYYY' :
+                                            'DD
+                                            MMM YYYY'}}</span>
+                                    </div>
+                                    |
+                                    <div class="pl-2">
+                                        <label class="">Employee</label>
+                                        <span class="fw500">:
+                                            <ng-container *ngIf="service.createdetail.totalEmployee !== 0">
+                                                {{service.createdetail.totalEmployee}}
+                                            </ng-container>
+                                            <ng-container *ngIf="service.createdetail.totalEmployee === 0">
+                                                -
+                                            </ng-container>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="d-flex align-items-center pl-3 pb-1">
+                                    <div class="pr-2">
+                                        <label class="">Total Contribution Amt</label>
+                                        <span class="fw500">:
+                                            <ng-container *ngIf="service.createdetail.totalContributionAmount !== ''">
+                                                {{service.createdetail.totalContributionAmount | appCurrency}}
+                                            </ng-container>
+                                            <ng-container *ngIf="service.createdetail.totalContributionAmount === ''">
+                                                -
+                                            </ng-container>
+                                        </span>
+                                    </div>
+                                    |
+                                    <div class="pl-2 pr-2">
+                                        <label class="">Total Gross Salary</label>
+                                        <span class="fw500">:
+                                            <ng-container *ngIf="service.createdetail.totalGrossSalary !== ''">
+                                                {{service.createdetail.totalGrossSalary | appCurrency}}
+                                            </ng-container>
+                                            <ng-container *ngIf="service.createdetail.totalGrossSalary === ''">
+                                                -
+                                            </ng-container>
+                                        </span>
+                                    </div>
+                                    |
+                                    <div class="pl-2 pr-2">
+                                            <label class="">Penality</label>
+                                            <span class="fw500">:
+                                                <ng-container *ngIf="service.createdetail.penality !== ''">
+                                                    {{service.createdetail.penality}}
+                                                </ng-container>
+                                                <ng-container *ngIf="service.createdetail.penality === ''">
+                                                    -
+                                                </ng-container>
+                                            </span>
+                                        </div>
+                                </div> -->
+                                    <div
+                                        class="d-flex cus-card cus-pad justify-content-center bg-card align-items-center m-0 mb-1 cs-mw">
+                                        <div>
+                                            <mat-checkbox (change)="CheckSurpressWarning($event.checked)"
+                                                [checked]="service.createdetail.suppressWaringFlag  === 'Y'"> Suppress
+                                                Warning</mat-checkbox>
+                                        </div>
+                                        <div class="d-flex">
+                                            <div class="error-title" matRipple>
+                                                {{service.createdetail.errorMessageCount}}
+                                            </div>
+                                            <div class="warning-title" matRipple>
+                                                {{service.createdetail.warningMessageCount}}</div>
+                                            <div class="information-title" matRipple>
+                                                {{service.createdetail.infoMessageCount}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-container>
+                            <ng-container *ngIf="data.isMobile">
+                                <div>
+                                    <label class="mw150">Contribution Type </label>
+                                    <span class="fw500 pl-2">:
+                                        {{service.createdetail.scheduleTypeDescription}}</span>
+                                </div>
+                                <div class="pt-1">
+                                    <label class="mw150">Received Date </label>
+                                    <span class="fw500  pl-2">: {{service.createdetail.receivedDate| moment :
+                                        'DD-MM-YYYY' : 'DD MMM YYYY'}}</span>
+                                </div>
+                                <div>
+                                    <label class="mw150">Due Date </label>
+                                    <span class="fw500 pl-2">: {{service.createdetail.dueDate| moment :
+                                        'DD-MM-YYYY' :'DD MMM YYYY'}}</span>
+                                </div>
+                                <div class="pt-1">
+                                    <label class="mw150">Total Contribution Amt </label>
+                                    <span class="fw500  pl-2">:
+                                        <ng-container *ngIf="service.createdetail.totalContributionAmount !== ''">
+                                            {{service.createdetail.totalContributionAmount |
+                                            appCurrency}}
+                                        </ng-container>
+                                        <ng-container *ngIf="service.createdetail.totalContributionAmount === ''">
+                                            -
+                                        </ng-container>
+                                    </span>
+                                </div>
+                                <div class="pt-1">
+                                    <label class="mw150">Total Gross Salary </label>
+                                    <span class="fw500  pl-2">:
+                                        <ng-container *ngIf="service.createdetail.totalGrossSalary !== ''">
+                                            {{service.createdetail.wages | appCurrency}}
+                                        </ng-container>
+                                        <ng-container *ngIf="service.createdetail.totalGrossSalary === ''">
+                                            -
+                                        </ng-container>
+                                    </span>
+                                </div>
+                                <div class="pt-1">
+                                    <label class="mw150">Employee </label>
+                                    <span class="fw500 pl-2">:
+                                        <!-- *ngIf="service.createdetail.totalEmployee !== 0" -->
+                                        <ng-container>
+                                            {{service.createdetail.totalEmployee}}
+                                        </ng-container>
+                                        <!-- <ng-container *ngIf="service.createdetail.totalEmployee === 0">
+                                            -
+                                        </ng-container> -->
+                                    </span>
+                                </div>
+                                <div
+                                    class="d-flex cus-card cus-pad justify-content-center bg-card align-items-center m-0 mb-1 cs-mw pt-2">
+                                    <div>
+                                        <mat-checkbox (change)="CheckSurpressWarning($event.checked)"
+                                            [checked]="service.createdetail.suppressWaringFlag  === 'Y'"> Suppress
+                                            Warning</mat-checkbox>
+                                    </div>
+                                    <div class="d-flex">
+                                        <div class="error-title" matRipple>
+                                            {{service.createdetail.errorMessageCount}}
+                                        </div>
+                                        <div class="warning-title" matRipple>
+                                            {{service.createdetail.warningMessageCount}}</div>
+                                        <div class="information-title" matRipple>
+                                            {{service.createdetail.infoMessageCount}}</div>
+                                    </div>
+                                </div>
+                            </ng-container>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="ab pt150">
+            <div class="rel">
+                <ng-container *ngIf="!data.isMobile">
+                    <div class="d-flex align-items-center z-2 pb-2 pt-1">
+                        <div class="heading">Contribution Details
+                            - {{service.createdetail.totalEmployee}}
+                            <ng-container
+                                *ngIf="service.createdetail && service.createdetail.lstprotoentCSDetail && service.createdetail.lstprotoentCSDetail.length>0">
+                                <small class="pl-3">( CS Details currently in
+                                    <ng-container *ngIf="service.createdetail.totalNoOfReviewCsdetails > 0">
+                                        <b>Review : {{service.createdetail.totalNoOfReviewCsdetails}}</b>
+                                    </ng-container>
+                                    <ng-container *ngIf="service.createdetail.totalNoOfValidCsdetails > 0">
+                                        <b> Valid : {{service.createdetail.totalNoOfValidCsdetails}}</b>
+                                    </ng-container>
+                                    <ng-container *ngIf="service.createdetail.totalNoOfPostedCsdetails > 0">
+                                        <b> Posted : {{service.createdetail.totalNoOfPostedCsdetails}}</b>
+                                    </ng-container>
+                                    <ng-container *ngIf="service.createdetail.totalNoOfCancelledCsdetails > 0">
+                                        <b> Cancelled : {{service.createdetail.totalNoOfCancelledCsdetails}}</b>
+                                    </ng-container>
+                                    <ng-container *ngIf="service.createdetail.totalNoOfSuspenseCsdetails > 0">
+                                        <b> Suspense : {{service.createdetail.totalNoOfSuspenseCsdetails}}</b>
+                                    </ng-container>
+                                    <ng-container *ngIf="service.createdetail.totalNoOfReversedCsdetails > 0">
+                                        <b> Reversed : {{service.createdetail.totalNoOfReversedCsdetails}}</b>
+                                    </ng-container>
+                                    )
+                                </small>
+                            </ng-container>
+                        </div>
+                        <div class="ml-auto">
+                            <!-- <button mat-raised-button color="accent" [parentId]="pageId" appAccess="BTNValidate"
+                            (click)="submitcsheader(h)">
+                            Submit
+                        </button> -->
+                            <!-- <button mat-raised-button color="accent" class="ml-3"
+                                                            (click)="getDatafrompreviousheader()"
+                                                            [parentId]="pageId"
+                                                            appAccess="BTNCopyFromPreviousHeaderContributionDetails">
+                                                            Copy from previous header
+                                                        </button> -->
+                            <button mat-raised-button color="accent" class="ml-3" [parentId]="pageId"
+                                appAccess="BTNGenerateInvoiceContributionDetails" *ngIf="service.createdetail.csHeaderId>0 && (service.createdetail.headerStatusValue==='APPR'
+                            || service.createdetail.headerStatusValue==='POST')" (click)="viewinvoice()">
+                                Generate Invoice
+                            </button>
+                            <button mat-raised-button color="accent" class="ml-3" (click)="newemployee()"
+                                [parentId]="pageId" appAccess="BTNAddNewEmployeeContributionDetails" *ngIf="service.createdetail.csHeaderId>0 && (service.createdetail.headerStatusValue==='VALD'
+                            || service.createdetail.headerStatusValue==='REVW')">
+                                <ion-icon name="add"></ion-icon>
+                                ADD Employee
+                            </button>
+                        </div>
+                    </div>
+                </ng-container>
+                <ng-container *ngIf="data.isMobile">
+                    <div class="z-2 pb-2 pt-1">
+                        <div class="heading">Contribution Details
+                            - {{service.createdetail.totalEmployee}}
+                        </div>
+                        <div class="heading">
+                            <ng-container
+                                *ngIf="service.createdetail && service.createdetail.lstprotoentCSDetail && service.createdetail.lstprotoentCSDetail.length>0">
+                                <small class="pt-2">( CS Details currently in
+                                    <ng-container *ngIf="service.createdetail.totalNoOfReviewCsdetails > 0">
+                                        <b>Review : {{service.createdetail.totalNoOfReviewCsdetails}}</b>
+                                    </ng-container>
+                                    <ng-container *ngIf="service.createdetail.totalNoOfValidCsdetails > 0">
+                                        <b> Valid : {{service.createdetail.totalNoOfValidCsdetails}}</b>
+                                    </ng-container>
+                                    <ng-container *ngIf="service.createdetail.totalNoOfPostedCsdetails > 0">
+                                        <b> Posted : {{service.createdetail.totalNoOfPostedCsdetails}}</b>
+                                    </ng-container>
+                                    <ng-container *ngIf="service.createdetail.totalNoOfCancelledCsdetails > 0">
+                                        <b> Cancelled : {{service.createdetail.totalNoOfCancelledCsdetails}}</b>
+                                    </ng-container>
+                                    <ng-container *ngIf="service.createdetail.totalNoOfSuspenseCsdetails > 0">
+                                        <b> Suspense : {{service.createdetail.totalNoOfSuspenseCsdetails}}</b>
+                                    </ng-container>
+                                    <ng-container *ngIf="service.createdetail.totalNoOfReversedCsdetails > 0">
+                                        <b> Reversed : {{service.createdetail.totalNoOfReversedCsdetails}}</b>
+                                    </ng-container>
+                                    )
+                                </small>
+                            </ng-container>
+                        </div>
+                        <div class="pt-2">
+                            <!-- <button mat-raised-button color="accent" [parentId]="pageId" appAccess="BTNValidate"
+                            (click)="submitcsheader(h)">
+                            Submit
+                        </button> -->
+                            <!-- <button mat-raised-button color="accent" class="ml-3"
+                                                            (click)="getDatafrompreviousheader()"
+                                                            [parentId]="pageId"
+                                                            appAccess="BTNCopyFromPreviousHeaderContributionDetails">
+                                                            Copy from previous header
+                                                        </button> -->
+                            <button mat-raised-button color="accent" [parentId]="pageId"
+                                appAccess="BTNGenerateInvoiceContributionDetails" *ngIf="service.createdetail.csHeaderId>0 && (service.createdetail.headerStatusValue==='APPR'
+                            || service.createdetail.headerStatusValue==='POST')" (click)="viewinvoice()">
+                                Generate Invoice
+                            </button>
+                            <button mat-raised-button color="accent" (click)="newemployee()" [parentId]="pageId"
+                                appAccess="BTNAddNewEmployeeContributionDetails" *ngIf="service.createdetail.csHeaderId>0 && (service.createdetail.headerStatusValue==='VALD'
+                            || service.createdetail.headerStatusValue==='REVW')">
+                                <ion-icon name="add"></ion-icon>
+                                ADD Employee
+                            </button>
+                        </div>
+                    </div>
+                </ng-container>
+                <div class="ab pt35">
+                    <div class="rel">
+                        <div class="table-responsive h100">
+                            <div class="ab pb50">
+                                <div class="rel">
+                                    <table mat-table [dataSource]="dataSource" class="table-hover" matSort>
+                                        <ng-container matColumnDef="fnpfNo">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header> FNPF No
+                                            </th>
+                                            <td mat-cell *matCellDef="let element"
+                                                [ngClass]="element.detailStatusDescription==='Review' ? 'row-color' : ''">
+                                                {{element.fnpfNo}}
+                                            </td>
+                                        </ng-container>
+                                        <ng-container matColumnDef="firstName">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Employee Name
+                                            </th>
+                                            <td mat-cell *matCellDef="let element" class="text-nowrap"
+                                                [ngClass]="element.detailStatusDescription==='Review' ? 'row-color' : ''">
+                                                {{element.firstName}}
+                                                {{element.middleName}}
+                                                {{element.lastName}}
+                                            </td>
+                                        </ng-container>
+                                        <ng-container matColumnDef="tin">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header> TIN
+                                            </th>
+                                            <td mat-cell *matCellDef="let element"
+                                                [ngClass]="element.detailStatusDescription==='Review' ? 'row-color' : ''">
+                                                {{element.tin}}
+                                            </td>
+                                        </ng-container>
+                                        <ng-container matColumnDef="complulsoryContri">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-right">
+                                                Compulsory
+                                                Amount
+                                            </th>
+                                            <td mat-cell *matCellDef="let element" class="text-right"
+                                                [ngClass]="element.detailStatusDescription==='Review' ? 'row-color' : ''">
+                                                {{element.complulsoryContri | appCurrency}}
+                                            </td>
+                                        </ng-container>
+                                        <ng-container matColumnDef="employerAddContri">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-right">
+                                                Employer
+                                                Add
+                                                Amount
+                                            </th>
+                                            <td mat-cell *matCellDef="let element" class="text-right"
+                                                [ngClass]="element.detailStatusDescription==='Review' ? 'row-color' : ''">
+                                                {{element.employerAddContri | appCurrency}}
+                                            </td>
+                                        </ng-container>
+                                        <ng-container matColumnDef="employeeAddContri">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-right">
+                                                Employee
+                                                Add
+                                                Amount
+                                            </th>
+                                            <td mat-cell *matCellDef="let element" class="text-right"
+                                                [ngClass]="element.detailStatusDescription==='Review' ? 'row-color' : ''">
+                                                {{element.employeeAddContri | appCurrency}}
+                                            </td>
+                                        </ng-container>
+                                        <ng-container matColumnDef="totalContri">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-right">
+                                                Total
+                                                Contribution
+                                            </th>
+                                            <td mat-cell *matCellDef="let element" class="text-right"
+                                                [ngClass]="element.detailStatusDescription==='Review' ? 'row-color' : ''">
+                                                {{element.totalContri | appCurrency}} </td>
+                                        </ng-container>
+                                        <ng-container matColumnDef="grossSalary">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-right">
+                                                Gross
+                                                Salary
+                                            </th>
+                                            <td mat-cell *matCellDef="let element" class="text-right"
+                                                [ngClass]="element.detailStatusDescription==='Review' ? 'row-color' : ''">
+                                                {{element.grossSalary | appCurrency}} </td>
+                                        </ng-container>
+                                        <ng-container matColumnDef="detailStatusDescription">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-center">
+                                                Status
+                                            </th>
+                                            <td mat-cell *matCellDef="let element" class="text-center"
+                                                [ngClass]="element.detailStatusDescription==='Review' ? 'row-color' : ''">
+                                                <ng-container>
+                                                    {{element.detailStatusDescription}}
+                                                </ng-container>
+                                            </td>
+                                        </ng-container>
+                                        <ng-container matColumnDef="action">
+                                            <th mat-header-cell *matHeaderCellDef class="text-center">
+                                                <ng-container *ngIf="service.createdetail.csHeaderId>0 && (service.createdetail.headerStatusValue==='VALD'
+                                        || service.createdetail.headerStatusValue==='REVW')">
+                                                    Action </ng-container>
+                                            </th>
+                                            <td mat-cell *matCellDef="let element" class="text-center py-0 text-nowrap"
+                                                [ngClass]="element.detailStatusDescription==='Review' ? 'row-color' : ''">
+                                                <button
+                                                    *ngIf="service.createdetail.csHeaderId>0 && (service.createdetail.headerStatusValue==='VALD'
+                                                                        || service.createdetail.headerStatusValue==='REVW')"
+                                                    mat-icon-button (click)="openData(element)" class="icon-only-btn"
+                                                    matTooltip="Edit" [parentId]="pageId"
+                                                    appAccess="BTNEditEmployeeContributionDetails">
+                                                    <ion-icon name="pencil-outline"></ion-icon>
+                                                </button>
+                                                <button
+                                                    *ngIf="service.createdetail.csHeaderId>0 && (service.createdetail.headerStatusValue==='VALD'
+                                                                        || service.createdetail.headerStatusValue==='REVW')"
+                                                    mat-icon-button class="icon-only-btn ml-1" color="danger"
+                                                    matTooltip="Delete" (click)="doDelete(element)" [parentId]="pageId"
+                                                    appAccess="BTNDeleteEmployeeContributionDetails">
+                                                    <ion-icon name="trash-outline"></ion-icon>
+                                                </button>
+                                            </td>
+                                        </ng-container>
+                                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                                        <tr mat-row *matRowDef="let row; columns: displayedColumns;let i = index"
+                                            [ngClass]="{'active': activeIndex == row}" (click)="active(row)">
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="table-footer d-flex">
+                                    <!-- <ng-container *ngIf="!data.isMobile">
+                                        <mat-paginator [showFirstLastButtons]="!data.isMobile" [hideTotalCount]="data.isMobile" showFirstLastButtons="true"
+                                            [pageSizeOptions]="[10, 25, 50, 100]">
+                                        </mat-paginator>
+                                    </ng-container> -->
+                                    <ng-container>
+                                        <mat-paginator [pageSizeOptions]="[10, 25, 50, 100]"
+                                            [showFirstLastButtons]="!data.isMobile" [hideTotalCount]="data.isMobile">
+                                        </mat-paginator>
+                                    </ng-container>
+                                    <div class="ml-auto mr-1">
+                                        <div class="text-right">
+                                            <ng-container *ngIf="service.createdetail.csHeaderId>0 && (service.createdetail.headerStatusValue==='VALD'
+                                    || service.createdetail.headerStatusValue==='REVW')">
+                                                <button mat-raised-button color="accent" class="sub" [parentId]="pageId"
+                                                    (click)="submitcsheader(h)"
+                                                    appAccess="BTNSubmitContributionDetails">
+                                                    Submit
+                                                </button>
+                                            </ng-container>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

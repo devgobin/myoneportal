@@ -1,0 +1,91 @@
+<ng-container *ngIf="data.from === 'common'">
+    <div class="msg-portal-box bg-white">
+        <div class="message-header" [ngClass]="{'closing' : dialogRef.closing}">
+            <div class="bg-toolbar" matRipple (click)="close()">
+            </div>
+            <div class="title-1">Message</div>
+            <div class="p-3"></div>
+            <ng-container *ngIf="message.errorMessage">
+                <!-- <ng-container *ngIf="message.errorMessage.length > 0">
+                    <div class="error-title" matRipple (click)="constructType('error')">Error ({{message.errorMessage.length}})</div>
+                </ng-container> -->
+                <ng-container *ngIf="(message.errorMessage | messagePortal : 0).length > 0">
+                    <div class="error-title" matRipple (click)="constructType('error')">Error
+                        ({{(message.errorMessage | messagePortal: 0).length}})</div>
+                </ng-container>
+                <ng-container *ngIf="(message.errorMessage | messagePortal : 1).length > 0">
+                    <div class="warning-title" matRipple (click)="constructType('warn')">Warning
+                        ({{(message.errorMessage | messagePortal: 1).length}})</div>
+                </ng-container>
+                <ng-container *ngIf="(message.errorMessage | messagePortal : 2).length > 0">
+                    <div class="information-title" matRipple (click)="constructType('info')">Information
+                        ({{(message.errorMessage | messagePortal: 2).length}})</div>
+                </ng-container>
+            </ng-container>
+            <div class="ml-auto">
+                <button mat-icon-button class="text-center" (click)="close()" [ngClass]="{'closing' : dialogRef.closing}">
+                    <!-- <ion-icon name="close-outline"></ion-icon> -->
+                    <ion-icon name="chevron-down-outline"></ion-icon>
+                </button>
+            </div>
+        </div>
+        <div class="message-body" [ngClass]="{'closing' : dialogRef.closing}">
+            <div class="message-box">
+                <ul class="error-message" *ngIf="errorMessage">
+                    <li class="d-flex align-items-center" *ngFor="let errMsg of message.errorMessage | messagePortal : 0">
+                        <ion-icon src="assets/svg/triangle.svg" class="mr-2"></ion-icon>
+                        <div>{{errMsg.msgDescription}}</div>
+                    </li>
+                </ul>
+                <ul class="warning-message" *ngIf="warningMessage">
+                    <li class="d-flex align-items-center" *ngFor="let errMsg of message.errorMessage | messagePortal : 1">
+                        <!-- <ion-icon  ></ion-icon> -->
+                        <ion-icon name="warning-outline" class="mr-2 text-warning"></ion-icon>
+                        <div>{{errMsg.msgDescription}}</div>
+                    </li>
+                </ul>
+                <ul class="info-message" *ngIf="infoMessage">
+                    <li class="d-flex align-items-center" *ngFor="let errMsg of message.errorMessage | messagePortal : 2">
+                        <!-- <ion-icon src="assets/svg/triangle.svg" class="mr-2"></ion-icon> -->
+                        <ion-icon name="information-circle-outline" class="mr-2"></ion-icon>
+                        <div>{{errMsg.msgDescription}}</div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</ng-container>
+
+<ng-container *ngIf="data.from === 'csfile'">
+    <div class="msg-portal-box bg-white">
+        <div class="message-header" [ngClass]="{'closing' : dialogRef.closing}">
+            <div class="bg-toolbar" matRipple (click)="close()">
+            </div>
+            <div class="title-1">Message</div>
+            <div class="p-3"></div>
+            <ng-container *ngIf="message">
+                <ng-container *ngIf="message.length > 0">
+                    <div class="error-title" matRipple>Error ({{message.length}})</div>
+                </ng-container>
+            </ng-container>
+            <div class="ml-auto">
+                <button mat-icon-button class="text-center" (click)="close()" [ngClass]="{'closing' : dialogRef.closing}">
+                    <ion-icon name="close-outline"></ion-icon>
+                </button>
+            </div>
+        </div>
+        <div class="message-body" [ngClass]="{'closing' : dialogRef.closing}">
+            <div class="message-box">
+                <ul class="error-message" *ngIf="errorMessage">
+                    <li class="d-flex align-items-center pointer" matRipple *ngFor="let errMsg of message">
+                        <ion-icon src="assets/svg/triangle.svg" class="mr-2"></ion-icon>
+                        <div>{{errMsg.msgDescription}}</div>
+                    </li>
+                </ul>
+                <!-- <ul class="error-message" *ngIf="warningMessage">
+                   
+                </ul> -->
+            </div>
+        </div>
+    </div>
+</ng-container>

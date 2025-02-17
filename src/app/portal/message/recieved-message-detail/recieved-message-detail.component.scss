@@ -1,0 +1,9 @@
+@import '../../../../scss/responsive-mixin.scss';
+
+.pt50 {
+    padding-top: 0px;
+
+    @include desktop {
+        padding-top: 50px;
+    }
+}

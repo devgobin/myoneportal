@@ -1,0 +1,589 @@
+<div class="panel-spacer">
+    <div class="mw1280">
+        <div class="panel">
+            <div class="panel-header">
+                <div class="panel-title">PORTAL LOGIN</div>
+            </div>
+            <ng-container *ngIf="!successTrue">
+                <div class="panel-body display-flex">
+                    <div class="side-content">
+                        <div class="pb-4">
+                            <div class="side-label">Employer Name</div>
+                            <div class="side-value">{{ portal.user.employerName }}</div>
+                        </div>
+                        <div class="pb-4">
+                            <div class="side-label">Employer Ref No</div>
+                            <div class="side-value">{{ portal.user.organizationRefNo }}</div>
+                        </div>
+                        <div class="pb-4">
+                            <div class="side-label">Your Name</div>
+                            <div class="side-value">{{ portal.user.contactFullName }}</div>
+                        </div>
+                        <div class="pb-4">
+                            <div class="side-label">Email ID</div>
+                            <div class="side-value">{{ portal.user.workEmailAddress }}</div>
+                        </div>
+                        <div class="pb-4">
+                            <div class="side-label">Contact No</div>
+                            <div class="side-value">{{ portal.user.mobileNo }}</div>
+                        </div>
+                    </div>
+                    <div class="mw1170">
+                        <app-stepper #registrationSteps [horizontal]="data.isMobile">
+                            <cdk-step label="Set Username" [completed]="step1Completed">
+                                <div class="panel-step p-0 rel h100">
+                                    <form autocomplete="off" #us="ngForm" (ngSubmit)="onSubmitUsername(us)"
+                                        class="h100">
+                                        <div class="panel-stepper h100">
+                                            <div class="panel-stepper-body">
+                                                <div class="ab">
+                                                    <div class="rel">
+                                                        <div class="mw768 pt-4 h100">
+                                                            <div class="container-fluid h100">
+                                                                <div class="row pb-3 h100">
+                                                                    <div class="col-md-5">
+                                                                        <app-input-control label="User Name"
+                                                                            mandatory="true"
+                                                                            [(ngModel)]="portal.user.userId"
+                                                                            tabindex="1" required
+                                                                            [errorTrue]="portal.errorTrue"
+                                                                            [btnClicked]="portal.btnClicked"
+                                                                            name="userId" emojiType="name">
+                                                                        </app-input-control>
+                                                                    </div>
+                                                                    <div class="col-md-5 h100 ml-auto info-box">
+                                                                        <div class="info-container">
+                                                                            <h3>Why is this required?</h3>
+                                                                            <ul>
+                                                                                <li>
+                                                                                    Your username will be used with your
+                                                                                    password when logging into the
+                                                                                    Employer Portal.
+                                                                                </li>
+                                                                                <li>
+                                                                                    Your username must be Unique.
+                                                                                </li>
+                                                                                <li>
+                                                                                    Your current username is displayed
+                                                                                    on the screen and you may change
+                                                                                    this according to your preference or
+                                                                                    click Next to keep the current one.
+                                                                                </li>
+                                                                            </ul>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="panel-stepper-footer">
+                                                <div class="text-right">
+                                                    <button mat-raised-button color="accent" type="submit"
+                                                        [disabled]="portal.btnClicked">
+                                                        <ng-container *ngIf="!portal.btnClicked">
+                                                            Next
+                                                            <ion-icon name="arrow-forward-outline"></ion-icon>
+                                                        </ng-container>
+                                                        <ng-container *ngIf="portal.btnClicked">
+                                                            <app-dot class="dot-big"></app-dot>
+                                                        </ng-container>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </cdk-step>
+                            <cdk-step label="Set Password" [completed]="step2Completed">
+                                <div class="panel-step p-0 rel h100">
+                                    <form autocomplete="off" #pas="ngForm" (ngSubmit)="onSubmitPassword(pas)"
+                                        class="h100">
+                                        <div class="panel-stepper h100">
+                                            <div class="panel-stepper-body">
+                                                <div class="ab">
+                                                    <div class="rel">
+                                                        <div class="mw768 pt-4 h100">
+                                                            <div class="container-fluid h100">
+                                                                <div class="row pb-3 h100">
+                                                                    <div class="col-md-5">
+                                                                        <app-password-control label="Password"
+                                                                            strength="true"
+                                                                            [(ngModel)]="portal.user.password"
+                                                                            tabindex="1" required
+                                                                            [errorTrue]="!password.valid && errorTrue"
+                                                                            [btnClicked]="btnClicked" name="password"
+                                                                            #password="ngModel" mandatory="true"
+                                                                            [pattern]="data.pattern">
+                                                                        </app-password-control>
+                                                                        <!-- {{ sampleData(password)}} -->
+                                                                        <div class="pb-3"></div>
+                                                                        <app-password-control label="Confirm Password"
+                                                                            [(ngModel)]="login.cpassword" tabindex="2"
+                                                                            required [errorTrue]="errorTrue"
+                                                                            [btnClicked]="btnClicked" name="cpassword"
+                                                                            mandatory="true" #cpassword="ngModel">
+                                                                        </app-password-control>
+                                                                        <p class="text-danger" *ngIf="
+                                        cpassword.dirty &&
+                                        portal.user.password !== login.cpassword
+                                      ">
+                                                                            <small>Password Mismatch</small>
+                                                                        </p>
+                                                                    </div>
+                                                                    <div class="col-md-5 h100 ml-auto info-box">
+                                                                        <div class="info-container">
+                                                                            <h3>Why is this required?</h3>
+                                                                            <ul>
+                                                                                <li>
+                                                                                    Your password is used with your User
+                                                                                    Name when logging in.
+                                                                                </li>
+                                                                                <li>
+                                                                                    Keep your password secret and safe.
+                                                                                    Do
+                                                                                    NOT share your password with anyone.
+                                                                                </li>
+                                                                                <li>
+                                                                                    Your Password must contain
+                                                                                    <ul>
+                                                                                        <li>At least 8 Characters</li>
+                                                                                        <li>At least one capital letter
+                                                                                        </li>
+                                                                                        <li>At least one number</li>
+                                                                                        <li>
+                                                                                            At least one special
+                                                                                            character(e.g
+                                                                                            asterisk(*), Pound(#),
+                                                                                            Percentage(%) etc)
+                                                                                        </li>
+                                                                                    </ul>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="panel-stepper-footer">
+                                                <div class="text-right">
+                                                    <!-- <button mat-raised-button color="accent" (click)="step1Click()">
+                                                        Next
+                                                        <ion-icon name="arrow-forward-outline"></ion-icon>
+                                                    </button> -->
+                                                    <a mat-raised-button color="accent" (click)="clickPrev()">
+                                                        <ion-icon name="arrow-back-outline"></ion-icon>
+                                                        Back
+                                                    </a>
+                                                    <button mat-raised-button color="accent" class="ml-3" type="submit"
+                                                        [disabled]="portal.btnClicked">
+                                                        <ng-container *ngIf="!portal.btnClicked">
+                                                            Next
+                                                            <ion-icon name="arrow-forward-outline"></ion-icon>
+                                                        </ng-container>
+                                                        <ng-container *ngIf="portal.btnClicked">
+                                                            <app-dot class="dot-big"></app-dot>
+                                                        </ng-container>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </cdk-step>
+                            <cdk-step label="Transaction PIN" [completed]="step3Completed">
+                                <div class="panel-step p-0 rel h100">
+                                    <form autocomplete="off" #trn="ngForm" (ngSubmit)="onSubmitPin(trn)" class="h100">
+                                        <div class="panel-stepper h100">
+                                            <div class="panel-stepper-body">
+                                                <div class="ab">
+                                                    <div class="rel">
+                                                        <div class="mw768 pt-4 h100">
+                                                            <div class="container-fluid h100">
+                                                                <div class="row pb-3 h100">
+                                                                    <div class="col-md-7">
+                                                                        <div class="form-group">
+                                                                            <label for="" class="w100 text-center">New
+                                                                                PIN</label>
+                                                                            <app-pin-control id="np" boxes="4"
+                                                                                [(ngModel)]="portal.user.transactionPin"
+                                                                                tabindex="40" required
+                                                                                [errorTrue]="errorTrue"
+                                                                                [btnClicked]="portal.btnClicked"
+                                                                                name="transactionPin" mandatory="true"
+                                                                                password="true" clearbtn="true"
+                                                                                #transactionPin="ngModel"
+                                                                                (onFinished)="transactionPinFinished()">
+                                                                            </app-pin-control>
+
+                                                                            <p class="text-danger text-center mt-15px"
+                                                                                *ngIf="
+                                          errorTrue &&
+                                          portal.user.transactionPin.length < 4
+                                        ">
+                                                                                <small>Please Enter New PIN</small>
+                                                                            </p>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label for=""
+                                                                                class="w100 text-center">Confirm
+                                                                                PIN</label>
+                                                                            <app-pin-control boxes="4" id="cp"
+                                                                                [(ngModel)]="login.cpin" tabindex="41"
+                                                                                required [errorTrue]="errorTrue"
+                                                                                [btnClicked]="portal.btnClicked"
+                                                                                name="ctransactionPin" mandatory="true"
+                                                                                password="true" clearbtn="true"
+                                                                                #ctransactionPin="ngModel"
+                                                                                #xtransactionPin>
+                                                                            </app-pin-control>
+                                                                        </div>
+                                                                        <p class="text-danger mt-15px text-center"
+                                                                            *ngIf="
+                                        errorTrue &&
+                                        portal.user.transactionPin.length < 4
+                                      ">
+                                                                            <small>Please Enter Confirm PIN</small>
+                                                                        </p>
+                                                                        <ng-container *ngIf="
+                                        portal.user.transactionPin.length === 4
+                                      ">
+                                                                            <p class="text-danger mt-15px text-center"
+                                                                                *ngIf="
+                                          ctransactionPin.dirty &&
+                                          portal.user.transactionPin !==
+                                            login.cpin
+                                        ">
+                                                                                <small>PIN Mismatch</small>
+                                                                            </p>
+                                                                        </ng-container>
+                                                                        <!-- <p class=" text-center text-danger"
+                                                                            *ngIf="ctransactionPin.dirty && portal.user.transactionPin !== login.cpin">
+                                                                            <small>PIN Mismatch</small>
+                                                                        </p> -->
+                                                                    </div>
+                                                                    <div class="col-md-5 h100 ml-auto info-box">
+                                                                        <div class="info-container">
+                                                                            <h3>Why is this required?</h3>
+                                                                            <ul>
+                                                                                <li>
+                                                                                    Your Transaction PIN is a 4-Digit
+                                                                                    code
+                                                                                    you will use when making amendments
+                                                                                    on
+                                                                                    your login detail or making
+                                                                                    submissions on the Portal.
+                                                                                </li>
+                                                                                <li>
+                                                                                    This is an additional security
+                                                                                    feature.
+                                                                                </li>
+                                                                                <li>
+                                                                                    Keep your transaction PIN secret and
+                                                                                    safe. Do NOT share your transaction
+                                                                                    PIN with anyone.
+                                                                                </li>
+                                                                            </ul>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="panel-stepper-footer">
+                                                <div class="text-right">
+                                                    <a mat-raised-button color="accent" (click)="clickPrev()">
+                                                        <ion-icon name="arrow-back-outline"></ion-icon>
+                                                        Back
+                                                    </a>
+                                                    <button mat-raised-button color="accent" type="submit" class="ml-3">
+                                                        Next
+                                                        <ion-icon name="arrow-forward-outline"></ion-icon>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </cdk-step>
+                            <!-- <cdk-step label="Security Questions" [completed]="step5Completed">
+                                <div class="panel-step p-0 rel h100">
+                                    <div class="panel-stepper h100">
+                                        <div class="panel-stepper-body">
+                                            <div class="ab">
+                                                <div class="rel">
+                                                    <div class="container-fluid py-3 px-4">
+                                                        <div class="row">
+                                                            <div class="col-md-12 pb-3 heading">
+                                                                SELECT ANSWER FOR ATLEAST 5 QUESTIONS
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <ng-container *ngFor="
+                                  let question of portal.user
+                                    .portalUserSecurityQuestionList
+                                ">
+                                                                <div class="col-md-6 d-flex">
+                                                                    <app-input-control class="w-100" [label]="
+                                      question.protoSecurityQuestion.question
+                                    " [(ngModel)]="question.encryptedAnswer">
+                                                                    </app-input-control>
+                                                                </div>
+                                                            </ng-container>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel-stepper-footer">
+                                            <div class="text-right">
+                                                <button mat-raised-button color="accent" (click)="clickPrev()">
+                                                    <ion-icon name="arrow-back-outline"></ion-icon>
+                                                    Back
+                                                </button>
+                                                <button mat-raised-button color="accent" (click)="step5Click()"
+                                                    class="ml-3">
+                                                    Next
+                                                    <ion-icon name="arrow-forward-outline"></ion-icon>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </cdk-step> -->
+                            <cdk-step label="One Time Passcode Validation" [completed]="step6Completed">
+                                <div class="panel-step p-0 rel h100">
+                                    <div class="panel-stepper h100">
+                                        <div class="panel-stepper-body">
+                                            <div class="ab">
+                                                <div class="rel">
+                                                    <div class="mw768 pt-3">
+                                                        <ng-container>
+                                                            <div class="heading pl-4">
+                                                                TWO FACTOR AUTHENTICATION
+                                                            </div>
+                                                            <div class="ab pt60 pb50">
+                                                                <div class="rel pl-4">
+                                                                    <div class="text-left">
+                                                                        Send One Time Passcode
+                                                                    </div>
+                                                                    <div class="form-box pt-4">
+                                                                        <ng-container
+                                                                            *ngIf="portal.user.sendOtpToEmail === 'Y'">
+                                                                            <div class="passcode-display pb-4">
+                                                                                <div class="mw300">
+                                                                                    <p class="mb-0">
+                                                                                        To Email ({{
+                                                                                        portal.user.maskedEmail
+                                                                                        }})
+                                                                                    </p>
+                                                                                </div>
+                                                                                <div class="pt-1">
+                                                                                    <button class="btn-send" mat-button
+                                                                                        (click)="sendOTP('email')"
+                                                                                        [disabled]="resetDisabled">
+                                                                                        {{ resendText }}
+                                                                                    </button>
+                                                                                </div>
+                                                                            </div>
+                                                                        </ng-container>
+                                                                        <ng-container *ngIf="
+                                        portal.user.sendOtpToMobile === 'Y'
+                                      ">
+                                                                            <div class="d-flex align-items-center pb-5">
+                                                                                <div class="mw300">
+                                                                                    <p class="mb-0">
+                                                                                        To Mobile ({{
+                                                                                        portal.user.maskedContactNo
+                                                                                        }})
+                                                                                    </p>
+                                                                                </div>
+                                                                                <div class="pt-1">
+                                                                                    <button class="btn-send" mat-button
+                                                                                        (click)="sendOTP('sms')"
+                                                                                        [disabled]="resetDisabled">
+                                                                                        {{ resendText }}
+                                                                                    </button>
+                                                                                </div>
+                                                                            </div>
+                                                                        </ng-container>
+                                                                    </div>
+                                                                    <div class="pt-1"></div>
+                                                                    <div class="text-left">
+                                                                        Enter One Time Passcode
+                                                                    </div>
+                                                                    <app-pin-control id="potp" boxes="4" password="true"
+                                                                        alignLeft="true" [(ngModel)]="login.otp"
+                                                                        [errorTrue]="portal.errorTrue">
+                                                                    </app-pin-control>
+                                                                    <p class="text-danger mt-15px" *ngIf="
+                                      portal.errorTrue && login.otp.length < 4
+                                    ">
+                                                                        <small>Please Enter One Time Passcode</small>
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                        </ng-container>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel-stepper-footer">
+                                            <div class="text-right">
+                                                <ng-container>
+                                                    <button mat-raised-button color="accent" (click)="clickPrev()">
+                                                        <ion-icon name="arrow-back-outline"></ion-icon>
+                                                        Back
+                                                    </button>
+                                                    <button mat-raised-button color="accent" (click)="verifyOTP()"
+                                                        type="submit" [disabled]="portal.btnClicked" class="ml-3">
+                                                        <ng-container *ngIf="!portal.btnClicked">
+                                                            Next
+                                                            <ion-icon name="arrow-forward-outline"></ion-icon>
+                                                        </ng-container>
+                                                        <ng-container *ngIf="portal.btnClicked">
+                                                            <app-dot class="dot-big"></app-dot>
+                                                        </ng-container>
+                                                    </button>
+                                                </ng-container>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </cdk-step>
+                            <cdk-step label="Terms & Condition" [completed]="step7Completed">
+                                <div class="panel-step p-0 rel h100">
+                                    <div class="panel-stepper h100">
+                                        <div class="panel-stepper-body">
+                                            <div class="ab">
+                                                <div class="rel">
+                                                    <div class="mw768 pt-3 pad">
+                                                        <div>
+                                                            <h4>SERVICE DESCRIPTION</h4>
+                                                            <p>
+                                                                The Employer Self Service (ESS) Portal will
+                                                                enable the authorized user to access their FNPF
+                                                                Portal account, manage access credentials,
+                                                                manage contribution schedules, register new
+                                                                employees as members and submit withdrawals.
+                                                                Users must be authorized by their employer to
+                                                                access this Information.
+                                                            </p>
+                                                            <h4>USE OF SERVICE</h4>
+                                                            <p>
+                                                                The Employer is solely responsible for all security of
+                                                                the information provided and use of these services,
+                                                                including but not limited to the following:
+                                                            </p>
+                                                            <div class="pl-3">
+                                                                <p>
+                                                                    a) Exert reasonable efforts to maintain the
+                                                                    confidentiality of information provided or accessed.
+                                                                </p>
+                                                                <p>
+                                                                    b) Register only his/her own personal email address
+                                                                    for
+                                                                    the Employer Portal service or his/her own personal
+                                                                    registered mobile number for the Employer Portal
+                                                                    service.
+                                                                </p>
+                                                                <p>
+                                                                    c) Register an employee's personal email address for
+                                                                    the Employer Portal service or the employee's own
+                                                                    personal registered mobile number for the Employer
+                                                                    Portal service.
+                                                                </p>
+                                                                <p>
+                                                                    d) A username and password will be issued upon the
+                                                                    successfully registration for online access to their
+                                                                    Employer's Portal information. The Employee will be
+                                                                    expected to exert reasonable efforts to maintain
+                                                                    confidentiality of their information.
+                                                                </p>
+                                                                <p>
+                                                                    e) The management of access to the employer portal
+                                                                    account and the account information. This Includes
+                                                                    granting or revoking access for their registered
+                                                                    users of the Employer Portal Service.
+                                                                </p>
+                                                                <p>
+                                                                    f) FNPF’s obligation with respect to revoking access
+                                                                    is
+                                                                    to suspend disseminating the Employer Contact Person
+                                                                    information unless the contact is activated again by
+                                                                    the Primary contact of said employer.
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="d-flex">
+                                                            <mat-checkbox (change)="checkDeclartion($event.checked)"
+                                                                [checked]="portal.user.tAndCFlag === 'Y'">
+                                                            </mat-checkbox>
+                                                            <div class="ml-3">
+                                                                I agree to Terms & Conditions
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel-stepper-footer">
+                                            <div class="text-right">
+                                                <ng-container>
+                                                    <button mat-raised-button color="accent" (click)="clickPrev()">
+                                                        <ion-icon name="arrow-back-outline"></ion-icon>
+                                                        Back
+                                                    </button>
+                                                    <button mat-raised-button color="accent" (click)="onSubmit()"
+                                                        type="submit" [disabled]="portal.btnClicked" class="ml-3">
+                                                        <ng-container *ngIf="!portal.btnClicked">
+                                                            Submit
+                                                            <ion-icon name="arrow-forward-outline"></ion-icon>
+                                                        </ng-container>
+                                                        <ng-container *ngIf="portal.btnClicked">
+                                                            <app-dot class="dot-big"></app-dot>
+                                                        </ng-container>
+                                                    </button>
+                                                </ng-container>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </cdk-step>
+                        </app-stepper>
+                    </div>
+                </div>
+            </ng-container>
+
+            <div class="panel-body" *ngIf="successTrue">
+                <div class="h100 bg-white">
+                    <div class="stepper-container">
+                        <div class="stepper-content">
+                            <div class="panel-step">
+                                <div class="v-center">
+                                    <div class="s-box text-center">
+                                        <div class="circle-tick"></div>
+                                        <p>
+                                            Your credentials are successfully updated.Click on home
+                                            button to login with new credentials.
+                                        </p>
+                                        <button mat-raised-button color="accent" class="ml-3" [routerLink]="['/']">
+                                            <ion-icon name="arrow-back-outline"></ion-icon>
+                                            Home
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

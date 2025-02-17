@@ -1,0 +1,38 @@
+.pt80{
+    padding-top: 100px;
+}
+.w65{
+    width: 50%;
+  }
+  .file-upload {
+    position: absolute;
+    visibility: hidden;
+    opacity: 0;
+    z-index: -1;
+    width: 0;
+    height: 0;
+}
+.f-btn{
+    width: 28px;
+    height: 28px;
+    line-height: 28px;
+}
+.ml50{
+    margin-left: 50px;
+}
+.mat-raised-button.mat-primary {
+    color: #fff;
+    background-color: var(--secondary);
+}
+.table-responsive table {
+    .cs-success {
+        background-color: #e4f3f1;
+        color: #0a6a5a;
+      }
+    
+      .cs-error {
+        background-color: #ff9ea2 !important;
+        color: #a20609;
+        cursor: pointer;
+      }
+}

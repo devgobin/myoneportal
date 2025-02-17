@@ -1,0 +1,218 @@
+<div class="content-body" [parentId]="pageId" appAccess="DPORR">
+    <div class="rel">
+        <form #l="ngForm" autocomplete="off" (ngSubmit)="onSubmit(l)" class="h100">
+            <div class="vertical-flex h100">
+                <div>
+                    <div class="cus-card mt-0 mx-0">
+                        <div class="container-fluid p-0">
+                            <div class="d-flex align-items-center">
+                                <div class=" pb-2 heading">
+                                    DPO Revoke Request
+                                </div>
+                                <div class="ml-auto d-flex align-items-center">
+                                    <div class="ml-auto d-flex align-items-center">
+                                        <ng-container *ngIf="service.dpoRevokeRequest.statusValue !=='SUBMT'">
+                                            <button mat-raised-button color="accent" type="submit" class="mr-1"
+                                                [parentId]="pageId" appAccess="BTNSubmitDpoRevokeRequest">
+                                                Submit
+                                            </button>
+                                        </ng-container>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="row d-flex align-items-center">
+                                            <div class="col-md-5">
+                                                <label>DPO ID:
+                                                </label>
+                                            </div>
+                                            <div class="col-md-7">
+                                                <b> {{service.dpoRevokeRequest.dpoId}}</b>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="row d-flex align-items-center">
+                                            <div class="col-md-5">
+                                                <label>DPO Effective Date :
+                                                </label>
+                                            </div>
+                                            <div class="col-md-7">
+                                                <b> {{service.dpoRevokeRequest.dpoDate | moment :
+                                                    'DD-MM-YYYY' :
+                                                    'DD MMM YYYY'}}</b>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 pt-3">
+                                        <div class="row d-flex align-items-center">
+                                            <div class="col-md-5">
+                                                <label>DPO Debt Balance Amount :
+                                                </label>
+                                            </div>
+                                            <div class="col-md-7">
+                                                <b> {{service.dpoRevokeRequest.dpoDeptAmt | appCurrency}}</b>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 pt-3">
+                                        <div class="row d-flex align-items-center">
+                                            <div class="col-md-5">
+                                                <label>Dept Paid Since DPO :
+                                                </label>
+                                            </div>
+                                            <div class="col-md-7">
+                                                <b>{{service.dpoRevokeRequest.dpoPaidAmt | appCurrency}}</b>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="row d-flex align-items-center">
+                                            <div class="col-md-5 nomar pr-0">
+                                                <div class="label-center">
+                                                    <label>Comment <span class="text-danger">*</span>
+                                                        :
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-7 nomar pl-0">
+                                                <app-textarea-control class="form-1"
+                                                    [(ngModel)]="service.dpoRevokeRequest.comment" name="comment"
+                                                    required mandatory="true" label="" [errorTrue]="errorTrue"
+                                                    [btnClicked]="btnClicked">
+                                                </app-textarea-control>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-1 cus-card m-0 relative">
+                    <div class="ab">
+                        <div class="rel">
+                            <div class="vertical-flex h100">
+                                <div class="d-flex align-items-center z-2 pt-3">
+                                    <div class="px-3 py-1">
+                                        <div class="heading">
+                                            Evidence Document Upload
+                                        </div>
+                                    </div>
+                                    <div class="ml-auto d-flex align-items-center">
+                                        <ng-container *ngIf="service.dpoRevokeRequest.statusValue !=='SUBMT'">
+                                            <a mat-raised-button color="accent" [parentId]="pageId" class="mr-3"
+                                                appAccess="BTNAddDpoRevokeRequest" (click)="addNew()">
+                                                <ion-icon name="add"></ion-icon>
+                                                Add
+                                            </a>
+                                        </ng-container>
+                                    </div>
+                                </div>
+                                <div class="flex-1 relative">
+                                    <div class="ab p-3">
+                                        <div class="rel">
+                                            <div class="table-responsive h100 ">
+                                                <table mat-table [dataSource]="dataSource" class="table-hover" matSort>
+                                                    <ng-container matColumnDef="appointmentRefNo">
+                                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Count
+                                                        </th>
+                                                        <td mat-cell *matCellDef="let element; let i =index; ">
+                                                            {{i+1}}
+                                                        </td>
+                                                    </ng-container>
+                                                    <ng-container matColumnDef="organizationName">
+                                                        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                                            File</th>
+                                                        <td mat-cell *matCellDef="let element">
+                                                            {{element.pdocumentFile.fileName}}
+                                                        </td>
+                                                    </ng-container>
+                                                    <ng-container matColumnDef="action">
+                                                        <th mat-header-cell *matHeaderCellDef class="text-center">
+                                                            Action
+                                                        </th>
+                                                        <td mat-cell *matCellDef="let element ;let i =index;"
+                                                            class="text-center py-0 text-nowrap">
+                                                            <a mat-button class="text-only-btn hyperlink-td"
+                                                                [parentId]="pageId"
+                                                                appAccess="BTNViewDocumentDpoRevokeRequest"
+                                                                (click)="viewDocument(element)">
+                                                                View Document
+                                                            </a>
+                                                            <ng-container
+                                                                *ngIf="service.dpoRevokeRequest.statusValue !=='SUBMT'">
+                                                                <a class="ml-1" mat-icon-button matTooltip="Delete"
+                                                                    class="text-danger icon-only-btn"
+                                                                    (click)="openDelete(element,i)" [parentId]="pageId"
+                                                                    appAccess="BTNDeleteDpoRevokeRequest">
+                                                                    <ion-icon name="trash-outline">
+                                                                    </ion-icon>
+                                                                </a>
+                                                            </ng-container>
+                                                        </td>
+                                                    </ng-container>
+                                                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                                                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+                                                        [ngClass]="{'active': activeIndex == row}"
+                                                        (click)="active(row)">
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<ng-template #documentDialog>
+    <div class="adjust-margin overflow">
+        <form class="h100" autocomplete="off" #a="ngForm">
+            <div class="dialogue-header z-2">
+                <div>
+                    Add Evidence Document
+                </div>
+                <div class="ml-auto d-flex align-items-center">
+                    <button mat-icon-button mat-dialog-close>
+                        <ion-icon name="close-outline"></ion-icon>
+                    </button>
+                </div>
+            </div>
+            <div class="ab pt50 pb50">
+                <div class="rel">
+                    <div class="h100">
+                        <div class="container-fluid p-3">
+                            <div class="col-xl-12 pt-3">
+                                <app-file-upload label="Receipt" (onload)="uploadRevokeRequestDocument($event)"
+                                    [data]="service.dpoRevokeRequestDocument.pdocumentFile" mandatory="true"
+                                    dname="service.dpoRevokeRequestDocument.pdocumentFile.fileName"
+                                    [loading]="fileUploading === service.dpoRevokeRequestDocument.pdocumentFile.documentTypeValue"
+                                    required [errorTrue]="service.errorTrue"
+                                    [xFile]="service.dpoRevokeRequestDocument.pdocumentFile" (onclear)="clearFile()"
+                                    [accept]="appSettingService.environment.fileAcceptImages" [expanded]="true">
+                                </app-file-upload>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="dialogue-footer z-2">
+                <button mat-raised-button color="accent" class="ml-3" type="submit"
+                    (click)="addToList(service.dpoRevokeRequestDocument)">
+                    Upload
+                </button>
+            </div>
+        </form>
+    </div>
+</ng-template>

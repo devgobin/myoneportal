@@ -1,0 +1,63 @@
+<div [parentId]="pageId" appAccess="GEMST">
+    <div class="content-body">
+        <div class="rel">
+            <div class="container-fluid z-2">
+                <div class="row">
+                    <div class="col-md-12 pb-2 px-0">
+                        <div class="cus-card h100 m-0 pb-1 pt-3">
+                            <form class="h100" #h="ngForm" (ngSubmit)="getemployerstatement(h)" autocomplete="off">
+                                <div class="container-fluid p-0">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="heading pb-1">VIEW ESS EMPLOYER STATEMENT</div>
+                                        </div>
+                                        <div class="col-md-3 pt-1">
+                                            <app-number-control label="Remittance Year" max="2200" limit="4"
+                                                [(ngModel)]="employerstatementsearch.aYear" tabindex="3" name="aYear"
+                                                required [errorTrue]="employerstatementsearch.aYear === 0 || errorTrue"
+                                                [btnClicked]="btnClicked" mandatory="true">
+                                            </app-number-control>
+                                        </div>
+                                        <ng-container *ngIf="data.isMobile">
+                                            <div class="col-md-12">
+                                                <div class="pb-1">Note : The Employer statement is based on the FNPF
+                                                    financial Year (1st July - 30th June).
+                                                </div>
+                                            </div>
+                                        </ng-container>
+                                        <!-- <div class="col-md-3 pt-1">
+                                            <app-date-control label="Remittance Period From" search="true"
+                                                [(ngModel)]="employerstatementsearch.fromDate" tabindex="1"
+                                                name="fromDate">
+                                            </app-date-control>
+                                        </div>
+                                        <div class="col-md-3 pt-1">
+                                            <app-date-control label="Remittance Period To" search="true"
+                                                [(ngModel)]="employerstatementsearch.toDate" tabindex="2" name="toDate">
+                                            </app-date-control>
+                                        </div> -->
+
+                                        <div class="col-md-3 text-right pt19">
+                                            <button mat-raised-button color="accent" [parentId]="pageId"
+                                                appAccess="BTNGenerateEmployerStatement">
+                                                Generate
+                                                <ion-icon name="arrow-forward-circle" class="pb-3px"></ion-icon>
+                                            </button>
+                                        </div>
+                                        <ng-container *ngIf="!data.isMobile">
+                                            <div class="col-md-12 pt-1">
+                                                <div class="pb-1">Note : The Employer statement is based on the FNPF
+                                                    financial Year (1st July - 30th June).
+                                                </div>
+                                            </div>
+                                        </ng-container>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

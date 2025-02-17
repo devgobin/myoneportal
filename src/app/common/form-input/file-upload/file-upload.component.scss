@@ -1,0 +1,39 @@
+.file-upload {
+  position: absolute;
+  visibility: hidden;
+  opacity: 0;
+  z-index: -1;
+  width: 0;
+  height: 0;
+}
+
+.h20px {
+  height: 20px;
+}
+
+.ellipsis {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  padding-right: 1rem;
+}
+
+.sm-label {
+  font-size: 90%;
+  opacity: 0.6;
+}
+.pe-none {
+  pointer-events: none;
+  background-color: #e9ecef;
+}
+.relative{
+  position: relative;
+}
+.abs{
+  position: absolute;
+    bottom: 0;
+    font-size: 11px;
+}
+.bg-border-warn{
+  border-color: var(--danger);
+}

@@ -1,0 +1,110 @@
+@import '../../scss/responsive-mixin.scss';
+
+$setHeight : 30px;
+
+.footer-msg-box {
+    width: 100%;
+    height: $setHeight;
+    padding: 0 2rem;
+    line-height: $setHeight;
+    position: fixed;
+    bottom: 0;
+    z-index: 100;
+    // background-color:white;
+    background-color: #e8dcdf;
+    // background-color:rgba(94,42,42, 0.4);
+    display: flex;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+
+    // position:relative;
+    // z-index: 2;
+    .bg-toolbar {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 1;
+    }
+
+    .title-1 {
+        color: var(--secondary);
+        font-weight: 600;
+        font-size: 13px;
+        text-transform: uppercase;
+        margin-bottom: 0;
+        line-height: $setHeight;
+        z-index: 2;
+    }
+
+    .error-title,
+    .warning-title,
+    .information-title {
+        font-weight: 400;
+        font-size: 13px;
+        margin-bottom: 0;
+        line-height: $setHeight;
+        height: $setHeight;
+        padding-left: 3rem;
+        padding-right: 1rem;
+        opacity: 0.8;
+        position: relative;
+        cursor: pointer;
+        color: #555555;
+        z-index: 2;
+
+        &:hover,
+        &:focus,
+        &:active {
+            outline: 0;
+            background-color: transparent;
+        }
+
+        &:before {
+            content: '';
+            display: block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: var(--danger);
+            position: absolute;
+            left: 1.7rem;
+            top: 50%;
+            transform: translateY(-70%);
+
+
+        }
+    }
+
+    .warning-title {
+        &:before {
+            background-color: var(--warning);
+        }
+    }
+
+    .information-title {
+        &:before {
+            background-color: var(--info);
+        }
+    }
+
+    .mat-icon-button {
+        width: $setHeight !important;
+        height: $setHeight !important;
+        line-height: $setHeight !important;
+        color: #555555;
+
+        ion-icon {
+            width: 18px !important;
+            height: 18px !important;
+        }
+    }
+}
+
+.mr-2 {
+    margin-right: 1rem !important;
+
+    @include desktop {
+        margin-right: 0.5rem !important;
+    }
+}

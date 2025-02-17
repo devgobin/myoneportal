@@ -1,0 +1,116 @@
+<div class="content-body" [parentId]="pageId" appAccess="COMPL">
+    <div class="content-body">
+        <div class="rel">
+            <div class="vertical-flex h100">
+                <div>
+                    <div class="cus-card mt-0 mx-0">
+                        <div class="container-fluid p-0">
+                            <div class="row">
+                                <div class="col-xl-12 pb-3 heading">
+                                    FY {{Complaince.fromYear}} / {{Complaince.toYear}}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="table-responsive">
+                                        <table class="mat-table">
+                                            <thead>
+                                                <tr class="mat-header-row">
+                                                    <th class="mat-header-cell">Description</th>
+                                                    <th class="mat-header-cell">Value</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr class="mat-row">
+                                                    <td class="mat-cell">Contribution</td>
+                                                    <td class="mat-cell">{{Complaince.contributionStatus}}</td>
+                                                </tr>
+                                                <tr class="mat-row">
+                                                    <td class="mat-cell">Debt</td>
+                                                    <td class="mat-cell">{{Complaince.debtStatus}}</td>
+                                                </tr>
+                                                <tr class="mat-row">
+                                                    <td class="mat-cell">Penalty/Surcharge</td>
+                                                    <td class="mat-cell">{{Complaince.penalitiesStatus}}</td>
+                                                </tr>
+                                                <tr class="mat-row">
+                                                    <td class="mat-cell">Suspense</td>
+                                                    <td class="mat-cell">{{Complaince.suspenseStatus}}</td>
+                                                </tr>
+                                                <tr class="mat-row">
+                                                    <td class="mat-cell">Unclaimed</td>
+                                                    <td class="mat-cell">{{Complaince.unclaimedStatus}}</td>
+                                                </tr>
+                                                <tr class="mat-row">
+                                                    <td class="mat-cell">Undistributed</td>
+                                                    <td class="mat-cell">{{Complaince.undistributedStatus}}</td>
+                                                </tr>
+                                                <tr class="mat-row">
+                                                    <td class="mat-cell">Accurals</td>
+                                                    <td class="mat-cell">{{Complaince.accrualsStatus}}</td>
+                                                </tr>
+                                                <tr class="mat-row">
+                                                    <td class="mat-cell">Complaints</td>
+                                                    <td class="mat-cell">{{Complaince.complaintsStatus}}</td>
+                                                </tr>
+                                                <tr class="mat-row">
+                                                    <td class="mat-cell">No of Inspection Per FY</td>
+                                                    <td class="mat-cell">{{Complaince.noOfInspections}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <!-- <div class="col-md-3">
+                                    <label for="name">Certificate</label>
+                                    <div>
+                                        <a href="#" style="text-decoration: underline;">Certificate File Name.pdf</a>
+                                    </div>
+                                </div> -->
+                                <div class="col-md-3">
+                                    <button mat-raised-button color="accent" [parentId]="pageId"
+                                        appAccess="BTNGenerateCertificate" (click)="generatecompliancecertificateform()"
+                                        *ngIf="Complaince.iblShowGeneratebtn">
+                                        Generate Certificate
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-1 cus-card m-0 relative">
+
+                    <div class="d-flex align-items-center pb-2">
+                        <div class="heading">Message</div>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table mat-table [dataSource]="dataSource" class="table-hover">
+
+                            <ng-container matColumnDef="messageCode">
+                                <th mat-header-cell *matHeaderCellDef> Message Code </th>
+                                <td mat-cell *matCellDef="let element"> {{element.messageCode}}</td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="messageDescription">
+                                <th mat-header-cell *matHeaderCellDef> Message </th>
+                                <td mat-cell *matCellDef="let element"> {{element.messageDescription}}
+                                </td>
+                            </ng-container>
+
+
+                            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+                                [ngClass]="{'active': activeIndex == row}" (click)="active(row)"></tr>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="table-footer">
+                    <!-- <mat-paginator [showFirstLastButtons]="!data.isMobile" [hideTotalCount]="data.isMobile" showFirstLastButtons="true" [pageSizeOptions]="[10, 25, 50, 100]">
+                    </mat-paginator> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,10 @@
+<div class="d-flex h100">
+    <div class="stepper-container">
+        <div class="stepper-content" *ngFor="let step of steps; let i = index"
+            [@stepTransition]="_getAnimationDirection(i)" [attr.tabindex]="selectedIndex === i ? 0 : null"
+            [id]="_getStepContentId(i)" (@stepTransition.done)="_animationDone.next($event)"
+            [attr.aria-labelledby]="_getStepLabelId(i)" [attr.aria-expanded]="selectedIndex === i">
+            <ng-container [ngTemplateOutlet]="step.content"></ng-container>
+        </div>
+    </div>
+</div>

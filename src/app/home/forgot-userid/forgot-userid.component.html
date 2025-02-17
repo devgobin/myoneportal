@@ -1,0 +1,282 @@
+<div class="panel-spacer">
+    <div class="mw1280">
+        <div class="panel">
+            <div class="panel-header">
+                <div class="panel-title">
+                    FORGOT USER ID
+                </div>
+            </div>
+            <div class="panel-body" *ngIf="!emailsuccess">
+                <div class="mw1170">
+                    <app-stepper #registrationSteps>
+                        <cdk-step label="confidential Information" [completed]="step1Completed">
+                            <div class="panel-step">
+                                <form class="h100" autocomplete="off" #c="ngForm" (ngSubmit)="onSubmitConfidencial(c)">
+                                    <div class="panel-stepper h100">
+                                        <div class="panel-stepper-body">
+                                            <div class="ab">
+                                                <div class="rel">
+                                                    <div class="mw768 pt-4">
+                                                        <div class="container-fluid">
+                                                            <div class="row pb-3">
+                                                                <div class="col-xl-4">
+                                                                    <app-input-control label="Employer Ref No"
+                                                                        mandatory="true"
+                                                                        [(ngModel)]="forgotuserid.userid.employerRefNo"
+                                                                        tabindex="1" required
+                                                                        [errorTrue]="forgotuserid.errorTrue"
+                                                                        [btnClicked]="forgotuserid.btnClicked"
+                                                                        name="employerRefNo">
+                                                                    </app-input-control>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row pb-3">
+                                                                <div class="col-xl-4">
+                                                                    <app-input-control label="Contact First Name"
+                                                                        emojiType="name" mandatory="true"
+                                                                        [(ngModel)]="forgotuserid.userid.contactFirstName"
+                                                                        tabindex="2" required
+                                                                        [errorTrue]="forgotuserid.errorTrue"
+                                                                        [btnClicked]="forgotuserid.btnClicked"
+                                                                        name="contactFirstName" [upperCase]="true">
+                                                                    </app-input-control>
+                                                                </div>
+                                                                <div class="col-xl-4">
+                                                                    <app-input-control label="Contact Middle Name"
+                                                                        emojiType="name"
+                                                                        [(ngModel)]="forgotuserid.userid.contactMiddleName"
+                                                                        tabindex="2" name="contactMiddleName"
+                                                                        [upperCase]="true">
+                                                                    </app-input-control>
+                                                                </div>
+                                                                <div class="col-xl-4">
+                                                                    <app-input-control label="Contact Last Name"
+                                                                        emojiType="name" mandatory="true"
+                                                                        [(ngModel)]="forgotuserid.userid.contactLastName"
+                                                                        tabindex="2" required
+                                                                        [errorTrue]="forgotuserid.errorTrue"
+                                                                        [btnClicked]="forgotuserid.btnClicked"
+                                                                        name="contactLastName" [upperCase]="true">
+                                                                    </app-input-control>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row pb-3">
+                                                                <div class="col-xl-6">
+                                                                    <app-email-control label="Email with Employer"
+                                                                        mandatory="true"
+                                                                        [(ngModel)]="forgotuserid.userid.contactEmailid"
+                                                                        tabindex="3" required email="true"
+                                                                        [errorTrue]="forgotuserid.errorTrue"
+                                                                        [btnClicked]="forgotuserid.btnClicked"
+                                                                        name="contactEmailid" #contactEmailid="ngModel"
+                                                                        errorText="{{
+                                                                            contactEmailid.invalid &&
+                                                                            (contactEmailid.dirty || contactEmailid.touched)
+                                                                              ? 'Invalid Email Format'
+                                                                              : ''
+                                                                          }}">
+                                                                    </app-email-control>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-xl-6 ">
+                                                                    <app-phone-control label="Contact No with Employer"
+                                                                        [(ngModel)]="forgotuserid.userid.contactMobileNo"
+                                                                        tabindex="4" placeholder="eg. 679-8888888"
+                                                                        pattern="([0-9]{10})$" name="contactMobileNo"
+                                                                        errorText="Invalid Phone No">
+                                                                    </app-phone-control>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel-stepper-footer">
+                                            <div class="text-right">
+                                                <button mat-raised-button color="accent" type="submit"
+                                                    [disabled]="forgotuserid.btnClicked">
+                                                    <ng-container *ngIf="!forgotuserid.btnClicked">
+                                                        Next
+                                                        <ion-icon name="arrow-forward-outline"></ion-icon>
+                                                    </ng-container>
+                                                    <ng-container *ngIf="forgotuserid.btnClicked">
+                                                        <app-dot class="dot-big"></app-dot>
+                                                    </ng-container>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </cdk-step>
+                        <!-- <cdk-step label="Answer Security Questions" [completed]="step2Completed">
+                            <div class="panel-step">
+                                <form class="h100">
+                                    <div class="panel-stepper h100">
+                                        <div class="panel-stepper-body">
+                                            <div class="ab">
+                                                <div class="rel">
+                                                    <div class="mw768 pt-4">
+                                                        <div class="container-fluid"
+                                                            *ngIf="forgotuserid.userid.portalUserSecurityQuestionList.length !== 0">
+                                                            <ng-container
+                                                                *ngFor="let question of forgotuserid.userid.portalUserSecurityQuestionList">
+                                                                <div class="row pb-3">
+                                                                    <div class="col-xl-6 d-flex">
+                                                                        <app-input-control class="w-100"
+                                                                            [label]="question.protoSecurityQuestion.question"
+                                                                            [ngModelOptions]="{standalone: true}"
+                                                                            [(ngModel)]="question.encryptedAnswer">
+                                                                        </app-input-control>
+                                                                    </div>
+                                                                </div>
+                                                            </ng-container>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel-stepper-footer">
+                                            <div class="text-right">
+                                                <button mat-raised-button color="accent" (click)="clickPrev()">
+                                                    <ion-icon name="arrow-back-outline"></ion-icon>
+                                                    Back
+                                                </button>
+                                                <button mat-raised-button color="accent" (click)="onSubmitSecurityQuestion()"
+                                                    class="ml-3">
+                                                    Next
+                                                    <ion-icon name="arrow-forward-outline"></ion-icon>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </cdk-step> -->
+                        <cdk-step label="Transaction PIN" [completed]="step3Completed">
+                            <div class="panel-step p-0 rel h100">
+                                <form autocomplete="off" #trp="ngForm" (ngSubmit)="onSubmitPin(trp)" class="h100">
+                                    <div class="panel-stepper h100">
+                                        <div class="panel-stepper-body">
+                                            <div class="ab">
+                                                <div class="rel">
+                                                    <div class="mw768 pt-4 h100">
+                                                        <div class="container-fluid h100">
+                                                            <div class="row pb-3 h100">
+                                                                <div class="col-xl-12 text-center">
+                                                                    <div class="form-group">
+                                                                        <label for="" class=" text-center"> Enter
+                                                                            Transaction
+                                                                            PIN</label>
+                                                                        <app-pin-control id="nptp" boxes="4"
+                                                                            [(ngModel)]="forgotuserid.userid.transactionPin"
+                                                                            tabindex="1" required
+                                                                            [errorTrue]="forgotuserid.errorTrue"
+                                                                            [btnClicked]="forgotuserid.btnClicked"
+                                                                            name="transactionPin" mandatory="true"
+                                                                            password="true" clearbtn="true">
+                                                                        </app-pin-control>
+                                                                        <p class="text-danger mt-15px"
+                                                                            *ngIf="forgotuserid.errorTrue && forgotuserid.userid.transactionPin.length < 4">
+                                                                            <small>Please Enter Transaction PIN</small>
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel-stepper-footer">
+                                            <div class="text-right">
+                                                <a mat-raised-button color="accent" class="mr-3" (click)="clickPrev()">
+                                                    <ion-icon name="arrow-back-outline"></ion-icon>
+                                                    Back
+                                                </a>
+                                                <button mat-raised-button color="accent" type="submit"
+                                                    [disabled]="forgotuserid.btnClicked">
+                                                    <ng-container *ngIf="!forgotuserid.btnClicked">
+                                                        Next
+                                                        <ion-icon name="arrow-forward-outline"></ion-icon>
+                                                    </ng-container>
+                                                    <ng-container *ngIf="forgotuserid.btnClicked">
+                                                        <app-dot class="dot-big"></app-dot>
+                                                    </ng-container>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </cdk-step>
+                        <cdk-step label="User ID" [completed]="step4Completed">
+                            <div class="panel-step p-0 rel h100">
+                                <div class="panel-stepper h100">
+                                    <div class="panel-stepper-body">
+                                        <div class="ab">
+                                            <div class="rel">
+                                                <div class="mw768 pt-4 h100">
+                                                    <div class="container-fluid h100">
+                                                        <div class="row pb-3 h100">
+                                                            <div class="col-md-5">
+                                                                <div class="form-group">
+                                                                    <label for="">User ID</label>
+                                                                    <div class="fw500">
+                                                                        {{forgotuserid.userid.username}}
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="panel-stepper-footer">
+                                        <div class="text-right">
+                                            <a mat-raised-button color="accent" (click)="clickPrev()">
+                                                <ion-icon name="arrow-back-outline"></ion-icon>
+                                                Back
+                                            </a>
+                                            <button mat-raised-button color="accent" type="submit" class="ml-3"
+                                                (click)="step4Click()">
+                                                Go to Login
+                                                <!-- <ion-icon name="arrow-forward-outline"></ion-icon> -->
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </cdk-step>
+                    </app-stepper>
+                </div>
+            </div>
+            <div class="panel-body" *ngIf="emailsuccess">
+                <div class="h100 bg-white">
+                    <div class="stepper-container pt-5">
+                        <div class="stepper-content">
+                            <div class="panel-step">
+                                <div class="v-center">
+                                    <div class="s-box text-center">
+                                        <div class="circle-tick"></div>
+                                        <p>{{forgotuserid.userid.msg.infoMessage.msgDescription}}
+                                        </p>
+                                        <button mat-raised-button color="accent" class="ml-3" [routerLink]="['/']">
+                                            <ion-icon name="arrow-back-outline"></ion-icon>
+                                            Home
+
+                                        </button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

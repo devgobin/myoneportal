@@ -1,0 +1,175 @@
+<div class="content-body" [parentId]="pageId" appAccess="TIRDT">
+    <div class="content-body">
+        <div class="rel">
+            <div class="vertical-flex h100">
+                <div>
+                    <div class="cus-card px-0 mt-0 mx-0 mb-1">
+                        <div class="container-fluid pb-0">
+                            <div class="row">
+                                <div class="col-xl-10 pb-3 heading">
+                                    Time Payment Request Detail
+                                </div>
+                                <div class="col-md-2 ml-auto text-right">
+                                    <div class="label-space"></div>
+                                    <ng-container
+                                        *ngIf="TimePaymentRequestService.TimePaymentPlan.timePaymentRequestStatusValue ==='PEND' || TimePaymentRequestService.TimePaymentPlan.timePaymentPlanRequestId===0 ">
+                                        <button [parentId]="pageId" appAccess="BTNSubmitTimePaymentRequest"
+                                            mat-raised-button color="secondary"
+                                            (click)="checkTermsandCondition()">Submit</button>
+                                    </ng-container>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <label for="name">Request No</label>
+                                    <ng-container *ngIf="TimePaymentRequestService.TimePaymentPlan.requestRefNo===''">
+                                        <div class="fw500">-</div>
+                                    </ng-container>
+                                    <ng-container *ngIf="TimePaymentRequestService.TimePaymentPlan.requestRefNo!==''">
+                                        <div class="fw500">{{TimePaymentRequestService.TimePaymentPlan.requestRefNo}}
+                                        </div>
+                                    </ng-container>
+                                </div>
+                                <div class="col-md-3 px-0">
+                                    <app-date-control label="Requested Date"
+                                        [(ngModel)]="TimePaymentRequestService.TimePaymentPlan.requestedDate">
+                                    </app-date-control>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xl-10">
+                                    <ng-container
+                                        *ngFor="let document of TimePaymentRequestService.TimePaymentPlan.plstTimPaymentDocumentTypes">
+                                        <app-file-upload accept="application/pdf, image/*"
+                                            [label]="document.documentTypeDescription" [data]="document"
+                                            (onload)="uploadDocument($event,document)"
+                                            [mandatory]="document.isMandatory === 'Y'"
+                                            [loading]="fileUploading === document.documentTypeValue"
+                                            [disabled]="disabled" required [errorTrue]="errorTrue"
+                                            [xFile]="document.pDocumentFile" expanded="true"
+                                            (onclear)="clearFile($event)"
+                                            [accept]="appSettingService.environment.fileAccept">
+                                        </app-file-upload>
+                                    </ng-container>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-1 cus-card m-0 relative">
+                    <div class="vertical-flex h100">
+                        <div class="d-flex align-items-center pb-2">
+                            <div class="heading">Debt List</div>
+                            <div class="ml-auto d-flex align-items-center">
+                                <ng-container
+                                    *ngIf="TimePaymentRequestService.TimePaymentPlan.timePaymentPlanRequestId===0 || TimePaymentRequestService.TimePaymentPlan.timePaymentRequestStatusValue ==='PEND'">
+                                    <button [parentId]="pageId" appAccess="BTNGenerateNewForm" mat-raised-button
+                                        color="accent" (click)="generatetimepaymentrequestform()">
+                                        Generate New Form
+                                    </button>
+                                </ng-container>
+                                <!-- <div class="form-group mb-0 ml-3">
+                                    <label class="pr-3">Requested File : </label>
+                                    <a href="#" class="text-decoration-underline">File name to download</a>
+                                </div> -->
+                            </div>
+                        </div>
+                        <div class="flex-1 relative">
+                            <div class="table-responsive h100">
+                                <table mat-table [dataSource]="dataSource" class="table-hover" matSort>
+                                    <ng-container matColumnDef="check">
+                                        <th mat-header-cell *matHeaderCellDef class="text-center">Select</th>
+                                        <td mat-cell *matCellDef="let element" class="text-center">
+                                            <mat-checkbox (change)="SelectInvoice($event.checked,element)"
+                                                [checked]="element.includedInRequest === 'Y'"></mat-checkbox>
+                                        </td>
+                                        <td mat-footer-cell *matFooterCellDef>
+
+                                        </td>
+                                    </ng-container>
+
+                                    <ng-container matColumnDef="invoiceTypeDescription">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Invoice Type </th>
+                                        <td mat-cell *matCellDef="let element"> {{element.invoiceTypeDescription}}
+                                        </td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="invoiceAmount">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Invoice Amount </th>
+                                        <td mat-cell *matCellDef="let element">
+                                            {{element.invoiceAmount | appCurrency }}
+                                        </td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="invoicePaidAmount">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Paid Amount </th>
+                                        <td mat-cell *matCellDef="let element">
+                                            {{element.invoicePaidAmount | appCurrency }}
+                                        </td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="invoiceBalanceAmount">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Balance Amount </th>
+                                        <td mat-cell *matCellDef="let element">
+                                            {{element.invoiceBalanceAmount| appCurrency }}
+                                        </td>
+                                    </ng-container>
+                                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+                                        [ngClass]="{'active': activeIndex == row}" (click)="active(row)">
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="table-footer">
+                    <mat-paginator [showFirstLastButtons]="!data.isMobile" [hideTotalCount]="data.isMobile"
+                        showFirstLastButtons="true" [pageSizeOptions]="[10, 25, 50, 100]">
+                    </mat-paginator>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-template #termcondition>
+    <div class="adjust-margin">
+        <form class="h100">
+            <div class="dialogue-header z-2">
+                Terms and Conditions
+                <div class="ml-auto d-flex align-items-center">
+                    <button mat-icon-button mat-dialog-close matTooltip="Close" class="mr-2">
+                        <ion-icon name="close-outline"></ion-icon>
+                    </button>
+                </div>
+            </div>
+            <div class="ab pt50 pb50">
+                <div class="rel">
+                    <div class="h100 p-3">
+                        <div>
+                            <p>
+                                {{TimePaymentRequestService.TimePaymentPlan.istrtermsandconditions}}
+                            </p>
+                        </div>
+                        <!-- Since 1954, Loram Maintenance of Way, Inc. has been providing the most advanced, most
+                        productive
+                        and most innovative railroad maintenance services and equipment with exceptionally high
+                        standards of quality and performance. Today, the Loram portfolio represents the industry’s
+                        leading range of comprehensive solutions designed to help you achieve operational
+                        excellence,
+                        extend rail and track asset life and enhance efficiency to new levels. -->
+
+                        <div class="pt-4">
+                            <mat-checkbox (change)="checkDeclartion($event.checked)"
+                                [checked]="TimePaymentRequestService.TimePaymentPlan.tAndCFlag === 'Y'">Accept all
+                                terms and conditions.</mat-checkbox>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="dialogue-footer z-2">
+                <button [parentId]="pageId" appAccess="BTNSubmitTimePaymentRequest" mat-raised-button color="accent"
+                    class="ml-3" (click)="onsubmit()">
+                    SUBMIT
+                </button>
+            </div>
+        </form>
+    </div>
+</ng-template>

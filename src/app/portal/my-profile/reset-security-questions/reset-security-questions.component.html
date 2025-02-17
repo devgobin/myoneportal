@@ -1,0 +1,49 @@
+<div class="content-body" [parentId]="pageId" appAccess="RSSQU">
+    <div class="rel">
+        <form class="h100">
+            <div class="ab container-fluid bg-white reset-p-responsive">
+                <div class="row">
+                    <div class="col-md-12 pb-3 heading">
+                        SELECT ANSWER FOR ATLEAST 5 QUESTIONS
+                    </div>
+                </div>
+                <div class="row" *ngIf="service.detail.portalUserSecurityQuestionList.length !== 0">
+                    <ng-container *ngFor="let question of service.detail.portalUserSecurityQuestionList">
+                        <div class="col-md-6 d-flex">
+                            <app-input-control class="w-100" [label]="question.protoSecurityQuestion.question"
+                                [ngModelOptions]="{standalone: true}" [(ngModel)]="question.encryptedAnswer">
+                            </app-input-control>
+                        </div>
+                    </ng-container>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="heading">
+                            Transaction PIN
+                        </div>
+                        <app-pin-control boxes="4" id="tpr" clearbtn="true" alignLeft="true"
+                            [(ngModel)]="service.detail.transactionPin" name="transactionPin" required
+                            [errorTrue]="errorTrue" mandatory="true" password="true" [btnClicked]="btnClicked">
+                        </app-pin-control>
+                        <p class="text-danger mt-15px" *ngIf="errorTrue && service.detail.transactionPin.length < 4">
+                            <small>Please Enter Transaction PIN</small>
+                        </p>
+                    </div>
+                </div>
+                <div class="row" [parentId]="pageId" appAccess="BTNResetSecurityQuestions">
+                    <div class="col-md-12 pb-3  text-right">
+                        <button mat-raised-button color="accent" type="submit" (click)="onsubmit()"
+                            [disabled]="btnClicked">
+                            <ng-container *ngIf="!btnClicked">
+                                Change Security Questions and Answer
+                            </ng-container>
+                            <ng-container *ngIf="btnClicked">
+                                <app-dot class="dot-big"></app-dot>
+                            </ng-container>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

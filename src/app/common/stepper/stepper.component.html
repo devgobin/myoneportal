@@ -1,0 +1,38 @@
+<div class="d-flex h100 bg-white" [ngClass]="{'horizontal': horizontal}">
+    <div class="stepper" #stepperlist>
+        <ul>
+            <li *ngFor="let step of steps; let i = index;" id="stephead{{i}}"
+                [ngClass]="{'current': selectedIndex === i, 'completed': step.completed}" id="xsteps{{i}}">
+                <h3>Step {{i < 9 ? '0' + (i+1) : i+1}}</h3>
+                        <h2>{{step.label}}</h2>
+            </li>
+            <li class="menu-icon">
+                <button mat-icon-button [matMenuTriggerFor]="stepperList"><ion-icon
+                        name="menu-outline"></ion-icon></button>
+            </li>
+        </ul>
+    </div>
+    <div class="stepper-container">
+        <div class="stepper-content" *ngFor="let step of steps; let i = index"
+            [@stepTransition]="_getAnimationDirection(i)" [attr.tabindex]="selectedIndex === i ? 0 : null"
+            [id]="_getStepContentId(i)" (@stepTransition.done)="_animationDone.next($event)"
+            [attr.aria-labelledby]="_getStepLabelId(i)" [attr.aria-expanded]="selectedIndex === i">
+            <div [@stepChild]="_getAnimationDirection(i)" class="h100">
+                <ng-container [ngTemplateOutlet]="step.content"></ng-container>
+            </div>
+            <!-- <ng-container [ngTemplateOutlet]="step.content"></ng-container> -->
+        </div>
+    </div>
+</div>
+
+<mat-menu #stepperList>
+    <div class="stepper stepper-menu ">
+        <ul>
+            <li *ngFor="let step of steps; let i = index;" id="stephead{{i}}"
+                [ngClass]="{'current': selectedIndex === i, 'completed': step.completed}" id="xsteps{{i}}">
+                <h3>Step {{i < 9 ? '0' + (i+1) : i+1}}</h3>
+                        <h2>{{step.label}}</h2>
+            </li>
+        </ul>
+    </div>
+</mat-menu>

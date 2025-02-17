@@ -1,0 +1,374 @@
+.combo {
+    background-color: #ededed;
+
+    @include desktop {
+        background-color: transparent;
+    }
+}
+
+.main-slider {
+    display: none;
+
+    @include desktop {
+        display: block;
+    }
+}
+
+.login-box {
+    .login-wrapper {
+        .r-box {
+            display: none;
+
+            @include desktop {
+                display: block;
+            }
+        }
+    }
+}
+
+.d-pt60-pb50 {
+    padding: 1rem;
+
+    @include desktop {
+        padding: 60px 0 50px 0;
+    }
+}
+
+.panel-spacer {}
+
+.org-name {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.24);
+    padding: 0.5rem 0;
+
+    h5 {
+        color: var(--secondary);
+        margin-bottom: 0;
+    }
+
+    p {
+        color: rgba(0, 0, 0, 0.64);
+        margin-bottom: 0 !important;
+    }
+
+    .mat-radio-label {
+        align-items: unset !important;
+    }
+
+    @include desktop {
+        display: flex;
+    }
+
+    .org-name-label {
+
+        * {
+            white-space: pre-wrap;
+        }
+
+        @include desktop {
+            display: flex;
+
+            .org-reg-no {
+                padding-left: 1rem !important;
+            }
+        }
+    }
+}
+
+.view-container {
+    .side-bar {
+        display: none;
+
+        @include desktop {
+            display: block;
+        }
+    }
+}
+
+.content-body {
+    position: relative;
+
+    @include desktop {
+        position: absolute;
+    }
+}
+
+.name-label,
+.fb-name {
+    padding-bottom: 1rem;
+
+    @include desktop {
+        padding-bottom: 0;
+    }
+}
+
+.reset-p-responsive {
+    padding-top: 1rem;
+
+    @include desktop {
+        padding-top: 0;
+        padding-left: 3rem !important;
+        padding-right: 3rem !important;
+        padding-bottom: 1rem !important;
+    }
+}
+
+.mat-drawer-container {
+    height: 100%;
+    // @include desktop {
+    //     height: 100%;
+    // }
+}
+
+.drawer-container {
+    width: 320px;
+    height: 100%;
+    position: relative;
+
+    .d-ab {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        overflow: hidden;
+        z-index: 1;
+    }
+
+    .d-rel {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        z-index: 2;
+        scrollbar-color: #96afaa #b5b5b5;
+        scrollbar-width: thin;
+    }
+
+    .fullscreen-btn {
+        display: none;
+    }
+
+    .s-header {
+        padding: 1rem;
+
+        .timer-d {
+            display: block;
+            margin-bottom: 1rem;
+        }
+
+        .screen-d {
+            display: none;
+        }
+
+        .nav-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding-bottom: 1rem;
+
+            .mat-button {
+                font-size: 18px;
+            }
+        }
+
+        .company-details {
+            h3 {
+                font-size: 1rem;
+            }
+        }
+
+        .notification-btn-desktop {
+            display: none;
+        }
+    }
+
+    .view-container .side-bar {
+        box-shadow: none;
+        display: block;
+
+        &.open {
+            width: 100%;
+
+        }
+    }
+}
+
+.s-header {
+
+
+
+    .ml-d-flex-center {
+        display: block;
+    }
+
+    @include desktop {
+        display: flex;
+        align-items: center;
+
+        .ml-d-flex-center {
+            display: flex;
+            align-items: center;
+            margin-left: auto;
+        }
+
+        .notification-btn-mobile {
+            display: none;
+        }
+    }
+}
+
+.m-hide {
+    display: none !important;
+
+    @include desktop {
+        display: block !important;
+    }
+}
+
+.m-hide-cell {
+    display: none !important;
+
+    @include desktop {
+        display: table-cell;
+    }
+}
+
+.view-container .main {
+    overflow: hidden;
+}
+
+.search-panel {
+    width: 100%;
+    min-width: 320px !important;
+    height: auto !important;
+    padding: 1rem;
+
+    .search-footer {
+        position: relative;
+    }
+
+    @include desktop {
+        padding: 0rem;
+        min-width: 650px !important;
+        height: 450px !important;
+
+        .search-footer {
+            position: absolute;
+        }
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .mat-paginator {
+        width: 100%;
+    }
+
+    .mat-paginator .mat-select-trigger,
+    .mat-paginator .mat-paginator-range-label,
+    .mat-paginator .mat-paginator-page-size-label,
+    .mat-paginator .mat-paginator-page-size-input {
+        font-size: 11px !important;
+    }
+
+    .mat-paginator .mat-paginator-page-size-label {
+        display: none;
+    }
+
+    .mat-paginator .mat-icon {
+        font-size: 16px !important;
+    }
+
+    .mat-icon-button {
+        width: 28px !important;
+        height: 28px !important;
+    }
+
+    .mat-paginator-range-label {
+        margin: 0 1rem !important;
+    }
+
+    .mat-paginator-container {
+        flex-wrap: nowrap !important;
+    }
+}
+
+.desktop-file-upload {
+    display: none;
+
+    @include desktop {
+        display: flex;
+    }
+}
+
+.mobile-file-upload {
+    display: block;
+    padding-right: 0.5rem;
+    margin-bottom: 1rem;
+
+    .form-group {
+        margin-bottom: 0.5rem;
+    }
+
+    @include desktop {
+        display: none;
+    }
+}
+
+.wd-60 {
+    flex: 1;
+
+    @include desktop {
+        width: 60%;
+        max-width: 60%;
+    }
+}
+
+.m-pad-file-spacer {
+    padding-top: 20px;
+}
+
+.suspense-search {
+    height: 530px !important;
+
+    .search-footer {
+        position: absolute;
+    }
+
+    .ab {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        overflow: hidden;
+        z-index: 1;
+    }
+
+    .rel {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        z-index: 2;
+        scrollbar-color: #96afaa #b5b5b5;
+        scrollbar-width: thin;
+    }
+
+    @include desktop {
+        height: auto !important;
+    }
+}
+
+.mat-paginator {
+    .mat-paginator-range-label {
+        display: none;
+
+        @include desktop {
+            display: block;
+        }
+    }
+
+    .mat-icon-button {
+        line-height: 1;
+    }
+}

@@ -1,0 +1,197 @@
+<mat-sidenav-container>
+    <mat-sidenav #drawer mode="over" position="end" opened="false">
+        <div class="side-nav">
+            <div class="p-3">
+                <div class="timer-m d-lg-none">
+                    <app-timer></app-timer>
+                </div>
+                <!-- <div class="search-m d-xl-none">
+                    <app-search></app-search>
+                </div> -->
+                <ng-container *ngIf="appSetting.environment.sandboxMode">
+                    <div class="sandbox">Sandbox Mode</div>
+                </ng-container>
+            </div>
+        </div>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <header class="home-header">
+            <div class="wrapper">
+                <nav class="d-flex head-xl">
+                    <div class="brand cursor-pointer" (click)="logout()">
+                        <img src="assets/logo.svg" alt="">
+                    </div>
+                    <div class="brand-name" (click)="logout()">
+                        Employer<br>
+                        E-Service Portal
+                    </div>
+                    <div class="menu-desktop d-none d-lg-block flex-1">
+                        <div class="d-flex align-items-center">
+                            <div class="timer-d d-none d-lg-block">
+                                <app-timer></app-timer>
+                            </div>
+                            <div class="ml-auto d-flex align-items-center">
+                                <ng-container *ngIf="appSetting.environment.sandboxMode">
+                                    <div class="sandbox">Sandbox Mode</div>
+                                </ng-container>
+
+                                <!-- <div class="search-box-d d-none d-xl-block">
+                                    <app-search></app-search>
+                                </div> -->
+                                <!-- <div class="menu-icon">
+                                    <div class="d-flex align-items-center">
+                                        <div class="text-uppercase d-none d-xl-block">Menu1</div>
+                                        <button mat-icon-button class="m-icon" (click)="drawer.toggle()">
+                                            <ion-icon src="assets/svg/menu.svg"></ion-icon>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="language d-none d-xl-block">
+                                    <button mat-button [matMenuTriggerFor]="languageMenu">
+                                        EN <ion-icon name="chevron-down-outline"></ion-icon>
+                                    </button>
+                                    <mat-menu #languageMenu="matMenu" xPosition="before" yPosition="below">
+                                        <button mat-menu-item>iTaukei</button>
+                                        <button mat-menu-item>Hindi</button>
+                                    </mat-menu>
+                                </div> -->
+                            </div>
+                        </div>
+                    </div>
+                    <ng-container *ngIf="data.isLoggedIn">
+                        <div class="ml-auto d-lg-none">
+                            <button mat-icon-button class="m-icon" (click)="drawer.toggle()">
+                                <ion-icon src="assets/svg/menu.svg"></ion-icon>
+                            </button>
+                        </div>
+                    </ng-container>
+                </nav>
+            </div>
+        </header>
+        <div class="body-spacer"></div>
+
+
+        <router-outlet (activate)="onActivate($event)"></router-outlet>
+        <footer class="bg-primary">
+            <div class="wrapper pt-5 pb-5">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-12 col-md-5 col-xl-3">
+                            <div class="f-group pb-4">
+                                <h3 class="title-1 text-white mb-1 text-uppercase">OUR LOCATION:</h3>
+                                <p class="para-1 text-white">Provident Plaza Two,</p>
+                                <p class="para-1 text-white">33 Ellery Street, Suva.</p>
+                            </div>
+                            <div class="f-group pb-4">
+                                <h3 class="title-1 text-white mb-1 text-uppercase">MAIL BOX:</h3>
+                                <p class="para-1 text-white">Private Mail Bag, Suva Fiji.</p>
+                            </div>
+                            <div class="f-group pb-4">
+                                <h3 class="title-1 text-white mb-1 text-uppercase">Communication Info:</h3>
+                                <p class="para-1 text-white">Phone: (679) 3238 999</p>
+                                <!-- <p class="para-1 text-white">Fax: (679) 3307 611</p> -->
+                                <p class="para-1 text-white">Email ID: EmployerHelpline@fnpf.com.fj</p>
+                            </div>
+                            <div class="f-group pb-4">
+                                <h3 class="title-1 text-white mb-1 text-uppercase">Opening Hours:</h3>
+                                <p class="para-1 text-white">Mon-Thur -8:30am-4:00pm</p>
+                                <p class="para-1 text-white">Fri -8:30am-3:30pm</p>
+                                <p class="para-1 text-white">Public Holidays - Closed</p>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-7 col-xl-6">
+                            <div class="f-group pb-4">
+                                <h3 class="title-1 text-white mb-1 text-uppercase">Our Help Desk:</h3>
+                                <p class="para-1 text-white">(679) 3238 999</p>
+                            </div>
+                            <div class="f-group pb-5">
+                                <h3 class="title-1 text-white mb-1 text-uppercase">Find us on Google map</h3>
+                                <div class="embed-responsive embed-responsive-21by9">
+                                    <iframe class="embed-responsive-item"
+                                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3802.963499276654!2d177.44975311520378!3d-17.60446807475693!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xee3aac462db276bb!2sFiji%20National%20Provident%20Fund!5e0!3m2!1sen!2sin!4v1604214049317!5m2!1sen!2sin"></iframe>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6 col-xl-3">
+                            <!-- <div class="f-group pb-4">
+                                <div class="form-group">
+                                    <label class="text-white mb-0">Subscribe our news letter</label>
+                                    <div class="d-flex align-items-center">
+                                        <input type="text" class="form-control">
+                                        <button mat-raised-button color="accent" class="f-btn">Subscribe</button>
+                                    </div>
+                                </div>
+                            </div> -->
+                            <div class="f-group pb-4">
+                                <h3 class="title-1 text-white mb-1 text-uppercase">Find us on:</h3>
+                                <div class="d-flex align-items-center">
+                                    <a href="https://www.facebook.com/fijinational.providentfund/" target="_blank"
+                                        mat-icon-button class="f-btn-icon mr-2">
+                                        <ion-icon src="assets/svg/facebook.svg"></ion-icon>
+                                    </a>
+                                    <a href="https://twitter.com/MyFNPF?s=09" target="_blank" mat-icon-button
+                                        class="f-btn-icon mr-2">
+                                        <ion-icon src="assets/svg/twitter.svg"></ion-icon>
+                                    </a>
+                                    <a href="https://www.linkedin.com/company/fiji-national-provident-fund-fnpf-"
+                                        target="_blank" mat-icon-button class="f-btn-icon mr-2">
+                                        <!-- <ion-icon name="logo-youtube"></ion-icon> -->
+                                        <ion-icon src="assets/svg/linkedin.svg"></ion-icon>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <div class="copyright bg-black">
+            <div class="wrapper">
+                <div class="text-center pl-3 pr-3">
+                    <span>2021 © FNPF</span> | <a href="https://myfnpf.com.fj/index.php/privacy-policy "
+                        target="_blank">Privacy
+                        Policy</a> | <a href="https://myfnpf.com.fj/index.php/terms-of-use " target="_blank">Terms and
+                        Conditions</a>
+                </div>
+            </div>
+        </div>
+        <ng-container *ngIf="data.message.hasError">
+            <div class="footer-msg-box">
+                <div class="bg-toolbar" matRipple (click)="data.openMessageBox()">
+                </div>
+                <div class="title-1">Message</div>
+                <div class="p-3"></div>
+                <ng-container *ngIf="data.message.errorMessage">
+                    <!-- <ng-container *ngIf="data.message.errorMessage.length > 0">
+                        <div class="error-title" matRipple (click)="data.openMessageBox('error')">Error
+                            ({{data.message.errorMessage.length}})</div>
+                    </ng-container> -->
+                    <ng-container *ngIf="(data.message.errorMessage | messagePortal : 0).length > 0">
+                        <div class="error-title" matRipple (click)="data.openMessageBox('error')">Error
+                            ({{(data.message.errorMessage | messagePortal: 0).length}})</div>
+                    </ng-container>
+                    <ng-container *ngIf="(data.message.errorMessage | messagePortal : 1).length > 0">
+                        <div class="warning-title" matRipple (click)="data.openMessageBox('warn')">Warning
+                            ({{(data.message.errorMessage | messagePortal: 1).length}})</div>
+                    </ng-container>
+                    <ng-container *ngIf="(data.message.errorMessage | messagePortal : 2).length > 0">
+                        <div class="information-title" matRipple (click)="data.openMessageBox('info')">Information
+                            ({{(data.message.errorMessage | messagePortal: 2).length}})</div>
+                    </ng-container>
+                </ng-container>
+                <!-- <div class="warning-title" matRipple>Warning (15)</div>
+                <div class="information-title" matRipple>Information (15)</div> -->
+                <div class="ml-auto">
+                    <button mat-icon-button class="text-center" (click)="data.openMessageBox('')">
+                        <ion-icon name="chevron-up-outline"></ion-icon>
+                    </button>
+                </div>
+            </div>
+        </ng-container>
+    </mat-sidenav-content>
+
+</mat-sidenav-container>
+
+<!-- <ng-container *ngIf="appSetting.environment.showBotWindow">
+    <app-live-bot></app-live-bot>
+</ng-container> -->

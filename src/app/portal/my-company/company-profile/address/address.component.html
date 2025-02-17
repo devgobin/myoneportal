@@ -1,0 +1,138 @@
+<div class="adjust-margin" appAccess="COMAD" [parentId]="pageId">
+    <form class="h100" #a="ngForm" (ngSubmit)="onsubmit(a)" autocomplete="off">
+        <div class="dialogue-header z-2">
+            <div>
+                Address
+            </div>
+            <div class="ml-auto d-flex align-items-center">
+                <button mat-icon-button mat-dialog-close matTooltip="Close">
+                    <ion-icon name="close-outline"></ion-icon>
+                </button>
+            </div>
+        </div>
+        <div class="ab pt50 pb50">
+            <div class="rel">
+                <div class="h100">
+                    <div class="container-fluid pt-3 px-4">
+                        <ng-container *ngIf="service.address.addressId === 0">
+                            <div class="row">
+                                <div class="col-xl-12">
+                                    <app-input-control label="Settlement / Street Name / House Name / Flat Name"
+                                        [(ngModel)]="service.address.line1" tabindex="1" name="line1"
+                                        [btnClicked]="btnClicked" required mandatory="true" [errorTrue]="errorTrue">
+                                    </app-input-control>
+                                </div>
+                                <div class="col-xl-12">
+                                    <app-input-control label="Locality / Suburbs / Village"
+                                        [(ngModel)]="service.address.line2" tabindex="2" name="line2">
+                                    </app-input-control>
+                                </div>
+                                <div class="col-xl-12">
+                                    <app-input-control label="City / Town" [(ngModel)]="service.address.city"
+                                        tabindex="3" name="city" [btnClicked]="btnClicked" required mandatory="true"
+                                        [errorTrue]="errorTrue">
+                                    </app-input-control>
+                                </div>
+
+                                <div class="col-xl-12">
+                                    <app-select-control label="Country" search="true"
+                                        [(ngModel)]="service.address.countryValue" tabindex="6"
+                                        name="orgCommunicationStatusValue" [items]="service.DDL.DDLCountryValue"
+                                        key="constant" keyname="description" [btnClicked]="btnClicked" required
+                                        mandatory="true" [errorTrue]="errorTrue">
+                                    </app-select-control>
+                                </div>
+                                <ng-container *ngIf="service.address.countryValue ==='FJI'">
+                                    <div class="col-xl-12">
+                                        <app-select-control label="Province" [(ngModel)]="service.address.province"
+                                            tabindex="4" name="Province" [items]="service.DDL.DDLProvinceValue"
+                                            key="constant" keyname="description">
+                                        </app-select-control>
+                                    </div>
+                                    <div class="col-xl-12">
+                                        <app-input-control label="Island" [(ngModel)]="service.address.island"
+                                            tabindex="5" name="island">
+                                        </app-input-control>
+                                    </div>
+                                </ng-container>
+                                <div class="col-xl-12">
+                                    <app-select-control label="Address Type" [(ngModel)]="service.address.addressType"
+                                        tabindex="7" name="AddressType" [items]="service.DDL.DDLAddressTypeValue"
+                                        key="constant" keyname="description">
+                                    </app-select-control>
+                                </div>
+                            </div>
+                        </ng-container>
+                        <ng-container *ngIf="service.address.addressId !== 0">
+                            <div class="row">
+                                <div class="col-xl-12">
+                                    <app-input-control label="Settlement / Street Name / House Name / Flat Name"
+                                        [(ngModel)]="service.address.line1" tabindex="1" name="line1" btnClicked="true"
+                                        required mandatory="true" [errorTrue]="errorTrue">
+                                    </app-input-control>
+                                </div>
+                                <div class="col-xl-12">
+                                    <app-input-control label="Locality / Suburbs / Village"
+                                        [(ngModel)]="service.address.line2" tabindex="2" name="line2" btnClicked="true">
+                                    </app-input-control>
+                                </div>
+                                <div class="col-xl-12">
+                                    <app-input-control label="City / Town" [(ngModel)]="service.address.city"
+                                        tabindex="3" name="city" btnClicked="true" required mandatory="true"
+                                        [errorTrue]="errorTrue">
+                                    </app-input-control>
+                                </div>
+                                <div class="col-xl-12">
+                                    <app-input-control label="Country" [(ngModel)]="service.address.countryDescription"
+                                        tabindex="5" name="Country" btnClicked="true" required mandatory="true"
+                                        [errorTrue]="errorTrue">
+                                    </app-input-control>
+                                </div>
+                                <div class="col-xl-12" *ngIf="service.address.countryValue ==='FJI'">
+                                    <app-input-control label="Province" [(ngModel)]="service.address.province"
+                                        tabindex="4" name="province" btnClicked="true">
+                                    </app-input-control>
+                                </div>
+                                <div class="col-xl-12" *ngIf="service.address.countryValue ==='FJI'">
+                                    <app-input-control label="Island" [(ngModel)]="service.address.island" tabindex="5"
+                                        name="island">
+                                    </app-input-control>
+                                </div>
+                                <div class="col-xl-12">
+                                    <app-input-control label="Address Type"
+                                        [(ngModel)]="service.address.addressTypeDescription" tabindex="5"
+                                        name="AddressType" btnClicked="true" required mandatory="true"
+                                        [errorTrue]="errorTrue">
+                                    </app-input-control>
+                                </div>
+                                <div class="col-xl-12">
+                                    <app-input-control label="Created Date" [(ngModel)]="createdDate" tabindex="5"
+                                        name="CreatedDate" btnClicked="true" required mandatory="true"
+                                        [errorTrue]="errorTrue">
+                                    </app-input-control>
+                                </div>
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <ng-container *ngIf="service.address.addressId === 0">
+            <div class="dialogue-footer z-2">
+                <button mat-raised-button class="ml-3" color="accent" type="submit" [parentId]="pageId"
+                    appAccess="BTNSaveAddressCompanyProfile">
+                    <div class="d-flex align-items-center">
+                        <ion-icon name="save-outline"></ion-icon>
+                        <div class="pl-2">Save</div>
+                    </div>
+                </button>
+                <a mat-button (click)="doClear()" [parentId]="pageId" appAccess="BTNClearAddressCompanyProfile">
+                    <div class="d-flex align-items-center">
+                        <ion-icon name="close-circle-outline"></ion-icon>
+                        <div class="pl-1">Clear</div>
+                    </div>
+                </a>
+            </div>
+        </ng-container>
+    </form>
+</div>

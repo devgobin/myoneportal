@@ -1,0 +1,160 @@
+@import'../scss/responsive-mixin.scss';
+
+.dot-white {
+  svg {
+    stroke: white !important;
+    fill: white !important;
+  }
+}
+
+.dot-big {
+  svg {
+    width: 56px !important;
+    height: 24px !important;
+  }
+}
+
+.circle-tick {
+  display: block;
+  margin: 1.5rem auto;
+  height: 48px;
+  width: 48px;
+  border-radius: 50%;
+  background-color: var(--secondary);
+  // border: 6px solid white;
+  box-sizing: content-box;
+  // position: absolute;
+  // top: 50%;
+  // left: 1rem;
+  // transform: translate(-50%, -50%);
+  // z-index: 3;
+  // background-image: url('../../../assets/svg/tick.svg');
+  background-image: url("../assets/svg/tick.svg");
+  background-size: 22px 22px;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+a.mat-accent {
+  color: white !important;
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.border-warn {
+  border-color: var(--danger) !important;
+}
+
+.btn-send {
+  margin-left: 1rem !important;
+  height: 24px !important;
+  line-height: 24px !important;
+  border: 1px solid var(--secondary) !important;
+  font-size: 12px !important;
+  text-transform: capitalize !important;
+}
+
+.mw200 {
+  min-width: 200px !important;
+}
+
+// 15 dec 2020
+
+.mat-raised-button,
+.mat-button {
+  line-height: 28px !important;
+  height: 28px !important;
+}
+
+// .mat-raised-button {
+//     line-height: 28px !important;
+//     height: 28px !important;
+// }
+
+.mat-select-value {
+  height: 28px;
+  line-height: 28px;
+}
+
+.br-left {
+  border-left: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.br-top {
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.screen-d {
+  h3 {
+    font-size: 15px;
+    margin-bottom: 0;
+    color: var(--primary);
+  }
+}
+
+app-empty-spinner {
+  width: 100%;
+}
+
+.lh18 {
+  height: auto;
+
+  @include desktop {
+    line-height: 18px;
+    height: 18px;
+  }
+}
+
+.v-center {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+[mat-sort-header].cdk-keyboard-focused .mat-sort-header-container,
+[mat-sort-header].cdk-program-focused .mat-sort-header-container {
+  border-bottom: none !important;
+  user-select: none;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -o-user-select: none;
+
+  * {
+    user-select: none;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -o-user-select: none;
+  }
+}
+
+.text-center {
+  .mat-sort-header-container {
+    justify-content: center !important;
+  }
+}
+
+.text-right {
+  .mat-sort-header-container {
+    justify-content: flex-end !important;
+  }
+}
+
+.mat-sort-header-arrow {
+  color: #f2f2f2 !important;
+}
+
+.mat-raised-button.mat-danger {
+  color: #fff !important;
+  background-color: var(--danger);
+}
+
+.nomar {
+  .form-group {
+    margin: 0 !important;
+  }
+}

@@ -1,0 +1,225 @@
+<div class="panel-spacer">
+    <div class="mw1280">
+        <div class="panel">
+            <div class="panel-header">
+                <div class="panel-title">
+                    Staff Login
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="mw1170">
+                    <app-stepper #registrationSteps>
+                        <cdk-step label="Staff Login" [completed]="step1Completed">
+                            <div class="panel-step">
+                                <form class="h100" #s="ngForm" (ngSubmit)="submitInformation(s)" autocomplete="off">
+                                    <div class="panel-stepper h100">
+                                        <div class="panel-stepper-body">
+                                            <div class="ab">
+                                                <div class="rel">
+                                                    <div class="mw768 pt-4">
+                                                        <div class="container-fluid">
+                                                            <div class="row pb-3">
+                                                                <div class="col-xl-5 pl-0 pr-0">
+                                                                    <app-input-control label="User Name"
+                                                                        mandatory="true"
+                                                                        [(ngModel)]="staffloginservice.user.username"
+                                                                        tabindex="1" required
+                                                                        [errorTrue]="staffloginservice.errorTrue"
+                                                                        [btnClicked]="staffloginservice.btnClicked"
+                                                                        name="username" emojiType="name">
+                                                                    </app-input-control>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row pb-3">
+                                                                <div class="col-xl-5 pl-0 pr-0">
+                                                                    <app-password-control label="Pasword"
+                                                                        mandatory="true"
+                                                                        [(ngModel)]="staffloginservice.user.password"
+                                                                        tabindex="1" required
+                                                                        [errorTrue]="staffloginservice.errorTrue"
+                                                                        [btnClicked]="staffloginservice.btnClicked"
+                                                                        name="password">
+                                                                    </app-password-control>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel-stepper-footer">
+                                            <div class="text-right">
+                                                <button mat-raised-button color="accent" type="submit">
+                                                    Next
+                                                    <ion-icon name="arrow-forward-outline"></ion-icon>
+                                                </button>
+                                                <!-- <button mat-raised-button color="accent" type="submit"
+                                                    [disabled]="staffloginservice.btnClicked">
+                                                    <ng-container *ngIf="!staffloginservice.btnClicked">
+                                                        Next
+                                                        <ion-icon name="arrow-forward-outline"></ion-icon>
+                                                    </ng-container>
+                                                    <ng-container *ngIf="staffloginservice.btnClicked">
+                                                        <app-dot class="dot-big"></app-dot>
+                                                    </ng-container>
+                                                </button> -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </cdk-step>
+                        <cdk-step label="Select Employer" [completed]="step2Completed">
+                            <div class="panel-step">
+                                <form class="h100" #em="ngForm" (ngSubmit)="onsearchorgname(em)" autocomplete="off">
+                                    <div class="panel-stepper h100">
+                                        <div class="panel-stepper-body">
+                                            <div class="ab">
+                                                <div class="rel">
+                                                    <div class="mw768 pt-4">
+                                                        <div class="row pb-3">
+                                                            <div class="col-xl-5">
+                                                                <app-input-control label="Employer Ref No" search="true"
+                                                                    mandatory="true" [(ngModel)]="org.empRefNo"
+                                                                    tabindex="1" required
+                                                                    [errorTrue]="staffloginservice.errorTrue"
+                                                                    [btnClicked]="staffloginservice.btnClicked"
+                                                                    name="empRefNo"
+                                                                    (onsearchevent)="onsearchorgname(em)">
+                                                                </app-input-control>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row pb-3">
+                                                            <div class="col-xl-5">
+                                                                <div class="form-group">
+                                                                    <label>Organization Name</label>
+                                                                    <div class="fw500">
+                                                                        {{staffloginservice.orgization.businessName}}
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel-stepper-footer">
+                                            <div class="text-right">
+                                                <button mat-raised-button color="accent" (click)="clickPrev()"
+                                                    class="mr-3">
+                                                    <ion-icon name="arrow-back-outline"></ion-icon>
+                                                    Back
+                                                </button>
+                                                <button mat-raised-button color="accent">
+                                                    Next
+                                                    <ion-icon name="arrow-forward-outline"></ion-icon>
+                                                </button>
+                                                <!-- <button mat-raised-button color="accent" (click)="step2Click()"
+                                                    [disabled]="staffloginservice.btnClicked">
+                                                    <ng-container *ngIf="!staffloginservice.btnClicked">
+                                                        Next
+                                                        <ion-icon name="arrow-forward-outline"></ion-icon>
+                                                    </ng-container>
+                                                    <ng-container *ngIf="staffloginservice.btnClicked">
+                                                        <app-dot class="dot-big"></app-dot>
+                                                    </ng-container>
+                                                </button> -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </cdk-step>
+                        <cdk-step label="Select Contact" [completed]="step3Completed">
+                            <div class="panel-step">
+                                <div class="panel-stepper h100">
+                                    <div class="panel-stepper-body">
+                                        <div class="ab">
+                                            <div class="rel">
+                                                <div class="table-responsive h100">
+                                                    <div class="ab pt-3">
+                                                        <div class="rel">
+                                                            <table mat-table [dataSource]="dataSource"
+                                                                class="table-hover">
+                                                                <!-- <ng-container matColumnDef="employerContactId">
+                                                                    <th mat-header-cell *matHeaderCellDef>
+                                                                        <mat-checkbox
+                                                                        (change)="selected(element)"
+                                                                        [checked]="selectedEmployer === element.employerContactId">
+                                                                    </mat-checkbox>
+                                                                    </th>
+                                                                    <td mat-cell *matCellDef="let element">
+                                                                        
+                                                                    </td>
+                                                                </ng-container> -->
+                                                                <!-- ['person', 'emailId', 'contactNo', 'employerContactId'] -->
+                                                                <ng-container matColumnDef="person">
+                                                                    <th mat-header-cell *matHeaderCellDef>
+                                                                        Name
+                                                                    </th>
+                                                                    <td mat-cell *matCellDef="let element">
+                                                                        {{element.person.firstName}}
+                                                                        {{element.person.middleName}}
+                                                                        {{element.person.lastName}}</td>
+                                                                </ng-container>
+                                                                <ng-container matColumnDef="emailId">
+                                                                    <th mat-header-cell *matHeaderCellDef> Email ID
+                                                                    </th>
+                                                                    <td mat-cell *matCellDef="let element">
+                                                                        {{element.person.emailId}} </td>
+                                                                </ng-container>
+                                                                <ng-container matColumnDef="contactNo">
+                                                                    <th mat-header-cell *matHeaderCellDef> Mobile No
+                                                                    </th>
+                                                                    <td mat-cell *matCellDef="let element">
+                                                                        {{element.person.mobileNo}}
+                                                                    </td>
+                                                                </ng-container>
+                                                                <ng-container matColumnDef="employerContactId">
+                                                                    <th mat-header-cell *matHeaderCellDef
+                                                                        class="text-center">
+                                                                        Select </th>
+                                                                    <td mat-cell *matCellDef="let element"
+                                                                        class="text-center">
+                                                                        <mat-checkbox (change)="selected(element)"
+                                                                            [checked]="selectedEmployer === element.employerContactId">
+                                                                        </mat-checkbox>
+                                                                    </td>
+                                                                </ng-container>
+
+                                                                <tr mat-header-row *matHeaderRowDef="displayedColumns">
+                                                                </tr>
+                                                                <tr mat-row
+                                                                    *matRowDef="let row; columns: displayedColumns;"
+                                                                    [ngClass]="{'active': activeIndex == row}"
+                                                                    (click)="active(row)">
+                                                                </tr>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="panel-stepper-footer">
+                                        <div class="text-right">
+                                            <button mat-raised-button color="accent" (click)="clickPrev()">
+                                                <ion-icon name="arrow-back-outline"></ion-icon>
+                                                Back
+                                            </button>
+                                            <button mat-raised-button color="accent" class="ml-3"
+                                                (click)="onselectemployercontactcontact()">
+                                                Submit
+                                                <ion-icon name="arrow-forward-outline"></ion-icon>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </cdk-step>
+                    </app-stepper>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

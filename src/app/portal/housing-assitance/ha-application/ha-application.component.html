@@ -1,0 +1,1218 @@
+<div class="content-body" appAccess="HAADT" [parentId]="pageId">
+    <div class="rel">
+        <div class="cus-card m-0 py-0 z-2">
+            <div class="container-fluid p-0">
+                <div class="row">
+                    <div class="col-xl-3 py-1 heading">
+                        HOUSING ASSISTANCE
+                    </div>
+                    <div class="col-xl-9 pt-1 pb-1 text-right pl-0">
+                        <div class="d-flex float-right align-items-center">
+                            <div class="label-badge">
+                                <label for="">
+                                    <b>Loan Info: </b>
+                                    <ng-container
+                                        *ngIf="service.ProtoHousingAssitanceApplication.pLoadDetail.loanAccountNumber === '' && service.ProtoHousingAssitanceApplication.pLoadDetail.totalLoanAmount === '' && service.ProtoHousingAssitanceApplication.pLoadDetail.repaymentPeriod === 0 || service.ProtoHousingAssitanceApplication.pLoadDetail.repaymentPeriod === null">
+                                        -
+                                    </ng-container>
+                                    <ng-container
+                                        *ngIf="service.ProtoHousingAssitanceApplication.pLoadDetail.loanAccountNumber !== ''">
+                                        {{service.ProtoHousingAssitanceApplication.pLoadDetail.loanAccountNumber}} |
+                                    </ng-container>
+                                    <ng-container
+                                        *ngIf="service.ProtoHousingAssitanceApplication.pLoadDetail.totalLoanAmount !== ''">
+                                        {{service.ProtoHousingAssitanceApplication.pLoadDetail.totalLoanAmount |
+                                        appCurrency}} |
+                                    </ng-container>
+                                    <ng-container
+                                        *ngIf="service.ProtoHousingAssitanceApplication.pLoadDetail.repaymentPeriod !== 0">
+                                        {{service.ProtoHousingAssitanceApplication.pLoadDetail.repaymentPeriod}}
+                                    </ng-container>
+                                </label>
+                            </div>
+                            <div class="label-badge ml-3">
+                                <label for="">
+                                    <b>Application Info: </b>
+                                    <ng-container
+                                        *ngIf="service.ProtoHousingAssitanceApplication.housingAssistanceApplicationId === 0 && service.ProtoHousingAssitanceApplication.statusDescription === ''">
+                                        -
+                                    </ng-container>
+                                    <ng-container
+                                        *ngIf="service.ProtoHousingAssitanceApplication.housingAssistanceApplicationId !== 0">
+                                        {{service.ProtoHousingAssitanceApplication.housingAssistanceApplicationId}} |
+                                    </ng-container>
+                                    <ng-container
+                                        *ngIf="service.ProtoHousingAssitanceApplication.statusDescription !== ''">
+                                        {{service.ProtoHousingAssitanceApplication.statusDescription}}
+                                    </ng-container>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row py-2">
+                    <div class="px-3">
+                        <label class="">Created Details</label>
+                        <span class="fw500 fs12px">:
+                            <ng-container
+                                *ngIf="service.ProtoHousingAssitanceApplication.orgContactName === '' && service.ProtoHousingAssitanceApplication.branchName === '' && service.ProtoHousingAssitanceApplication.createdDate === ''">
+                                -
+                            </ng-container>
+                            <!-- <ng-container *ngIf="service.ProtoHousingAssitanceApplication.orgContactName === ''">
+                                -
+                            </ng-container> -->
+                            <ng-container *ngIf="service.ProtoHousingAssitanceApplication.orgContactName !== ''">
+                                {{service.ProtoHousingAssitanceApplication.orgContactName}}
+                            </ng-container>
+                        </span>
+                        <span class="fw500 fs12px">
+                            <!-- <ng-container *ngIf="service.ProtoHousingAssitanceApplication.branchName === ''">
+                                | -
+                            </ng-container> -->
+                            <ng-container *ngIf="service.ProtoHousingAssitanceApplication.branchName !== ''">
+                                | {{service.ProtoHousingAssitanceApplication.branchName}}
+                            </ng-container>
+                        </span>
+                        <span class="fw500 fs12px">
+                            <!-- <ng-container *ngIf="service.ProtoHousingAssitanceApplication.createdDate === ''">
+                                | -
+                            </ng-container> -->
+                            <ng-container *ngIf="service.ProtoHousingAssitanceApplication.createdDate !== ''">
+                                | {{service.ProtoHousingAssitanceApplication.createdDate | moment : 'DD-MM-YYYY hh:mm
+                                a' : 'DD MMM YYYY'}}
+                                <!-- {{service.ProtoHousingAssitanceApplication.createdDate | moment : 'DD-MM-YYYY hh:mm
+                                a' : 'DD MMM YYYY hh:mm a'}} -->
+                            </ng-container>
+                        </span>
+                    </div>
+                    <div class="px-3">
+                        <label class="">Approved Date</label>
+                        <span class="fw500 fs12px">:
+                            <ng-container *ngIf="service.ProtoHousingAssitanceApplication.approvedDate === ''">
+                                -
+                            </ng-container>
+                            <ng-container *ngIf="service.ProtoHousingAssitanceApplication.approvedDate !== ''">
+                                {{service.ProtoHousingAssitanceApplication.approvedDate | moment : 'DD-MM-YYYY' : 'DD
+                                MMM YYYY'}}
+                            </ng-container>
+                        </span>
+                    </div>
+                </div>
+                <!-- <div class="row py-2">
+                    <div class="col-md-3">
+                        <label class="">Created By</label>
+                        <span class="fw500 fs12px">:
+                            <ng-container *ngIf="service.ProtoHousingAssitanceApplication.orgContactName === ''">
+                                -
+                            </ng-container>
+                            <ng-container *ngIf="service.ProtoHousingAssitanceApplication.orgContactName !== ''">
+                                {{service.ProtoHousingAssitanceApplication.orgContactName}}
+                            </ng-container>
+                        </span>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="">Created Date</label>
+                        <span class="fw500 fs12px">:
+                            <ng-container *ngIf="service.ProtoHousingAssitanceApplication.createdDate === ''">
+                                -
+                            </ng-container>
+                            <ng-container *ngIf="service.ProtoHousingAssitanceApplication.createdDate !== ''">
+                                {{service.ProtoHousingAssitanceApplication.createdDate | moment : 'DD-MM-YYYY hh:mm
+                                a' : 'DD MMM YYYY'}}
+                                {{service.ProtoHousingAssitanceApplication.createdDate | moment : 'DD-MM-YYYY hh:mm
+                                a' : 'DD MMM YYYY hh:mm a'}}
+                            </ng-container>
+                        </span>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="">Created Branch</label>
+                        <span class="fw500 fs12px">:
+                            <ng-container *ngIf="service.ProtoHousingAssitanceApplication.branchName === ''">
+                                -
+                            </ng-container>
+                            <ng-container *ngIf="service.ProtoHousingAssitanceApplication.branchName !== ''">
+                                {{service.ProtoHousingAssitanceApplication.branchName}}
+                            </ng-container>
+                        </span>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="">Approved Date</label>
+                        <span class="fw500 fs12px">:
+                            <ng-container *ngIf="service.ProtoHousingAssitanceApplication.approvedDate === ''">
+                                -
+                            </ng-container>
+                            <ng-container *ngIf="service.ProtoHousingAssitanceApplication.approvedDate !== ''">
+                                {{service.ProtoHousingAssitanceApplication.approvedDate | moment : 'DD-MM-YYYY hh:mm
+                                a' : 'DD MMM YYYY hh:mm a'}}
+                            </ng-container>
+                        </span>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+        <div class="ab pt75">
+            <div class="rel">
+                <app-stepper #registrationSteps horizontal="true">+
+                    <cdk-step label="Loan Detail" [completed]="step1Completed">
+                        <form class="h100" #h="ngForm" (ngSubmit)="onsubmit(h)" autocomplete="off">
+                            <div class="h100">
+                                <div class="panel-stepper h100">
+                                    <div class="panel-stepper-body">
+                                        <div class="ab">
+                                            <div class="rel">
+                                                <div class="container-fluid px-3 pt-4 pb-3">
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+                                                            <app-input-control label="Loan Account Name"
+                                                                [upperCase]="true"
+                                                                [(ngModel)]="service.ProtoHousingAssitanceApplication.pLoadDetail.loanAccountName"
+                                                                tabindex="1" name="loanAccountName" required
+                                                                [btnClicked]="btnClicked" [errorTrue]="errorTrue"
+                                                                mandatory="true" emojiType="name">
+                                                            </app-input-control>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <app-input-control label="Loan Account Number"
+                                                                [(ngModel)]="service.ProtoHousingAssitanceApplication.pLoadDetail.loanAccountNumber"
+                                                                tabindex="2" name="loanAccountNumber" required
+                                                                [btnClicked]="btnClicked" [errorTrue]="errorTrue"
+                                                                mandatory="true">
+                                                            </app-input-control>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <app-number-control label="Total Loan Amount ($)"
+                                                                [(ngModel)]="service.ProtoHousingAssitanceApplication.pLoadDetail.totalLoanAmount"
+                                                                tabindex="3" name="totalLoanAmount" decimal="2" required
+                                                                [btnClicked]="btnClicked" [errorTrue]="errorTrue"
+                                                                mandatory="true">
+                                                            </app-number-control>
+                                                        </div>
+                                                        <!-- <div class="col-md-3">
+                                                            <app-input-control label="Total Repayment Period"
+                                                                [(ngModel)]="service.ProtoHousingAssitanceApplication.pLoadDetail.repaymentPeriod"
+                                                                tabindex="4" name="repaymentPeriod" required
+                                                                [btnClicked]="btnClicked" [errorTrue]="errorTrue"
+                                                                mandatory="true">
+                                                            </app-input-control>
+                                                        </div> -->
+                                                        <!-- <div class="col-md-3">
+                                                            <app-input-control label="Remaining Repayment Period"
+                                                                [(ngModel)]="service.ProtoHousingAssitanceApplication.pLoadDetail.remainingPaymentPeriod"
+                                                                tabindex="5" name="remainingPaymentPeriod" required
+                                                                [btnClicked]="btnClicked" [errorTrue]="errorTrue"
+                                                                mandatory="true">
+                                                            </app-input-control>
+                                                        </div> -->
+                                                        <div class="col-md-4">
+                                                            <app-date-control label="Moratorium Begin Date"
+                                                                [(ngModel)]="service.ProtoHousingAssitanceApplication.pLoadDetail.moratoriumEffectiveDate"
+                                                                tabindex="6" name="moratoriumEffectiveDate"
+                                                                [maxDate]="yesterday" [btnClicked]="btnClicked">
+                                                            </app-date-control>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <app-input-control label="Moratorium Period"
+                                                                [(ngModel)]="service.ProtoHousingAssitanceApplication.pLoadDetail.moratoriumTerm"
+                                                                tabindex="7" name="moratoriumTerm"
+                                                                [btnClicked]="btnClicked">
+                                                            </app-input-control>
+                                                        </div>
+                                                    </div>
+                                                    <hr>
+                                                    <div class="row">
+                                                        <div class="col-md-6 border-right">
+                                                            <div class="container-fluid p-0">
+                                                                <div class="row mb-1">
+                                                                    <div class="col-md-8 nomar">
+                                                                        <div class="form-group">
+                                                                            <div class="label-center ">
+                                                                                <label>Original Loan Amount ($) <span
+                                                                                        class="text-danger">*</span></label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-4 nomar">
+                                                                        <app-number-control
+                                                                            [(ngModel)]="service.ProtoHousingAssitanceApplication.pLoadDetail.originalLoanAmount"
+                                                                            tabindex="8" name="originalLoanAmount"
+                                                                            decimal="2" required
+                                                                            [btnClicked]="btnClicked"
+                                                                            [errorTrue]="errorTrue">
+                                                                        </app-number-control>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row mb-1">
+                                                                    <div class="col-md-8 nomar">
+                                                                        <div class="form-group">
+                                                                            <div class="label-center ">
+                                                                                <label>Existing Housing Loan Amount
+                                                                                    ($)<span
+                                                                                        class="text-danger">*</span></label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-4 nomar">
+                                                                        <app-number-control
+                                                                            [(ngModel)]="service.ProtoHousingAssitanceApplication.pLoadDetail.existingHousingLoanAmount"
+                                                                            tabindex="9"
+                                                                            name="existingHousingLoanAmount" decimal="2"
+                                                                            required [btnClicked]="btnClicked"
+                                                                            [errorTrue]="errorTrue">
+                                                                        </app-number-control>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row mb-1">
+                                                                    <div class="col-md-8 nomar">
+                                                                        <div class="form-group">
+                                                                            <div class="label-center">
+                                                                                <label>Existing Non Housing Loan
+                                                                                    Amount ($)</label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-4 nomar">
+                                                                        <app-number-control
+                                                                            [(ngModel)]="service.ProtoHousingAssitanceApplication.pLoadDetail.existingNonHousingLoanAmount"
+                                                                            tabindex="10"
+                                                                            name="existingNonHousingLoanAmount"
+                                                                            decimal="2" [btnClicked]="btnClicked">
+                                                                        </app-number-control>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row mb-1">
+                                                                    <div class="col-md-8 nomar">
+                                                                        <div class="form-group">
+                                                                            <div class="label-center">
+                                                                                <label>Existing Housing Loan Arrear
+                                                                                    Amount ($)</label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-4 nomar">
+                                                                        <app-number-control
+                                                                            [(ngModel)]="service.ProtoHousingAssitanceApplication.pLoadDetail.existingHomeLoanArrearAmount"
+                                                                            tabindex="11"
+                                                                            name="existingHomeLoanArrearAmount"
+                                                                            decimal="2" [btnClicked]="btnClicked">
+                                                                        </app-number-control>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row mb-1">
+                                                                    <div class="col-md-8 nomar">
+                                                                        <div class="form-group">
+                                                                            <div class="label-center">
+                                                                                <label>Existing Non Housing Loan Arrear
+                                                                                    Amount ($)</label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-4 nomar">
+                                                                        <app-number-control
+                                                                            [(ngModel)]="service.ProtoHousingAssitanceApplication.pLoadDetail.existingNonHomeLoanArrearAmount"
+                                                                            tabindex="12"
+                                                                            name="existingNonHomeLoanArrearAmount"
+                                                                            decimal="2" [btnClicked]="btnClicked">
+                                                                        </app-number-control>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row mb-1">
+                                                                    <div class="col-md-8 nomar">
+                                                                        <div class="form-group">
+                                                                            <div class="label-center">
+                                                                                <label>Last EMI Paid Date <span
+                                                                                        class="text-danger">*</span></label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-4 nomar">
+                                                                        <app-date-control
+                                                                            [(ngModel)]="service.ProtoHousingAssitanceApplication.pLoadDetail.lastMonthlyInstallmentPaidDate"
+                                                                            tabindex="13"
+                                                                            name="lastMonthlyInstallmentPaidDate"
+                                                                            required [maxDate]="today"
+                                                                            [btnClicked]="btnClicked"
+                                                                            [errorTrue]="errorTrue">
+                                                                        </app-date-control>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="container-fluid p-0">
+                                                                <div class="row mb-1">
+                                                                    <div class="col-md-8 nomar">
+                                                                        <div class="form-group">
+                                                                            <div class="label-center">
+                                                                                <label>Date of Original Loan<span
+                                                                                        class="text-danger">*</span></label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-4 nomar">
+                                                                        <app-date-control
+                                                                            [(ngModel)]="service.ProtoHousingAssitanceApplication.pLoadDetail.originalLoanEffectiveDate"
+                                                                            tabindex="14"
+                                                                            name="originalLoanEffectiveDate" required
+                                                                            [maxDate]="today" [btnClicked]="btnClicked"
+                                                                            [errorTrue]="errorTrue">
+                                                                        </app-date-control>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row mb-1">
+                                                                    <div class="col-md-8 nomar">
+                                                                        <div class="form-group">
+                                                                            <div class="label-center">
+                                                                                <label>Date of Existing Loan</label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-4 nomar">
+                                                                        <app-date-control
+                                                                            [(ngModel)]="service.ProtoHousingAssitanceApplication.pLoadDetail.dateOfExistingHousingLoan"
+                                                                            tabindex="15"
+                                                                            name="dateOfExistingHousingLoan"
+                                                                            [maxDate]="today" [btnClicked]="btnClicked">
+                                                                        </app-date-control>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row mb-1">
+                                                                    <div class="col-md-8 nomar">
+                                                                        <div class="form-group">
+                                                                            <div class="label-center">
+                                                                                <label>Monthly Repayment Amount ($)
+                                                                                    <span
+                                                                                        class="text-danger">*</span></label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-4 nomar">
+                                                                        <app-number-control
+                                                                            [(ngModel)]="service.ProtoHousingAssitanceApplication.pLoadDetail.monthlyRepaymentAmount"
+                                                                            tabindex="16" name="monthlyRepaymentAmount"
+                                                                            decimal="2" required
+                                                                            [btnClicked]="btnClicked"
+                                                                            [errorTrue]="errorTrue">
+                                                                        </app-number-control>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row mb-1">
+                                                                    <div class="col-md-8 nomar">
+                                                                        <div class="form-group">
+                                                                            <div class="label-center">
+                                                                                <label>Repayment Period (Months) <span
+                                                                                        class="text-danger">*</span></label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-4 nomar">
+                                                                        <app-number-control
+                                                                            [(ngModel)]="service.ProtoHousingAssitanceApplication.pLoadDetail.repaymentPeriod"
+                                                                            tabindex="17" name="repaymentPeriod"
+                                                                            required [btnClicked]="btnClicked"
+                                                                            [errorTrue]="errorTrue">
+                                                                        </app-number-control>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row mb-1">
+                                                                    <div class="col-md-8 nomar">
+                                                                        <div class="form-group">
+                                                                            <div class="label-center">
+                                                                                <label>Remaining Repayment Period
+                                                                                    (Months)
+                                                                                    <span
+                                                                                        class="text-danger">*</span></label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-4 nomar">
+                                                                        <app-number-control
+                                                                            [(ngModel)]="service.ProtoHousingAssitanceApplication.pLoadDetail.remainingPaymentPeriod"
+                                                                            tabindex="18" name="remainingPaymentPeriod"
+                                                                            required [btnClicked]="btnClicked"
+                                                                            [errorTrue]="errorTrue">
+                                                                        </app-number-control>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row mb-1">
+                                                                    <div class="col-md-8 nomar">
+                                                                        <div class="form-group">
+                                                                            <div class="label-center">
+                                                                                <label>Variable Interest Rate (%)<span
+                                                                                        class="text-danger">*</span></label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-4 nomar">
+                                                                        <app-number-control
+                                                                            [(ngModel)]="service.ProtoHousingAssitanceApplication.pLoadDetail.variableInterstRate"
+                                                                            tabindex="19" name="variableInterstRate"
+                                                                            required [btnClicked]="btnClicked"
+                                                                            decimal="2" [errorTrue]="errorTrue">
+                                                                        </app-number-control>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="panel-stepper-footer">
+                                        <div class="d-flex align-items-center">
+                                            <div>
+                                                <a mat-button color="primary" class="mr-3 text-capitalize"
+                                                    (click)="cancelApplicationAlert()"
+                                                    *ngIf="service.ProtoHousingAssitanceApplication.statusValue === 'PENSB' && 
+                                                    service.ProtoHousingAssitanceApplication.housingAssistanceApplicationId > 0" [parentId]="pageId"
+                                                    appAccess="BTNCanceltheApplicationLoanDetailHousingAssistance">
+                                                    Cancel this Application
+                                                </a>
+                                            </div>
+                                            <div class="ml-auto text-right">
+                                                <ng-container
+                                                    *ngIf="service.ProtoHousingAssitanceApplication.statusValue === 'PENSB'">
+                                                    <button mat-raised-button color="accent" class="ml-3" type="submit"
+                                                        [parentId]="pageId"
+                                                        appAccess="BTNSaveandNextLoanDetailHousingAssistance">
+                                                        Save and Next
+                                                        <ion-icon name="arrow-forward-outline"></ion-icon>
+                                                    </button>
+                                                </ng-container>
+                                                <ng-container
+                                                    *ngIf="service.ProtoHousingAssitanceApplication.statusValue !== 'PENSB'">
+                                                    <a mat-raised-button color="accent" class="ml-3" [parentId]="pageId"
+                                                        appAccess="BTNViewSaveandNextLoanDetailHousingAssistance"
+                                                        (click)="step1Click()">
+                                                        Next
+                                                        <ion-icon name="arrow-forward-outline"></ion-icon>
+                                                    </a>
+                                                </ng-container>
+                                                <a mat-raised-button color="accent" class="ml-3" (click)="step1Click()"
+                                                    [parentId]="pageId"
+                                                    appAccess="BTNViewOnlyNextLoanDetailHousingAssistance">
+                                                    Next
+                                                    <ion-icon name="arrow-forward-outline"></ion-icon>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </cdk-step>
+                    <cdk-step label="Property Detail" [completed]="step2Completed">
+                        <form class="h100" #p="ngForm" (ngSubmit)="savepropertyData(p)" autocomplete="off">
+                            <div class="h100">
+                                <div class="panel-stepper h100">
+                                    <div class="panel-stepper-body">
+                                        <div class="ab">
+                                            <div class="rel">
+                                                <div class="container-fluid px-3 pt-4 pb-3">
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <app-select-control label="Land Type"
+                                                                        [(ngModel)]="service.ProtoHousingAssitanceApplication.pHousingProperty.landTypeValue"
+                                                                        tabindex="5" name="landTypeValue"
+                                                                        [items]="service.DDL.DDLLandType" key="constant"
+                                                                        keyname="description" required
+                                                                        [btnClicked]="btnClicked"
+                                                                        [errorTrue]="errorTrue" mandatory="true">
+                                                                    </app-select-control>
+                                                                </div>
+                                                                <div class="col-md-12">
+                                                                    <app-input-control label="Title No"
+                                                                        [(ngModel)]="service.ProtoHousingAssitanceApplication.pHousingProperty.titleNo"
+                                                                        tabindex="5" name="titleNo" required
+                                                                        [btnClicked]="btnClicked"
+                                                                        [errorTrue]="errorTrue" mandatory="true">
+                                                                    </app-input-control>
+                                                                </div>
+                                                                <div class="col-md-12">
+                                                                    <app-input-control label="Lot No"
+                                                                        [(ngModel)]="service.ProtoHousingAssitanceApplication.pHousingProperty.lotNo"
+                                                                        tabindex="5" name="lotNo" required
+                                                                        [btnClicked]="btnClicked"
+                                                                        [errorTrue]="errorTrue" mandatory="true">
+                                                                    </app-input-control>
+                                                                </div>
+                                                                <div class="col-md-12">
+                                                                    <app-input-control label="DP/SO/NLC No"
+                                                                        [(ngModel)]="service.ProtoHousingAssitanceApplication.pHousingProperty.dpSoNlcNo"
+                                                                        tabindex="5" name="dpSoNlcNo" required
+                                                                        [btnClicked]="btnClicked"
+                                                                        [errorTrue]="errorTrue" mandatory="true">
+                                                                    </app-input-control>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <!-- <app-textarea-control class="form-3" label="Address"
+                                                                editOption="true"
+                                                                (onedit)="openaddress(service.ProtoHousingAssitanceApplication)"
+                                                                [(ngModel)]="service.ProtoHousingAssitanceApplication.pHousingProperty.pAddress.address" tabindex="5"
+                                                                name="address" required btnClicked="true"
+                                                                [errorTrue]="errorTrue" mandatory="true">
+                                                            </app-textarea-control> -->
+                                                            <div class="form-group">
+                                                                <div class="d-flex align-item-center">
+                                                                    <label>Address</label>
+                                                                    <ng-container
+                                                                        *ngIf="service.ProtoHousingAssitanceApplication.statusValue === 'PENSB'">
+                                                                        <div class="ml-auto">
+                                                                            <a
+                                                                                (click)="openaddress(service.ProtoHousingAssitanceApplication)">Edit</a>
+                                                                        </div>
+                                                                    </ng-container>
+                                                                </div>
+                                                                <div class="form-control div-text">
+                                                                    <ng-container
+                                                                        *ngIf="service.ProtoHousingAssitanceApplication.pHousingProperty.pAddress.boxNo !== '' ">
+                                                                        {{service.ProtoHousingAssitanceApplication.pHousingProperty.pAddress.boxNo}}
+                                                                        {{service.ProtoHousingAssitanceApplication.pHousingProperty.pAddress.postOfficeName}},
+                                                                        <br>
+                                                                    </ng-container>
+                                                                    <ng-container
+                                                                        *ngIf="service.ProtoHousingAssitanceApplication.pHousingProperty.pAddress.line1 !== '' ">
+                                                                        {{service.ProtoHousingAssitanceApplication.pHousingProperty.pAddress.line1}},
+                                                                        <br>
+                                                                    </ng-container>
+                                                                    <ng-container
+                                                                        *ngIf="service.ProtoHousingAssitanceApplication.pHousingProperty.pAddress.line2 !== '' ">
+                                                                        {{service.ProtoHousingAssitanceApplication.pHousingProperty.pAddress.line2}},
+                                                                        <br>
+                                                                    </ng-container>
+                                                                    <ng-container
+                                                                        *ngIf="service.ProtoHousingAssitanceApplication.pHousingProperty.pAddress.line3 !== '' ">
+                                                                        {{service.ProtoHousingAssitanceApplication.pHousingProperty.pAddress.line3}},
+                                                                        <br>
+                                                                    </ng-container>
+                                                                    <ng-container
+                                                                        *ngIf="service.ProtoHousingAssitanceApplication.pHousingProperty.pAddress.province !== '' ">
+                                                                        {{service.ProtoHousingAssitanceApplication.pHousingProperty.pAddress.province}},
+                                                                        <br>
+                                                                    </ng-container>
+                                                                    <ng-container
+                                                                        *ngIf="service.ProtoHousingAssitanceApplication.pHousingProperty.pAddress.subDivision !== '' ">
+                                                                        {{service.ProtoHousingAssitanceApplication.pHousingProperty.pAddress.subDivision}},
+                                                                        <br>
+                                                                    </ng-container>
+                                                                    <ng-container
+                                                                        *ngIf="service.ProtoHousingAssitanceApplication.pHousingProperty.pAddress.cityTown !== '' ">
+                                                                        {{service.ProtoHousingAssitanceApplication.pHousingProperty.pAddress.cityTown}},
+                                                                        <br>
+                                                                    </ng-container>
+                                                                    <ng-container
+                                                                        *ngIf="service.ProtoHousingAssitanceApplication.pHousingProperty.pAddress.country !== '' ">
+                                                                        {{service.ProtoHousingAssitanceApplication.pHousingProperty.pAddress.country}}
+                                                                        <br>
+                                                                    </ng-container>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="panel-stepper-footer">
+                                        <div class="d-flex align-items-center">
+                                            <div class="ml-auto text-right">
+                                                <a mat-raised-button color="accent" (click)="clickPrev()"
+                                                    [parentId]="pageId"
+                                                    appAccess="BTNBackPropertyDetailHousingAssistance">
+                                                    <ion-icon name="arrow-back-outline"></ion-icon>
+                                                    Back
+                                                </a>
+                                                <ng-container
+                                                    *ngIf="service.ProtoHousingAssitanceApplication.statusValue === 'PENSB'">
+                                                    <button mat-raised-button color="accent" class="ml-3" type="submit"
+                                                        [parentId]="pageId"
+                                                        appAccess="BTNSaveandNextPropertyDetailHousingAssistance">
+                                                        Save and Next
+                                                        <ion-icon name="arrow-forward-outline"></ion-icon>
+                                                    </button>
+                                                </ng-container>
+                                                <ng-container
+                                                    *ngIf="service.ProtoHousingAssitanceApplication.statusValue !== 'PENSB'">
+                                                    <a mat-raised-button color="accent" class="ml-3"
+                                                        (click)="step2Click()" [parentId]="pageId"
+                                                        appAccess="BTNViewSaveandNextPropertyDetailHousingAssistance">
+                                                        Next
+                                                        <ion-icon name="arrow-forward-outline"></ion-icon>
+                                                    </a>
+                                                </ng-container>
+                                                <a mat-raised-button color="accent" class="ml-3" (click)="step2Click()"
+                                                    [parentId]="pageId"
+                                                    appAccess="BTNViewOnlyNextPropertyDetailHousingAssistance">
+                                                    Next
+                                                    <ion-icon name="arrow-forward-outline"></ion-icon>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </cdk-step>
+                    <cdk-step label="Applicant Detail" [completed]="step3Completed">
+                        <div class="h100">
+                            <div class="panel-stepper h100">
+                                <div class="panel-stepper-body">
+                                    <div class="ab">
+                                        <div class="rel">
+                                            <div class="d-flex pt-2 z-2 px-3 align-items-center">
+                                                <div class="mr-auto">
+                                                    <div class="heading d-flex">
+                                                        <div>
+                                                            <label class="m-0">
+                                                                <small>Total Request Amount</small>
+                                                            </label>
+                                                            <div>
+                                                                <small><b>{{service.ProtoHousingAssitanceApplication.totalRequestedAmount
+                                                                        |
+                                                                        appCurrency}}</b></small>
+                                                            </div>
+                                                        </div>
+                                                        <div class="pl-4">
+                                                            <label class="m-0">
+                                                                <small>Computed Repayment Amount</small>
+                                                            </label>
+                                                            <div>
+                                                                <small><b>{{service.ProtoHousingAssitanceApplication.computedRepaymentAmount
+                                                                        |
+                                                                        appCurrency}}</b></small>
+                                                            </div>
+                                                        </div>
+                                                        <div class="pl-4">
+                                                            <label class="m-0">
+                                                                <small>Monthly Repayment Amount</small>
+                                                            </label>
+                                                            <div>
+                                                                <small><b>{{service.ProtoHousingAssitanceApplication.pLoadDetail.monthlyRepaymentAmount
+                                                                        |
+                                                                        appCurrency}}</b></small>
+                                                            </div>
+                                                        </div>
+                                                        <div class="pl-4">
+                                                            <label class="m-0">
+                                                                <small>Computed Repayment Period</small>
+                                                            </label>
+                                                            <div>
+                                                                <small><b>{{service.ProtoHousingAssitanceApplication.computedRepaymentPeriod}}</b></small>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="ml-auto d-flex">
+                                                    <ng-container
+                                                        *ngIf="service.ProtoHousingAssitanceApplication.statusValue==='PENSB'">
+                                                        <button mat-raised-button color="accent" class="ml-3"
+                                                            (click)="CreateNewApplicant()" [parentId]="pageId"
+                                                            appAccess="BTNAddApplicantHousingAssistance">
+                                                            <ion-icon name="add"></ion-icon>
+                                                            Add Applicant
+                                                        </button>
+                                                    </ng-container>
+
+                                                    <ng-container
+                                                        *ngIf="service.ProtoHousingAssitanceApplication.statusValue==='APRVD'">
+                                                        <button mat-raised-button color="accent" class="ml-3"
+                                                            (click)="PrintApprovalLetter()">
+                                                            <!-- <ion-icon name="Print"></ion-icon> -->
+                                                            Print Approval Letter
+                                                        </button>
+                                                    </ng-container>
+
+                                                    <ng-container
+                                                        *ngIf="service.ProtoHousingAssitanceApplication.statusValue==='CHIPR'">
+                                                        <button mat-raised-button color="accent" class="ml-3"
+                                                            (click)="PrintConditionalApprovalLetter()">
+                                                            <!-- <ion-icon name="Print"></ion-icon> -->
+                                                            Conditional Approval Letter
+                                                        </button>
+                                                    </ng-container>
+
+                                                </div>
+                                            </div>
+                                            <div class="ab pt55 pb-3 px-3">
+                                                <div class="rel">
+                                                    <div class="table-responsive h100">
+                                                        <div class="ab">
+                                                            <div class="rel">
+                                                                <table mat-table [dataSource]="applicantSource"
+                                                                    class="table-hover">
+                                                                    <ng-container matColumnDef="fnpfNo">
+                                                                        <th mat-header-cell *matHeaderCellDef>
+                                                                            FNPF No
+                                                                        </th>
+                                                                        <td mat-cell *matCellDef="let element"
+                                                                            class=" text-nowrap">
+                                                                            {{ element.fnpfNo }}
+                                                                        </td>
+                                                                    </ng-container>
+
+                                                                    <ng-container matColumnDef="firstName">
+                                                                        <th mat-header-cell *matHeaderCellDef>
+                                                                            Member Name
+                                                                        </th>
+                                                                        <td mat-cell *matCellDef="let element"
+                                                                            class=" text-nowrap">
+                                                                            {{element.firstName}}
+                                                                            {{element.middleName}}
+                                                                            {{element.lastName}}
+                                                                        </td>
+                                                                    </ng-container>
+                                                                    <ng-container matColumnDef="tin">
+                                                                        <th mat-header-cell *matHeaderCellDef>
+                                                                            TIN
+                                                                        </th>
+                                                                        <td mat-cell *matCellDef="let element"
+                                                                            class=" text-nowrap">
+                                                                            {{ element.tin }}
+                                                                        </td>
+                                                                    </ng-container>
+                                                                    <ng-container matColumnDef="dob">
+                                                                        <th mat-header-cell *matHeaderCellDef>
+                                                                            DOB
+                                                                        </th>
+                                                                        <td mat-cell *matCellDef="let element"
+                                                                            class=" text-nowrap">
+                                                                            {{ element.dob | moment : 'DD-MM-YYYY' : 'DD
+                                                                            MMM YYYY'}}
+                                                                        </td>
+                                                                    </ng-container>
+                                                                    <!-- <ng-container matColumnDef="recommendedAmount">
+                                                                        <th mat-header-cell *matHeaderCellDef>
+                                                                            Loan Amount ($) | Term
+                                                                        </th>
+                                                                        <td mat-cell *matCellDef="let element">
+                                                                            {{ element.pLoadDetail.totalLoanAmount |
+                                                                            appCurrency }}
+                                                                            {{ element.pLoadDetail.moratoriumTerm}}
+                                                                        </td>
+                                                                    </ng-container> -->
+                                                                    <ng-container matColumnDef="promisApplicationId">
+                                                                        <th mat-header-cell *matHeaderCellDef>
+                                                                            Core Application No
+                                                                        </th>
+                                                                        <td mat-cell *matCellDef="let element"
+                                                                            class=" text-nowrap">
+                                                                            {{ element.promisApplicationId }}
+                                                                        </td>
+                                                                    </ng-container>
+                                                                    <ng-container
+                                                                        matColumnDef="applicantApplicationStatusDescription">
+                                                                        <th mat-header-cell *matHeaderCellDef>
+                                                                            Status
+                                                                        </th>
+                                                                        <td mat-cell *matCellDef="let element"
+                                                                            class=" text-nowrap">
+                                                                            {{
+                                                                            element.applicantApplicationStatusDescription
+                                                                            }}
+                                                                        </td>
+                                                                    </ng-container>
+
+                                                                    <ng-container matColumnDef="approvedAmount">
+                                                                        <th mat-header-cell *matHeaderCellDef
+                                                                            class="text-right">
+                                                                            Approved Amount ($)
+                                                                        </th>
+                                                                        <td mat-cell *matCellDef="let element"
+                                                                            class="text-right text-nowrap">
+                                                                            {{ element.approvedAmount |
+                                                                            appCurrency}}
+                                                                        </td>
+                                                                    </ng-container>
+
+                                                                    <ng-container matColumnDef="requestedAmount">
+                                                                        <th mat-header-cell *matHeaderCellDef
+                                                                            class="text-right">
+                                                                            Requested Amount ($)
+                                                                        </th>
+                                                                        <td mat-cell *matCellDef="let element"
+                                                                            class="text-right text-nowrap">
+                                                                            {{ element.requestedAmount |
+                                                                            appCurrency}}
+                                                                        </td>
+                                                                    </ng-container>
+
+                                                                    <ng-container
+                                                                        matColumnDef="actualMemberEligibility">
+                                                                        <th mat-header-cell *matHeaderCellDef
+                                                                            class="text-right">
+                                                                            Member Eligible Amount ($)
+                                                                        </th>
+                                                                        <td mat-cell *matCellDef="let element"
+                                                                            class="text-right text-nowrap">
+                                                                            {{ element.actualMemberEligibility |
+                                                                            appCurrency}}
+                                                                        </td>
+                                                                    </ng-container>
+
+
+
+                                                                    <ng-container matColumnDef="action">
+                                                                        <th mat-header-cell *matHeaderCellDef
+                                                                            class="text-center">
+                                                                            <ng-container
+                                                                                *ngIf="service.ProtoHousingAssitanceApplication.statusValue === 'PENSB'">
+                                                                                Action
+                                                                            </ng-container>
+                                                                        </th>
+                                                                        <td mat-cell *matCellDef="let element"
+                                                                            class="text-center py-0">
+                                                                            <ng-container
+                                                                                *ngIf="service.ProtoHousingAssitanceApplication.statusValue === 'PENSB'">
+                                                                                <button mat-icon-button
+                                                                                    class="icon-only-btn"
+                                                                                    matTooltip="Edit"
+                                                                                    (click)="openApplicant(element)">
+                                                                                    <ion-icon name="pencil-outline">
+                                                                                    </ion-icon>
+                                                                                </button>
+                                                                            </ng-container>
+                                                                        </td>
+                                                                    </ng-container>
+                                                                    <ng-container matColumnDef="delete">
+                                                                        <th mat-header-cell *matHeaderCellDef
+                                                                            class="text-center">
+                                                                            <ng-container
+                                                                                *ngIf="service.ProtoHousingAssitanceApplication.statusValue === 'PENSB'">
+                                                                                Remove
+                                                                            </ng-container>
+                                                                        </th>
+                                                                        <td mat-cell *matCellDef="let element"
+                                                                            class="text-center py-0">
+                                                                            <ng-container
+                                                                                *ngIf="service.ProtoHousingAssitanceApplication.statusValue === 'PENSB'">
+                                                                                <button mat-icon-button
+                                                                                    class="icon-only-btn text-danger"
+                                                                                    matTooltip="Edit"
+                                                                                    (click)="checkdelete(element)">
+                                                                                    <ion-icon name="trash-outline">
+                                                                                    </ion-icon>
+                                                                                </button>
+                                                                            </ng-container>
+                                                                        </td>
+                                                                    </ng-container>
+                                                                    <tr mat-header-row
+                                                                        *matHeaderRowDef="applicantColumns"></tr>
+                                                                    <tr mat-row
+                                                                        *matRowDef="let row; columns: applicantColumns"
+                                                                        [ngClass]="{ active: activeIndex == row }"
+                                                                        (click)="active(row)"></tr>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel-stepper-footer">
+                                    <div class="d-flex align-items-center">
+                                        <div class="ml-auto text-right">
+                                            <button mat-raised-button color="accent" (click)="clickPrev()"
+                                                [parentId]="pageId" appAccess="BTNBackApplicantDetailHousingAssistance">
+                                                <ion-icon name="arrow-back-outline"></ion-icon>
+                                                Back
+                                            </button>
+                                            <ng-container>
+                                                <button mat-raised-button color="accent" class="ml-3"
+                                                    [parentId]="pageId"
+                                                    appAccess="BTNPrintPrefilledFormApplicantDetailHousingAssistance"
+                                                    (click)="printEligibiltyStatement()">
+                                                    Print Prefilled Form
+                                                </button>
+                                            </ng-container>
+                                            <ng-container
+                                                *ngIf="service.ProtoHousingAssitanceApplication.statusValue === 'PENSB'">
+                                                <button mat-raised-button color="accent" class="ml-3"
+                                                    [parentId]="pageId"
+                                                    appAccess="BTNSaveandNextApplicantDetailHousingAssistance"
+                                                    (click)="validateapplicants()">
+                                                    Save and Next
+                                                    <ion-icon name="arrow-forward-outline"></ion-icon>
+                                                </button>
+                                            </ng-container>
+                                            <ng-container
+                                                *ngIf="service.ProtoHousingAssitanceApplication.statusValue !== 'PENSB'">
+                                                <a mat-raised-button color="accent" class="ml-3" (click)="step3Click()"
+                                                    [parentId]="pageId"
+                                                    appAccess="BTNViewSaveandNextApplicantDetailHousingAssistance">
+                                                    Next
+                                                    <ion-icon name="arrow-forward-outline"></ion-icon>
+                                                </a>
+                                            </ng-container>
+                                            <a mat-raised-button color="accent" class="ml-3" (click)="step3Click()"
+                                                [parentId]="pageId"
+                                                appAccess="BTNViewOnlyNextApplicantDetailHousingAssistance">
+                                                Next
+                                                <ion-icon name="arrow-forward-outline"></ion-icon>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </cdk-step>
+                    <cdk-step label="Document" [completed]="step4Completed">
+                        <div class="h100">
+                            <div class="panel-stepper h100">
+                                <div class="panel-stepper-body">
+                                    <div class="ab">
+                                        <div class="rel">
+                                            <div class="h100">
+                                                <div class="container-fluid pt-3">
+                                                    <div class="row">
+                                                        <div class="col-md-10">
+                                                            <ng-container
+                                                                *ngFor="let document of service.ProtoHousingAssitanceApplication.plstDocument">
+                                                                <app-file-upload accept="application/pdf, image/*"
+                                                                    [label]="document.documentTypeDescription"
+                                                                    [data]="document"
+                                                                    (onload)="uploadDocument($event,document)"
+                                                                    [mandatory]="document.isMandatory === 'Y'"
+                                                                    dname="document.pDocumentFile.fileName"
+                                                                    [loading]="fileUploading === document.documentTypeValue"
+                                                                    [disabled]="disabled" required
+                                                                    [errorTrue]="errorTrue"
+                                                                    [xFile]="document.pDocumentFile" expanded="true"
+                                                                    (onclear)="clearFile($event)"
+                                                                    [accept]="appSettingService.environment.fileAccept">
+                                                                </app-file-upload>
+                                                            </ng-container>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel-stepper-footer">
+                                    <div class="d-flex align-items-center">
+                                        <div class="ml-auto text-right">
+                                            <button mat-raised-button color="accent" (click)="clickPrev()"
+                                                [parentId]="pageId" appAccess="BTNBackDocumentHousingAssistance">
+                                                <ion-icon name="arrow-back-outline"></ion-icon>
+                                                Back
+                                            </button>
+                                            <ng-container
+                                                *ngIf="service.ProtoHousingAssitanceApplication.statusValue === 'PENSB'">
+                                                <button mat-raised-button color="accent" class="ml-3"
+                                                    [parentId]="pageId"
+                                                    appAccess="BTNSaveandNextDocumentHousingAssistance"
+                                                    (click)="savedocument()">
+                                                    Save and Next
+                                                    <ion-icon name="arrow-forward-outline"></ion-icon>
+                                                </button>
+                                            </ng-container>
+                                            <ng-container
+                                                *ngIf="service.ProtoHousingAssitanceApplication.statusValue !== 'PENSB'">
+                                                <a mat-raised-button color="accent" class="ml-3" (click)="step4Click()"
+                                                    [parentId]="pageId"
+                                                    appAccess="BTNViewSaveandNextDocumentHousingAssistance">
+                                                    Next
+                                                    <ion-icon name="arrow-forward-outline"></ion-icon>
+                                                </a>
+                                            </ng-container>
+                                            <a mat-raised-button color="accent" class="ml-3" (click)="step4Click()"
+                                                [parentId]="pageId"
+                                                appAccess="BTNViewOnlyNextDocumentHousingAssistance">
+                                                Next
+                                                <ion-icon name="arrow-forward-outline"></ion-icon>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </cdk-step>
+                    <cdk-step label="Checklist" [completed]="step5Completed">
+                        <div class="h100">
+                            <div class="panel-stepper h100">
+                                <div class="panel-stepper-body">
+                                    <div class="ab">
+                                        <div class="rel">
+                                            <div class="h100">
+                                                <div class="table-responsive p-3">
+                                                    <table mat-table [dataSource]="checkSource" class="table-hover">
+                                                        <ng-container matColumnDef="checklistTypeDescription">
+                                                            <th mat-header-cell *matHeaderCellDef class="w60">
+                                                                Checklist Name
+                                                            </th>
+                                                            <td mat-cell *matCellDef="let element">
+                                                                <ng-container *ngIf="element.isMandatory==='Y'">
+                                                                    <span class="text-danger">*</span>
+                                                                </ng-container>
+                                                                {{ element.checklistTypeDescription }}
+                                                            </td>
+                                                        </ng-container>
+                                                        <ng-container matColumnDef="isChecked">
+                                                            <th mat-header-cell *matHeaderCellDef>
+                                                            </th>
+                                                            <td mat-cell *matCellDef="let element">
+                                                                <mat-checkbox checked="true" class="rel-t4px"
+                                                                    [checked]="element.isChecked==='Y'"
+                                                                    (change)="CheckCheckList(element,$event.checked)"
+                                                                    name="isChecked"
+                                                                    [disabled]="service.ProtoHousingAssitanceApplication.statusValue!=='PENSB'">
+                                                                </mat-checkbox>
+                                                            </td>
+                                                        </ng-container>
+                                                        <ng-container matColumnDef="orgContactName">
+                                                            <th mat-header-cell *matHeaderCellDef>Checked By</th>
+                                                            <td mat-cell *matCellDef="let element">
+                                                                {{element.checkedBy}}
+                                                            </td>
+                                                        </ng-container>
+
+                                                        <ng-container matColumnDef="checkedDate">
+                                                            <th mat-header-cell *matHeaderCellDef>
+                                                                Checked Date
+                                                            </th>
+                                                            <td mat-cell *matCellDef="let element">
+                                                                {{ element.checkedDate | moment : 'DD-MM-YYYY hh:mm
+                                                                a' : 'DD MMM YYYY' }}
+                                                            </td>
+                                                        </ng-container>
+                                                        <tr mat-header-row *matHeaderRowDef="checkColumns">
+                                                        </tr>
+                                                        <tr mat-row *matRowDef="let row; columns: checkColumns"
+                                                            [ngClass]="{ active: activeIndex == row }"
+                                                            (click)="active(row)"></tr>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel-stepper-footer">
+                                    <div class="d-flex align-items-center">
+                                        <div class="ml-auto text-right">
+                                            <button mat-raised-button color="accent" (click)="clickPrev()"
+                                                [parentId]="pageId" appAccess="BTNBackChecklistHousingAssistance">
+                                                <ion-icon name="arrow-back-outline"></ion-icon>
+                                                Back
+                                            </button>
+                                            <ng-container
+                                                *ngIf="service.ProtoHousingAssitanceApplication.statusValue === 'PENSB'">
+                                                <button mat-raised-button color="accent" class="ml-3"
+                                                    [parentId]="pageId"
+                                                    appAccess="BTNSaveandNextChecklistHousingAssistance"
+                                                    (click)="CheckCheckListMandatory()">
+                                                    Save and Next
+                                                    <ion-icon name="arrow-forward-outline"></ion-icon>
+                                                </button>
+                                            </ng-container>
+                                            <ng-container
+                                                *ngIf="service.ProtoHousingAssitanceApplication.statusValue !== 'PENSB'">
+                                                <a mat-raised-button color="accent" class="ml-3" (click)="step5Click()"
+                                                    [parentId]="pageId"
+                                                    appAccess="BTNViewSaveandNextChecklistHousingAssistance">
+                                                    Next
+                                                    <ion-icon name="arrow-forward-outline"></ion-icon>
+                                                </a>
+                                            </ng-container>
+                                            <a mat-raised-button color="accent" class="ml-3" (click)="step5Click()"
+                                                [parentId]="pageId"
+                                                appAccess="BTNViewOnlyNextChecklistHousingAssistance">
+                                                Next
+                                                <ion-icon name="arrow-forward-outline"></ion-icon>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </cdk-step>
+                    <cdk-step label="Submit" [completed]="step6Completed">
+                        <div class="h100">
+                            <div class="panel-stepper h100">
+                                <div class="panel-stepper-body">
+                                    <div class="ab">
+                                        <div class="rel">
+                                            <div class="container-fluid p-3">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <app-textarea-control label="Additional Information"
+                                                            counter="true" limter="5000"
+                                                            [(ngModel)]="service.ProtoHousingAssitanceApplication.notes"
+                                                            class="h125">
+                                                        </app-textarea-control>
+                                                    </div>
+                                                </div>
+                                                <div class="row pt-3 pb-2">
+                                                    <div class="col-xl-12 heading">
+                                                        Undertaking
+                                                    </div>
+                                                </div>
+                                                <div class="row pb-2">
+                                                    <div class="col-xl-12">
+                                                        <div>
+                                                            <p>
+                                                                I, the undersigned hereby certify that the member(s)
+                                                                hold(s) an existing home loan with our financial
+                                                                institution and is/are applying for a housing withdrawal
+                                                                payable to the Approved Lender as a lumpsum repayment
+                                                                under the provisions of Schedule 3 Section 58 of the
+                                                                FNPF Act and the COVID-19 Response (Home Loan
+                                                                Assistance) Act 2020.
+                                                            </p>
+                                                            <p>
+                                                                I further certify that all the information provided in
+                                                                this form are correct and that wherever applicable, a
+                                                                Charge would be registered by FNPF on the title in the
+                                                                name of the applicant/s and joint owners. Any false
+                                                                information provided by us may result in a fine of up to
+                                                                $100,000.
+                                                            </p>
+                                                        </div>
+                                                        <mat-radio-group
+                                                            [(ngModel)]="service.ProtoHousingAssitanceApplication.applicationConcent"
+                                                            [ngClass]="{'pe-none': service.ProtoHousingAssitanceApplication.statusValue !== 'PENSB' }">
+                                                            <mat-radio-button value="Y">
+                                                                Yes
+                                                            </mat-radio-button>
+                                                            <mat-radio-button value="N" class="ml-3">
+                                                                No
+                                                            </mat-radio-button>
+                                                        </mat-radio-group>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel-stepper-footer">
+                                    <div class="d-flex align-items-center">
+                                        <div class="ml-auto text-right">
+                                            <button mat-raised-button color="accent" (click)="clickPrev()"
+                                                [parentId]="pageId" appAccess="BTNBackSubmitHousingAssistance">
+                                                <ion-icon name="arrow-back-outline"></ion-icon>
+                                                Back
+                                            </button>
+                                            <ng-container
+                                                *ngIf="service.ProtoHousingAssitanceApplication.statusValue === 'PENSB'">
+                                                <button mat-raised-button color="accent" class="ml-3"
+                                                    (click)="submitwithdrawalapplication()" [parentId]="pageId"
+                                                    appAccess="BTNSubmitSubmitHousingAssistance">
+                                                    Submit
+                                                </button>
+                                            </ng-container>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </cdk-step>
+                </app-stepper>
+            </div>
+        </div>
+    </div>
+</div>

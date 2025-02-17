@@ -1,0 +1,30 @@
+<div class="form-group">
+    <div class="d-flex align-item-center">
+        <label for="" *ngIf="label !== ''">{{label}} <span class="text-danger" *ngIf="mandatory">*</span></label>
+        <div class="ml-auto text-danger d-flex align-item-center lh18">
+            <ng-container *ngIf="value !== '' && emailid.invalid && errorText !== '' && emailid.dirty">
+                <div class="lh18"><small>{{errorText}}</small>
+                </div>
+            </ng-container>
+            <ng-container *ngIf="value === '' && errorTrueNow && mandatory">
+                <div class="ml-2 lh18"><small>mandatory</small></div>
+            </ng-container>
+        </div>
+        <!-- <div class="ml-auto text-danger" >
+            
+        </div> -->
+    </div>
+    <!-- <label for="">{{label}}</label> -->
+    <div class="input-group">
+        <input appNoEmoji autocomplete="none" type="email" class="form-control" [(ngModel)]="value" name="emailid" placeholder="{{placeholder}}"
+            [ngClass]="{'border-warn': (emailid.invalid || value === '') && errorTrueNow}" [disabled]="btnClickedNow"
+            appLowerCase #emailid="ngModel" [email]="true">
+        <div class="input-group-append in-1" *ngIf="value && !btnClickedNow">
+            <a mat-button class="i-btn" (click)="value = ''" matTooltip="Clear" matTooltipPosition="right"
+                tabIndex="-1">
+                <!-- <mat-icon>clear</mat-icon> -->
+                <ion-icon name="close-outline"></ion-icon>
+            </a>
+        </div>
+    </div>
+</div>

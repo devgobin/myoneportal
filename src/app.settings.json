@@ -1,0 +1,12 @@
+{
+  "sandboxMode": false,
+  "basePath": "http://localhost:4501/",
+  "baseAppPath": "/",
+  "encrypt": false,
+  "maxFileSize": 3145728,
+  "fileSizeErrorMsg": "Upload File size Below 3 MB",
+  "fileAccept": "application/pdf, image/*",
+  "fileAcceptImages": "image/*",
+  "liveBotUrl": "https://chatbot.igalaxsuite.com/chatwebapi/bot/chat/loadbottemplate/PROD/",
+  "showBotWindow": false
+}

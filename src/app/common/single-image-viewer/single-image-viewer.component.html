@@ -1,0 +1,27 @@
+<ng-template #expandedImages>
+    <div class="ab bgc">
+        <div class="rel">
+            <div class="p-fix">
+                <button mat-icon-button class="close mr-3" (click)="download()">
+                    <ion-icon name="download-outline"></ion-icon>
+                </button>
+                <button mat-icon-button class="close" (click)="close()">
+                    <ion-icon name="close-circle"></ion-icon>
+                </button>
+            </div>
+            <div class="d-flex align-items-center h100 justify-content-center w100">
+                <div class="d-flex align-items-center h100 justify-content-center w100 relative">
+                    <div class="ab">
+                        <div class="rel">
+
+                            <div class="dis-none wcheck active">
+                                <img [src]="filePath | safe: 'resourceUrl'" alt="PreviewImages">
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>

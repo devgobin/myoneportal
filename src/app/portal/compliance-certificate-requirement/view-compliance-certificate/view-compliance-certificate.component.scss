@@ -1,0 +1,13 @@
+@import '../../../../scss/responsive-mixin.scss';
+
+.text-nowrap {
+  white-space: nowrap !important;
+}
+
+.pl-0 {
+  padding-left: 15px !important;
+
+  @include desktop {
+    padding-left: 0 !important;
+  }
+}
